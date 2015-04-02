@@ -1,5 +1,5 @@
 package edu.chl.Game.object;
 
-public class Id {
+public enum Id {
 
 }
