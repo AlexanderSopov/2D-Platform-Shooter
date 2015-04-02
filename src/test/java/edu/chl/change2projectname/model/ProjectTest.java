@@ -1,6 +1,7 @@
 package edu.chl.change2projectname.model;
 
-import edu.chl.change2projectname.model.Project;
+import edu.chl.Game.model.Project;
+
 import org.junit.Assert;
 import org.junit.Test;
 
