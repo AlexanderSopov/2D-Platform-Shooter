@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
   Application entry class (if using standard java and Swing)
 */
 public final class Main {
-	private Main() {
+	public Main() {
 		/* No instances allowed! */
 	}
 
