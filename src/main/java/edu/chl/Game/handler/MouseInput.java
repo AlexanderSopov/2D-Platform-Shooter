@@ -12,7 +12,6 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	
 	
 
-
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		

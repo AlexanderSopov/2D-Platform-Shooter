@@ -1,5 +1,5 @@
 package edu.chl.Game.entity;
 
-public class Cursor {
+public class Cursor extends Entity{
 
 }

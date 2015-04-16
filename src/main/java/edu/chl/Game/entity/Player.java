@@ -1,5 +1,5 @@
 package edu.chl.Game.entity;
 
-public class Player {
+public class Player extends Entity{
 
 }
