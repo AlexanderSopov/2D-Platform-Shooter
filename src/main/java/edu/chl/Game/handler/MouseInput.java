@@ -8,56 +8,58 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
+	private static boolean pressed = false;
 	
-	MouseInput(){
-		
-	}
+	
 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		
 		if(onCanvas){
-			
 			setMousePosX(e.getX());
-			setMousePosX(e.getX());
-			
+			setMousePosY(e.getY());
 		}
+
 		
 	}
 	
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+		pressed = true;
 		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
+		
+		pressed = false;
+		
+	}
+	
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
 		
 		onCanvas = true;
 		
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 		
 		onCanvas = false;
 		
 	}
 
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
@@ -67,6 +69,7 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 		
 	}
 
+	//Getters and Setters
 
 	/**
 	 * @return the mousePosX
@@ -98,5 +101,14 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	private void setMousePosY(int mousePosY) {
 		this.mousePosY = mousePosY;
 	}
+
+
+	/**
+	 * @return the pressed
+	 */
+	public static boolean isPressed() {
+		return pressed;
+	}
+
 
 }
