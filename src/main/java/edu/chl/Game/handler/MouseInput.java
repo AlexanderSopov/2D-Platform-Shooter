@@ -7,11 +7,22 @@ import java.awt.event.MouseMotionListener;
 public class MouseInput implements MouseMotionListener, MouseListener{
 	
 	private static int mousePosX, mousePosY;
+	private static boolean onCanvas = false;
+	
+	MouseInput(){
+		
+	}
 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+		if(onCanvas){
+			
+			setMousePosX(e.getX());
+			setMousePosX(e.getX());
+			
+		}
 		
 	}
 	
@@ -24,13 +35,15 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		onCanvas = true;
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		onCanvas = false;
 		
 	}
 
