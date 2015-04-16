@@ -1,5 +1,89 @@
 package edu.chl.Game.handler;
 
-public class MouseInput {
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+public class MouseInput implements MouseMotionListener, MouseListener{
+	
+	private static int mousePosX, mousePosY;
+
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	/**
+	 * @return the mousePosX
+	 */
+	public int getMousePosX() {
+		return mousePosX;
+	}
+
+
+	/**
+	 * @param mousePosX the mousePosX to set
+	 */
+	private void setMousePosX(int mousePosX) {
+		this.mousePosX = mousePosX;
+	}
+
+
+	/**
+	 * @return the mousePosY
+	 */
+	public int getMousePosY() {
+		return mousePosY;
+	}
+
+
+	/**
+	 * @param mousePosY the mousePosY to set
+	 */
+	private void setMousePosY(int mousePosY) {
+		this.mousePosY = mousePosY;
+	}
 
 }
