@@ -73,7 +73,7 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	/**
 	 * @return the mousePosX
 	 */
-	public int getMousePosX() {
+	public static int getMousePosX() {
 		return mousePosX;
 	}
 
@@ -89,7 +89,7 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	/**
 	 * @return the mousePosY
 	 */
-	public int getMousePosY() {
+	public static int getMousePosY() {
 		return mousePosY;
 	}
 
