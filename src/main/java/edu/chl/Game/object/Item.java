@@ -8,13 +8,14 @@ import edu.chl.Game.handler.GameHandler;
 
 public abstract class Item extends GameObject{
 	
+	private final String NAME;
 	private String info;
 	private BufferedImage buffImage;
 	
 	//Temporary
 	private int x,y, width,height; 
 	
-	Item(int x, int y, int width, int height, Id id, GameHandler handeler, String info, BufferedImage buffImage){
+	Item(int x, int y, int width, int height, Id id, GameHandler handeler,String name, String info, BufferedImage buffImage){
 		super(/*x,y,width,height,id,handeler*/);
 		this.x = x;
 		this.y = y;
@@ -22,6 +23,7 @@ public abstract class Item extends GameObject{
 		this.width = width;
 		this.height = height;
 		this.info = info;
+		this.NAME = name;
 		
 		/* suggestions we can have two constructors one if there is an 
 		 * bufferd image and another if there is an grafical-object 
@@ -66,6 +68,13 @@ public abstract class Item extends GameObject{
 
 	protected void setY(int y) {
 		this.y = y;
+	}
+
+	/**
+	 * @return the nAME
+	 */
+	public String getNAME() {
+		return NAME;
 	}
 	
 	
