@@ -12,16 +12,25 @@ import edu.chl.Game.handler.MouseInput;
 
 public class Cursor extends Entity{
 	
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
 	
-	protected int velX, velY;
+	private int velX, velY;
 	
-	protected Id id;
+	private Id id;
 	
-	protected GameHandler handler;
+	private State state;
+	
+	private GameHandler handler;
+	
+	private enum State{
+		AIM,
+		DEFULT,
+		RELODING;	
+	}
+	
 	
 	
 	public Cursor(int x, int y, int width, int height, boolean solid, Id id,
@@ -34,20 +43,24 @@ public class Cursor extends Entity{
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-
-		g.fillRect(x-1, y-1, 2, 2);
-		int relX = x-1;
-		int relY = y-1;
-		g.drawLine(relX, relY+4, relX, relY+8);
-		g.drawLine(relX+4, relY, relX+8, relY);
-		g.drawLine(relX, relY-4, relX, relY-8);
-		g.drawLine(relX-4, relY, relX-8, relY);
+		switch(this.state){
+			case AIM:
+				g.setColor(Color.red);
+				g.fillRect(x-1, y-1, 2, 2);
+				int relX = x-1;
+				int relY = y-1;
+				g.drawLine(relX, relY+4, relX, relY+8);
+				g.drawLine(relX+4, relY, relX+8, relY);
+				g.drawLine(relX, relY-4, relX, relY-8);
+				g.drawLine(relX-4, relY, relX-8, relY);
+				break;
+			
+		
+		}
 	}
 
 	
 	public void update() {	
-		
 		
 			x = MouseInput.getMousePosX();
 			y = MouseInput.getMousePosY();
