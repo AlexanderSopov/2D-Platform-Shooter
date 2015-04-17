@@ -1,5 +1,5 @@
 package edu.chl.Game.tile;
 
-public class Wall {
+public class Wall extends Tile{
 
 }

@@ -1,5 +1,7 @@
 package edu.chl.Game.entity;
 
-public abstract class Entity {
+import edu.chl.Game.object.GameObject;
+
+public abstract class Entity extends GameObject{
 
 }
