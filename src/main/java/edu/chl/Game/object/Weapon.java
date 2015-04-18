@@ -19,15 +19,15 @@ public abstract class Weapon extends Item{
  	private BufferedImage bulletImage;
  	
 	
-	Weapon(int x, int y, int width, int height, Id id, GameHandler handeler,
+	Weapon(int x, int y, int width, int height, Id id, GameHandler handeler,String name,
 			String info, BufferedImage buffImage) {
-		super(x, y, width, height, id, handeler, info, buffImage);
+		super(x, y, width, height, id, handeler, name,info, buffImage);
 		followEntity = false;
 	}
 	
-	Weapon(Entity en, int width, int height, Id id, GameHandler handeler,
+	Weapon(Entity en, int width, int height, Id id, GameHandler handeler,String name,
 			String info, BufferedImage buffImage) {
-		super(1/*en.getX()*/, 1/*en.getY()*/, width, height, id, handeler, info, buffImage);
+		super(1/*en.getX()*/, 1/*en.getY()*/, width, height, id, handeler,name, info, buffImage);
 		this.en = this.en;
 		followEntity = true;
 	}
