@@ -41,7 +41,8 @@ public class GameThread implements Runnable {
 	}
 	public static void main(String[] args) {
 		
-		GameThread startGame = new GameThread();
+		Frame startGame = new Frame();
+		startGame.gameFrame();
 	}
 	
 	

@@ -45,7 +45,10 @@ public class Frame extends Canvas {
 		setMaximumSize(dimSize);
 	}
 	
-	private void gameFrame() {
+	/**
+	 * This need to be run in order to create a frame.
+	 */
+	public void gameFrame() {
 		
 		JFrame frame = new JFrame("Mario Battlefield");
 		frame.add(new Frame());
