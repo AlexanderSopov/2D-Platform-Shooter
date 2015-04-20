@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import edu.chl.Game.object.*;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.handler.MouseInput;
+import java.awt.MouseInfo;
 
 
 
@@ -36,7 +37,7 @@ public class Cursor extends Entity{
 	public Cursor(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		
-		//super(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y, width, height, solid, id, handler);
+		super(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y, width, height, solid, id, handler);
 		
 	
 	}
