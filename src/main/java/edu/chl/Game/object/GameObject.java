@@ -1,84 +1,62 @@
 package edu.chl.Game.object;
+
 import java.awt.Graphics;
 
+import edu.chl.Game.handler.GameHandler;
+
 public abstract class GameObject {
+	public int x, y;
+	public int velX, velY;
+	public int width, height;
+	public boolean solid;
 	
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	private int vX;
-	private int vY;
-	private boolean isSolid;
-	private Id id;
+	public Id id;
+	public GameHandler handler;
 	
-	public GameObject(int x, int y, int width, int height, int vX, int vY, boolean isSolid, Id id){
+	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.isSolid = isSolid;
+		this.solid = solid;
 		this.id = id;
+		this.handler = handler;
 	}
 	
 	public abstract void render(Graphics g);
-	
 	public abstract void update();
+	public abstract void remove();
 	
-	// Getter Methods
-	
-	public int getX(){
+	public int getX() {
 		return x;
 	}
-	
-	public int getY(){
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
 		return y;
 	}
-	
-	public int getWidth(){
-		return width;
+
+	public void setY(int y) {
+		this.y = y;
 	}
-	
-	public int getHeight(){
-		return height;
+
+	public boolean isSolid() {
+		return solid;
 	}
-	
-	public boolean getIsSolid(){
-		return isSolid;
+
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
+
+	public void setVelY(int velY) {
+		this.velY = velY;
 	}
 	
 	public Id getId(){
 		return id;
 	}
 	
-	// Setter Methods
-	
-	public void setX(int x){
-		this.x = x;
-	}
-	
-	public void setY(int y){
-		this.y = y;
-	}
-	
-	public void setvX(int vX){
-		this.vX = vX;
-	}
-	
-	public void setvY(int vY){
-		this.vY = vY;
-	}
-	
-	public void setHeight(int height){
-		this.height = height;
-	}
-	
-	public void setWidth(int height){
-		this.height = height;
-	}
-	
-	
-	
-	
-
 }

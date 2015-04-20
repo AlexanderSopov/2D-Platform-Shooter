@@ -1,18 +1,23 @@
 package edu.chl.Game.tile;
 
+import java.awt.Rectangle;
+
+import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.GameObject;
 import edu.chl.Game.object.Id;
 
-public abstract class Tile extends GameObject{
+public abstract class Tile extends GameObject {
 
-	public Tile(int x, int y, int width, int height, int vX, int vY,
-			boolean isSolid, Id id) {
-		super(x, y, width, height, vX, vY, isSolid, id);
-		// TODO Auto-generated constructor stub
+	public Tile(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+		super(x, y, width, height, solid, id, handler);
 	}
 	
-
+	public Rectangle getBounds(){
+		return new Rectangle(x, y, width, height);
+	}
 	
-	
+	public void remove(){
+		handler.removeTile(this);
+	}
 
 }

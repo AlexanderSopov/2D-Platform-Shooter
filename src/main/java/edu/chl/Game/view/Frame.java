@@ -1,68 +1,34 @@
 package edu.chl.Game.view;
 
-
 import java.awt.Dimension;
-import java.awt.Canvas;
+import java.awt.GridLayout;
+
 import javax.swing.JFrame;
 
-
-/**
- * Frame is responsible for creating the frame.
- * 
- * @author Mansoor Beck
- * @version 1.0
- */
-
-public class Frame extends Canvas {
-
+public class Frame extends JFrame {
 	
-	/**
-	 * Auto generated serialVersion.
-	 */
-	private static final long serialVersionUID = 2301826460122833631L;
+	public final static int WIDTH = 1000;
+	public final static int HEIGHT = 600;
 	
-	/**
-	 * The standard width to begin with.
-	 */
-	private static final int width = 270;
-	
-	/**
-	 * The standard height to begin with.
-	 */
-	private static final int height = width/14*10;
-	
-	/**
-	 * Scaler to be used to stretch an object
-	 * with length of 4.
-	 */
-	private static final int scale = 4;
-	
-	public Frame() {
-		
-		Dimension dimSize = new Dimension(width*scale, height*scale);
-		setPreferredSize(dimSize);
-		setMinimumSize(dimSize);
-		setMaximumSize(dimSize);
+	public Frame(){
+        super("Mario");
+        
+        final GridLayout layout = new GridLayout(0, 2);
+        setLayout(layout);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setResizable(false);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 	}
 	
-	/**
-	 * This need to be run in order to create a frame.
-	 */
-	public void gameFrame() {
-		
-		JFrame frame = new JFrame("Mario Battlefield");
-		frame.add(new Frame());
-		frame.setVisible(true);
-		frame.pack();
-		
-		
-		/**
-		 * Resizable from dragging the window is false. 
-		 * Resizable should be in the game in resolution.
-		 */
-		frame.setResizable(true);
-		
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public int getFrameWidth(){
+		return WIDTH;
+	}
+	
+	public int getFrameHeight(){
+		return HEIGHT;
 	}
 }
