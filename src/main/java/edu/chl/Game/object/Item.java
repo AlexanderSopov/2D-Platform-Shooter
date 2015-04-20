@@ -28,11 +28,6 @@ public abstract class Item extends GameObject{
 		 */
 	}
 	
-	//Temporary
-	public abstract void render(Graphics g);
-	
-	//Temporary
-	public abstract void update();
 	
 	public abstract void effect();
 	

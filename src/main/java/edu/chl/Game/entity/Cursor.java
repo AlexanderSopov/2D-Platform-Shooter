@@ -13,18 +13,10 @@ import java.awt.MouseInfo;
 
 public class Cursor extends Entity{
 	
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	
-	private int velX, velY;
-	
-	private Id id;
 	
 	private State state;
 	
-	private GameHandler handler;
+	
 	
 	private enum State{
 		AIM,
@@ -42,7 +34,7 @@ public class Cursor extends Entity{
 	
 	}
 
-	
+	@Override
 	public void render(Graphics g) {
 		switch(this.state){
 			case AIM:
@@ -60,7 +52,7 @@ public class Cursor extends Entity{
 		}
 	}
 
-	
+	@Override
 	public void update() {	
 		
 			x = MouseInput.getMousePosX();
