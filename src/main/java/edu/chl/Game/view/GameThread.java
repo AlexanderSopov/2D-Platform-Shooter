@@ -159,7 +159,7 @@ public class GameThread implements Runnable, Observer {
 	 */
 	public void update(Observable o, Object arg) {
 		if(o.hasChanged()) {
-			update();
+			handler.update();
 		}
 	}
 
