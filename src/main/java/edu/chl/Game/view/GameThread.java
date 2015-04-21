@@ -14,6 +14,10 @@ public class GameThread implements Runnable {
 	
 	private boolean running = false;
 	
+	private double delta = 0.0;
+	private int x=1;
+	private int y=1;
+	
 	public GameThread(){
 		thread = new Thread(this);
 		frame = new Frame();
@@ -41,33 +45,35 @@ public class GameThread implements Runnable {
 	
 	@Override
 	public void run() {
-		//init();
-		frame.requestFocus();
-		long previousTime = System.nanoTime();
-		long timer = System.currentTimeMillis();
-		double delta = 0.0;
-		double ns = 1000000000.0/60.0;
-		int frames = 0;
-		int updates = 0;
+		timer();	
+	}
+	
+	
+	private void timer(){
+		long timeSnap1 = System.nanoTime();
+		double nanosec = 1000000000.0;
+		long timeSnap2 = System.nanoTime();
+		delta = (timeSnap2 - timeSnap1)*60/nanosec;
 		while(running){
-			long currentTime = System.nanoTime();
-			delta+=(currentTime - previousTime)/ns;
-			previousTime = currentTime;
-			while(delta>=1){
-				handler.update();
-				updates++;
-				delta--;
-			}
-			render();
-			frames++;
-			if(System.currentTimeMillis()-timer > 1000){
-				timer += 1000;
-				System.out.println(frames + " FPS, " + updates + " refreshrate");
-				updates = 0;
-				frames = 0;
-			}
+			timeSnap1 = timeSnap2;
+			timeSnap2 = System.nanoTime();
+			delta += (timeSnap2 - timeSnap1 )*60/nanosec;
+			timeToUpdate(delta);
 		}
 		interrupt();	
+	}
+	
+	private void timeToUpdate(double d){
+		if(d>1){
+			delta=delta-1;
+			update();
+		}
+	}
+	
+	public void update(){
+		handler.update();
+		render();
+		printTimer();
 	}
 	
 	public void render(){
@@ -85,9 +91,15 @@ public class GameThread implements Runnable {
 		bs.show();
 	}
 	
+
 	
-	public void update(){
-		handler.update();
+	private void printTimer(){
+		x++;
+		if(x==60){
+			System.out.println(y + "seconds");
+			y++;
+			x=1;
+		}
 	}
 
 }
