@@ -92,7 +92,6 @@ public class GameThread implements Runnable {
 	}
 	
 
-	
 	private void printTimer(){
 		x++;
 		if(x==60){
