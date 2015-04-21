@@ -13,7 +13,7 @@ import edu.chl.Game.handler.GameHandler;
  * @author Mansoor
  * @version 1.0
  */
-public class GameThread implements Runnable, Observer {
+public class GameThread extends Observable implements Runnable {
 	
 	private Thread thread;
 	private Frame frame;
@@ -70,15 +70,15 @@ public class GameThread implements Runnable, Observer {
 	 * Update Timer, create a Buffer and update the handler.
 	 */
 	public void update(){
-		handler.update();
-		createBuffer();
+		setChanged();
+		render();
 		printTimer();
 	}
 
 	/**
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
-	public void createBuffer(){
+	public void render(){
 		BufferStrategy bs = frame.getBufferStrategy();
 		if(bs == null){
 			frame.createBufferStrategy(3);
@@ -96,7 +96,7 @@ public class GameThread implements Runnable, Observer {
 		g.setColor(new Color(135, 206, 235));
 		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 		g.translate(handler.getCamera().getX(), handler.getCamera().getY());
-		handler.render(g);
+		notifyObservers((Object)g);
 		g.dispose();
 		showGraphics(b);
 	}
@@ -152,15 +152,4 @@ public class GameThread implements Runnable, Observer {
 	private boolean isFrame() {
 		return Frame==60;
 	}
-	
-	/**
-	 * If observer have been change then update.
-	 * @see java.util.Observer;
-	 */
-	public void update(Observable o, Object arg) {
-		if(o.hasChanged()) {
-			handler.update();
-		}
-	}
-
 }
