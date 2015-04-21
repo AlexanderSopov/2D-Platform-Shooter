@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import edu.chl.Game.Main;
 import edu.chl.Game.entity.Entity;
 import edu.chl.Game.entity.MonsterA;
 import edu.chl.Game.entity.Player;
@@ -32,8 +33,7 @@ public class GameHandler{
 	
 	public GameHandler(Thread thread, Frame frame){
 		this.thread = thread;
-		this.frame = frame;
-		
+		this.frame = frame;		
 		camera = new Camera();
 		frame.addKeyListener(new KeyInput(this));
 		createSheet();
@@ -42,7 +42,6 @@ public class GameHandler{
 	
 	public void render(Graphics g){
 		for(Entity e: getEntityList()){
-			e.render(g);
 			if(e.getId() == Id.player){
 				camera.update(e);
 			}
@@ -50,16 +49,6 @@ public class GameHandler{
 		
 		for(Tile t: getTileList()){
 			t.render(g);
-		}
-	}
-	
-	public void update(){
-		for(Entity e: getEntityList()){
-			e.update();
-		}
-		
-		for(Tile t: getTileList()){
-			t.update();
 		}
 	}
 	

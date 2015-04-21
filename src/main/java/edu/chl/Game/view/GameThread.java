@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Observable;
-import java.util.Observer;
 
 import edu.chl.Game.handler.GameHandler;
 
@@ -17,7 +16,7 @@ public class GameThread extends Observable implements Runnable {
 	
 	private Thread thread;
 	private Frame frame;
-	private GameHandler handler;
+	public GameHandler handler;
 	
 	private boolean running = false;
 	
@@ -43,10 +42,11 @@ public class GameThread extends Observable implements Runnable {
 	 * 
 	 */
 	public synchronized void start(){
-		if(isRunning()) {
-			running = true;
-			thread.start();
-		}
+		if(isRunning())
+			return;
+		running = true;
+		thread.start();
+		
 	}
 	
 	public synchronized void interrupt(){
@@ -97,17 +97,12 @@ public class GameThread extends Observable implements Runnable {
 		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 		g.translate(handler.getCamera().getX(), handler.getCamera().getY());
 		notifyObservers((Object)g);
+		handler.render(g);
 		g.dispose();
-		showGraphics(b);
-	}
-	
-	/**
-	 * Show the Graphics.
-	 */
-	public void showGraphics(BufferStrategy b) {
 		b.show();
 	}
 	
+
 	private void timer(){
 		long timeSnap1 = System.nanoTime();
 		double nanosec = 1000000000.0;

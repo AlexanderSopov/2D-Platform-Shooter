@@ -16,7 +16,7 @@ public abstract class GameObject implements Observer {
 	
 	public Id id;
 	public GameHandler handler;
-	private static GameThread thread = Main.game;
+	public static GameThread gt = Main.game;
 	
 	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
 		this.x = x;
@@ -26,7 +26,6 @@ public abstract class GameObject implements Observer {
 		this.solid = solid;
 		this.id = id;
 		this.handler = handler;
-		thread.addObserver(this);
 	}
 	
 	public abstract void render(Graphics g);
