@@ -15,8 +15,8 @@ public class GameThread implements Runnable {
 	private boolean running = false;
 	
 	private double delta = 0.0;
-	private int x=1;
-	private int y=1;
+	private int Frame=1;
+	private int second=1;
 	
 	public GameThread(){
 		thread = new Thread(this);
@@ -49,6 +49,26 @@ public class GameThread implements Runnable {
 		timer();	
 	}
 	
+	public void update(){
+		handler.update();
+		render();
+		printTimer();
+	}
+
+	public void render(){
+		BufferStrategy bs = frame.getBufferStrategy();
+		if(bs == null){
+			frame.createBufferStrategy(3);
+			return;
+		}
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(new Color(135, 206, 235));
+		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+		g.translate(handler.getCamera().getX(), handler.getCamera().getY());
+		handler.render(g);
+		g.dispose();
+		bs.show();
+	}
 	
 	private void timer(){
 		long timeSnap1 = System.nanoTime();
@@ -71,34 +91,14 @@ public class GameThread implements Runnable {
 		}
 	}
 	
-	public void update(){
-		handler.update();
-		render();
-		printTimer();
-	}
-	
-	public void render(){
-		BufferStrategy bs = frame.getBufferStrategy();
-		if(bs == null){
-			frame.createBufferStrategy(3);
-			return;
-		}
-		Graphics g = bs.getDrawGraphics();
-		g.setColor(new Color(135, 206, 235));
-		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-		g.translate(handler.getCamera().getX(), handler.getCamera().getY());
-		handler.render(g);
-		g.dispose();
-		bs.show();
-	}
-	
+
 
 	private void printTimer(){
-		x++;
-		if(x==60){
-			System.out.println(x + " updates & renders in " + y + " seconds");
-			y++;
-			x=1;
+		Frame++;
+		if(Frame==60){
+			System.out.println(Frame + " updates/frames in the " + second + "th second");
+			second++;
+			Frame=1;
 		}
 	}
 
