@@ -96,7 +96,7 @@ public class GameThread implements Runnable {
 	private void printTimer(){
 		x++;
 		if(x==60){
-			System.out.println(y + "seconds");
+			System.out.println(x + " updates & renders in " + y + " seconds");
 			y++;
 			x=1;
 		}
