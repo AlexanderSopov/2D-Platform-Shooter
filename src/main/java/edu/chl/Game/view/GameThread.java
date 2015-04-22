@@ -14,6 +14,8 @@ import edu.chl.Game.handler.GameHandler;
  */
 public class GameThread extends Observable implements Runnable {
 	
+	
+	
 	private Thread thread;
 	private Frame frame;
 	public GameHandler handler;
@@ -29,20 +31,12 @@ public class GameThread extends Observable implements Runnable {
 		frame = new Frame();
 		handler = new GameHandler(thread, frame);
 	}
-	
-	/**
-	 * If Game is running return true otherwise false.
-	 * @return running 
-	 */
-	private boolean isRunning() {
-		return this.running;
-	}
-	
+
 	/**
 	 * 
 	 */
 	public synchronized void start(){
-		if(isRunning())
+		if(running)
 			return;
 		running = true;
 		thread.start();
@@ -50,7 +44,7 @@ public class GameThread extends Observable implements Runnable {
 	}
 	
 	public synchronized void interrupt(){
-		if(isRunning()){
+		if(running){
 			running = false;
 			try {
 				thread.join();
