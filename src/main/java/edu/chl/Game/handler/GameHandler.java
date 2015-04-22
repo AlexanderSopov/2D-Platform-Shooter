@@ -1,5 +1,6 @@
 package edu.chl.Game.handler;
 
+import edu.chl.Game.entity.Cursor;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -36,16 +37,42 @@ public class GameHandler{
 		this.frame = frame;		
 		camera = new Camera();
 		frame.addKeyListener(new KeyInput(this));
+                frame.addMouseListener(new MouseInput());
+                frame.addMouseMotionListener(new MouseInput());
 		createSheet();
 		createMap();
 	}
 	
 	public void render(Graphics g){
+<<<<<<< HEAD
 		for(Entity e: getEntityList()){
+=======
+		
+		
+		for(Tile t: getTileList()){
+			t.render(g);
+		}
+                
+                for(Entity e: getEntityList()){
+			e.render(g);
+>>>>>>> fb30138c12f01b563aa5978277231bc60fc43a07
 			if(e.getId() == Id.player){
 				camera.update(e);
 			}
 		}
+<<<<<<< HEAD
+=======
+	}
+	
+	public void update(){
+		for(Entity e: getEntityList()){
+			e.update();
+		}
+		
+		for(Tile t: getTileList()){
+			t.update();
+		}
+>>>>>>> fb30138c12f01b563aa5978277231bc60fc43a07
 	}
 	
 	public void createSheet(){
@@ -88,6 +115,15 @@ public class GameHandler{
 					addEntity(new MonsterA(x*64,y*64, 64, 64, true, Id.monster, this, 2));
 				}
 			}
+                        
+                        for(Entity e: getEntityList()){
+                            if(e.getId() == Id.player){
+                                addEntity(new Cursor(e,this));
+                                break;
+                            }
+                        }
+                        
+                        
 		}
 	}
 	
