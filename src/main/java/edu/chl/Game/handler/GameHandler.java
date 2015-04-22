@@ -46,10 +46,6 @@ public class GameHandler{
 				camera.update(e);
 			}
 		}
-		
-		for(Tile t: getTileList()){
-			t.render(g);
-		}
 	}
 	
 	public void createSheet(){
@@ -102,6 +98,7 @@ public class GameHandler{
 	public LinkedList<Entity> getEntityList(){
 		return entity;
 	}
+	
 	
 	public void addEntity(Entity e){
 		entity.add(e);

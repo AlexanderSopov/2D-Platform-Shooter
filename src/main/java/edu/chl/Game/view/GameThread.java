@@ -9,7 +9,7 @@ import edu.chl.Game.handler.GameHandler;
 
 /**
  * 
- * @author Mansoor
+ * @author Mansoor, Alexander
  * @version 1.0
  */
 public class GameThread extends Observable implements Runnable {
