@@ -14,6 +14,7 @@ public final class Main {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
+				System.out.println("HEj");
 					GameThread game = new GameThread();
 					game.start();
                 });
