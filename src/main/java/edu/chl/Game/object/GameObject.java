@@ -1,10 +1,14 @@
 package edu.chl.Game.object;
 
 import java.awt.Graphics;
+import java.util.Observable;
+import java.util.Observer;
 
+import edu.chl.Game.Main;
 import edu.chl.Game.handler.GameHandler;
+import edu.chl.Game.view.GameThread;
 
-public abstract class GameObject {
+public abstract class GameObject implements Observer {
 	public int x, y;
 	public int velX, velY;
 	public int width, height;
@@ -12,6 +16,7 @@ public abstract class GameObject {
 	
 	public Id id;
 	public GameHandler handler;
+	public static GameThread gt = Main.game;
 	
 	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
 		this.x = x;
@@ -24,6 +29,15 @@ public abstract class GameObject {
 	}
 	
 	public abstract void render(Graphics g);
+	public void update(Observable o, Object arg){
+		try {
+			Graphics g = (Graphics)arg;
+			render(g);
+			update();
+		}catch (IllegalArgumentException e){
+			System.out.println("oops!");
+		}
+	}
 	public abstract void update();
 	public abstract void remove();
 	
