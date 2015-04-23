@@ -4,5 +4,6 @@ public enum Id {
 	player,
         wall,
         monster,
-        cursor;
+        cursor,
+        bullet;
 }

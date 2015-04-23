@@ -28,6 +28,8 @@ public class GameHandler{
 	private SpriteSheet sheetMonster;
 	private SpriteSheet sheetTexture;
 	private BufferedImage mapImage;
+        
+        private Cursor cursor;
 	
 	private Camera camera;
 	
@@ -37,8 +39,8 @@ public class GameHandler{
 		
 		camera = new Camera();
 		frame.addKeyListener(new KeyInput(this));
-                frame.addMouseListener(new MouseInput());
-                frame.addMouseMotionListener(new MouseInput());
+                frame.addMouseListener(new MouseInput(this));
+                frame.addMouseMotionListener(new MouseInput(this));
 		createSheet();
 		createMap();
 	}
@@ -111,7 +113,8 @@ public class GameHandler{
                         
                         for(Entity e: getEntityList()){
                             if(e.getId() == Id.player){
-                                addEntity(new Cursor(e,this));
+                                this.cursor = new Cursor(e,this);
+                                addEntity(this.cursor);
                                 break;
                             }
                         }
@@ -159,5 +162,9 @@ public class GameHandler{
 	public SpriteSheet getSheetTexture(){
 		return sheetTexture;
 	}
+        
+        public Cursor getCursor(){
+            return this.cursor;
+        }
 
 }

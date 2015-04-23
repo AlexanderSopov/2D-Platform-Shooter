@@ -17,6 +17,9 @@ public class Cursor extends Entity{
 	
 	private State state;
         private Entity en;
+        private int counter;
+
+  
 	
 	
 	
@@ -33,6 +36,7 @@ public class Cursor extends Entity{
 		super(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y, 0, 0, false, Id.cursor , handler);
 		this.state = State.AIM;
                 this.en = en;
+                this.counter = 0;
 	}
 
 	@Override
@@ -45,6 +49,7 @@ public class Cursor extends Entity{
                                 g.setColor(Color.red);
                                 g.drawOval(x-15, y-15, 30, 30);
                                 g.fillRect(x, y, 1, 1);
+                                g.drawLine(x, y, en.getX()+32, en.getY()+32);
 				/*
                                 g.fillRect(x-1, y-1, 2, 2);
 				int relX = x-1;
@@ -61,11 +66,30 @@ public class Cursor extends Entity{
 
 	@Override
 	public void update() {	
-		
+                        
+                        
 			x = MouseInput.getMousePosX()-(-en.getX() + Frame.WIDTH/2);
 			y = MouseInput.getMousePosY()-(-en.getY() + Frame.HEIGHT/2 + 100);
-                        
+                        /*
+                        if(MouseInput.isPressed()){
+                            this.counter++; 
+                           
+                            if(this.counter >= 60){
+                                System.out.println("Ready");
+                                Bullet b = new Bullet(en.getX()+32,en.getY()+32,2,2,true, Id.bullet, handler, getX(), getY(), 10);
+                                handler.addEntity(b);
+                                this.counter = 0;
+                            }
+                            
+                        }*/
                       
 	}
+        
+        public void shoot(){
+            Bullet b = new Bullet(en.getX()+32,en.getY()+32,10,10,true, Id.bullet, handler, getX(), getY(), 3);
+            handler.addEntity(b);
+            
+            System.out.println("shoot"+ handler.getEntityList().size());
+        }
 	
 }

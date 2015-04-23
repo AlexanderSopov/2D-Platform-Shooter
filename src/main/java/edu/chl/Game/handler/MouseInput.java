@@ -8,16 +8,18 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+
 public class MouseInput implements MouseMotionListener, MouseListener{
 	
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
 	private Cursor blankCursor;//hide 
+        private GameHandler handler;
 	
-	MouseInput(){
+	MouseInput(GameHandler handler){
 		//Put all the pre-load content here
-		
+		this.handler = handler;
 		// Transparent 16 x 16 pixel cursor image.
 		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
@@ -42,7 +44,7 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		handler.getCursor().shoot();
 		
 	}
 	
