@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import edu.chl.Game.Main;
 import edu.chl.Game.entity.Entity;
 import edu.chl.Game.entity.MonsterA;
 import edu.chl.Game.entity.Player;
@@ -28,45 +29,25 @@ public class GameHandler{
 	private SpriteSheet sheetMonster;
 	private SpriteSheet sheetTexture;
 	private BufferedImage mapImage;
-        
-        private Cursor cursor;
 	
 	private Camera camera;
 	
 	public GameHandler(Thread thread, Frame frame){
 		this.thread = thread;
-		this.frame = frame;
-		
+		this.frame = frame;		
 		camera = new Camera();
 		frame.addKeyListener(new KeyInput(this));
-                frame.addMouseListener(new MouseInput(this));
-                frame.addMouseMotionListener(new MouseInput(this));
+                frame.addMouseListener(new MouseInput());
+                frame.addMouseMotionListener(new MouseInput());
 		createSheet();
 		createMap();
 	}
 	
 	public void render(Graphics g){
-		
-		
-		for(Tile t: getTileList()){
-			t.render(g);
-		}
-                
-                for(Entity e: getEntityList()){
-			e.render(g);
+		for(Entity e: getEntityList()){
 			if(e.getId() == Id.player){
 				camera.update(e);
 			}
-		}
-	}
-	
-	public void update(){
-		for(Entity e: getEntityList()){
-			e.update();
-		}
-		
-		for(Tile t: getTileList()){
-			t.update();
 		}
 	}
 	
@@ -113,8 +94,7 @@ public class GameHandler{
                         
                         for(Entity e: getEntityList()){
                             if(e.getId() == Id.player){
-                                this.cursor = new Cursor(e,this);
-                                addEntity(this.cursor);
+                                addEntity(new Cursor(e,this));
                                 break;
                             }
                         }
@@ -130,6 +110,7 @@ public class GameHandler{
 	public LinkedList<Entity> getEntityList(){
 		return entity;
 	}
+	
 	
 	public void addEntity(Entity e){
 		entity.add(e);
@@ -162,9 +143,5 @@ public class GameHandler{
 	public SpriteSheet getSheetTexture(){
 		return sheetTexture;
 	}
-        
-        public Cursor getCursor(){
-            return this.cursor;
-        }
 
 }
