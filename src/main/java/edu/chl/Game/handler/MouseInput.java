@@ -1,5 +1,6 @@
 package edu.chl.Game.handler;
 
+import edu.chl.Game.entity.GameCursor;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -8,16 +9,18 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+
 public class MouseInput implements MouseMotionListener, MouseListener{
 	
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
 	private Cursor blankCursor;//hide 
+        private GameCursor c;
 	
-	MouseInput(){
+	MouseInput(GameCursor c){
 		//Put all the pre-load content here
-		
+		this.c = c;
 		// Transparent 16 x 16 pixel cursor image.
 		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
@@ -42,7 +45,7 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		c.shoot();
 		
 	}
 	

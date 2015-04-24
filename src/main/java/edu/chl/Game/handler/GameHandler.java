@@ -1,6 +1,6 @@
 package edu.chl.Game.handler;
 
-import edu.chl.Game.entity.Cursor;
+import edu.chl.Game.entity.GameCursor;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -31,16 +31,18 @@ public class GameHandler{
 	private BufferedImage mapImage;
 	
 	private Camera camera;
+        private GameCursor c;
 	
 	public GameHandler(Thread thread, Frame frame){
 		this.thread = thread;
 		this.frame = frame;		
 		camera = new Camera();
-		frame.addKeyListener(new KeyInput(this));
-                frame.addMouseListener(new MouseInput());
-                frame.addMouseMotionListener(new MouseInput());
-		createSheet();
+                createSheet();
 		createMap();
+		frame.addKeyListener(new KeyInput(this));
+                frame.addMouseListener(new MouseInput(c));
+                frame.addMouseMotionListener(new MouseInput(c));
+		
 	}
 	
 	public void render(Graphics g){
@@ -94,7 +96,8 @@ public class GameHandler{
                         
                         for(Entity e: getEntityList()){
                             if(e.getId() == Id.player){
-                                addEntity(new Cursor(e,this));
+                                c = new GameCursor(e,this);
+                                addEntity(c);
                                 break;
                             }
                         }
