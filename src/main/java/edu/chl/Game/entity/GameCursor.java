@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 
 
-public class Cursor extends Entity{
+public class GameCursor extends Entity{
 	
 	
 	private State state;
@@ -34,7 +34,7 @@ public class Cursor extends Entity{
 	
 	
 	
-	public Cursor(Entity en,GameHandler handler) {
+	public GameCursor(Entity en,GameHandler handler) {
 		
 		super(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y, 0, 0, false, Id.cursor , handler);
 		this.state = State.AIM;
@@ -52,7 +52,7 @@ public class Cursor extends Entity{
                                 g.setColor(Color.red);
                                 g.drawOval(x-15, y-15, 30, 30);
                                 g.fillRect(x, y, 1, 1);
-                                g.drawLine(x, y, en.getX()+32, en.getY()+32);
+                                //g.drawLine(x, y, en.getX()+32, en.getY()+32);
 				/*
                                 g.fillRect(x-1, y-1, 2, 2);
 				int relX = x-1;
@@ -102,7 +102,7 @@ public class Cursor extends Entity{
 	}
         
         public void shoot(){
-            Bullet b = new Bullet(en.getX()+32,en.getY()+32,10,10,true, Id.bullet, handler, getX(), getY(), 3);
+            Bullet b = new Bullet(en.getX()+32,en.getY()+32,10,10,true, Id.bullet, handler, getX(), getY(), 10);
             addBullet(b);
             
             //System.out.println("shoot"+ handler.getEntityList().size());

@@ -29,26 +29,29 @@ public class Bullet extends Entity{
 		this.setTargetPosX(targetPosX);
 		this.setTargetPosY(targetPosY);
 		this.speed = speed;
+                System.out.println("");
+                
 		angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-		/*
+		angle = (int)angle;
 		if(angle<0){
-			angle += 360; 
-		}*/
-                System.out.println("a:"+ angle);
+			//angle += 360; 
+		}
+                //System.out.println("a:"+ angle);
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
-	g.fillRect(x-(width/2), y-(height/2), width, height);
+	g.fillOval(x-(width/2), y-(height/2), width, height);
+        //g.drawString(""+ angle, x, y);
 		
     }
 
     @Override
     public void update() {
        
-       x += (speed*Math.cos(angle*(Math.PI/180.0)));
-       y += (speed*Math.sin(angle*(Math.PI/180.0)));
+       x += (float)(Math.cos(Math.toRadians(angle)))*speed;
+       y += (float)(Math.sin(Math.toRadians(angle)))*speed;
 		
 		if(x<=0 || y<= 0 || x> Frame.WIDTH || y > Frame.HEIGHT){
 			//this.remove();
