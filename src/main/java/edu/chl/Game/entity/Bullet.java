@@ -54,18 +54,7 @@ public class Bullet extends Entity{
 			//this.remove();
 			
 		}
-		/*
-		for(Entity en: Main.handler.entityList){
-			if(!en.isSolid())break;
-			if(en.getId() == Id.dumb){
-				if(this.getBounds().intersects(en.getBounds())){
-					
-					en.setDamage(10);
-					
-				}
-				
-			}
-		}*/
+	
     }
     
         public void moveToTarget(){
