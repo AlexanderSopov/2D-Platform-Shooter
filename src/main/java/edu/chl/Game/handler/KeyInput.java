@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import edu.chl.Game.entity.Entity;
 import edu.chl.Game.object.Id;
+import edu.chl.Game.view.GameThread;
 
 public class KeyInput implements KeyListener{
 	
@@ -23,23 +24,26 @@ public class KeyInput implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		for(Entity en: handler.getEntityList()){
-			if(en.getId() == Id.player){
-				switch(key){
-				case KeyEvent.VK_W: case 32:
-					if(!en.jumping){
-						en.jumping = true;
-						en.gravity = 8.0;
+		
+		if(GameThread.state == State.GAME){
+			for(Entity en: handler.getEntityList()){
+				if(en.getId() == Id.player){
+					switch(key){
+					case KeyEvent.VK_W: case 32:
+						if(!en.jumping){
+							en.jumping = true;
+							en.gravity = 8.0;
+						}
+						break;
+					case KeyEvent.VK_A:
+						en.setVelX(-5);
+						en.facing = 1;
+						break;
+					case KeyEvent.VK_D:
+						en.setVelX(5);
+						en.facing = 0;
+						break;
 					}
-					break;
-				case KeyEvent.VK_A:
-					en.setVelX(-5);
-					en.facing = 1;
-					break;
-				case KeyEvent.VK_D:
-					en.setVelX(5);
-					en.facing = 0;
-					break;
 				}
 			}
 		}
