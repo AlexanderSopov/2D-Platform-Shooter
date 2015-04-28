@@ -19,6 +19,8 @@ public class GameThread extends Observable implements Runnable {
 	private Thread thread;
 	private Frame frame;
 	public GameHandler handler;
+        private String state = "GAME";
+       
 	
 	private boolean running = false;
 	
@@ -40,6 +42,7 @@ public class GameThread extends Observable implements Runnable {
 			return;
 		running = true;
 		thread.start();
+              
 		
 	}
 	
@@ -48,6 +51,7 @@ public class GameThread extends Observable implements Runnable {
 			running = false;
 			try {
 				thread.join();
+                                
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -109,6 +113,7 @@ public class GameThread extends Observable implements Runnable {
 			timeToUpdate(delta);
 		}
 		interrupt();	
+                
 	}
 	
 	/**
@@ -141,4 +146,8 @@ public class GameThread extends Observable implements Runnable {
 	private boolean isFrame() {
 		return Frame==60;
 	}
+        
+        private String getState(){
+            return this.state;
+        } 
 }

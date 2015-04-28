@@ -8,7 +8,13 @@ import edu.chl.Game.object.*;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.handler.MouseInput;
 import edu.chl.Game.view.Frame;
+import java.awt.Cursor;
+import static java.awt.Cursor.CUSTOM_CURSOR;
+import java.awt.Image;
 import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.io.File;
 import java.util.LinkedList;
 
 
@@ -19,6 +25,7 @@ public class GameCursor extends Entity{
 	private State state;
         private Entity en;
         private int counter;
+        //private final Cursor defukts; 
         
         private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
 
@@ -37,6 +44,7 @@ public class GameCursor extends Entity{
 	public GameCursor(Entity en,GameHandler handler) {
 		
 		super(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y, 0, 0, false, Id.cursor , handler);
+                //this.defukts = Toolkit.getDefaultToolkit().createCustomCursor(null, null, null);
 		this.state = State.AIM;
                 this.en = en;
                 this.counter = 0;
@@ -121,4 +129,12 @@ public class GameCursor extends Entity{
 		return bulletList;
 	}
 	
+        private void CustomCursor(){
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            Image img = toolkit.getImage("Cursor.png");
+            Point point = new Point(0,0);
+            Cursor ursor = toolkit.createCustomCursor(img, point, "Cursor");
+            //Frame.setCursor(ursor);
+        }
+        
 }
