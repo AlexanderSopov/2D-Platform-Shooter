@@ -10,20 +10,21 @@ import edu.chl.Game.tile.Tile;
 
 public class Player extends Entity {
 	
-	private Sprite player[] = new Sprite[6];
+	private Sprite player[] = new Sprite[12];
 	private boolean animate = false;
 	
 	public Player(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 		
-		//facing right
-		for(int i = 0; i < 3; i++){
-			player[i] = new Sprite(handler.getSheetPlayer(),i, 2, 28, 41);
+                
+                for(int i = 0; i < 6; i++){
+                    player[i] = new Sprite(handler.getSheetPlayer(),i, 0, 64, 64);
 		}
+  
 		
 		//facing left
-		for(int i = 0; i < 3; i++){
-			player[i+3] = new Sprite(handler.getSheetPlayer(),i, 1, 28, 41);
+		for(int i = 0; i < 6; i++){
+			player[i+6] = new Sprite(handler.getSheetPlayer(),i, 1, 64, 64);
 		}
 		
 	}
@@ -35,13 +36,13 @@ public class Player extends Entity {
 			if(facing ==0){
 				g.drawImage(player[frame].getBufferedImage(), x, y, width, height, null);
 			}else if(facing == 1){
-				g.drawImage(player[frame+3].getBufferedImage(), x, y, width, height, null);
+				g.drawImage(player[frame+6].getBufferedImage(), x, y, width, height, null);
 			}
 		}else if(!animate){
 			if(facing ==0){
-				g.drawImage(player[1].getBufferedImage(), x, y, width, height, null);
+				g.drawImage(player[0].getBufferedImage(), x, y, width, height, null);
 			}else if(facing == 1){
-				g.drawImage(player[4].getBufferedImage(), x, y, width, height, null);
+				g.drawImage(player[6].getBufferedImage(), x, y, width, height, null);
 			}
 		}
 		
@@ -119,7 +120,7 @@ public class Player extends Entity {
 			frameDelay++;
 			if(frameDelay >= 3){
 				frame++;
-				if(frame >= 3){
+				if(6 <= frame){
 					frame = 0;
 				}
 				frameDelay = 0;

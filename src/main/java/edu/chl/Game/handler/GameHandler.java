@@ -66,7 +66,7 @@ public class GameHandler{
 	
 	public void createSheet(){
 		//28x41
-		sheetPlayer = new SpriteSheet("/spriteSheetPlayer.png");
+		sheetPlayer = new SpriteSheet("/SpriteSheet_Player.png");
 		//32x32
 		sheetMonster = new SpriteSheet("/spriteSheetMonster.png");
 		//16x16
@@ -76,7 +76,7 @@ public class GameHandler{
 
 	public void createMap(){
 		try {
-			mapImage = ImageIO.read(getClass().getResource("/mapLevel2.png"));
+			mapImage = ImageIO.read(getClass().getResource("/level0.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
