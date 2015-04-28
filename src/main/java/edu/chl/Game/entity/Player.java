@@ -7,6 +7,7 @@ import edu.chl.Game.graphics.Sprite;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.Tile;
+import java.awt.Color;
 
 public class Player extends Entity {
 	
@@ -31,6 +32,9 @@ public class Player extends Entity {
 	@Override
 	public void render(Graphics g) {
 		// facing = 0 is right, facing 1 is left
+                g.setColor(Color.red);
+                g.drawRect(x, y, width, height);
+                g.drawRect(x + 32, y + 32, 5, 5);
 		if(animate){
 			if(facing ==0){
 				g.drawImage(player[frame].getBufferedImage(), x, y, width, height, null);
