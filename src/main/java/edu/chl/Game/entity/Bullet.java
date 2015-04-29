@@ -19,6 +19,8 @@ public class Bullet extends Entity{
     
     private int targetPosX,targetPosY, speed;
     private double angle;
+    private double firstAngle;
+    private boolean passedTarget = false;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
@@ -30,12 +32,11 @@ public class Bullet extends Entity{
 		this.setTargetPosY(targetPosY);
 		this.speed = speed;
                 System.out.println("");
+                 firstAngle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
+		
+		
                 
-		angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-		angle = (int)angle;
-		if(angle<0){
-			//angle += 360; 
-		}
+		
                 //System.out.println("a:"+ angle);
     }
 
@@ -50,9 +51,27 @@ public class Bullet extends Entity{
     @Override
     public void update() {
        
+ 
+        
+       if(!this.passedTarget){
+        angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
+       }	
+       
+        System.out.println(angle);
+        
+        double length = Math.sqrt((targetPosX - x)*(targetPosX - x) + (targetPosY - y)*(targetPosY - y)); //calculates the distance between the two points
+
+        double speed_X = (targetPosX - x) /length * speed;
+
+        double speed_Y = (targetPosY - y) /length * speed;
+        
+        x += speed_X;
+        y += speed_Y;
+		
+       /* 
        x += (float)(Math.cos(Math.toRadians(angle)))*speed;
        y += (float)(Math.sin(Math.toRadians(angle)))*speed;
-		
+	*/	
 		if(x<=0 || y<= 0 || x> Frame.WIDTH || y > Frame.HEIGHT){
 			//this.remove();
 			
