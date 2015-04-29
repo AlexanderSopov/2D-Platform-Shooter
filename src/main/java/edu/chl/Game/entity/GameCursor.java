@@ -110,7 +110,7 @@ public class GameCursor extends Entity{
 	}
         
         public void shoot(){
-            Bullet b = new Bullet(en.getX()+32,en.getY()+32,10,10,true, Id.bullet, handler, getX(), getY(), 10);
+            Bullet b = new Bullet(en.getX()+32,en.getY()+32,10,10,true, Id.bullet, handler, getX(), getY(), 5);
             addBullet(b);
             
             //System.out.println("shoot"+ handler.getEntityList().size());
