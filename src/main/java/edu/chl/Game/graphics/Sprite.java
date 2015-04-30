@@ -9,7 +9,7 @@ public class Sprite {
 	
 	
 	public Sprite(SpriteSheet sheet, int x, int y, int width, int height){
-		image = sheet.getSprite(x,y, width, height);
+		image = sheet.getSprite(x, y, width, height);
 	}
 	
 	public BufferedImage getBufferedImage(){

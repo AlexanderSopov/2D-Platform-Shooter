@@ -15,9 +15,13 @@ public abstract class Entity extends GameObject{
 	
 	public boolean jumping = false;
 	public boolean falling = true;
+	private RenderClass renderClass;
+	private FacingDirection facingDirection;
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
+		renderClass = new RenderClass();
+		facingDirection = facingDirection.FacingRight;
 	}
 	
 	public Rectangle getBounds(){
@@ -42,6 +46,18 @@ public abstract class Entity extends GameObject{
 	
 	public void remove(){
 		handler.removeEntity(this);
+	}
+	
+	public RenderClass getRenderClass(){
+		return renderClass;
+	}
+	
+	public void setFacingDirection(FacingDirection d){
+		facingDirection = d;
+	}
+	
+	public FacingDirection getFacingDirection(){
+		return facingDirection;
 	}
 
 }

@@ -9,122 +9,124 @@ import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.Tile;
 
 public class Player extends Entity {
-	
+
 	private Sprite player[] = new Sprite[12];
 	private boolean animate = false;
-	
-	public Player(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+
+	public Player(int x, int y, int width, int height, boolean solid, Id id,
+			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
-		
-                
-                for(int i = 0; i < 6; i++){
-                    player[i] = new Sprite(handler.getSheetPlayer(),i, 0, 64, 64);
+
+		for (int i = 0; i < 6; i++) {
+			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 64, 64);
 		}
-  
-		
-		//facing left
-		for(int i = 0; i < 6; i++){
-			player[i+6] = new Sprite(handler.getSheetPlayer(),i, 1, 64, 64);
+
+		// facing left
+		for (int i = 0; i < 6; i++) {
+			player[i + 6] = new Sprite(handler.getSheetPlayer(), i, 1, 64, 64);
 		}
-		
+
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// facing = 0 is right, facing 1 is left
-		if(animate){
-			if(facing ==0){
-				g.drawImage(player[frame].getBufferedImage(), x, y, width, height, null);
-			}else if(facing == 1){
-				g.drawImage(player[frame+6].getBufferedImage(), x, y, width, height, null);
-			}
-		}else if(!animate){
-			if(facing ==0){
-				g.drawImage(player[0].getBufferedImage(), x, y, width, height, null);
-			}else if(facing == 1){
-				g.drawImage(player[6].getBufferedImage(), x, y, width, height, null);
+		if (animate) {
+			if (getFacingDirection()==FacingDirection.FacingRight) {
+				getRenderClass().renderAnimateRight(g, player, frame, x, y, height, width);
+			} else if (getFacingDirection()==FacingDirection.FacingLeft) {
+				getRenderClass().renderAnimateLeft(g, player, frame, x, y, height, width);
 			}
 		}
-		
+
+		else if (!animate) {
+			if (getFacingDirection()==FacingDirection.FacingRight) {
+				getRenderClass().renderNotAnimateRight(g, player, frame, x, y, height, width);
+			}
+
+			else if (getFacingDirection()==FacingDirection.FacingLeft) {
+				getRenderClass().renderNotAnimateLeft(g, player, frame, x, y, height, width);
+			}
+		}
 	}
 
 	@Override
 	public void update() {
-		x+= velX;
-		y+= velY;
-		
-		if(velX!=0){
+		x += velX;
+		y += velY;
+
+		if (velX != 0) {
 			animate = true;
-		}else{
+		} else {
 			animate = false;
 		}
-		
+
 		// checks if objects collides
-		for(Tile t: handler.getTileList()){
-			if(t.solid){
-				if(t.getId() == Id.wall){
-					if(getBoundsTop().intersects(t.getBounds())){
+		for (Tile t : handler.getTileList()) {
+			if (t.solid) {
+				if (t.getId() == Id.wall) {
+					if (getBoundsTop().intersects(t.getBounds())) {
 						setVelY(0);
-						if(jumping){
+						if (jumping) {
 							jumping = false;
 							gravity = 0.8;
 							falling = true;
 						}
-					}else if(getBoundsBottom().intersects(t.getBounds())){
+					} else if (getBoundsBottom().intersects(t.getBounds())) {
 						setVelY(0);
-						if(falling){
+						if (falling) {
 							falling = false;
 						}
-							
-						if(!falling&&!jumping){
+
+						if (!falling && !jumping) {
 							gravity = 0.8;
 							falling = true;
 						}
-					}else if(getBoundsLeft().intersects(t.getBounds())){
+					} else if (getBoundsLeft().intersects(t.getBounds())) {
 						setVelX(0);
-						x = t.getX()+t.width;
-					}else if(getBoundsRight().intersects(t.getBounds())){
+						x = t.getX() + t.width;
+					} else if (getBoundsRight().intersects(t.getBounds())) {
 						setVelX(0);
-						x = t.getX()-t.width;
+						x = t.getX() - t.width;
 					}
 				}
 			}
 		}
-		
+
 		LinkedList<Entity> e = handler.getEntityList();
-		for(int i = 0; i < e.size(); i++){
-			if(e.get(i).getId() == Id.monster){
-				if(getBounds().intersects(e.get(i).getBoundsTop())){
+		for (int i = 0; i < e.size(); i++) {
+			if (e.get(i).getId() == Id.monster) {
+				if (getBounds().intersects(e.get(i).getBoundsTop())) {
 					e.remove();
-				}else if(getBounds().intersects(e.get(i).getBounds())){
+				} else if (getBounds().intersects(e.get(i).getBounds())) {
 					remove();
 				}
 			}
 		}
-		
-		if(jumping){
-			gravity-=0.1;
-			setVelY((int)-gravity);
-			if(gravity<= 0.0){
+
+		if (jumping) {
+			gravity -= 0.1;
+			setVelY((int) -gravity);
+			if (gravity <= 0.0) {
 				falling = true;
 				jumping = false;
 			}
 		}
-		
-		if(falling){
-			gravity+=0.1;
-			setVelY((int)gravity);
+
+		if (falling) {
+			gravity += 0.1;
+			setVelY((int) gravity);
 		}
-		
-		if(animate){
+
+		if (animate) {
 			frameDelay++;
-			if(frameDelay >= 3){
+			if (frameDelay >= 3) {
 				frame++;
-				if(6 <= frame){
+				if (6 <= frame) {
 					frame = 0;
 				}
 				frameDelay = 0;
 			}
 		}
 	}
+
 }

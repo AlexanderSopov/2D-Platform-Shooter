@@ -1,5 +1,6 @@
 package edu.chl.Game.handler;
 
+import edu.chl.Game.entity.FacingDirection;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -35,10 +36,12 @@ public class KeyInput implements KeyListener{
 				case KeyEvent.VK_A:
 					en.setVelX(-5);
 					en.facing = 1;
+					en.setFacingDirection(FacingDirection.FacingLeft);
 					break;
 				case KeyEvent.VK_D:
 					en.setVelX(5);
 					en.facing = 0;
+					en.setFacingDirection(FacingDirection.FacingRight);
 					break;
 				}
 			}

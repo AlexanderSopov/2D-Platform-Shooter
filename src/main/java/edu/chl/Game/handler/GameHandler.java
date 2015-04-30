@@ -29,6 +29,7 @@ public class GameHandler{
 	private SpriteSheet sheetMonster;
 	private SpriteSheet sheetTexture;
 	private BufferedImage mapImage;
+	private SpriteSheet sheetEnemyUnit0;
 	
 	private Camera camera;
         private GameCursor c;
@@ -71,12 +72,14 @@ public class GameHandler{
 		sheetMonster = new SpriteSheet("/spriteSheetMonster.png");
 		//16x16
 		sheetTexture = new SpriteSheet("/spriteSheetTexture.png");
+		//64x64
+		sheetEnemyUnit0 = new SpriteSheet("/EnemyUnitGrid0.png");
 	}
 	
 
 	public void createMap(){
 		try {
-			mapImage = ImageIO.read(getClass().getResource("/level0.png"));
+			mapImage = ImageIO.read(getClass().getResource("/unitTestingMap0.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -156,6 +159,10 @@ public class GameHandler{
 	
 	public SpriteSheet getSheetTexture(){
 		return sheetTexture;
+	}
+	
+	public SpriteSheet getSheetEnemyUnitGrid0(){
+		return sheetEnemyUnit0;
 	}
 
 }
