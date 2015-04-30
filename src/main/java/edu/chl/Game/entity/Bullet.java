@@ -34,7 +34,11 @@ public class Bullet extends Entity{
                 System.out.println("");
                  firstAngle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
 		
-		
+		 if(!this.passedTarget){
+                    angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
+                    //passedTarget = true;
+                    }   	
+       
                 
 		
                 //System.out.println("a:"+ angle);
@@ -44,6 +48,8 @@ public class Bullet extends Entity{
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
 	g.fillOval(x-(width/2), y-(height/2), width, height);
+        g.setColor(Color.GREEN);
+        g.fillOval(this.targetPosX-(width/2), this.targetPosY-(height/2), width, height);
         //g.drawString(""+ angle, x, y);
 		
     }
@@ -53,29 +59,24 @@ public class Bullet extends Entity{
        
  
         
-       if(!this.passedTarget){
-        angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-       }	
-       
+      
         System.out.println(angle);
         
-        double length = Math.sqrt((targetPosX - x)*(targetPosX - x) + (targetPosY - y)*(targetPosY - y)); //calculates the distance between the two points
 
-        double speed_X = (targetPosX - x) /length * speed;
-
-        double speed_Y = (targetPosY - y) /length * speed;
         
-        x += speed_X;
-        y += speed_Y;
+        //double length = Math.sqrt((targetPosX - x)*(targetPosX - x) + (targetPosY - y)*(targetPosY - y)); //calculates the distance between the two points
+
+        //double speed_X = (targetPosX - x) /length * speed;
+
+       // double speed_Y = (targetPosY - y) /length * speed;
+        
+       // x += speed_X;
+        //y += speed_Y;
 		
-       /* 
+       
        x += (float)(Math.cos(Math.toRadians(angle)))*speed;
        y += (float)(Math.sin(Math.toRadians(angle)))*speed;
-	*/	
-		if(x<=0 || y<= 0 || x> Frame.WIDTH || y > Frame.HEIGHT){
-			//this.remove();
-			
-		}
+		
 	
     }
     
