@@ -73,4 +73,8 @@ public abstract class GameObject implements Observer {
 		return id;
 	}
 	
+	public GameHandler getHandler(){
+		return handler;
+	}
+	
 }

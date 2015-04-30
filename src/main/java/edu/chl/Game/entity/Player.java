@@ -12,6 +12,7 @@ public class Player extends Entity {
 
 	private Sprite player[] = new Sprite[12];
 	private boolean animate = false;
+	private CollisionDetection collisionDetection = new CollisionDetection();
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
