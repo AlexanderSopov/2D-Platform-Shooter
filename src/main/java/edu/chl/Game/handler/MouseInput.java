@@ -39,7 +39,9 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 			setMousePosY(e.getY());
 		}
 
-		
+		setMousePosX(e.getX());
+		setMousePosY(e.getY());
+                System.out.println("x:" + e.getX());
 	}
 	
 
