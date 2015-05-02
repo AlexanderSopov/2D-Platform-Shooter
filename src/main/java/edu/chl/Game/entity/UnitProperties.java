@@ -9,8 +9,6 @@ public class UnitProperties {
 	public UnitProperties(int x, int y, int width, int height){
 		this.x = x;
 		this.y = y;
-		this.velX = velX;
-		this.velY = velY;
 		this.width = width;
 		this.height = height;
 	}

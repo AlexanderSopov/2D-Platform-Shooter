@@ -31,7 +31,7 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		if (isAnimate()) {
+		if (getUnitState().isAnimate()) {
 			if (getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass().renderAnimateRight(g, player, getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getHeight(), getUnitProperties().getWidth());
 			} else if (getFacingDirection() == FacingDirection.FacingLeft) {
@@ -40,7 +40,7 @@ public class Player extends Entity {
 			}
 		}
 
-		else if (!isAnimate()) {
+		else if (!getUnitState().isAnimate()) {
 			if (getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass().renderNotAnimateRight(g, player, getFrame(), getUnitProperties().getX(), getUnitProperties().getY(),
 						getUnitProperties().getHeight(), getUnitProperties().getWidth());
@@ -55,26 +55,22 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
+		
 		getUpdateMovement().updateCoordinates();
-
-		if (getUnitProperties().getVelX() != 0) {
-			setAnimate(true);
-		} else {
-			setAnimate(false);
-		}
+		getUpdateMovement().toggleAnimate();
 
 		// checks if objects collides
 		for (Tile t : getHandler().getTileList()) {
-			if (t.isSolid()) {
-				if (t.getId() == Id.wall) {
-					if (getBoundsTop().intersects(t.getBounds())) {
+			if (t.getUnitState().isSolid()) {
+				if (t.getUnitState().getId() == Id.wall) {
+					if (getCalculateBounds().getBoundsTop().intersects(t.getBounds())) {
 						getUnitProperties().setVelY(0);
 						if (isJumping()) {
 							setJumping(false);
 							setGravity(0.8);
 							setFalling(true);
 						}
-					} else if (getBoundsBottom().intersects(t.getBounds())) {
+					} else if (getCalculateBounds().getBoundsBottom().intersects(t.getBounds())) {
 						getUnitProperties().setVelY(0);
 						if (isFalling()) {
 							setFalling(false);
@@ -84,10 +80,10 @@ public class Player extends Entity {
 							setGravity(0.8);
 							setFalling(true);
 						}
-					} else if (getBoundsLeft().intersects(t.getBounds())) {
+					} else if (getCalculateBounds().getBoundsLeft().intersects(t.getBounds())) {
 						getUnitProperties().setVelX(0);
 						getUnitProperties().setX((t.getUnitProperties().getX() + t.getUnitProperties().getWidth()));
-					} else if (getBoundsRight().intersects(t.getBounds())) {
+					} else if (getCalculateBounds().getBoundsRight().intersects(t.getBounds())) {
 						getUnitProperties().setVelX(0);
 						getUnitProperties().setX((t.getUnitProperties().getX() - t.getUnitProperties().getWidth()));
 					}
@@ -97,10 +93,10 @@ public class Player extends Entity {
 
 		LinkedList<Entity> e = getHandler().getEntityList();
 		for (int i = 0; i < e.size(); i++) {
-			if (e.get(i).getId() == Id.monster) {
-				if (getBounds().intersects(e.get(i).getBoundsTop())) {
+			if (e.get(i).getUnitState().getId() == Id.monster) {
+				if (getCalculateBounds().getBounds().intersects(e.get(i).getCalculateBounds().getBoundsTop())) {
 					e.remove();
-				} else if (getBounds().intersects(e.get(i).getBounds())) {
+				} else if (getCalculateBounds().getBounds().intersects(e.get(i).getCalculateBounds().getBounds())) {
 					remove();
 				}
 			}
@@ -120,7 +116,7 @@ public class Player extends Entity {
 			getUnitProperties().setVelY(((int) getGravity()));
 		}
 
-		if (isAnimate()) {
+		if (getUnitState().isAnimate()) {
 			setFrameDelay(getFrameDelay()+1);
 			if (getFrameDelay()>= 3) {
 				setFrame(getFrame()+1);

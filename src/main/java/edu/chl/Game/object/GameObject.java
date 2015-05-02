@@ -11,19 +11,18 @@ import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.view.GameThread;
 
 public abstract class GameObject implements Observer {
-	private boolean solid;
-	private Id id;
 	private GameHandler handler;
 	public static GameThread gt = Main.game;
-	private boolean animate = false;
 	private UnitProperties unitProperties;
+	private UnitState unitState;
+	private UpdateMovement updateMovement;
 	
 	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
-		unitProperties = new UnitProperties(x, y, width, height);
-		this.solid = solid;
-		this.id = id;
 		this.handler = handler;
-
+		this.unitProperties = new UnitProperties(x, y, width, height);
+		this.unitState = new UnitState(id, solid);
+		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
+		
 	}
 	
 	public abstract void render(Graphics g);
@@ -39,33 +38,21 @@ public abstract class GameObject implements Observer {
 	public abstract void update();
 	public abstract void remove();
 	
-
-
-	public boolean isSolid() {
-		return solid;
-	}
-
-	
-	public Id getId(){
-		return id;
-	}
-	
 	public GameHandler getHandler(){
 		return handler;
-	}
-	
-	public boolean isAnimate(){
-		return animate;
-	}
-	
-	public void setAnimate(boolean animate){
-		this.animate = animate;
 	}
 	
 	public UnitProperties getUnitProperties(){
 		return unitProperties;
 	}
 	
+	public UnitState getUnitState(){
+		return unitState;
+	}
+	
+	public UpdateMovement getUpdateMovement(){
+		return this.updateMovement;
+	}
 
 	
 

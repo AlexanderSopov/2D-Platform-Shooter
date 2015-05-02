@@ -68,9 +68,9 @@ public class MonsterA extends Entity {
 		getUpdateMovement().updateCoordinates();
 
 		for (Tile t : getHandler().getTileList()) {
-			if (t.isSolid()) {
-				if (t.getId() == Id.wall) {
-					if (getBoundsBottom().intersects(t.getBounds())) {
+			if (t.getUnitState().isSolid()) {
+				if (t.getUnitState().getId() == Id.wall) {
+					if (getCalculateBounds().getBoundsBottom().intersects(t.getBounds())) {
 						getUnitProperties().setVelY(0);
 
 						if (isFalling()) {
@@ -82,10 +82,10 @@ public class MonsterA extends Entity {
 							setFalling(true);
 						}
 
-					} else if (getBoundsLeft().intersects(t.getBounds())) {
+					} else if (getCalculateBounds().getBoundsLeft().intersects(t.getBounds())) {
 						getUnitProperties().setVelX(2);
 						setFacing(0);
-					} else if (getBoundsRight().intersects(t.getBounds())) {
+					} else if (getCalculateBounds().getBoundsRight().intersects(t.getBounds())) {
 						getUnitProperties().setVelX(-2);
 						setFacing(1);
 					}
@@ -99,7 +99,7 @@ public class MonsterA extends Entity {
 			getUnitProperties().setVelY((int) getGravity());
 		}
 
-		if (!isAnimate()) {
+		if (!getUnitState().isAnimate()) {
 			//frameDelay++;
 			setFrameDelay(getFrameDelay()+1);
 			if (getFrameDelay()>= 15) {

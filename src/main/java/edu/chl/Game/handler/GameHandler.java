@@ -47,7 +47,7 @@ public class GameHandler{
 	
 	public void render(Graphics g){
 		for(Entity e: getEntityList()){
-			if(e.getId() == Id.player){
+			if(e.getUnitState().getId() == Id.player){
 				camera.update(e);
 			}
 		}
@@ -108,7 +108,7 @@ public class GameHandler{
 			}
                         
                         for(Entity e: getEntityList()){
-                            if(e.getId() == Id.player){
+                            if(e.getUnitState().getId() == Id.player){
                                 c = new GameCursor(e,this);
                                 addEntity(c);
                                 break;

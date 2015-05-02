@@ -17,44 +17,20 @@ public abstract class Entity extends GameObject {
 	private boolean falling = true;
 	private RenderClass renderClass;
 	private FacingDirection facingDirection;
-	private UpdateMovement updateMovement;
+	private CalculateBounds calculateBounds;
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
+		
 		renderClass = new RenderClass();
 		facingDirection = facingDirection.FacingRight;
-		updateMovement = new UpdateMovement(getUnitProperties());
+		calculateBounds = new CalculateBounds(getUnitProperties());
 
 	}
-
-	public Rectangle getBounds() {
-		return new Rectangle(getUnitProperties().getX(), getUnitProperties()
-				.getY(), getUnitProperties().getWidth(), getUnitProperties()
-				.getHeight());
-	}
-
-	public Rectangle getBoundsTop() {
-		return new Rectangle(getUnitProperties().getX() + 10,
-				getUnitProperties().getY(),
-				getUnitProperties().getWidth() - 20, 5);
-	}
-
-	public Rectangle getBoundsBottom() {
-		return new Rectangle(getUnitProperties().getX() + 10,
-				getUnitProperties().getY() + getUnitProperties().getHeight()
-						- 5, getUnitProperties().getWidth() - 20, 5);
-	}
-
-	public Rectangle getBoundsLeft() {
-		return new Rectangle(getUnitProperties().getX(), getUnitProperties()
-				.getY() + 10, 5, getUnitProperties().getHeight() - 20);
-	}
-
-	public Rectangle getBoundsRight() {
-		return new Rectangle(getUnitProperties().getX()
-				+ getUnitProperties().getWidth() - 5, getUnitProperties()
-				.getY() + 10, 5, getUnitProperties().getHeight() - 20);
+	
+	public CalculateBounds getCalculateBounds(){
+		return calculateBounds;
 	}
 
 	public void remove() {
@@ -121,8 +97,5 @@ public abstract class Entity extends GameObject {
 		this.frameDelay = frameDelay;
 	}
 	
-	public UpdateMovement getUpdateMovement(){
-		return updateMovement;
-	}
 
 }

@@ -25,7 +25,7 @@ public class KeyInput implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		for (Entity en : handler.getEntityList()) {
-			if (en.getId() == Id.player) {
+			if (en.getUnitState().getId() == Id.player) {
 				switch (key) {
 				case KeyEvent.VK_W:
 				case 32:
@@ -54,7 +54,7 @@ public class KeyInput implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		for (Entity en : handler.getEntityList()) {
-			if (en.getId() == Id.player) {
+			if (en.getUnitState().getId() == Id.player) {
 				en.getUnitProperties().setVelY(0);
 				en.getUnitProperties().setVelX(0);
 			}
