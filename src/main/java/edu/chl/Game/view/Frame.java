@@ -13,7 +13,7 @@ public class Frame extends JFrame {
 	public Frame(){
         super("Mario");
         
-        final GridLayout layout = new GridLayout(0, 2);
+        final GridLayout layout = new GridLayout(0, 3);
         setLayout(layout);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

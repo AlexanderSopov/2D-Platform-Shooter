@@ -16,9 +16,7 @@ import edu.chl.Game.tile.Tile;
  * @version 1.0
  */
 public class GameThread extends Observable implements Runnable {
-	
-	
-	
+
 	private Thread thread;
 	private Frame frame;
 	private StartMenu startMenu;
@@ -34,7 +32,7 @@ public class GameThread extends Observable implements Runnable {
 	public GameThread(){
 		thread = new Thread(this);
 		frame = new Frame();
-		startMenu = new StartMenu();
+		startMenu = new StartMenu(frame);
 		gameHandler = new GameHandler(thread, frame);
 		start();
 		
@@ -68,7 +66,7 @@ public class GameThread extends Observable implements Runnable {
 	@Override
 	public void run() {
 		frame.requestFocus();
-		timer();	
+		timer();
 	}
 	
 	/**
@@ -84,12 +82,23 @@ public class GameThread extends Observable implements Runnable {
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
-		BufferStrategy bs = frame.getBufferStrategy();
-		if(bs == null){
-			frame.createBufferStrategy(3);
-			return;
+		if(state == State.GAME){
+			BufferStrategy bs = frame.getBufferStrategy();
+			if(bs == null){
+				frame.createBufferStrategy(3);
+				return;
+				}
+			renderGraphics(bs);
+		}else if(state == State.MENU && !startMenu.inMenu()){
+			startMenu.setMenu();
+			frame.setVisible(true);
+		}else if(state == State.OPTION && !startMenu.inOption()){
+			startMenu.setOption();
+			frame.setVisible(true);
+		}else if(state == State.CREDIT && !startMenu.inCredit()){
+			startMenu.setCredit();
+			frame.setVisible(true);
 		}
-		renderGraphics(bs);
 	}
 	
 	/**
@@ -98,21 +107,14 @@ public class GameThread extends Observable implements Runnable {
 	 */
 	public void renderGraphics(BufferStrategy b) {
 		Graphics g = b.getDrawGraphics();
-	
-		if(state == State.GAME){
+			frame.requestFocus();
 			g.setColor(new Color(135, 206, 235));
 			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
 			notifyObservers((Object)g);
 			gameHandler.render(g);
-		}else if(state == State.MENU){
-			g.setColor(new Color(0, 0, 0));
-			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-			startMenu.render(g);
-		}
-		
-		g.dispose();
-		b.show();
+			b.show();
+			g.dispose();
 	}
 	
 

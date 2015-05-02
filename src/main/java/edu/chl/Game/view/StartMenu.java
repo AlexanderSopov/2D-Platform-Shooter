@@ -1,41 +1,126 @@
 package edu.chl.Game.view;
 
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Rectangle;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import edu.chl.Game.handler.KeyInput;
+import edu.chl.Game.handler.MouseInput;
+
 public class StartMenu{
+
+	Container container;
 	
-	public Rectangle startButton = new Rectangle(Frame.WIDTH / 3 + 80, Frame.HEIGHT/4, 160, 60);
-	public Rectangle newButton = new Rectangle(Frame.WIDTH / 3 + 80, Frame.HEIGHT/4 + 70, 160, 60);
-	public Rectangle optionButton = new Rectangle(Frame.WIDTH / 3 + 80, Frame.HEIGHT/4 + 140, 160, 60);
-	public Rectangle creditButton = new Rectangle(Frame.WIDTH / 3 + 80, Frame.HEIGHT/4 + 210, 160, 60);
-	public Rectangle exitButton = new Rectangle(Frame.WIDTH / 3 + 80, Frame.HEIGHT/4 + 350, 160, 60);
-	Font fnt;
+	private Frame frame;
+	private boolean inMenu;
+	private boolean inOption;
+	private boolean inCredit;
+	
+	public StartMenu(Frame frame){
+		this.frame = frame;
+		inMenu = false;
+		container = frame.getContentPane();
+		
+		frame.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+	}
+	
+	public void setMenu(){
+		JLabel nameLabel = new JLabel("JumpShooter");
+		nameLabel.setAlignmentX(container.CENTER_ALIGNMENT);
+		nameLabel.setFont(new Font("arial", Font.BOLD, 50));
+		nameLabel.setForeground(Color.WHITE);
+		container.add(nameLabel);
+		
+		addButton("Start");
+		addButton("New");
+		addButton("Option");
+		addButton("Credit");
+		addButton("Exit");
+		
+		container.setBackground(Color.BLACK);
+		resetState();
+		inMenu = true;
+	}
+	
+	public void setOption(){
+		JLabel nameLabel = new JLabel("Options");
+		nameLabel.setAlignmentX(container.CENTER_ALIGNMENT);
+		nameLabel.setFont(new Font("arial", Font.BOLD, 50));
+		nameLabel.setForeground(Color.WHITE);
+		container.add(nameLabel);
+		
+		addButton("Graphics");
+		addButton("Sound");
+		addButton("Difficult");
+		addButton("Back");
+		
+		container.setBackground(Color.BLUE);
+		resetState();
+		inOption = true;
+	}
+	
+	public void setCredit(){
+		JLabel nameLabel1 = new JLabel("Name1");
+		nameLabel1.setAlignmentX(container.CENTER_ALIGNMENT);
+		nameLabel1.setFont(new Font("arial", Font.BOLD, 50));
+		nameLabel1.setForeground(Color.WHITE);
+		container.add(nameLabel1);
+		
+		JLabel nameLabel2 = new JLabel("Name2");
+		nameLabel2.setAlignmentX(container.CENTER_ALIGNMENT);
+		nameLabel2.setFont(new Font("arial", Font.BOLD, 50));
+		nameLabel2.setForeground(Color.WHITE);
+		container.add(nameLabel2);
+		
+		JLabel nameLabel3 = new JLabel("Name3");
+		nameLabel3.setAlignmentX(container.CENTER_ALIGNMENT);
+		nameLabel3.setFont(new Font("arial", Font.BOLD, 50));
+		nameLabel3.setForeground(Color.WHITE);
+		container.add(nameLabel3);
+		
+		container.setBackground(Color.DARK_GRAY);
+		resetState();
+		inCredit = true;
+	}
 	
 	public void render(Graphics g){
-		Graphics2D g2 = (Graphics2D) g;
 		
-		fnt = new Font("arial", Font.BOLD, 50);
-		g.setFont(fnt);
-		g.setColor(Color.white);
-		g.drawString("JumpShooter", Frame.WIDTH / 3, Frame.HEIGHT/5);
-		
-		fnt = new Font("arial", Font.BOLD, 20);
-		g.setFont(fnt);
-		
-		g2.draw(startButton);
-		g2.draw(newButton);
-		g2.draw(optionButton);
-		g2.draw(creditButton);
-		g2.draw(exitButton);
-		
-		g.drawString("Start Game", startButton.x + 30, startButton.y + 35);
-		g.drawString("New Game", newButton.x + 30, newButton.y + 35);
-		g.drawString("Option", optionButton.x + 45, optionButton.y + 35);
-		g.drawString("Credits", creditButton.x + 45, creditButton.y + 35);
-		g.drawString("Exit", exitButton.x + 60, exitButton.y + 35);
+	}
+	
+	private void addButton(String text){
+		JButton button = new JButton(text);
+		button.setAlignmentX(container.CENTER_ALIGNMENT);
+		button.addMouseListener(new MouseInput(frame));
+		button.setMaximumSize(new Dimension(180,50));
+		container.add(button);
+	}
+	
+	private void resetState(){
+		inMenu = false;
+		inOption = false;
+		inCredit = false;
+	}
+	
+	public boolean inMenu(){
+		return inMenu;
+	}
+	
+	public boolean inOption(){
+		return inOption;
+	}
+	
+	public boolean inCredit(){
+		return inCredit;
 	}
 }
