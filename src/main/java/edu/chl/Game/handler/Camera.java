@@ -4,12 +4,12 @@ import edu.chl.Game.entity.Entity;
 import edu.chl.Game.view.Frame;
 
 public class Camera {
-	
-public int x, y;
-	
-	public void update(Entity player){
-		setX(-player.getX() + Frame.WIDTH/2);
-		setY(-player.getY() + Frame.HEIGHT/2 + 100);
+
+	public int x, y;
+
+	public void update(Entity player) {
+		setX(-player.getUnitProperties().getX() + Frame.WIDTH / 2);
+		setY(-player.getUnitProperties().getY() + Frame.HEIGHT / 2 + 100);
 	}
 
 	public int getX() {
@@ -26,6 +26,6 @@ public int x, y;
 
 	public void setY(int y) {
 		this.y = y;
-	}	
+	}
 
 }

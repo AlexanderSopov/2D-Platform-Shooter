@@ -8,40 +8,44 @@ import edu.chl.Game.graphics.Sprite;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.Id;
 
-public class Wall extends Tile implements Observer{
-	
+public class Wall extends Tile implements Observer {
+
 	private Sprite floor;
 
-	public Wall(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler, int type) {
+	public Wall(int x, int y, int width, int height, boolean solid, Id id,
+			GameHandler handler, int type) {
 		super(x, y, width, height, solid, id, handler);
-		if(type == 1){
-			//floor
+		if (type == 1) {
+			// floor
 			floor = new Sprite(handler.getSheetTexture(), 0, 0, 16, 16);
-		}else if(type == 2){
-			//upper-floor
+		} else if (type == 2) {
+			// upper-floor
 			floor = new Sprite(handler.getSheetTexture(), 5, 0, 16, 16);
-		}else if(type == 3){
-			//cloud
+		} else if (type == 3) {
+			// cloud
 			floor = new Sprite(handler.getSheetTexture(), 5, 8, 16, 16);
 		}
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(floor.getBufferedImage(), getX(), getY(), width, height, null);
+		g.drawImage(floor.getBufferedImage(), getUnitProperties().getX(),
+				getUnitProperties().getY(), getUnitProperties().getWidth(),
+				getUnitProperties().getHeight(), null);
 	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	public void update(Observable o, Object arg){
+
+	public void update(Observable o, Object arg) {
 		try {
-			Graphics g = (Graphics)arg;
+			Graphics g = (Graphics) arg;
 			render(g);
 			update();
-		}catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			System.out.println("oops!");
 		}
 	}

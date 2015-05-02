@@ -40,29 +40,33 @@ public class Bullet extends Entity {
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillOval(getX() - (width / 2), getY() - (height / 2), width, height);
+		g.fillOval(getUnitProperties().getX()
+				- (getUnitProperties().getWidth() / 2), getUnitProperties()
+				.getY() - (getUnitProperties().getHeight() / 2),
+				getUnitProperties().getWidth(), getUnitProperties().getHeight());
 		// g.drawString(""+ angle, x, y);
 
 	}
 
 	@Override
-    public void update() {
-      
-	int varX = getX();
-	int varY = getY();
-		
-      varX += (float)(Math.cos(Math.toRadians(angle)))*speed;
-      varY += (float)(Math.sin(Math.toRadians(angle)))*speed;
+	public void update() {
 
-      setX(varX);
-      setY(varY);
-      
-		if(getX()<=0 || getY()<= 0 || getX()> Frame.WIDTH || getY() > Frame.HEIGHT){
-			//this.remove();
-			
+		int varX = getUnitProperties().getX();
+		int varY = getUnitProperties().getY();
+
+		varX += (float) (Math.cos(Math.toRadians(angle))) * speed;
+		varY += (float) (Math.sin(Math.toRadians(angle))) * speed;
+
+		getUnitProperties().setX(varX);
+		getUnitProperties().setY(varY);
+
+		if (getUnitProperties().getX() <= 0 || getUnitProperties().getY() <= 0 || getUnitProperties().getX() > Frame.WIDTH
+				|| getUnitProperties().getY() > Frame.HEIGHT) {
+			// this.remove();
+
 		}
-	
-    }
+
+	}
 
 	public void moveToTarget() {
 

@@ -21,7 +21,6 @@ import edu.chl.Game.view.Frame;
 public class GameHandler{
 	private Thread thread;
 	private Frame frame;
-	
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	

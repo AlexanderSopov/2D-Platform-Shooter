@@ -8,16 +8,19 @@ import edu.chl.Game.object.Id;
 
 public abstract class Tile extends GameObject {
 
-	public Tile(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+	public Tile(int x, int y, int width, int height, boolean solid, Id id,
+			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 	}
-	
-	public Rectangle getBounds(){
-		return new Rectangle(getX(), getY(), width, height);
+
+	public Rectangle getBounds() {
+		return new Rectangle(getUnitProperties().getX(), getUnitProperties()
+				.getY(), getUnitProperties().getWidth(), getUnitProperties()
+				.getHeight());
 	}
-	
-	public void remove(){
-		handler.removeTile(this);
+
+	public void remove() {
+		getHandler().removeTile(this);
 	}
 
 }

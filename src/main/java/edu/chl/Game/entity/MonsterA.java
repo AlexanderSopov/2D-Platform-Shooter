@@ -13,6 +13,7 @@ public class MonsterA extends Entity {
 	private Sprite monster[] = new Sprite[12];
 	private Random rand = new Random();
 
+
 	public MonsterA(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler, int type) {
 		super(x, y, width, height, solid, id, handler);
@@ -20,10 +21,10 @@ public class MonsterA extends Entity {
 		int r = rand.nextInt(2);
 
 		if (true) {
-			velX = 2;
+			getUnitProperties().setVelX(2);
 			setFrame(0);
 		} else if (r == 1) {
-			velX = -2;
+			getUnitProperties().setVelX(-2);
 			setFacing(1);
 		}
 
@@ -55,23 +56,22 @@ public class MonsterA extends Entity {
 	@Override
 	public void render(Graphics g) {
 		if(getFacing()==0){
-			getRenderClass().renderAnimateRight(g, monster, getFrame(), getX(), getY(), width, height);
+			getRenderClass().renderAnimateRight(g, monster, getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
 		} else if (getFacing() == 1){
-			getRenderClass().renderAnimateLeft(g, monster, getFrame(), getX(), getY(), width, height);
+			getRenderClass().renderAnimateLeft(g, monster, getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
 		}
 		
 	}
 
 	@Override
 	public void update() {
-		setX(getX() + getVelX());
-		setY(getY() + getVelY());
+		getUpdateMovement().updateCoordinates();
 
-		for (Tile t : handler.getTileList()) {
-			if (t.solid) {
+		for (Tile t : getHandler().getTileList()) {
+			if (t.isSolid()) {
 				if (t.getId() == Id.wall) {
 					if (getBoundsBottom().intersects(t.getBounds())) {
-						setVelY(0);
+						getUnitProperties().setVelY(0);
 
 						if (isFalling()) {
 							setFalling(false);
@@ -83,10 +83,10 @@ public class MonsterA extends Entity {
 						}
 
 					} else if (getBoundsLeft().intersects(t.getBounds())) {
-						setVelX(2);
+						getUnitProperties().setVelX(2);
 						setFacing(0);
 					} else if (getBoundsRight().intersects(t.getBounds())) {
-						setVelX(-2);
+						getUnitProperties().setVelX(-2);
 						setFacing(1);
 					}
 				}
@@ -96,7 +96,7 @@ public class MonsterA extends Entity {
 		if (isFalling()) {
 			//gravity += 0.1;
 			setGravity(getGravity()+0.1);
-			setVelY((int) getGravity());
+			getUnitProperties().setVelY((int) getGravity());
 		}
 
 		if (!isAnimate()) {
