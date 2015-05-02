@@ -50,8 +50,8 @@ public class GameCursor extends Entity{
                                 
                                 
                                 g.setColor(Color.red);
-                                g.drawOval(x-15, y-15, 30, 30);
-                                g.fillRect(x, y, 1, 1);
+                                g.drawOval(getX()-15, getY()-15, 30, 30);
+                                g.fillRect(getX(), getY(), 1, 1);
                                 //g.drawLine(x, y, en.getX()+32, en.getY()+32);
 				/*
                                 g.fillRect(x-1, y-1, 2, 2);
@@ -74,9 +74,9 @@ public class GameCursor extends Entity{
 	@Override
 	public void update() {	
                         
-                        
-			x = MouseInput.getMousePosX()-(-en.getX() + Frame.WIDTH/2);
-			y = MouseInput.getMousePosY()-(-en.getY() + Frame.HEIGHT/2 + 100);
+            setX(MouseInput.getMousePosX()-(-en.getX() + Frame.WIDTH/2));
+            setY(MouseInput.getMousePosY()-(-en.getY() + Frame.HEIGHT/2 + 100));
+
                         /*
                         if(MouseInput.isPressed()){
                             this.counter++; 

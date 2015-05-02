@@ -35,19 +35,19 @@ public class Player extends Entity {
 			if (getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass().renderAnimateRight(g, player, getFrame(), getX(), getY(), height, width);
 			} else if (getFacingDirection() == FacingDirection.FacingLeft) {
-				getRenderClass().renderAnimateLeft(g, player, getFrame(), x, y,
+				getRenderClass().renderAnimateLeft(g, player, getFrame(), getX(), getY(),
 						height, width);
 			}
 		}
 
 		else if (!isAnimate()) {
 			if (getFacingDirection() == FacingDirection.FacingRight) {
-				getRenderClass().renderNotAnimateRight(g, player, getFrame(), x, y,
+				getRenderClass().renderNotAnimateRight(g, player, getFrame(), getX(), getY(),
 						height, width);
 			}
 
 			else if (getFacingDirection() == FacingDirection.FacingLeft) {
-				getRenderClass().renderNotAnimateLeft(g, player, getFrame(), x, y,
+				getRenderClass().renderNotAnimateLeft(g, player, getFrame(), getX(), getY(),
 						height, width);
 			}
 		}
@@ -87,10 +87,10 @@ public class Player extends Entity {
 						}
 					} else if (getBoundsLeft().intersects(t.getBounds())) {
 						setVelX(0);
-						x = t.getX() + t.width;
+						setX(t.getX() + t.width);
 					} else if (getBoundsRight().intersects(t.getBounds())) {
 						setVelX(0);
-						x = t.getX() - t.width;
+						setX(t.getX() - t.width);
 					}
 				}
 			}

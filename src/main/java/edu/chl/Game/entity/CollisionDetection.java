@@ -6,7 +6,7 @@ import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.Tile;
 
 public class CollisionDetection {
-	
+	/*
 	public void update() {
 		setX(getX() + getVelX());
 		setY(getY() + getVelY());
@@ -88,5 +88,5 @@ public class CollisionDetection {
 	
 	
 	
-
+*/
 }

@@ -13,7 +13,7 @@ public abstract class Tile extends GameObject {
 	}
 	
 	public Rectangle getBounds(){
-		return new Rectangle(x, y, width, height);
+		return new Rectangle(getX(), getY(), width, height);
 	}
 	
 	public void remove(){

@@ -15,56 +15,60 @@ import java.awt.Graphics;
  *
  * @author Rasmus
  */
-public class Bullet extends Entity{
-    
-    private int targetPosX,targetPosY, speed;
-    private double angle;
-    
+public class Bullet extends Entity {
 
-    public Bullet(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler,int targetPosX, int targetPosY, int speed) {
-        super(x, y, width, height, solid, id, handler);
-        
+	private int targetPosX, targetPosY, speed;
+	private double angle;
+
+	public Bullet(int x, int y, int width, int height, boolean solid, Id id,
+			GameHandler handler, int targetPosX, int targetPosY, int speed) {
+		super(x, y, width, height, solid, id, handler);
 
 		this.setTargetPosX(targetPosX);
 		this.setTargetPosY(targetPosY);
 		this.speed = speed;
-                System.out.println("");
-                
-		angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-		angle = (int)angle;
-		if(angle<0){
-			//angle += 360; 
+		System.out.println("");
+
+		angle = Math.toDegrees(Math.atan2(targetPosY - y, targetPosX - x));
+		angle = (int) angle;
+		if (angle < 0) {
+			// angle += 360;
 		}
-                //System.out.println("a:"+ angle);
-    }
+		// System.out.println("a:"+ angle);
+	}
 
-    @Override
-    public void render(Graphics g) {
-        g.setColor(Color.BLACK);
-	g.fillOval(x-(width/2), y-(height/2), width, height);
-        //g.drawString(""+ angle, x, y);
-		
-    }
+	@Override
+	public void render(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.fillOval(getX() - (width / 2), getY() - (height / 2), width, height);
+		// g.drawString(""+ angle, x, y);
 
-    @Override
+	}
+
+	@Override
     public void update() {
-       
-       x += (float)(Math.cos(Math.toRadians(angle)))*speed;
-       y += (float)(Math.sin(Math.toRadians(angle)))*speed;
+      
+	int varX = getX();
+	int varY = getY();
 		
-		if(x<=0 || y<= 0 || x> Frame.WIDTH || y > Frame.HEIGHT){
+      varX += (float)(Math.cos(Math.toRadians(angle)))*speed;
+      varY += (float)(Math.sin(Math.toRadians(angle)))*speed;
+
+      setX(varX);
+      setY(varY);
+      
+		if(getX()<=0 || getY()<= 0 || getX()> Frame.WIDTH || getY() > Frame.HEIGHT){
 			//this.remove();
 			
 		}
 	
     }
-    
-        public void moveToTarget(){
-		
+
+	public void moveToTarget() {
+
 	}
-    
-    	public int getTargetPosX() {
+
+	public int getTargetPosX() {
 		return targetPosX;
 	}
 
@@ -83,5 +87,5 @@ public class Bullet extends Entity{
 	public int getSpeed() {
 		return speed;
 	}
-    
+
 }

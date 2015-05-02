@@ -9,7 +9,7 @@ import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.view.GameThread;
 
 public abstract class GameObject implements Observer {
-	public int x, y;
+	private int x, y;
 	public int velX, velY;
 	public int width, height;
 	public boolean solid;

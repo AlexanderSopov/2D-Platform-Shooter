@@ -100,7 +100,6 @@ public class MonsterA extends Entity {
 		}
 
 		if (!isAnimate()) {
-			System.out.println("<check>");
 			//frameDelay++;
 			setFrameDelay(getFrameDelay()+1);
 			if (getFrameDelay()>= 15) {
