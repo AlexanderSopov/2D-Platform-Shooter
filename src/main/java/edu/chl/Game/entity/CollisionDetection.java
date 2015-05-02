@@ -1,41 +1,42 @@
 package edu.chl.Game.entity;
 
+import java.util.LinkedList;
+
 import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.Tile;
 
 public class CollisionDetection {
-	/*
-	@Override
+	
 	public void update() {
-		x += velX;
-		y += velY;
+		setX(getX() + getVelX());
+		setY(getY() + getVelY());
 
-		if (velX != 0) {
-			animate = true;
+		if (getVelX() != 0) {
+			setAnimate(true);
 		} else {
-			animate = false;
+			setAnimate(false);
 		}
 
 		// checks if objects collides
-		for (Tile t : handler.getTileList()) {
-			if (t.solid) {
+		for (Tile t : getHandler().getTileList()) {
+			if (t.isSolid()) {
 				if (t.getId() == Id.wall) {
 					if (getBoundsTop().intersects(t.getBounds())) {
 						setVelY(0);
-						if (jumping) {
-							jumping = false;
-							gravity = 0.8;
-							falling = true;
+						if (isJumping()) {
+							setJumping(false);
+							setGravity(0.8);
+							setFalling(true);
 						}
 					} else if (getBoundsBottom().intersects(t.getBounds())) {
 						setVelY(0);
-						if (falling) {
-							falling = false;
+						if (isFalling()) {
+							setFalling(false);
 						}
 
-						if (!falling && !jumping) {
-							gravity = 0.8;
-							falling = true;
+						if (!isFalling() && !isJumping()) {
+							setGravity(0.8);
+							setFalling(true);
 						}
 					} else if (getBoundsLeft().intersects(t.getBounds())) {
 						setVelX(0);
@@ -47,7 +48,45 @@ public class CollisionDetection {
 				}
 			}
 		}
-		
-		*/
+
+		LinkedList<Entity> e = handler.getEntityList();
+		for (int i = 0; i < e.size(); i++) {
+			if (e.get(i).getId() == Id.monster) {
+				if (getBounds().intersects(e.get(i).getBoundsTop())) {
+					e.remove();
+				} else if (getBounds().intersects(e.get(i).getBounds())) {
+					remove();
+				}
+			}
+		}
+
+		if (isJumping()) {
+			setGravity(getGravity() - 0.1);
+			setVelY((int) -getGravity());
+			if (getGravity() <= 0.0) {
+				setFalling(true);
+				setJumping(false);
+			}
+		}
+
+		if (isFalling()) {
+			setGravity(getGravity() + 0.1);
+			setVelY((int) getGravity());
+		}
+
+		if (isAnimate()) {
+			setFrameDelay(getFrameDelay()+1);
+			if (getFrameDelay()>= 3) {
+				setFrame(getFrame()+1);
+				if (6 <= getFrame()) {
+					setFrame(0);
+				}
+				setFrameDelay(0);
+			}
+		}
+	}
+	
+	
+	
 
 }

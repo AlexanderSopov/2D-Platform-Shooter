@@ -17,6 +17,7 @@ public abstract class GameObject implements Observer {
 	public Id id;
 	public GameHandler handler;
 	public static GameThread gt = Main.game;
+	private boolean animate = false;
 	
 	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
 		this.x = x;
@@ -75,6 +76,22 @@ public abstract class GameObject implements Observer {
 	
 	public GameHandler getHandler(){
 		return handler;
+	}
+	
+	public int getVelX(){
+		return velX;
+	}
+	
+	public int getVelY(){
+		return velY;
+	}
+	
+	public boolean isAnimate(){
+		return animate;
+	}
+	
+	public void setAnimate(boolean animate){
+		this.animate = animate;
 	}
 	
 }

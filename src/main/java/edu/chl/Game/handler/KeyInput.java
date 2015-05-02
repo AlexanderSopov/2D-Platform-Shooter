@@ -28,19 +28,21 @@ public class KeyInput implements KeyListener{
 			if(en.getId() == Id.player){
 				switch(key){
 				case KeyEvent.VK_W: case 32:
-					if(!en.jumping){
-						en.jumping = true;
-						en.gravity = 8.0;
+					if(!en.isJumping()){
+						en.setJumping(true);
+						en.setGravity(8.0);
 					}
 					break;
 				case KeyEvent.VK_A:
 					en.setVelX(-5);
-					en.facing = 1;
+					//en.facing = 1;
+					en.setFacing(1);
 					en.setFacingDirection(FacingDirection.FacingLeft);
 					break;
 				case KeyEvent.VK_D:
 					en.setVelX(5);
-					en.facing = 0;
+					//en.facing = 0;
+					en.setFacing(0);
 					en.setFacingDirection(FacingDirection.FacingRight);
 					break;
 				}

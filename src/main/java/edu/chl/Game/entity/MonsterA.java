@@ -19,12 +19,12 @@ public class MonsterA extends Entity {
 
 		int r = rand.nextInt(2);
 
-		if (r == 0) {
+		if (true) {
 			velX = 2;
-			facing = 0;
+			setFrame(0);
 		} else if (r == 1) {
 			velX = -2;
-			facing = 1;
+			setFacing(1);
 		}
 
 		if (type == 1) {
@@ -54,18 +54,18 @@ public class MonsterA extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		if(facing==0){
-			getRenderClass().renderAnimateRight(g, monster, frame, x, y, width, height);
-		} else if (facing == 1){
-			getRenderClass().renderAnimateLeft(g, monster, frame, x, y, width, height);
+		if(getFacing()==0){
+			getRenderClass().renderAnimateRight(g, monster, getFrame(), getX(), getY(), width, height);
+		} else if (getFacing() == 1){
+			getRenderClass().renderAnimateLeft(g, monster, getFrame(), getX(), getY(), width, height);
 		}
 		
 	}
 
 	@Override
 	public void update() {
-		x += velX;
-		y += velY;
+		setX(getX() + getVelX());
+		setY(getY() + getVelY());
 
 		for (Tile t : handler.getTileList()) {
 			if (t.solid) {
@@ -73,39 +73,42 @@ public class MonsterA extends Entity {
 					if (getBoundsBottom().intersects(t.getBounds())) {
 						setVelY(0);
 
-						if (falling) {
-							falling = false;
+						if (isFalling()) {
+							setFalling(false);
 						}
 
-						if (!falling) {
-							gravity = 0.8;
-							falling = true;
+						if (!isFalling()) {
+							setGravity(0.8);
+							setFalling(true);
 						}
 
 					} else if (getBoundsLeft().intersects(t.getBounds())) {
 						setVelX(2);
-						facing = 0;
+						setFacing(0);
 					} else if (getBoundsRight().intersects(t.getBounds())) {
 						setVelX(-2);
-						facing = 1;
+						setFacing(1);
 					}
 				}
 			}
 		}
 
-		if (falling) {
-			gravity += 0.1;
-			setVelY((int) gravity);
+		if (isFalling()) {
+			//gravity += 0.1;
+			setGravity(getGravity()+0.1);
+			setVelY((int) getGravity());
 		}
 
-		if (velX != 0) {
-			frameDelay++;
-			if (frameDelay >= 15) {
-				frame++;
-				if (6 <= frame) {
-					frame = 0;
+		if (!isAnimate()) {
+			System.out.println("<check>");
+			//frameDelay++;
+			setFrameDelay(getFrameDelay()+1);
+			if (getFrameDelay()>= 15) {
+				setFrame(getFrame()+1);
+				if (6 <= getFrame()) {
+					setFrame(0);
 				}
-				frameDelay = 0;
+				setFrameDelay(0);
 			}
 		}
 

@@ -11,7 +11,7 @@ import edu.chl.Game.tile.Tile;
 public class Player extends Entity {
 
 	private Sprite player[] = new Sprite[12];
-	private boolean animate = false;
+
 	private CollisionDetection collisionDetection = new CollisionDetection();
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
@@ -31,56 +31,59 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		if (animate) {
-			if (getFacingDirection()==FacingDirection.FacingRight) {
-				getRenderClass().renderAnimateRight(g, player, frame, x, y, height, width);
-			} else if (getFacingDirection()==FacingDirection.FacingLeft) {
-				getRenderClass().renderAnimateLeft(g, player, frame, x, y, height, width);
+		if (isAnimate()) {
+			if (getFacingDirection() == FacingDirection.FacingRight) {
+				getRenderClass().renderAnimateRight(g, player, getFrame(), getX(), getY(), height, width);
+			} else if (getFacingDirection() == FacingDirection.FacingLeft) {
+				getRenderClass().renderAnimateLeft(g, player, getFrame(), x, y,
+						height, width);
 			}
 		}
 
-		else if (!animate) {
-			if (getFacingDirection()==FacingDirection.FacingRight) {
-				getRenderClass().renderNotAnimateRight(g, player, frame, x, y, height, width);
+		else if (!isAnimate()) {
+			if (getFacingDirection() == FacingDirection.FacingRight) {
+				getRenderClass().renderNotAnimateRight(g, player, getFrame(), x, y,
+						height, width);
 			}
 
-			else if (getFacingDirection()==FacingDirection.FacingLeft) {
-				getRenderClass().renderNotAnimateLeft(g, player, frame, x, y, height, width);
+			else if (getFacingDirection() == FacingDirection.FacingLeft) {
+				getRenderClass().renderNotAnimateLeft(g, player, getFrame(), x, y,
+						height, width);
 			}
 		}
 	}
 
 	@Override
 	public void update() {
-		x += velX;
-		y += velY;
+		setX(getX() + getVelX());
+		setY(getY() + getVelY());
 
-		if (velX != 0) {
-			animate = true;
+		if (getVelX() != 0) {
+			setAnimate(true);
 		} else {
-			animate = false;
+			setAnimate(false);
 		}
 
 		// checks if objects collides
-		for (Tile t : handler.getTileList()) {
-			if (t.solid) {
+		for (Tile t : getHandler().getTileList()) {
+			if (t.isSolid()) {
 				if (t.getId() == Id.wall) {
 					if (getBoundsTop().intersects(t.getBounds())) {
 						setVelY(0);
-						if (jumping) {
-							jumping = false;
-							gravity = 0.8;
-							falling = true;
+						if (isJumping()) {
+							setJumping(false);
+							setGravity(0.8);
+							setFalling(true);
 						}
 					} else if (getBoundsBottom().intersects(t.getBounds())) {
 						setVelY(0);
-						if (falling) {
-							falling = false;
+						if (isFalling()) {
+							setFalling(false);
 						}
 
-						if (!falling && !jumping) {
-							gravity = 0.8;
-							falling = true;
+						if (!isFalling() && !isJumping()) {
+							setGravity(0.8);
+							setFalling(true);
 						}
 					} else if (getBoundsLeft().intersects(t.getBounds())) {
 						setVelX(0);
@@ -104,28 +107,28 @@ public class Player extends Entity {
 			}
 		}
 
-		if (jumping) {
-			gravity -= 0.1;
-			setVelY((int) -gravity);
-			if (gravity <= 0.0) {
-				falling = true;
-				jumping = false;
+		if (isJumping()) {
+			setGravity(getGravity() - 0.1);
+			setVelY((int) -getGravity());
+			if (getGravity() <= 0.0) {
+				setFalling(true);
+				setJumping(false);
 			}
 		}
 
-		if (falling) {
-			gravity += 0.1;
-			setVelY((int) gravity);
+		if (isFalling()) {
+			setGravity(getGravity() + 0.1);
+			setVelY((int) getGravity());
 		}
 
-		if (animate) {
-			frameDelay++;
-			if (frameDelay >= 3) {
-				frame++;
-				if (6 <= frame) {
-					frame = 0;
+		if (isAnimate()) {
+			setFrameDelay(getFrameDelay()+1);
+			if (getFrameDelay()>= 3) {
+				setFrame(getFrame()+1);
+				if (6 <= getFrame()) {
+					setFrame(0);
 				}
-				frameDelay = 0;
+				setFrameDelay(0);
 			}
 		}
 	}
