@@ -11,6 +11,8 @@ import edu.chl.Game.tile.Tile;
 public class Player extends Entity {
 
 	private Sprite player[] = new Sprite[12];
+	private ContactWithEnemy contactWithEnemy;
+	private GravitationalProperties gravitationalProperties;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -24,7 +26,9 @@ public class Player extends Entity {
 		for (int i = 0; i < 6; i++) {
 			player[i + 6] = new Sprite(handler.getSheetPlayer(), i, 1, 64, 64);
 		}
-
+		
+		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
+		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
 	}
 
 	@Override
@@ -66,55 +70,27 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-
 		getUpdateMovement().updateCoordinates();
 		getUpdateMovement().toggleAnimate();
-
 		getCollisionDetection().checkForCollision();
-
-		LinkedList<Entity> e = getUnitProperties().getHandler().getEntityList();
-		for (int i = 0; i < e.size(); i++) {
-			if (e.get(i).getUnitState().getId() == Id.monster) {
-				if (getCalculateBounds().getBounds().intersects(
-						e.get(i).getCalculateBounds().getBoundsTop())) {
-					e.remove();
-				} else if (getCalculateBounds().getBounds().intersects(
-						e.get(i).getCalculateBounds().getBounds())) {
-					remove();
-				}
-			}
-		}
-
-		if (getEntityState().isJumping()) {
-			getEntityProperties().setGravity(
-					getEntityProperties().getGravity() - 0.1);
-			getUnitProperties().setVelY(
-					((int) -getEntityProperties().getGravity()));
-			if (getEntityProperties().getGravity() <= 0.0) {
-				getEntityState().setFalling(true);
-				getEntityState().setJumping(false);
-			}
-		}
-
-		if (getEntityState().isFalling()) {
-			getEntityProperties().setGravity(
-					getEntityProperties().getGravity() + 0.1);
-			getUnitProperties().setVelY(
-					((int) getEntityProperties().getGravity()));
-		}
-
+		contactWithEnemy.checkForContact();
+		gravitationalProperties.jumpingMechanics();
+		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
-			getEntityProperties().setFrameDelay(
-					getEntityProperties().getFrameDelay() + 1);
-			if (getEntityProperties().getFrameDelay() >= 3) {
-				getEntityProperties().setFrame(
-						getEntityProperties().getFrame() + 1);
-				if (6 <= getEntityProperties().getFrame()) {
-					getEntityProperties().setFrame(0);
+			iteratingThroughFrames();
+		}
+	}
+	
+	public void iteratingThroughFrames(){
+			getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay() + 1); // increases the frameDelay by 1
+			if (3 <= getEntityProperties().getFrameDelay()) {								// if the frameDelay is equal or higher than 3
+				getEntityProperties().setFrame(getEntityProperties().getFrame() + 1);		// increases the frame by 1
+				if (6 <= getEntityProperties().getFrame()) {								// if the frame is equal or higher than 6
+					getEntityProperties().setFrame(0);										// sets the frame to 0
 				}
-				getEntityProperties().setFrameDelay(0);
+				getEntityProperties().setFrameDelay(0);										// sets the frameDelay to 0
 			}
 		}
 	}
 
-}
+
