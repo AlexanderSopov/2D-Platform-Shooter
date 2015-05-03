@@ -24,16 +24,15 @@ public class CollisionDetection {
 
 	public void checkForCollision() {
 
-		for (Tile t : unitProperties.getHandler().getTileList()) {
-			if (t.getUnitState().isSolid()) {
-				if (t.getUnitState().getId() == Id.wall) {
-					if (calculateBounds.getBoundsTop()
-							.intersects(t.getBounds())) {
-						unitProperties.setVelY(0);
-						if (entityState.isJumping()) {
-							entityState.setJumping(false);
-							entityProp.setGravity(0.8);
-							entityState.setFalling(true);
+		for (Tile t : unitProperties.getHandler().getTileList()) {						// looks through the tilelist
+			if (t.getUnitState().isSolid()) {											// if the tile is solid
+				if (t.getUnitState().getId() == Id.wall) {								// if the tile is a wall
+					if (calculateBounds.getBoundsTop().intersects(t.getBounds())) {		// if the player touches the wall from below						
+						unitProperties.setVelY(0);										// sets the Y-velocity to 0
+						if (entityState.isJumping()) {									// if the player is jumping
+							entityState.setJumping(false);								// set jumping to false
+							entityProp.setGravity(0.8);									// set gravity to 0.8
+							entityState.setFalling(true);								// set falling to true
 						}
 					} else if (calculateBounds.getBoundsBottom().intersects(
 							t.getBounds())) {
