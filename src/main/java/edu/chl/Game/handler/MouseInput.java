@@ -39,9 +39,8 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 			setMousePosY(e.getY());
 		}
 
-		setMousePosX(e.getX());
-		setMousePosY(e.getY());
-                System.out.println("x:" + e.getX());
+		
+               
 	}
 	
 
@@ -69,7 +68,7 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent e) {
 			
-		e.getComponent().setCursor(blankCursor);
+		//e.getComponent().setCursor(blankCursor);
 		
 		onCanvas = true;
 		

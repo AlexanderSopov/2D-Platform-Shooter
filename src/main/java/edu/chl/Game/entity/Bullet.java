@@ -18,27 +18,32 @@ import java.awt.Graphics;
 public class Bullet extends Entity{
     
     private int targetPosX,targetPosY, speed;
-    private float angle;
+    private double angle;
     private double firstAngle;
     private boolean passedTarget = false;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler,int targetPosX, int targetPosY, int speed) {
+			GameHandler handler,int targetPosX, int targetPosY, int speed, double angle) {
         super(x, y, width, height, solid, id, handler);
         
-
+                
 		this.setTargetPosX(targetPosX);
                 
 		this.setTargetPosY(targetPosY);
 		this.speed = 2;
                 //System.out.println("");
                  firstAngle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-		
+                 this.angle = angle;
+                 
+                
+                 System.out.println(""+ angle);
+		/*
 		 if(!this.passedTarget){
-                    angle = (float) Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-                    //passedTarget = true;
-                 }   	
+                    angle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
+                    
+//passedTarget = true;
+                 }   	*/
        
                 
 		
@@ -53,7 +58,7 @@ public class Bullet extends Entity{
         g.fillOval(this.targetPosX-(width/2), this.targetPosY-(height/2), width, height);
         g.drawString(""+ angle, x, y);
         g.setColor(Color.red);
-        g.drawLine(x, y, this.targetPosX, this.targetPosY);
+        //g.drawLine(x, y, this.targetPosX, this.targetPosY);
 		
     }
 
@@ -62,8 +67,8 @@ public class Bullet extends Entity{
         //angle = (float) Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
         //System.out.println(angle);
 
-       x += (Math.cos(Math.toRadians(angle)))*speed;
-       y += (Math.sin(Math.toRadians(angle)))*speed;
+       x += (Math.cos(Math.toRadians(angle))*speed);
+       y += (Math.sin(Math.toRadians(angle))*speed);
 		
 	
     }
