@@ -18,9 +18,12 @@ import java.awt.Graphics;
 public class Bullet extends Entity{
     
     private int targetPosX,targetPosY, speed;
-    private double angle;
+    private float angle;
     private double firstAngle;
     private boolean passedTarget = false;
+    float length;
+    float xVelocity, yVelocity;
+    float nx,ny;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
@@ -31,10 +34,13 @@ public class Bullet extends Entity{
 		this.setTargetPosX(targetPosX);
                 
 		this.setTargetPosY(targetPosY);
-		this.speed = 2;
+		this.speed = 25;
                 //System.out.println("");
-                 firstAngle = Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
-                 this.angle = angle;
+                ny = targetPosY-y;
+                nx = targetPosX-x;
+                 //firstAngle = Math.toDegrees(Math.atan2(ny, nx));
+                length = (float)Math.sqrt((nx * nx) + (ny* ny));
+                 //this.angle = firstAngle;
                  
                 
                  System.out.println(""+ angle);
@@ -66,10 +72,12 @@ public class Bullet extends Entity{
     public void update() {
         //angle = (float) Math.toDegrees(Math.atan2(targetPosY-y, targetPosX-x));
         //System.out.println(angle);
-
-       x += (Math.cos(Math.toRadians(angle))*speed);
-       y += (Math.sin(Math.toRadians(angle))*speed);
-		
+        xVelocity = nx / length * speed;
+        yVelocity = ny / length * speed;
+       //x += (float)(Math.cos(Math.toRadians(angle))*speed);
+       //y += (float)(Math.sin(Math.toRadians(angle))*speed);
+	x += xVelocity;
+        y += yVelocity;
 	
     }
     
@@ -96,5 +104,32 @@ public class Bullet extends Entity{
 	public int getSpeed() {
 		return speed;
 	}
+        
+      public static vec2 point(vec2 pivot, vec2 point, float rotation) {
+      
+      float rot = (float)(1f / 180 * rotation * Math.PI);
+      
+      float x = point.x - pivot.x;
+      float y = point.y - pivot.y;
+      
+      float newx = (float)(x * Math.cos(rot) - y * Math.sin(rot));
+      float newy = (float)(x * Math.sin(rot) + y * Math.cos(rot));
+      
+      
+      newx += pivot.x;
+      newy += pivot.y;
+      
+      return new vec2(newx, newy);
+   }
+
+   public static int angle(vec2 pivot, vec2 point) {
+
+      float xdiff = pivot.x - point.x;
+      float ydiff = pivot.y - point.y;
+      
+      float angle = (float) ((Math.atan2(xdiff, ydiff)) * 180 / Math.PI);
+      
+      return -(int)angle;
+   }
     
 }
