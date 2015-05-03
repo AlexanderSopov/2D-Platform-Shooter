@@ -21,11 +21,13 @@ public final class Main {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
 					game = new GameThread();
-					game.start();
-					for (Entity e: game.handler.getEntityList())
+					
+					//Moved to GameThread
+					/*game.start();
+					for (Entity e: game.gameHandler.getEntityList())
 						game.addObserver(e);
-					for (Tile t: game.handler.getTileList())
-						game.addObserver(t);
+					for (Tile t: game.gameHandler.getTileList())
+						game.addObserver(t);*/
 					
                 });
 	}
