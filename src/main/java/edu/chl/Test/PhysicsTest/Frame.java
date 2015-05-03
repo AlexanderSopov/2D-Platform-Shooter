@@ -1,4 +1,4 @@
-package PhysicsTest;
+package edu.chl.Test.PhysicsTest;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;

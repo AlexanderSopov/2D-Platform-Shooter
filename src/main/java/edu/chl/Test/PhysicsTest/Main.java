@@ -1,7 +1,7 @@
-package PhysicsTest;
+package edu.chl.Test.PhysicsTest;
 
 
-import GameObject.Circle;
+import edu.chl.Game.GameObject.Circle;
 
 
 

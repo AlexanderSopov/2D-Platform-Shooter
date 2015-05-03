@@ -1,6 +1,6 @@
-package Physics;
+package edu.chl.Game.Physics;
 
-import GameObject.Circle;
+import edu.chl.Game.GameObject.Circle;
 
 public class CollisionStrategy {
 	CollisionDetective detective;
