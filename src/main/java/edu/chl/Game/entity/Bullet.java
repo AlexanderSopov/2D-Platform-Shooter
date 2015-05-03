@@ -45,7 +45,7 @@ public class Bullet extends Entity{
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
-	g.fillOval(x-(width/2), y-(height/2), width, height);
+	g.fillOval(getX()-(getWidth()/2),getY()-(getHeight()/2), getWidth(), getHeight());
         //g.setColor(Color.GREEN);
        // g.fillOval(this.targetPosX-(width/2), this.targetPosY-(height/2), width, height);
         //g.drawString(""+ angle, x, y);
@@ -58,8 +58,8 @@ public class Bullet extends Entity{
         xVelocity = nx / length * speed;
         yVelocity = ny / length * speed;
 
-	x += xVelocity;
-        y += yVelocity;
+	setX(getX() + (int)xVelocity);
+        setY(getY() + (int)yVelocity);
 
 	
     }

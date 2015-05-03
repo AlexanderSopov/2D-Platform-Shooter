@@ -53,6 +53,31 @@ public abstract class GameObject implements Observer {
 	public UpdateMovement getUpdateMovement(){
 		return this.updateMovement;
 	}
+        
+        public int getX(){
+            return unitProperties.getX();
+        }
+        
+         public int getY(){
+             return unitProperties.getY();
+        }
+         
+        public void setX(int x){
+            unitProperties.setX(x);
+        }
+        
+         public void setY(int y){
+             unitProperties.setY(y);
+        }
+        
+         public int getWidth(){
+            return unitProperties.getWidth();
+        }
+        
+         public int getHeight(){
+             return unitProperties.getHeight();
+        }
+        
 
 	
 

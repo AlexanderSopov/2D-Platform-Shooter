@@ -59,8 +59,8 @@ public class GameCursor extends Entity{
 			case AIM:
                                 
                                 g.setColor(Color.red);
-                                g.drawOval(x-15, y-15, 30, 30);
-                                g.fillRect(x, y, 1, 1);
+                                g.drawOval(getX()-15, getY()-15, 30, 30);
+                                g.fillRect(getX(), getY(), 1, 1);
                                 
                                 /*
                                 g.drawLine(x, y,en.getX() + (en.width/2) ,en.getY()+ (en.height/2));
@@ -85,8 +85,8 @@ public class GameCursor extends Entity{
                         
 			setX(MouseInput.getMousePosX()-(-en.getX() + Frame.WIDTH/2));
 			setY(MouseInput.getMousePosY()-(-en.getY() + Frame.HEIGHT/2 + 100));
-                        l1 = new Line2D.Double(en.getX()+ (en.width/2), en.getY()+ (en.height/2), getX(), getY());
-                        l2 = new Line2D.Double(en.getX()+ (en.width/2), en.getY()+ (en.height/2), en.getX()+ (en.width/2)+10, en.getY()+ (en.height/2));
+                        l1 = new Line2D.Double(en.getX()+ (en.getWidth()/2), en.getY()+ (en.getHeight()/2), getX(), getY());
+                        l2 = new Line2D.Double(en.getX()+ (en.getWidth()/2), en.getY()+ (en.getHeight()/2), en.getX()+ (en.getWidth()/2)+10, en.getY()+ (en.getHeight()/2));
                         //angle = angleBetween2Lines(l1,l2);
                    
                         
@@ -100,7 +100,7 @@ public class GameCursor extends Entity{
         
         public void shoot(){
            
-            Bullet b = new Bullet(en.getX() + (en.width/2) ,en.getY()+ (en.height/2),10,10,true, Id.bullet, handler, getX(), getY(), 12, this.angle);
+            Bullet b = new Bullet(en.getX() + (en.getWidth()/2) ,en.getY()+ (en.getHeight()/2),10,10,true, Id.bullet, getHandler(), getX(), getY(), 12, this.angle);
             addBullet(b);
             
 
