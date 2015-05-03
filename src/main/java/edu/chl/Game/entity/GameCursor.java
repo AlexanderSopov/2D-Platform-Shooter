@@ -62,12 +62,13 @@ public class GameCursor extends Entity{
                                 g.drawOval(x-15, y-15, 30, 30);
                                 g.fillRect(x, y, 1, 1);
                                 
+                                /*
                                 g.drawLine(x, y,en.getX() + (en.width/2) ,en.getY()+ (en.height/2));
                                 if(l2 != null){
                                     g.setColor(Color.GRAY);
                                     g.drawLine((int)l2.getX1(), (int)l2.getY1(),(int)l2.getX2() +140,(int)l2.getY2());
                                 }
-                                g.drawString(angle+"", x, y);
+                                g.drawString(angle+"", x, y);*/
 				break;
 			
 		
@@ -86,8 +87,8 @@ public class GameCursor extends Entity{
 			setY(MouseInput.getMousePosY()-(-en.getY() + Frame.HEIGHT/2 + 100));
                         l1 = new Line2D.Double(en.getX()+ (en.width/2), en.getY()+ (en.height/2), getX(), getY());
                         l2 = new Line2D.Double(en.getX()+ (en.width/2), en.getY()+ (en.height/2), en.getX()+ (en.width/2)+10, en.getY()+ (en.height/2));
-                        angle = angleBetween2Lines(l1,l2);
-                        //angle = Math.toDegrees(Math.atan2(y-(en.getY()+(en.height/2)), en.getX()+(en.width/2)-x));
+                        //angle = angleBetween2Lines(l1,l2);
+                   
                         
                         for(Bullet b: getBulletList()){
                             b.update();
@@ -98,11 +99,11 @@ public class GameCursor extends Entity{
 	}
         
         public void shoot(){
-            System.out.println(""+ angle);
+           
             Bullet b = new Bullet(en.getX() + (en.width/2) ,en.getY()+ (en.height/2),10,10,true, Id.bullet, handler, getX(), getY(), 12, this.angle);
             addBullet(b);
             
-            //System.out.println("shoot"+ handler.getEntityList().size());
+
         }
         
         
