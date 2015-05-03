@@ -22,6 +22,7 @@ public final class Main {
 		SwingUtilities.invokeLater(() -> {
 					game = new GameThread();
 					
+					//Moved to GameThread
 					/*game.start();
 					for (Entity e: game.gameHandler.getEntityList())
 						game.addObserver(e);

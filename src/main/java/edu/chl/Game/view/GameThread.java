@@ -21,9 +21,10 @@ public class GameThread extends Observable implements Runnable {
 	private Frame frame;
 	private StartMenu startMenu;
 	private GameHandler gameHandler;
-	
 	private boolean running = false;
-	public static State state = State.MENU;
+	
+	//The state of the game
+	public static State state = State.GAME;
 	
 	private double delta = 0.0;
 	private int Frame=1;
