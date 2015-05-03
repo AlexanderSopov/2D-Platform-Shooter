@@ -1,9 +1,6 @@
 package edu.chl.Game.handler;
 
 import edu.chl.Game.entity.GameCursor;
-import edu.chl.Game.view.Frame;
-import edu.chl.Game.view.GameThread;
-
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -12,8 +9,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JButton;
-
 
 public class MouseInput implements MouseMotionListener, MouseListener{
 	
@@ -21,14 +16,9 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
 	private Cursor blankCursor;//hide 
-    private GameCursor c;
-    private Frame frame;
-    
-    public MouseInput(Frame frame){
-    	this.frame = frame;
-    }
+        private GameCursor c;
 	
-	public MouseInput(GameCursor c){
+	MouseInput(GameCursor c){
 		//Put all the pre-load content here
 		this.c = c;
 		// Transparent 16 x 16 pixel cursor image.
@@ -50,59 +40,35 @@ public class MouseInput implements MouseMotionListener, MouseListener{
 		}
 
 		
+               
 	}
 	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(GameThread.state == State.GAME){
-			c.shoot();
-		}else if(e.getSource() instanceof JButton){
-			JButton tempButton = ((JButton) e.getSource());
-			frame.getContentPane().removeAll();
-			
-			if(GameThread.state == State.MENU){		
-				if(tempButton.getText() == "Start"){
-					GameThread.state = State.GAME;
-				}else if(tempButton.getText() == "New"){
-					GameThread.state = State.GAME;
-				}else if(tempButton.getText() == "Option"){
-					GameThread.state = State.OPTION;
-				}else if(tempButton.getText() == "Credit"){
-					GameThread.state = State.CREDIT;
-				}else if(tempButton.getText() == "Exit"){
-					System.exit(0);
-				}
-			}else if(GameThread.state == State.OPTION){
-				if(tempButton.getText() == "Back"){
-					GameThread.state = State.MENU;
-				}
-			}
-		}
+		c.shoot();
+		
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(GameThread.state == State.GAME){
-			pressed = true;
-		}
+
+		pressed = true;
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(GameThread.state == State.GAME){
-			pressed = false;
-		}
+		
+		pressed = false;
+		
 	}
 	
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
-		if(GameThread.state == State.GAME){
-			e.getComponent().setCursor(blankCursor);
-		}
+			
+		//e.getComponent().setCursor(blankCursor);
 		
 		onCanvas = true;
 		
