@@ -29,22 +29,20 @@ public class KeyInput implements KeyListener {
 				switch (key) {
 				case KeyEvent.VK_W:
 				case 32:
-					if (!en.isJumping()) {
-						en.setJumping(true);
-						en.setGravity(8.0);
+					if (!en.getEntityState().isJumping()) {
+						en.getEntityState().setJumping(true);
+						en.getEntityProperties().setGravity(8.0);
 					}
 					break;
 				case KeyEvent.VK_A:
 					en.getUnitProperties().setVelX(-5);
 					// en.facing = 1;
-					en.setFacing(1);
-					en.setFacingDirection(FacingDirection.FacingLeft);
+					en.getEntityState().setFacingDirection(FacingDirection.FacingLeft);
 					break;
 				case KeyEvent.VK_D:
 					en.getUnitProperties().setVelX(5);
 					// en.facing = 0;
-					en.setFacing(0);
-					en.setFacingDirection(FacingDirection.FacingRight);
+					en.getEntityState().setFacingDirection(FacingDirection.FacingRight);
 					break;
 				}
 			}

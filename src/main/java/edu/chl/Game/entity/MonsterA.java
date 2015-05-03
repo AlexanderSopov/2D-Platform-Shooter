@@ -22,10 +22,10 @@ public class MonsterA extends Entity {
 
 		if (true) {
 			getUnitProperties().setVelX(2);
-			setFrame(0);
+			getEntityProperties().setFrame(0);
 		} else if (r == 1) {
 			getUnitProperties().setVelX(-2);
-			setFacing(1);
+			getEntityState().setFacingDirection(FacingDirection.FacingRight);
 		}
 
 		if (type == 1) {
@@ -55,10 +55,10 @@ public class MonsterA extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		if(getFacing()==0){
-			getRenderClass().renderAnimateRight(g, monster, getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
-		} else if (getFacing() == 1){
-			getRenderClass().renderAnimateLeft(g, monster, getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
+		if(getEntityState().getFacingDirection()==FacingDirection.FacingRight){
+			getRenderClass().renderAnimateRight(g, monster, getEntityProperties().getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
+		} else if (getEntityState().getFacingDirection()==FacingDirection.FacingLeft){
+			getRenderClass().renderAnimateLeft(g, monster, getEntityProperties().getFrame(), getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
 		}
 		
 	}
@@ -67,47 +67,47 @@ public class MonsterA extends Entity {
 	public void update() {
 		getUpdateMovement().updateCoordinates();
 
-		for (Tile t : getHandler().getTileList()) {
+		for (Tile t : getUnitProperties().getHandler().getTileList()) {
 			if (t.getUnitState().isSolid()) {
 				if (t.getUnitState().getId() == Id.wall) {
 					if (getCalculateBounds().getBoundsBottom().intersects(t.getBounds())) {
 						getUnitProperties().setVelY(0);
 
-						if (isFalling()) {
-							setFalling(false);
+						if (getEntityState().isFalling()) {
+							getEntityState().setFalling(false);
 						}
 
-						if (!isFalling()) {
-							setGravity(0.8);
-							setFalling(true);
+						if (!getEntityState().isFalling()) {
+							getEntityProperties().setGravity(0.8);
+							getEntityState().setFalling(true);
 						}
 
 					} else if (getCalculateBounds().getBoundsLeft().intersects(t.getBounds())) {
 						getUnitProperties().setVelX(2);
-						setFacing(0);
+						getEntityState().setFacingDirection(FacingDirection.FacingRight);
 					} else if (getCalculateBounds().getBoundsRight().intersects(t.getBounds())) {
 						getUnitProperties().setVelX(-2);
-						setFacing(1);
+						getEntityState().setFacingDirection(FacingDirection.FacingLeft);
 					}
 				}
 			}
 		}
 
-		if (isFalling()) {
+		if (getEntityState().isFalling()) {
 			//gravity += 0.1;
-			setGravity(getGravity()+0.1);
-			getUnitProperties().setVelY((int) getGravity());
+			getEntityProperties().setGravity(getEntityProperties().getGravity()+0.1);
+			getUnitProperties().setVelY((int) getEntityProperties().getGravity());
 		}
 
 		if (!getUnitState().isAnimate()) {
 			//frameDelay++;
-			setFrameDelay(getFrameDelay()+1);
-			if (getFrameDelay()>= 15) {
-				setFrame(getFrame()+1);
-				if (6 <= getFrame()) {
-					setFrame(0);
+			getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay()+1);
+			if (getEntityProperties().getFrameDelay()>= 15) {
+				getEntityProperties().setFrame(getEntityProperties().getFrame()+1);
+				if (6 <= getEntityProperties().getFrame()) {
+					getEntityProperties().setFrame(0);
 				}
-				setFrameDelay(0);
+				getEntityProperties().setFrameDelay(0);
 			}
 		}
 

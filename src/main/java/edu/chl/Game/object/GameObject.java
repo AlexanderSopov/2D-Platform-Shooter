@@ -11,17 +11,17 @@ import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.view.GameThread;
 
 public abstract class GameObject implements Observer {
-	private GameHandler handler;
 	public static GameThread gt = Main.game;
 	private UnitProperties unitProperties;
 	private UnitState unitState;
 	private UpdateMovement updateMovement;
+	private CalculateBounds calculateBounds;
 	
 	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
-		this.handler = handler;
-		this.unitProperties = new UnitProperties(x, y, width, height);
+		this.unitProperties = new UnitProperties(handler, x, y, width, height);
 		this.unitState = new UnitState(id, solid);
 		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
+		this.calculateBounds = new CalculateBounds(unitProperties);
 		
 	}
 	
@@ -38,10 +38,6 @@ public abstract class GameObject implements Observer {
 	public abstract void update();
 	public abstract void remove();
 	
-	public GameHandler getHandler(){
-		return handler;
-	}
-	
 	public UnitProperties getUnitProperties(){
 		return unitProperties;
 	}
@@ -52,6 +48,10 @@ public abstract class GameObject implements Observer {
 	
 	public UpdateMovement getUpdateMovement(){
 		return this.updateMovement;
+	}
+	
+	public CalculateBounds getCalculateBounds(){
+		return calculateBounds;
 	}
 
 	
