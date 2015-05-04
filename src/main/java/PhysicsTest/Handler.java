@@ -19,7 +19,7 @@ public class Handler implements Observer {
 	public Handler(){
 		//c1.setVelocity(22,-5);
 		//c3.setVelocity(-1, -50);
-		b1.setVelocity(new Vector2D(0,-10));
+		b1.setVelocity(new Vector2D(-5,-5));
 	}
 	
 	

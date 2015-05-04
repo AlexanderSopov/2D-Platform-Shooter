@@ -69,7 +69,7 @@ public class BoxVsBox implements CollisionDetective {
 	private void correctPositions() {
 		double sumMass = a.mass + b.mass;
 		double ratio = a.mass / sumMass;
-		double move = (getPenetration()+1) / normal.getY();
+		double move = (setPenetrationAndNormal()+1) / normal.getY();
 		System.out.println("move = " + move);
 		Vector2D correction = normal.scale(move*ratio);
 		System.out.println("correction.Y = " + correction.getY());
@@ -83,12 +83,14 @@ public class BoxVsBox implements CollisionDetective {
 	}
 	
 	
-	private double getPenetration() {
-		if(invasionOnY > 50)
+	private double setPenetrationAndNormal() {
+		if(invasionOnY > 50){
+			normal = new Vector2D(normal.getX(), -normal.getY());
 			return invasionOnX;
-		else
+		}else{
+			normal = new Vector2D(-normal.getX(), normal.getY());
 			return invasionOnY;
-		
+		}
 	}
 
 	private void setVelocityToRatio(Vector2D impulse) {
@@ -125,19 +127,6 @@ public class BoxVsBox implements CollisionDetective {
 		return  a.subtractWith(b);
 	}
 
-	private void setNormal() {
-		if(invasionOnX < invasionOnY){
-			if (normal.getX() > 0)
-				normal = new Vector2D( -1, 0 );
-			else
-				normal = new Vector2D( 1, 0 );
-		}else{
-			if (normal.getY() > 0 )
-				normal = new Vector2D(0,-1);
-			else
-				normal = new Vector2D(0,1);
-		}
-	}
 
 
 
