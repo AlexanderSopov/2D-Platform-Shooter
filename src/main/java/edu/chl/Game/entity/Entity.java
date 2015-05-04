@@ -21,8 +21,6 @@ public abstract class Entity extends GameObject {
 		entityProperties = new EntityProperties();
 		collisionDetection = new CollisionDetection(getUnitProperties(), getUnitState(), getCalculateBounds(), entityProperties, entityState);
 
-
-
 	}
 
 	public EntityProperties getEntityProperties(){
