@@ -1,16 +1,20 @@
 package edu.chl.Game.entity;
 
+import edu.chl.Game.handler.GameHandler;
+
 public class UnitProperties {
 	
 	private int x, y;
 	private int velX, velY;
 	private int width, height;
+	private GameHandler handler;
 	
-	public UnitProperties(int x, int y, int width, int height){
+	public UnitProperties(GameHandler handler, int x, int y, int width, int height){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.handler = handler;
 	}
 	
 	public int getVelX(){
@@ -28,7 +32,6 @@ public class UnitProperties {
 	public void setVelY(int velY){
 		this.velY = velY;
 	}
-
 
 	public int getX() {
 		return x;
@@ -60,6 +63,10 @@ public class UnitProperties {
 	
 	public void setHeight(int height){
 		this.height = height;
+	}
+	
+	public GameHandler getHandler(){
+		return handler;
 	}
 	
 }
