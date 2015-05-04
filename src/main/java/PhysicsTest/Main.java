@@ -1,9 +1,9 @@
 package PhysicsTest;
 
 
-import GameObject.Circle;
-import GameObject.Box;
-import GameObject.StaticBox;
+import edu.chl.Game.GameObject.Box;
+import edu.chl.Game.GameObject.Circle;
+import edu.chl.Game.GameObject.StaticBox;
 
 
 

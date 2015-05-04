@@ -1,7 +1,7 @@
-package Physics;
+package edu.chl.Game.Physics;
 
-import Vector.Vector2D;
-import GameObject.Box;
+import edu.chl.Game.GameObject.Box;
+import edu.chl.Game.Vector.Vector2D;
 
 public class BoxVsBox implements CollisionDetective {
 	private final Box a;

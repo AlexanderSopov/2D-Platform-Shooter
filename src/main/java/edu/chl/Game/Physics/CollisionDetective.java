@@ -1,4 +1,4 @@
-package Physics;
+package edu.chl.Game.Physics;
 
 
 public interface CollisionDetective {	

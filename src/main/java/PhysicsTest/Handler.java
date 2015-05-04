@@ -3,10 +3,10 @@ package PhysicsTest;
 import java.util.Observable;
 import java.util.Observer;
 
-import GameObject.Box;
-import GameObject.Circle;
-import Physics.CollisionStrategy;
-import Vector.Vector2D;
+import edu.chl.Game.GameObject.Box;
+import edu.chl.Game.GameObject.Circle;
+import edu.chl.Game.Physics.CollisionStrategy;
+import edu.chl.Game.Vector.Vector2D;
 
 public class Handler implements Observer {
 	

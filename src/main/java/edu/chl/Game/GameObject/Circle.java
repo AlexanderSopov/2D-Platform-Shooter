@@ -1,9 +1,9 @@
-package GameObject;
+package edu.chl.Game.GameObject;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
-import Vector.Vector2D;
+import edu.chl.Game.Vector.Vector2D;
 
 public class Circle extends Entity {
 	

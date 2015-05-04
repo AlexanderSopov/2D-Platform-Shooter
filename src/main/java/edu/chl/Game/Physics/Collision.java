@@ -1,7 +1,7 @@
-package Physics;
+package edu.chl.Game.Physics;
 
-import GameObject.BoundingBox;
-import GameObject.Circle;
+import edu.chl.Game.GameObject.BoundingBox;
+import edu.chl.Game.GameObject.Circle;
 
 
 public class Collision {

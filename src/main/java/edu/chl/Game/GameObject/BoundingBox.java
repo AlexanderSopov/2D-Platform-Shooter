@@ -1,4 +1,4 @@
-package GameObject;
+package edu.chl.Game.GameObject;
 
 import java.awt.Point;
 import java.awt.Rectangle;

@@ -1,8 +1,8 @@
-package Physics;
+package edu.chl.Game.Physics;
 
-import Vector.Vector2D;
-import GameObject.Box;
-import GameObject.Circle;
+import edu.chl.Game.GameObject.Box;
+import edu.chl.Game.GameObject.Circle;
+import edu.chl.Game.Vector.Vector2D;
 
 public class CircleVsBox implements CollisionDetective {
 	private final Circle a;

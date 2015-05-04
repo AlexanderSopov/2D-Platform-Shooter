@@ -1,10 +1,10 @@
-package GameObject;
+package edu.chl.Game.GameObject;
 
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import Vector.Vector2D;
+import edu.chl.Game.Vector.Vector2D;
 
 public class Box extends Entity {
 	private Rectangle2D.Double shape;
