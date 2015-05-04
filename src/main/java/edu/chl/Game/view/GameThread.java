@@ -5,7 +5,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Observable;
 
+import edu.chl.Game.entity.Entity;
 import edu.chl.Game.handler.GameHandler;
+import edu.chl.Game.handler.State;
+import edu.chl.Game.tile.Tile;
 
 /**
  * 
@@ -13,14 +16,15 @@ import edu.chl.Game.handler.GameHandler;
  * @version 1.0
  */
 public class GameThread extends Observable implements Runnable {
-	
-	
-	
+
 	private Thread thread;
 	private Frame frame;
-	public GameHandler handler;
-	
+	private StartMenu startMenu;
+	private GameHandler gameHandler;
 	private boolean running = false;
+	
+	//The state of the game
+	public static State state = State.GAME;
 	
 	private double delta = 0.0;
 	private int Frame=1;
@@ -29,7 +33,14 @@ public class GameThread extends Observable implements Runnable {
 	public GameThread(){
 		thread = new Thread(this);
 		frame = new Frame();
-		handler = new GameHandler(thread, frame);
+		startMenu = new StartMenu(frame);
+		gameHandler = new GameHandler(thread, frame);
+		start();
+		
+		for (Entity e: gameHandler.getEntityList())
+			addObserver(e);
+		for (Tile t: gameHandler.getTileList())
+			addObserver(t);
 	}
 
 	/**
@@ -40,7 +51,6 @@ public class GameThread extends Observable implements Runnable {
 			return;
 		running = true;
 		thread.start();
-		
 	}
 	
 	public synchronized void interrupt(){
@@ -57,28 +67,39 @@ public class GameThread extends Observable implements Runnable {
 	@Override
 	public void run() {
 		frame.requestFocus();
-		timer();	
+		timer();
 	}
 	
 	/**
 	 * Update Timer, create a Buffer and update the handler.
 	 */
 	public void update(){
-		setChanged();
-		render();
-		printTimer();
+			setChanged();
+			render();
+			printTimer();
 	}
 
 	/**
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
-		BufferStrategy bs = frame.getBufferStrategy();
-		if(bs == null){
-			frame.createBufferStrategy(3);
-			return;
+		if(state == State.GAME){
+			BufferStrategy bs = frame.getBufferStrategy();
+			if(bs == null){
+				frame.createBufferStrategy(3);
+				return;
+				}
+			renderGraphics(bs);
+		}else if(state == State.MENU && !startMenu.inMenu()){
+			startMenu.setMenu();
+			frame.setVisible(true);
+		}else if(state == State.OPTION && !startMenu.inOption()){
+			startMenu.setOption();
+			frame.setVisible(true);
+		}else if(state == State.CREDIT && !startMenu.inCredit()){
+			startMenu.setCredit();
+			frame.setVisible(true);
 		}
-		renderGraphics(bs);
 	}
 	
 	/**
@@ -87,13 +108,14 @@ public class GameThread extends Observable implements Runnable {
 	 */
 	public void renderGraphics(BufferStrategy b) {
 		Graphics g = b.getDrawGraphics();
-		g.setColor(new Color(135, 206, 235));
-		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-		g.translate(handler.getCamera().getX(), handler.getCamera().getY());
-		notifyObservers((Object)g);
-		handler.render(g);
-		g.dispose();
-		b.show();
+			frame.requestFocus();
+			g.setColor(new Color(135, 206, 235));
+			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
+			notifyObservers((Object)g);
+			gameHandler.render(g);
+			b.show();
+			g.dispose();
 	}
 	
 

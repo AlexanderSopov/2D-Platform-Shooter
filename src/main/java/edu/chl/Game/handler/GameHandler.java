@@ -31,7 +31,7 @@ public class GameHandler{
 	private SpriteSheet sheetEnemyUnit0;
 	
 	private Camera camera;
-        private GameCursor c;
+    private GameCursor c;
 	
 	public GameHandler(Thread thread, Frame frame){
 		this.thread = thread;
@@ -40,8 +40,8 @@ public class GameHandler{
                 createSheet();
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
-                frame.addMouseListener(new MouseInput(c));
-                frame.addMouseMotionListener(new MouseInput(c));
+        frame.addMouseListener(new MouseInput(c));
+        frame.addMouseMotionListener(new MouseInput(c));
 		
 	}
 	
