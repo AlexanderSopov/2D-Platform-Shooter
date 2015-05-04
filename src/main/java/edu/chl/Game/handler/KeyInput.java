@@ -57,10 +57,12 @@ public class KeyInput implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		for (Entity en : handler.getEntityList()) {
-			if (en.getUnitState().getId() == Id.player) {
-				en.getUnitProperties().setVelY(0);
-				en.getUnitProperties().setVelX(0);
+		if (GameThread.state == State.GAME) {
+			for (Entity en : handler.getEntityList()) {
+				if (en.getUnitState().getId() == Id.player) {
+					en.getUnitProperties().setVelY(0);
+					en.getUnitProperties().setVelX(0);
+				}
 			}
 		}
 	}
