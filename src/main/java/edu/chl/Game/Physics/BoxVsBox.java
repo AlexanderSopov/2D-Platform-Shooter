@@ -44,12 +44,21 @@ public class BoxVsBox implements CollisionDetective {
 		double penetration = getPenetration();
 		setNormal();
 		double rVelocityLength = velocityNormal.dotProduct(normal);
+		if (rVelocityLength < 0.8)
+			rVelocityLength = 0.0;
+		System.out.println("VelocityLength =  " + rVelocityLength);
 		setVelocityNormal();
 		correctBoxes(rVelocityLength, penetration);
 		
 	}
 
 
+
+	private double stop() {
+		normal = new Vector2D (0,0);
+		velocityNormal = new Vector2D(0,0);
+		return 0.0;
+	}
 
 	private double getPenetration() {
 		if(xInvasionIsSmaller())
