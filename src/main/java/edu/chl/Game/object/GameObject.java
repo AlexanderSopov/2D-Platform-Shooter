@@ -16,73 +16,71 @@ public abstract class GameObject implements Observer {
 	private UnitState unitState;
 	private UpdateMovement updateMovement;
 	private CalculateBounds calculateBounds;
-	
-	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler){
+
+	public GameObject(int x, int y, int width, int height, boolean solid,
+			Id id, GameHandler handler) {
 		this.unitProperties = new UnitProperties(handler, x, y, width, height);
 		this.unitState = new UnitState(id, solid);
-		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
+		this.updateMovement = new UpdateMovement(this.unitProperties,
+				this.unitState);
 		this.calculateBounds = new CalculateBounds(unitProperties);
-		
+
 	}
-	
+
 	public abstract void render(Graphics g);
-	public void update(Observable o, Object arg){
+
+	public void update(Observable o, Object arg) {
 		try {
-			Graphics g = (Graphics)arg;
+			Graphics g = (Graphics) arg;
 			render(g);
 			update();
-		}catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			System.out.println("oops!");
 		}
 	}
+
 	public abstract void update();
+
 	public abstract void remove();
-	
-	public UnitProperties getUnitProperties(){
+
+	public UnitProperties getUnitProperties() {
 		return unitProperties;
 	}
-	
-	public UnitState getUnitState(){
+
+	public UnitState getUnitState() {
 		return unitState;
 	}
-	
-	public UpdateMovement getUpdateMovement(){
+
+	public UpdateMovement getUpdateMovement() {
 		return this.updateMovement;
 	}
-<<<<<<< HEAD
-	
-	public CalculateBounds getCalculateBounds(){
+
+	public CalculateBounds getCalculateBounds() {
 		return calculateBounds;
 	}
-=======
-        
-        public int getX(){
-            return unitProperties.getX();
-        }
-        
-         public int getY(){
-             return unitProperties.getY();
-        }
-         
-        public void setX(int x){
-            unitProperties.setX(x);
-        }
-        
-         public void setY(int y){
-             unitProperties.setY(y);
-        }
-        
-         public int getWidth(){
-            return unitProperties.getWidth();
-        }
-        
-         public int getHeight(){
-             return unitProperties.getHeight();
-        }
-        
->>>>>>> 7646bbbf02eeeae2e0bddcc3d89a3113ba9395da
 
-	
+	public int getX() {
+		return unitProperties.getX();
+	}
 
-	
+	public int getY() {
+		return unitProperties.getY();
+	}
+
+	public void setX(int x) {
+		unitProperties.setX(x);
+	}
+
+	public void setY(int y) {
+		unitProperties.setY(y);
+	}
+
+	public int getWidth() {
+		return unitProperties.getWidth();
+	}
+
+	public int getHeight() {
+		return unitProperties.getHeight();
+	}
+
 }
