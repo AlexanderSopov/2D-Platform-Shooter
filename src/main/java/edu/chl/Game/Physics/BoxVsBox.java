@@ -44,9 +44,10 @@ public class BoxVsBox implements CollisionDetective {
 		double penetration = getPenetration();
 		setNormal();
 		double rVelocityLength = velocityNormal.dotProduct(normal);
-		if (rVelocityLength < 0.8)
-			rVelocityLength = 0.0;
+		if (-0.3<rVelocityLength && rVelocityLength <0.3)
+			return;
 		System.out.println("VelocityLength =  " + rVelocityLength);
+		System.out.println("A's Velocity: " + a.getVelocity().toString());
 		setVelocityNormal();
 		correctBoxes(rVelocityLength, penetration);
 		
@@ -104,9 +105,9 @@ public class BoxVsBox implements CollisionDetective {
 
 
 
-	private void correctBoxes(double velNormal, double penetration) {
+	private void correctBoxes(double velocityLength, double penetration) {
 		correctPositions(penetration);
-		Vector2D impulse = calculateImpulse(velocityNormal.makeUnitVector(), velNormal);
+		Vector2D impulse = calculateImpulse(velocityNormal.makeUnitVector(), velocityLength);
 		setVelocityToRatio(impulse);
 	}
 	
@@ -138,8 +139,8 @@ public class BoxVsBox implements CollisionDetective {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
 		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
 		Vector2D newVelocity = a.getVelocity().addWith(scaledImpulse);
-		//System.out.println("a.Velocity.Y = " + newVelocity.getY());
-		a.setVelocity(newVelocity);
+		System.out.println("newVelocity: " + newVelocity.toString());
+		a.setVelocity(scaledImpulse);
 
 		scaledImpulse = impulse.scale(b.invMass);
 		newVelocity = b.getVelocity().subtractWith(scaledImpulse);
@@ -147,12 +148,14 @@ public class BoxVsBox implements CollisionDetective {
 	}
 	
 	
-	private Vector2D calculateImpulse(Vector2D normal, double velNormal) {
+	private Vector2D calculateImpulse(Vector2D velocityNormal, double velocityLength) {
 		double e = min(a.restitution, b.restitution); // the object with less "bounciness" wins
-		double j = -(1 + e) * velNormal; // calculate an impulse scalar
+		double j = -(1 + e) * (velocityLength/2); // calculate an impulse scalar
 		
+		System.out.println("J = " + j + ". velocityNormal: " + velocityNormal.toString());
 		j /= (a.invMass + b.invMass);
-		return normal.scale(j);
+		
+		return velocityNormal.scale(j);
 	}
 	
 	private static double min(double a, double b){

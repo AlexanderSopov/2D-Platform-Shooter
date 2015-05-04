@@ -75,7 +75,7 @@ public abstract class GameObject implements Observer {
 	
 	
 	//Setters
-	public void setRestitution(float r){
+	public void setRestitution(double r){
 		restitution = r;
 	}
 	public void setLocation(Point2D p){

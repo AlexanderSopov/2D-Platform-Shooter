@@ -8,7 +8,7 @@ import edu.chl.Game.Vector.Vector2D;
 
 public class Box extends Entity {
 	private Rectangle2D.Double shape;
-	public Box(int x, int y, int width, int height, float r, int mass) {
+	public Box(int x, int y, int width, int height, double r, int mass) {
 		super(new Rectangle2D.Double(x,y,width,height), r, mass);
 		setRestitution(r);
 		shape = (Rectangle2D.Double)getShape();

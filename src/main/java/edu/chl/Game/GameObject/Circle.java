@@ -11,12 +11,12 @@ public class Circle extends Entity {
 	private int radius;
 	
 	
-	public Circle(int x, int y, int radius, float restitution, int mass) {
+	public Circle(int x, int y, int radius, double restitution, int mass) {
 		this(x,y,radius,restitution,new Vector2D(0,0), mass);
 		
 	}
 	
-	public Circle(int x, int y, int radius, float restitution,
+	public Circle(int x, int y, int radius, double restitution,
 			Vector2D velocity, int mass) {
 	super(new Ellipse2D.Double(x,y,radius*2,radius*2), restitution, mass);
 		setRestitution(restitution);

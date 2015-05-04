@@ -11,8 +11,6 @@ import edu.chl.Game.tile.Tile;
 public class Player extends Entity {
 
 	private Sprite player[] = new Sprite[12];
-	private ContactWithEnemy contactWithEnemy;
-	private GravitationalProperties gravitationalProperties;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -27,8 +25,6 @@ public class Player extends Entity {
 			player[i + 6] = new Sprite(handler.getSheetPlayer(), i, 1, 64, 64);
 		}
 		
-		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
-		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
 	}
 
 	@Override
@@ -37,13 +33,13 @@ public class Player extends Entity {
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass().renderAnimateRight(g, player,
 						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
+						getUnitProperties().getVelocity().getX(), getUnitProperties().getVelocity().getY(),
 						getUnitProperties().getHeight(),
 						getUnitProperties().getWidth());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass().renderAnimateLeft(g, player,
 						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
+						getUnitProperties().getVelocity().getX(), getUnitProperties().getVelocity().getY(),
 						getUnitProperties().getHeight(),
 						getUnitProperties().getWidth());
 			}

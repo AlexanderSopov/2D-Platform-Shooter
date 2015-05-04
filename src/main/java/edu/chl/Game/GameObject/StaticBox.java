@@ -5,7 +5,7 @@ import edu.chl.Game.Vector.Vector2D;
 
 public class StaticBox extends Box {
 	
-	public StaticBox(int x, int y, int width, int height, float r, int mass) {
+	public StaticBox(int x, int y, int width, int height, double r, int mass) {
 		super(x, y, width, height, r, mass);
 	}
 
