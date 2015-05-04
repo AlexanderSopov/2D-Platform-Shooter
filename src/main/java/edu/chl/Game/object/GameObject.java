@@ -57,6 +57,10 @@ public abstract class GameObject implements Observer {
 	public CalculateBounds getCalculateBounds() {
 		return calculateBounds;
 	}
+        
+        public GameHandler getHandler(){
+            return unitProperties.getHandler();
+        }
 
 	public int getX() {
 		return unitProperties.getX();

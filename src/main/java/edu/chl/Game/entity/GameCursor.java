@@ -38,17 +38,9 @@ public class GameCursor extends Entity {
 		case AIM:
 
 			g.setColor(Color.red);
-			g.drawOval(getUnitProperties().getX() - 15, getUnitProperties()
-					.getY() - 15, 30, 30);
-			g.fillRect(getUnitProperties().getX(), getUnitProperties().getY(),
-					1, 1);
-			// g.drawLine(x, y, en.getX()+32, en.getY()+32);
-			/*
-			 * g.fillRect(x-1, y-1, 2, 2); int relX = x-1; int relY = y-1;
-			 * g.drawLine(relX, relY+4, relX, relY+8); g.drawLine(relX+4, relY,
-			 * relX+8, relY); g.drawLine(relX, relY-4, relX, relY-8);
-			 * g.drawLine(relX-4, relY, relX-8, relY);
-			 */
+			g.drawOval(getX() - 15, getY() - 15, 30, 30);
+			g.fillRect(getX(), getY(), 1, 1);
+
 			break;
 
 		}
@@ -61,40 +53,20 @@ public class GameCursor extends Entity {
 	@Override
 	public void update() {
 
-		getUnitProperties().setX(
-				MouseInput.getMousePosX()
-						- (-en.getUnitProperties().getX() + Frame.WIDTH / 2));
-		getUnitProperties()
-				.setY(MouseInput.getMousePosY()
-						- (-en.getUnitProperties().getY() + Frame.HEIGHT / 2 + 100));
+		setX(MouseInput.getMousePosX() - (-en.getX() + Frame.WIDTH / 2));
+		setY(MouseInput.getMousePosY() - (-en.getY() + Frame.HEIGHT / 2 + 100));
 
-		/*
-		 * if(MouseInput.isPressed()){ this.counter++;
-		 * 
-		 * if(this.counter >= 60){ System.out.println("Ready"); Bullet b = new
-		 * Bullet(en.getX()+32,en.getY()+32,2,2,true, Id.bullet, handler,
-		 * getX(), getY(), 10); handler.addEntity(b); this.counter = 0; }
-		 * 
-		 * }
-		 */
+		
 
 		for (Bullet b : getBulletList()) {
 			b.update();
-			/*
-			 * if(b.getX()<=0 || b.getY()<= 0 || b.getX() > Frame.WIDTH
-			 * -(-en.getX() + Frame.WIDTH/2) || b.getY() >
-			 * Frame.HEIGHT-(-en.getY() + Frame.HEIGHT/2 + 100)){
-			 * removeBullet(b);
-			 * 
-			 * }
-			 */
+			
 		}
 
 	}
 
 	public void shoot() {
-		Bullet b = new Bullet(en.getUnitProperties().getX() + 32, en.getUnitProperties().getY() + 32, 10, 10, true, Id.bullet, getUnitProperties().getHandler(), getUnitProperties().getX(), getUnitProperties()
-						.getY(), 10);
+		Bullet b = new Bullet(en.getX() + 32, en.getY() + 32, 10, 10, true, Id.bullet, getHandler(), getX(),getY(), 10, 0);
 		addBullet(b);
 
 		// System.out.println("shoot"+ handler.getEntityList().size());
