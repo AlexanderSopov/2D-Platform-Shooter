@@ -23,10 +23,9 @@ public class Main  {
 		c3 = new Circle(800, 1500, 150, new Float(0.85), 300);
 		*/
 		b1 = new Box(950,400,150, 80,  new Float(0.2), 50);
-		b2 = new StaticBox(50, 800, 1500, 50, 1, 0);
+		b2 = new StaticBox(50, 800, 1500, 50, new Float(0.2), 0);
 		run.addObserver(b1);
 		run.addObserver(b2);
-		
 		/*run.addObserver(c1);
 		run.addObserver(c2);
 		run.addObserver(c3);*/

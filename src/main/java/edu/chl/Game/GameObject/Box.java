@@ -12,7 +12,7 @@ public class Box extends Entity {
 		super(new Rectangle2D.Double(x,y,width,height), r, mass);
 		setRestitution(r);
 		shape = (Rectangle2D.Double)getShape();
-		setVelocity(0,-1);
+		setVelocity(0,0);
 	}
 	
 	@Override
@@ -41,9 +41,9 @@ public class Box extends Entity {
 
 	@Override
 	public Vector2D getCenter() {
-		double x = (shape.getX() + shape.getWidth())/2;
-		double y = (shape.getY() + shape.getHeight())/2;
-		return getLocation().addWith(new Vector2D(x,y));
+		double x = shape.getX() + (shape.getWidth()/2);
+		double y = shape.getY() + (shape.getHeight()/2);
+		return new Vector2D(x,y);
 	}
 
 	
