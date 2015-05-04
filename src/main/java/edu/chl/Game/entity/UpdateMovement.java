@@ -16,7 +16,6 @@ public class UpdateMovement {
 	}
 
 	public void updateCoordinates() {
-
 		unitProperties.setX(unitProperties.getX() + unitProperties.getVelX());
 		unitProperties.setY(unitProperties.getY() + unitProperties.getVelY());
 	}

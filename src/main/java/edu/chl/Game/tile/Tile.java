@@ -20,7 +20,7 @@ public abstract class Tile extends GameObject {
 	}
 
 	public void remove() {
-		getHandler().removeTile(this);
+		getUnitProperties().getHandler().removeTile(this);
 	}
 
 }
