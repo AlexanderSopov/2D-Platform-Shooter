@@ -1,6 +1,9 @@
 package edu.chl.Game.handler;
 
 import edu.chl.Game.entity.GameCursor;
+import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.GameThread;
+
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -9,14 +12,17 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JButton;
+
 public class MouseInput implements MouseMotionListener, MouseListener {
 
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
-
+	
+	private Frame frame;
 	private Cursor blankCursor;//hide 
-        private GameCursor c;
+    private GameCursor c;
 	
 	MouseInput(GameCursor c){
 		//Put all the pre-load content here
@@ -32,59 +38,95 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	}
 
 
-	public MouseInput() {
-
+	public MouseInput(Frame frame) {
+		this.frame = frame;
 	}
 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-
-		if (onCanvas) {
-			setMousePosX(e.getX());
-			setMousePosY(e.getY());
+		if (GameThread.state == State.GAME){
+			if (onCanvas) {
+				setMousePosX(e.getX());
+				setMousePosY(e.getY());
+			}
 		}
 
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
-		c.shoot();
 		
-
-		if (c != null) {
+		if(GameThread.state == State.GAME) {
 			c.shoot();
+			if (c != null) {
+				c.shoot();
+			}
+		}else if(e.getSource() instanceof JButton){
+			String button = ((JButton) e.getSource()).getText();
+			if(GameThread.state == State.MENU){
+				switch(button){
+					case "Start":
+						GameThread.state = State.GAME;
+						break;
+					case "New":
+						GameThread.state = State.GAME;
+						break;
+					case "Option":
+						GameThread.state = State.OPTION;
+						break;
+					case "Credit":
+						GameThread.state = State.CREDIT;
+						break;
+					case "Exit":
+						System.exit(0);
+						break;
+					default:
+						break;
+				}
+			}else if(GameThread.state == State.OPTION){
+				switch(button){
+				case "Back":
+					GameThread.state = State.MENU;
+					break;
+				default:
+					break;
+				}
+			}
+			
+			frame.getContentPane().removeAll();
 		}
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
-		pressed = true;
+		
+		if(GameThread.state == State.GAME) {
+			pressed = true;
+		}
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
-		pressed = false;
+		
+		if(GameThread.state == State.GAME) {
+			pressed = false;
+		}
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
-			
-		//e.getComponent().setCursor(blankCursor);
-		
-
-		if (c != null) {
+		if(GameThread.state == State.GAME) {	
 			e.getComponent().setCursor(blankCursor);
+			if (c != null) {
+				e.getComponent().setCursor(blankCursor);
+			}
+			onCanvas = true;
 		}
-
-		onCanvas = true;
 
 	}
 
