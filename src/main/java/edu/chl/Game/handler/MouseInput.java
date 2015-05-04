@@ -14,11 +14,19 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
+
+	private Cursor blankCursor;//hide 
+        private GameCursor c;
+	
+	MouseInput(GameCursor c){
+		//Put all the pre-load content here
+
 	private Cursor blankCursor;// hide
 	private GameCursor c;
 
 	public MouseInput(GameCursor c) {
 		// Put all the pre-load content here
+
 		this.c = c;
 		// Transparent 16 x 16 pixel cursor image.
 		BufferedImage cursorImg = new BufferedImage(16, 16,
@@ -29,9 +37,11 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 				new Point(0, 0), "blank cursor");
 	}
 
+
 	public MouseInput() {
 
 	}
+
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -45,9 +55,14 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+
+		c.shoot();
+		
+
 		if (c != null) {
 			c.shoot();
 		}
+
 	}
 
 	@Override
@@ -66,6 +81,11 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+
+			
+		//e.getComponent().setCursor(blankCursor);
+		
+
 		if (c != null) {
 			e.getComponent().setCursor(blankCursor);
 		}
