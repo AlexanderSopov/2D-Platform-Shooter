@@ -67,13 +67,12 @@ public class MonsterA extends Entity {
 	public void update() {
 		getUpdateMovement().updateCoordinates();
 
-		for (Tile t : getUnitProperties().getHandler().getTileList()) {
-			if (t.getUnitState().isSolid()) {
-				if (t.getUnitState().getId() == Id.wall) {
-					if (getCalculateBounds().getBoundsBottom().intersects(t.getBounds())) {
-						getUnitProperties().setVelY(0);
-
-						if (getEntityState().isFalling()) {
+		for (Tile t : getUnitProperties().getHandler().getTileList()) {							// looks through the Tile list
+			if (t.getUnitState().isSolid()) {													// if the tile is solid
+				if (t.getUnitState().getId() == Id.wall) {										// if the tile is a wall
+					if (getCalculateBounds().getBoundsBottom().intersects(t.getBounds())) {		// if the monster is touching the wall
+						getUnitProperties().setVelY(0);											// sets the Y-velocity to 0
+						if (getEntityState().isFalling()) {										// if the monster in
 							getEntityState().setFalling(false);
 						}
 

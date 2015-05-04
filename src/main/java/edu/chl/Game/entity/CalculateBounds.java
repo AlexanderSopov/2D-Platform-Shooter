@@ -21,9 +21,7 @@ public class CalculateBounds {
 	}
 
 	public Rectangle getBoundsBottom() {
-		return new Rectangle(unitProperties.getX() + 10, unitProperties.getY()
-				+ unitProperties.getHeight() - 5,
-				unitProperties.getWidth() - 20, 5);
+		return new Rectangle(unitProperties.getX() + 10, unitProperties.getY() + unitProperties.getHeight() - 5, unitProperties.getWidth() - 20, 5);
 	}
 
 	public Rectangle getBoundsLeft() {

@@ -22,43 +22,71 @@ public class CollisionDetection {
 		this.entityState = entityState;
 	}
 
-	public void checkForCollision() {
+	public void checkForCollision(){
+		iterateThroughTileList();
+	}
+	
+	public void iterateThroughTileList(){
+		for (Tile t : unitProperties.getHandler().getTileList()) {
+			checkIfSolid(t);
+		}
+	}
 
-		for (Tile t : unitProperties.getHandler().getTileList()) {						// looks through the tilelist
-			if (t.getUnitState().isSolid()) {											// if the tile is solid
-				if (t.getUnitState().getId() == Id.wall) {								// if the tile is a wall
-					if (calculateBounds.getBoundsTop().intersects(t.getBounds())) {		// if the player touches the wall from below						
-						unitProperties.setVelY(0);										// sets the Y-velocity to 0
-						if (entityState.isJumping()) {									// if the player is jumping
-							entityState.setJumping(false);								// set jumping to false
-							entityProp.setGravity(0.8);									// set gravity to 0.8
-							entityState.setFalling(true);								// set falling to true
-						}
-					} else if (calculateBounds.getBoundsBottom().intersects(
-							t.getBounds())) {
-						unitProperties.setVelY(0);
-						if (entityState.isFalling()) {
-							entityState.setFalling(false);
-						}
-
-						if (!entityState.isFalling()
-								&& !entityState.isJumping()) {
-							entityProp.setGravity(0.8);
-							entityState.setFalling(true);
-						}
-					} else if (calculateBounds.getBoundsLeft().intersects(
-							t.getBounds())) {
-						unitProperties.setVelX(0);
-						unitProperties.setX((t.getUnitProperties().getX() + t
-								.getUnitProperties().getWidth()));
-					} else if (calculateBounds.getBoundsRight().intersects(
-							t.getBounds())) {
-						unitProperties.setVelX(0);
-						unitProperties.setX((t.getUnitProperties().getX() - t
-								.getUnitProperties().getWidth()));
-					}
-				}
+	public void checkIfSolid(Tile t){
+		if (t.getUnitState().isSolid()) {
+			checkIfWall(t);
+		}
+	}
+	
+	public void checkIfWall(Tile t){
+		if (t.getUnitState().getId() == Id.wall) {
+			checkCollition(t);
+		}
+	}
+	
+	public void checkCollition(Tile t){
+		
+		System.out.println(entityProp.getGravity());
+		
+		checkCollideWithFlor(t);
+		checkCollideWithRightWall(t);
+		checkCollideWithRightWall(t);
+		checkCollideWithLeftWall(t);
+	}
+	
+	
+	public void checkCollideWithFlor(Tile t){
+		
+		if (calculateBounds.getBoundsBottom().intersects(t.getBounds())) {
+			unitProperties.setVelY(0);
+			entityProp.setGravity(0);
+			entityState.setFalling(false);
+		}
+		
+	}
+	
+	public void checkCollideWithRoof(Tile t){
+		if (calculateBounds.getBoundsTop().intersects(t.getBounds())) {
+			unitProperties.setVelY(0);										
+			if (entityState.isJumping()) {									
+				entityState.setJumping(false);								
+				entityProp.setGravity(0.8);									
+				entityState.setFalling(true);								
 			}
+		}
+	}
+	
+	public void checkCollideWithRightWall(Tile t){
+		if (calculateBounds.getBoundsRight().intersects(t.getBounds())) {
+			unitProperties.setVelX(0);
+			unitProperties.setX((t.getUnitProperties().getX() - t.getUnitProperties().getWidth()));
+		}
+	}
+	
+	public void checkCollideWithLeftWall(Tile t){
+		if (calculateBounds.getBoundsLeft().intersects(t.getBounds())) {
+			unitProperties.setVelX(0);
+			unitProperties.setX((t.getUnitProperties().getX() + t.getUnitProperties().getWidth()));
 		}
 	}
 

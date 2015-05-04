@@ -23,9 +23,9 @@ public class GravitationalProperties {
 	}
 	
 	public void fallingMechanics(){
-		if (entityState.isFalling()) {													// if the unit is falling
-			entityProperties.setGravity(entityProperties.getGravity() + 0.1);		// increases the gravity by 0.1
-			unitProperties.setVelY(((int) entityProperties.getGravity()));		// sets the Y-velocity to the gravity
+		if (entityState.isFalling()) {													
+			entityProperties.setGravity(entityProperties.getGravity() + 0.1);		
+			unitProperties.setVelY(((int) entityProperties.getGravity()));		
 		}
 	}
 	
