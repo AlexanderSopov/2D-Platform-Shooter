@@ -7,7 +7,8 @@ public class BoxVsBox implements CollisionDetective {
 	private final Box a;
 	private final Box b;
 	private Vector2D normal;
-	private double penetration;
+	private double invasionOnX;
+	private double invasionOnY;
 	private double aHalfWidth;
 	private double bHalfWidth;
 	private double aHalfHeight;
@@ -28,36 +29,30 @@ public class BoxVsBox implements CollisionDetective {
 	
 	@Override
 	public Boolean areObjectsColliding() {
-		normal = subtract(b.getCenter(), a.getCenter());
-		double xOverlap = halfWidths - abs(normal.getX());
-		
-		if(xOverlap > 0){
-			
-			double yOverlap = halfHeights - abs(normal.getY());
-
-			
-			if(yOverlap > 0){
-				if(xOverlap > yOverlap){
-					if (normal.getX() < 0)
-						normal = new Vector2D( -1, 0 );
-					else
-						normal = new Vector2D( -1, 0 );
-					penetration = xOverlap;
-					return true;
-				}else{
-					if (normal.getY() < 0 )
-						normal = new Vector2D(0,-1);
-					else
-						normal = new Vector2D(0,1);
-					penetration = yOverlap;
-					return true;
-				}
-			}
-		}
-		return false;
+		normal = subtract(b.getCenter(), a.getCenter()).makeUnitVector();
+		invasionOnX = halfWidths - abs(normal.getX());
+		invasionOnY = halfHeights - abs(normal.getY());
+		return isTherePenetration();
 	}
 	
-	
+	@Override
+	public void resolveCollision() {
+		Vector2D relativeVelocity = subtract(b.getVelocity(), a.getVelocity());
+		double velocityAlongNormal = relativeVelocity.dotProduct(normal);
+		setNormal();
+		if (velocityAlongNormal == 0)
+			return;
+		
+		correctBoxes(velocityAlongNormal);
+		
+	}
+
+
+
+	private Boolean isTherePenetration() {
+		return invasionOnX > 0 && invasionOnY > 0;
+	}
+
 
 	private double abs(double x) {
 		if(x < 0)
@@ -65,50 +60,47 @@ public class BoxVsBox implements CollisionDetective {
 		return x;
 	}
 
-	@Override
-	public void resolveCollision() {
-		
-		Vector2D relativeVelocity = subtract(b.getVelocity(), a.getVelocity());
-		double velocityAlongNormal = relativeVelocity.dotProduct(normal);
 
-		System.out.println(velocityAlongNormal);
-		//if (velocityAlongNormal == 0)
-			//return;
-		
-		correctBoxes(1);
-		
-	}
 
 	private void correctBoxes(double velNormal) {
-		//correctPositions(normal, velNormal, penetration);
+		correctPositions();
 		Vector2D impulse = calculateImpulse(normal, velNormal);
 		setVelocityToRatio(impulse);
 	}
+	
 
-	private void correctPositions(Vector2D normal, double velNormal,
-			double penetration) {
-		System.out.println(penetration);
-		double percent = 0.2;
-		double slop = 0.01;
-		double corr;
-		if (penetration - slop < 0.0)
-			corr = 0;
-		else
-			corr = penetration - slop;
+	private void correctPositions() {
+		double sumMass = a.mass + b.mass;
+		double penetration = getPenetration();
 		
-		Vector2D correction = normal.scale(percent*corr);
-		a.setLocation((correction.subtractWith(a.getLocation())).returnNegative());
+		
+		Vector2D correction = normal.scale(penetration);
+
+		System.out.println("correction.Y = " + correction.getY());
+		
+		a.setLocation(a.getLocation().subtractWith(correction));
+		
 		b.setLocation(correction.addWith(b.getLocation()));
 	}
 	
 	
+	private double getPenetration() {
+		if(invasionOnY > 50)
+			return invasionOnX;
+		else
+			return invasionOnY;
+		
+	}
+
 	private void setVelocityToRatio(Vector2D impulse) {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
-		Vector2D newVelocity = a.getVelocity().subtractWith(scaledImpulse);
+		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
+		Vector2D newVelocity = a.getVelocity().addWith(scaledImpulse);
+		System.out.println("a.Velocity.Y = " + newVelocity.getY());
 		a.setVelocity(newVelocity);
 
 		scaledImpulse = impulse.scale(b.invMass);
-		newVelocity = b.getVelocity().addWith(scaledImpulse);
+		newVelocity = b.getVelocity().subtractWith(scaledImpulse);
 		b.setVelocity(newVelocity);
 	}
 	
@@ -118,7 +110,7 @@ public class BoxVsBox implements CollisionDetective {
 		double j = -(1 + e) * velNormal; // calculate an impulse scalar
 		
 		j /= (a.invMass + b.invMass);
-		
+		System.out.println("VelNormal = " + velNormal);
 		return normal.scale(j);
 	}
 	
@@ -133,4 +125,21 @@ public class BoxVsBox implements CollisionDetective {
 	private static Vector2D subtract(Vector2D a, Vector2D b){
 		return  a.subtractWith(b);
 	}
+
+	private void setNormal() {
+		if(invasionOnX < invasionOnY){
+			if (normal.getX() > 0)
+				normal = new Vector2D( -1, 0 );
+			else
+				normal = new Vector2D( 1, 0 );
+		}else{
+			if (normal.getY() > 0 )
+				normal = new Vector2D(0,-1);
+			else
+				normal = new Vector2D(0,1);
+		}
+	}
+
+
+
 }

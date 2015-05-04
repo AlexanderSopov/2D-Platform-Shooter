@@ -1,5 +1,6 @@
 package edu.chl.Game.GameObject;
 
+
 import edu.chl.Game.Vector.Vector2D;
 
 public class StaticBox extends Box {
@@ -8,10 +9,15 @@ public class StaticBox extends Box {
 		super(x, y, width, height, r, mass);
 	}
 
+
+	
 	@Override
 	public void update(){
-		setVelocity(new Vector2D(0,-1));
-		getLocation().addWith(getVelocity());
+		setLocation(getLocation().addWith(new Vector2D(0,0)));
+	}
+	
+	public Vector2D getVelocity(){
+		return new Vector2D(0,0);
 	}
 
 }
