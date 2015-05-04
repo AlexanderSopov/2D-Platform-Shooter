@@ -21,8 +21,7 @@ public abstract class GameObject implements Observer {
 			Id id, GameHandler handler) {
 		this.unitProperties = new UnitProperties(handler, x, y, width, height);
 		this.unitState = new UnitState(id, solid);
-		this.updateMovement = new UpdateMovement(this.unitProperties,
-				this.unitState);
+		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
 		this.calculateBounds = new CalculateBounds(unitProperties);
 
 	}
