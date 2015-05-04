@@ -17,8 +17,8 @@ public class Handler implements Observer {
 	private static Box b2 = Main.b2;
 	
 	public Handler(){
-		c1.setVelocity(22,-5);
-		c3.setVelocity(-1, -50);
+		//c1.setVelocity(22,-5);
+		//c3.setVelocity(-1, -50);
 		b1.setVelocity(new Vector2D(0,-10));
 	}
 	
@@ -26,7 +26,7 @@ public class Handler implements Observer {
 	
 	public void update(Observable arg0, Object arg1) {
 		CollisionStrategy strategy = new CollisionStrategy(c1,c2);
-		if (strategy.areObjectsColliding())
+		/*if (strategy.areObjectsColliding())
 			strategy.resolveCollision();
 		
 		strategy = new CollisionStrategy(c2,c3);
@@ -37,7 +37,7 @@ public class Handler implements Observer {
 		if (strategy.areObjectsColliding())
 			strategy.resolveCollision();
 
-		
+		*/
 		strategy = new CollisionStrategy(b1,b2);
 		if (strategy.areObjectsColliding()){
 			strategy.resolveCollision();

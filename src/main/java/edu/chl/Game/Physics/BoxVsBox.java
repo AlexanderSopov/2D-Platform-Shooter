@@ -29,7 +29,7 @@ public class BoxVsBox implements CollisionDetective {
 	
 	@Override
 	public Boolean areObjectsColliding() {
-		normal = subtract(b.getCenter(), a.getCenter()).makeUnitVector();
+		normal = subtract(b.getCenter(), a.getCenter());
 		invasionOnX = halfWidths - abs(normal.getX());
 		invasionOnY = halfHeights - abs(normal.getY());
 		return isTherePenetration();
@@ -37,13 +37,10 @@ public class BoxVsBox implements CollisionDetective {
 	
 	@Override
 	public void resolveCollision() {
-		Vector2D relativeVelocity = subtract(b.getVelocity(), a.getVelocity());
-		double velocityAlongNormal = relativeVelocity.dotProduct(normal);
-		setNormal();
-		if (velocityAlongNormal == 0)
-			return;
-		
-		correctBoxes(velocityAlongNormal);
+		Vector2D relativeVelocity = b.getVelocity().addWith(a.getVelocity());
+		double rVelocityLength = relativeVelocity.length();
+		normal = relativeVelocity.scale(1/rVelocityLength);
+		correctBoxes(rVelocityLength);
 		
 	}
 
@@ -71,15 +68,17 @@ public class BoxVsBox implements CollisionDetective {
 
 	private void correctPositions() {
 		double sumMass = a.mass + b.mass;
-		double penetration = getPenetration();
-		
-		
-		Vector2D correction = normal.scale(penetration);
-
+		double ratio = a.mass / sumMass;
+		double move = (getPenetration()+1) / normal.getY();
+		System.out.println("move = " + move);
+		Vector2D correction = normal.scale(move*ratio);
 		System.out.println("correction.Y = " + correction.getY());
+
 		
 		a.setLocation(a.getLocation().subtractWith(correction));
 		
+		ratio = b.mass / sumMass;
+		correction = normal.scale(move*ratio);
 		b.setLocation(correction.addWith(b.getLocation()));
 	}
 	
@@ -96,7 +95,7 @@ public class BoxVsBox implements CollisionDetective {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
 		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
 		Vector2D newVelocity = a.getVelocity().addWith(scaledImpulse);
-		System.out.println("a.Velocity.Y = " + newVelocity.getY());
+		//System.out.println("a.Velocity.Y = " + newVelocity.getY());
 		a.setVelocity(newVelocity);
 
 		scaledImpulse = impulse.scale(b.invMass);
