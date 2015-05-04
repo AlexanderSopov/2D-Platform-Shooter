@@ -21,12 +21,6 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	MouseInput(GameCursor c){
 		//Put all the pre-load content here
 
-	private Cursor blankCursor;// hide
-	private GameCursor c;
-
-	public MouseInput(GameCursor c) {
-		// Put all the pre-load content here
-
 		this.c = c;
 		// Transparent 16 x 16 pixel cursor image.
 		BufferedImage cursorImg = new BufferedImage(16, 16,

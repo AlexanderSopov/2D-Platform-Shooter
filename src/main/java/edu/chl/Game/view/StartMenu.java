@@ -107,7 +107,7 @@ public class StartMenu{
 	private void addButton(String text){
 		JButton button = new JButton(text);
 		button.setAlignmentX(container.CENTER_ALIGNMENT);
-		button.addMouseListener(new MouseInput(frame));
+		button.addMouseListener(new MouseInput());
 		button.setMaximumSize(new Dimension(180,50));
 		container.add(button);
 	}
