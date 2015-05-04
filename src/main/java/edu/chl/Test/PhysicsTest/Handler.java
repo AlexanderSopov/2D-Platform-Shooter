@@ -14,8 +14,8 @@ public class Handler implements Observer {
 	private static Circle c3 = Main.c3;
 
 	public Handler(){
-		c1.setVelocity(22,-5);
-		c3.setVelocity(-1, -50);
+		c1.setVelocity(5.5,-1.25);
+		c3.setVelocity(-1.25, -12.5);
 	}
 	
 	
