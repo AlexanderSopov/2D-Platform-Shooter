@@ -61,8 +61,11 @@ public class GameHandler{
 		for(int i=0; i < listSize; i++){			
 			for(Tile t: getTileList()){
 				strategy = new CollisionStrategy(entity.get(i), t);
-				if(strategy.areObjectsColliding())
+				if(strategy.areObjectsColliding()){
+					if(Math.abs(entity.get(i).getUnitProperties().getVelocity().getY()) < 0.5)
+						entity.get(i).setTouchesGround(true); 
 					strategy.resolveCollision();
+				}
 			}
 			strategy = new CollisionStrategy(entity.get(i), entity.get((i+1)%listSize));
 			if(strategy.areObjectsColliding())

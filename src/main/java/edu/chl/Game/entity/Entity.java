@@ -11,13 +11,15 @@ public abstract class Entity extends GameObject {
 	private EntityProperties entityProperties;
 	private EntityState entityState;
 	private RenderClass renderClass;
-	private static Vector2D gravity = new Vector2D(0,1);
+	private boolean notJumping;
+	private static Vector2D gravity = new Vector2D(0,0.3);
 	public Entity(double d, double e, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(d, e, width, height, solid, id, handler,10);
 
 		renderClass = new RenderClass();
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
+		notJumping = true;
 	}
 
 	public EntityProperties getEntityProperties(){
@@ -43,8 +45,12 @@ public abstract class Entity extends GameObject {
 		return renderClass;
 	}
 
-	public boolean touchesGround() {
-		return true;
+	public boolean isTouchingGround() {
+		return notJumping;
+	}
+	
+	public void setTouchesGround(boolean b){
+		notJumping = b;
 	}
 
 
