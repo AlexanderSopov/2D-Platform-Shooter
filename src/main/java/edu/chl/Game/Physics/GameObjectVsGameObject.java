@@ -137,7 +137,7 @@ public class GameObjectVsGameObject implements CollisionDetective {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
 		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
 		Vector2D newVelocity = a.getUnitProperties().getVelocity().addWith(scaledImpulse);
-		System.out.println("newVelocity: " + newVelocity.toString());
+		//System.out.println("newVelocity: " + newVelocity.toString());
 		a.getUnitProperties().setVelocity(
 				a.getUnitProperties().getVelocity().addWith(
 				new Vector2D(0,scaledImpulse.getY()))
