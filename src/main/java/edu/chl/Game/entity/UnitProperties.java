@@ -1,52 +1,57 @@
 package edu.chl.Game.entity;
 
+import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Game.handler.GameHandler;
+
 public class UnitProperties {
 	
-	private int x, y;
-	private int velX, velY;
-	private int width, height;
+	private Vector2D position;
+	private Vector2D velocity;
+	private double width, height;
+	private GameHandler handler;
 	
-	public UnitProperties(int x, int y, int width, int height){
-		this.x = x;
-		this.y = y;
+	public UnitProperties(GameHandler handler, double d, double e, int width, int height){
+		setPosition(d, e);
+		setVelocity(0,0);
 		this.width = width;
 		this.height = height;
+		this.handler = handler;
 	}
 	
-	public int getVelX(){
-		return velX;
+	public Vector2D getVelocity(){
+		return velocity;
+	}
+
+	
+	public void setVelocity(double x, double y){
+		setVelocity(new Vector2D(x,y));
+	}
+
+	public void setVelocity(Vector2D vector2d) {
+		velocity = vector2d;
+	}
+
+	public Vector2D getPosition(){
+		return position;
+	}
+
+	public double getX(){
+		return position.getX();
 	}
 	
-	public void setVelX(int velX){
-		this.velX = velX;
+	public double getY(){
+		return position.getY();
 	}
 	
-	public int getVelY(){
-		return velY;
+	public void setPosition(double x, double y){
+		setPosition(new Vector2D(x,y));
+	}
+
+	public void setPosition(Vector2D vector2d) {
+		position = vector2d;
 	}
 	
-	public void setVelY(int velY){
-		this.velY = velY;
-	}
-
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	public int getWidth(){
+	public double getWidth(){
 		return width;
 	}
 	
@@ -54,12 +59,22 @@ public class UnitProperties {
 		this.width = width;
 	}
 	
-	public int getHeight(){
+	public double getHeight(){
 		return height;
 	}
 	
 	public void setHeight(int height){
 		this.height = height;
+	}
+	
+	public GameHandler getHandler(){
+		return handler;
+	}
+
+	public Vector2D getCenter() {
+		double x = getX() + (width/2);
+		double y = getY() + (height/2);
+		return new Vector2D(x,y);
 	}
 	
 }

@@ -1,101 +1,58 @@
 package edu.chl.Game.entity;
 
-import java.awt.Rectangle;
 
+import edu.chl.Game.Vector.Vector2D;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.GameObject;
 import edu.chl.Game.object.Id;
 
 public abstract class Entity extends GameObject {
-
-	private int facing = 0;
-	private int frame = 0;
-	private int frameDelay = 0;
-	private double gravity = 0.0;
-
-	private boolean jumping = false;
-	private boolean falling = true;
+	
+	private EntityProperties entityProperties;
+	private EntityState entityState;
 	private RenderClass renderClass;
-	private FacingDirection facingDirection;
-	private CalculateBounds calculateBounds;
+	private boolean notJumping;
+	private static Vector2D gravity = new Vector2D(0,0.3);
+	public Entity(double d, double e, int width, int height, boolean solid, Id id, GameHandler handler) {
+		super(d, e, width, height, solid, id, handler,10);
 
-	public Entity(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler) {
-		super(x, y, width, height, solid, id, handler);
-		
 		renderClass = new RenderClass();
-		facingDirection = facingDirection.FacingRight;
-		calculateBounds = new CalculateBounds(getUnitProperties());
+		entityState = new EntityState(FacingDirection.FacingRight);
+		entityProperties = new EntityProperties();
+		notJumping = true;
+	}
 
+	public EntityProperties getEntityProperties(){
+		return entityProperties;
 	}
 	
-	public CalculateBounds getCalculateBounds(){
-		return calculateBounds;
+	public EntityState getEntityState(){
+		return entityState;
 	}
+	
+	public void update(){
+		UnitProperties up = getUnitProperties();
+		up.setVelocity(up.getVelocity().addWith(gravity));
+		up.setPosition(up.getPosition().addWith(up.getVelocity()));
+	}
+	
 
 	public void remove() {
-		getHandler().removeEntity(this);
+		getUnitProperties().getHandler().removeEntity(this);
 	}
 
 	public RenderClass getRenderClass() {
 		return renderClass;
 	}
 
-	public void setFacingDirection(FacingDirection d) {
-		facingDirection = d;
-	}
-
-	public FacingDirection getFacingDirection() {
-		return facingDirection;
-	}
-
-	public boolean isJumping() {
-		return jumping;
-	}
-
-	public void setJumping(boolean jumping) {
-		this.jumping = jumping;
-	}
-
-	public double getGravity() {
-		return gravity;
-	}
-
-	public void setGravity(double gravity) {
-		this.gravity = gravity;
-	}
-
-	public boolean isFalling() {
-		return falling;
-	}
-
-	public void setFalling(boolean falling) {
-		this.falling = falling;
-	}
-
-	public int getFacing() {
-		return facing;
-	}
-
-	public void setFacing(int facing) {
-		this.facing = facing;
-	}
-
-	public int getFrame() {
-		return frame;
-	}
-
-	public void setFrame(int frame) {
-		this.frame = frame;
-	}
-
-	public int getFrameDelay() {
-		return frameDelay;
-	}
-
-	public void setFrameDelay(int frameDelay) {
-		this.frameDelay = frameDelay;
+	public boolean isTouchingGround() {
+		return notJumping;
 	}
 	
+	public void setTouchesGround(boolean b){
+		notJumping = b;
+	}
+
+
 
 }

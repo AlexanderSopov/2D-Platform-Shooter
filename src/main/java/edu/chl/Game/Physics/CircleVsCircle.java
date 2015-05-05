@@ -1,9 +1,13 @@
 package edu.chl.Game.Physics;
 
-import edu.chl.Game.GameObject.Circle;
-import edu.chl.Game.GameObject.GameObject;
 import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Test.GameObject.Circle;
+import edu.chl.Test.GameObject.GameObject;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class CircleVsCircle implements CollisionDetective {
 	private final Circle a;
 	private final Circle b;
@@ -57,7 +61,7 @@ public class CircleVsCircle implements CollisionDetective {
 
 	private void correctCircles(Vector2D normal, double velNormal, 
 								double penetration) {	
-		correctPositions(normal, velNormal, penetration);
+		correctPositions(normal, penetration);
 		Vector2D impulse = calculateImpulse(normal, velNormal);
 		setVelocityToRatio(impulse);
 
@@ -74,7 +78,7 @@ public class CircleVsCircle implements CollisionDetective {
 		return normal.scale(j);
 	}
 
-	private void correctPositions(Vector2D normal, double velNormal,
+	private void correctPositions(Vector2D normal,
 			double penetration) {
 		double percent = 0.2;
 		double slop = 0.01;

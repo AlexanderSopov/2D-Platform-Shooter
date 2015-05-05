@@ -16,7 +16,7 @@ public abstract class Item extends GameObject{
 	private int x,y, width,height; 
 	
 	Item(int x, int y, int width, int height, Id id, GameHandler handeler,String name, String info, BufferedImage buffImage){
-		super(x,y,width,height,true ,id ,handeler);
+		super(x,y,width,height,true ,id ,handeler,0);
 
 		this.buffImage = buffImage;
 

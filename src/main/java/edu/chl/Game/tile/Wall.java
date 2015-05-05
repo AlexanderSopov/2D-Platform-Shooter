@@ -29,9 +29,9 @@ public class Wall extends Tile implements Observer {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(floor.getBufferedImage(), getUnitProperties().getX(),
-				getUnitProperties().getY(), getUnitProperties().getWidth(),
-				getUnitProperties().getHeight(), null);
+		g.drawImage(floor.getBufferedImage(), (int)getUnitProperties().getX(),
+				(int)getUnitProperties().getY(), (int)getUnitProperties().getWidth(),
+				(int)getUnitProperties().getHeight(), null);
 	}
 
 	@Override
