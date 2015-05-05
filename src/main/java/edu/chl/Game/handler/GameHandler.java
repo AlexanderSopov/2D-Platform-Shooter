@@ -31,6 +31,7 @@ public class GameHandler{
 	private SpriteSheet sheetTexture;
 	private BufferedImage mapImage;
 	private SpriteSheet sheetEnemyUnit0;
+	private Entity player;
 	
 	private Camera camera;
     private GameCursor c;
@@ -40,13 +41,21 @@ public class GameHandler{
 		this.frame = frame;		
 		camera = new Camera();
                 createSheet();
-		createMap();
-		frame.addKeyListener(new KeyInput(this));
+        createMap();
+        player = getPlayer();
+		frame.addKeyListener(new KeyInput(this, player));
         frame.addMouseListener(new MouseInput(c));
         frame.addMouseMotionListener(new MouseInput(c));
 		
 	}
 	
+	private Entity getPlayer() {
+		for (Entity en : getEntityList())
+			if (en.getUnitState().getId() == Id.player)
+				return en;
+		return null;
+	}
+
 	public void render(Graphics g){
 		for(Entity e: getEntityList()){
 			if(e.getUnitState().getId() == Id.player){

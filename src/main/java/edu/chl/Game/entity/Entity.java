@@ -12,7 +12,7 @@ public abstract class Entity extends GameObject {
 	private EntityState entityState;
 	private RenderClass renderClass;
 	private boolean notJumping;
-	private static Vector2D gravity = new Vector2D(0,0.3);
+	private static Vector2D gravity = new Vector2D(0,0.5);
 	public Entity(double d, double e, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(d, e, width, height, solid, id, handler,10);
 

@@ -17,9 +17,12 @@ public class KeyInput implements KeyListener {
 	private GameHandler handler;
 	private boolean isWPressed;
 	private Jump jump;
+	private Entity player;
 
-	public KeyInput(GameHandler handler) {
+	public KeyInput(GameHandler handler, Entity p) {
 		this.handler = handler;
+		player = p;
+		isWPressed = false;
 	}
 
 	@Override
@@ -32,14 +35,15 @@ public class KeyInput implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (GameThread.state == State.GAME) {
-			for (Entity en : handler.getEntityList()) {
-				if (en.getUnitState().getId() == Id.player) {
+			Entity en = player;
 					switch (key) {
 					case KeyEvent.VK_W:
 					case 32:
-						isWPressed = true;
-						jump = new Jump(en, this);
-						jump.start();
+						if(!isWPressed){
+							isWPressed = true;
+							jump = new Jump(player, this);
+							jump.start();
+						}
 						break;
 					case KeyEvent.VK_A:
 						en.getUnitProperties().setVelocity(new Vector2D(-5,
@@ -55,8 +59,6 @@ public class KeyInput implements KeyListener {
 						break;
 
 					}
-				}
-			}
 		}
 	}
 
