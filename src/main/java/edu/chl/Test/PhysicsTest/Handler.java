@@ -51,7 +51,7 @@ public class Handler implements Observer {
 		if (strategy.areObjectsColliding()){
 			strategy.resolveCollision();
 		}
-			*/
+	*/		
 		
 		
 	}

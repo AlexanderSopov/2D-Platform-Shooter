@@ -79,9 +79,9 @@ public class KeyInput implements KeyListener {
 	private void addJumpVelocity(Entity en) {
 		UnitProperties ep = en.getUnitProperties();
 		Vector2D v = ep.getVelocity();
-		if(v.getY() > -12){
-			jumps = ((jumps+1)%12)+1;
-			ep.setVelocity(ep.getVelocity().addWith(new Vector2D(0,-24/jumps)));
+		if(v.getY() > -25){
+			jumps = ((jumps+1)%9)+1;
+			ep.setVelocity(ep.getVelocity().addWith(new Vector2D(0,-18/jumps)));
 		}
 		else
 			en.setTouchesGround(false);
