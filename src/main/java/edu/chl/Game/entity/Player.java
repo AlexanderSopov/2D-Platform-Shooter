@@ -115,6 +115,7 @@ public class Player extends Entity {
 	public void setFrameToZero(){
 		getEntityProperties().setFrame(0);
 	}
+
 	
 }
 

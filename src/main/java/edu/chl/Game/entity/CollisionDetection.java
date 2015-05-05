@@ -44,23 +44,19 @@ public class CollisionDetection {
 		}
 	}
 	
-	public void checkCollition(Tile t){
-		
-		System.out.println(entityProp.getGravity());
-		
+	public void checkCollition(Tile t){		
 		checkCollideWithFlor(t);
 		checkCollideWithRightWall(t);
-		checkCollideWithRightWall(t);
 		checkCollideWithLeftWall(t);
+		checkCollideWithRoof(t);
 	}
 	
 	
 	public void checkCollideWithFlor(Tile t){
-		
 		if (calculateBounds.getBoundsBottom().intersects(t.getBounds())) {
 			unitProperties.setVelY(0);
-			entityProp.setGravity(0);
 			entityState.setFalling(false);
+			entityState.setContactWithGround(true);
 		}
 		
 	}
@@ -78,6 +74,7 @@ public class CollisionDetection {
 	
 	public void checkCollideWithRightWall(Tile t){
 		if (calculateBounds.getBoundsRight().intersects(t.getBounds())) {
+			System.out.println("<check> collide Right wall");
 			unitProperties.setVelX(0);
 			unitProperties.setX((t.getUnitProperties().getX() - t.getUnitProperties().getWidth()));
 		}
@@ -85,6 +82,7 @@ public class CollisionDetection {
 	
 	public void checkCollideWithLeftWall(Tile t){
 		if (calculateBounds.getBoundsLeft().intersects(t.getBounds())) {
+			System.out.println("<check> collide Left wall");
 			unitProperties.setVelX(0);
 			unitProperties.setX((t.getUnitProperties().getX() + t.getUnitProperties().getWidth()));
 		}
