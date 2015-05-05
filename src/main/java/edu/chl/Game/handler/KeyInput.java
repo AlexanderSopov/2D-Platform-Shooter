@@ -18,6 +18,7 @@ public class KeyInput implements KeyListener {
 	private long lastTimeSnap;
 	private boolean isJumping;
 	private static final double ns = 1000000000.0;
+	private int jumps = 1;
 
 	public KeyInput(GameHandler handler) {
 		this.handler = handler;
@@ -78,18 +79,33 @@ public class KeyInput implements KeyListener {
 	private void addJumpVelocity(Entity en) {
 		UnitProperties ep = en.getUnitProperties();
 		Vector2D v = ep.getVelocity();
-		if(v.getY() > -12)
-			ep.setVelocity(ep.getVelocity().addWith(new Vector2D(0,-1)));
+		if(v.getY() > -12){
+			jumps = ((jumps+1)%12)+1;
+			ep.setVelocity(ep.getVelocity().addWith(new Vector2D(0,-24/jumps)));
+		}
 		else
 			en.setTouchesGround(false);
+		jumps = 1;
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
 		if (GameThread.state == State.GAME) {
 			for (Entity en : handler.getEntityList()) {
 				if (en.getUnitState().getId() == Id.player) {
-					
+					switch (key) {
+					case KeyEvent.VK_A:
+						en.getUnitProperties().setVelocity(
+								new Vector2D(0, 
+										en.getUnitProperties().getVelocity().getY()));
+						break;
+					case KeyEvent.VK_D:
+						en.getUnitProperties().setVelocity(
+								new Vector2D(0, 
+										en.getUnitProperties().getVelocity().getY()));
+						break;
+					}
 				}
 			}
 		}
