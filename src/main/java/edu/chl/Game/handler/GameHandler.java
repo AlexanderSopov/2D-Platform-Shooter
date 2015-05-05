@@ -1,6 +1,8 @@
 package edu.chl.Game.handler;
 
+import edu.chl.Game.Physics.CollisionStrategy;
 import edu.chl.Game.entity.GameCursor;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -54,14 +56,18 @@ public class GameHandler{
 	}
 	
 	public void update(){
-		for(Entity e: getEntityList()){
-			e.update();
+		CollisionStrategy strategy;
+		int listSize = entity.size();
+		for(int i=0; i < listSize; i++){			
+			for(Tile t: getTileList()){
+				strategy = new CollisionStrategy(entity.get(i), t);
+				if(strategy.areObjectsColliding())
+					strategy.resolveCollision();
+			}
+			strategy = new CollisionStrategy(entity.get(i), entity.get((i+1)%listSize));
+			if(strategy.areObjectsColliding())
+				strategy.resolveCollision();
 		}
-		
-		for(Tile t: getTileList()){
-			t.update();
-		}
-
 	}
 	
 	public void createSheet(){
@@ -99,7 +105,7 @@ public class GameHandler{
 				}else if(red == 0 && green == 255 && blue == 0){
 					addTile(new Wall(x*64, y*64, 64, 64, true, Id.wall, this, 3));
 				}else if(red == 0 && green == 0 && blue == 255){
-					addEntity(new Player(x*64,y*64, 64, 64, true, Id.player, this));
+					addEntity(new Player(x*64,y*55, 64, 64, true, Id.player, this));
 				}else if(red == 255 && green == 0 && blue == 0){
 					addEntity(new MonsterA(x*64,y*64, 64, 64, true, Id.monster, this, 1));
 				}else if(red == 255 && green == 0 && blue == 100){

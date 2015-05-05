@@ -2,6 +2,10 @@ package edu.chl.Game.Vector;
 
 import java.awt.geom.Point2D;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class Vector2D extends Point2D {
 
 	private double x;

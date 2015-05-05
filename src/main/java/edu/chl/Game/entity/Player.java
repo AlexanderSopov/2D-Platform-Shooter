@@ -1,12 +1,10 @@
 package edu.chl.Game.entity;
 
 import java.awt.Graphics;
-import java.util.LinkedList;
 
 import edu.chl.Game.graphics.Sprite;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.Id;
-import edu.chl.Game.tile.Tile;
 
 public class Player extends Entity {
 
@@ -33,13 +31,13 @@ public class Player extends Entity {
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass().renderAnimateRight(g, player,
 						getEntityProperties().getFrame(),
-						getUnitProperties().getVelocity().getX(), getUnitProperties().getVelocity().getY(),
+						getUnitProperties().getPosition().getX(), getUnitProperties().getPosition().getY(),
 						getUnitProperties().getHeight(),
 						getUnitProperties().getWidth());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass().renderAnimateLeft(g, player,
 						getEntityProperties().getFrame(),
-						getUnitProperties().getVelocity().getX(), getUnitProperties().getVelocity().getY(),
+						getUnitProperties().getPosition().getX(), getUnitProperties().getPosition().getY(),
 						getUnitProperties().getHeight(),
 						getUnitProperties().getWidth());
 			}
@@ -49,7 +47,7 @@ public class Player extends Entity {
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass().renderNotAnimateRight(g, player,
 						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
+						getUnitProperties().getPosition().getX(), getUnitProperties().getPosition().getY(),
 						getUnitProperties().getHeight(),
 						getUnitProperties().getWidth());
 			}
@@ -57,7 +55,7 @@ public class Player extends Entity {
 			else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass().renderNotAnimateLeft(g, player,
 						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
+						getUnitProperties().getPosition().getX(), getUnitProperties().getPosition().getY(),
 						getUnitProperties().getHeight(),
 						getUnitProperties().getWidth());
 			}
@@ -66,12 +64,8 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
-		getUpdateMovement().toggleAnimate();
-		getCollisionDetection().checkForCollision();
-		contactWithEnemy.checkForContact();
-		gravitationalProperties.jumpingMechanics();
-		gravitationalProperties.fallingMechanics();
+		super.update();
+		toggleAnimate();
 		if (getUnitState().isAnimate()) {
 			iteratingThroughFrames();
 		}
@@ -87,6 +81,17 @@ public class Player extends Entity {
 				getEntityProperties().setFrameDelay(0);										// sets the frameDelay to 0
 			}
 		}
+	
+	public void toggleAnimate() {
+		if (getUnitProperties().getVelocity().getX() != 0) {
+			getUnitState().setAnimate(true);
+		} else {
+			getUnitState().setAnimate(false);
+		}
+
+	}
+	
+	
 	}
 
 

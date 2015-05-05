@@ -1,8 +1,12 @@
-package edu.chl.Game.GameObject;
+package edu.chl.Test.GameObject;
 
 
 import edu.chl.Game.Vector.Vector2D;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class StaticBox extends Box {
 	
 	public StaticBox(int x, int y, int width, int height, double r, int mass) {

@@ -1,10 +1,14 @@
-package edu.chl.Game.GameObject;
+package edu.chl.Test.GameObject;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
 import edu.chl.Game.Vector.Vector2D;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class Circle extends Entity {
 	
 	private Ellipse2D.Double shape;

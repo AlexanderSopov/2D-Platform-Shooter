@@ -1,10 +1,13 @@
 package edu.chl.Test.PhysicsTest;
 
+/**
+*
+* @author Alexander Sopov
+*/
 
-import edu.chl.Game.GameObject.Circle;
-import edu.chl.Game.GameObject.Box;
-import edu.chl.Game.GameObject.Circle;
-import edu.chl.Game.GameObject.StaticBox;
+import edu.chl.Test.GameObject.Box;
+import edu.chl.Test.GameObject.Circle;
+import edu.chl.Test.GameObject.StaticBox;
 
 
 

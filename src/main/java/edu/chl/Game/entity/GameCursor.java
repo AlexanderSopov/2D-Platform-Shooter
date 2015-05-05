@@ -38,8 +38,8 @@ public class GameCursor extends Entity {
 		case AIM:
 
 			g.setColor(Color.red);
-			g.drawOval(getX() - 15, getY() - 15, 30, 30);
-			g.fillRect(getX(), getY(), 1, 1);
+			g.drawOval((int)getX() - 15, (int)getY() - 15, 30, 30);
+			g.fillRect((int)getX(), (int)getY(), 1, 1);
 
 			break;
 

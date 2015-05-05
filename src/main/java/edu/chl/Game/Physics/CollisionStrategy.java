@@ -1,8 +1,13 @@
 package edu.chl.Game.Physics;
 
-import edu.chl.Game.GameObject.Box;
-import edu.chl.Game.GameObject.Circle;
+import edu.chl.Game.object.GameObject;
+import edu.chl.Test.GameObject.Box;
+import edu.chl.Test.GameObject.Circle;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class CollisionStrategy {
 	CollisionDetective detective;
 
@@ -11,6 +16,10 @@ public class CollisionStrategy {
 	}
 	public CollisionStrategy(Box a, Box b){
 		detective = new BoxVsBox(a,b);
+	}
+	
+	public CollisionStrategy(GameObject a, GameObject b){
+		detective = new GameObjectVsGameObject(a,b);
 	}
 	
 	public Boolean areObjectsColliding(){

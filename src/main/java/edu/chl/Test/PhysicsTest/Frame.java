@@ -5,6 +5,10 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class Frame  extends JFrame {
 		
 	public final static int WIDTH = 1600;

@@ -3,15 +3,16 @@ package edu.chl.Game.Physics;
 import java.awt.Graphics2D;
 
 import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Game.object.GameObject;
 import edu.chl.Test.GameObject.Box;
 
 /**
 *
 * @author Alexander Sopov
 */
-public class BoxVsBox implements CollisionDetective {
-	private final Box a;
-	private final Box b;
+public class GameObjectVsGameObject implements CollisionDetective {
+	private final GameObject a;
+	private final GameObject b;
 	private Vector2D normal;
 	private Vector2D velocityNormal;
 	private double invasionOnX;
@@ -23,20 +24,20 @@ public class BoxVsBox implements CollisionDetective {
 	private double halfHeights;
 	private double halfWidths;
 	
-	public BoxVsBox(Box a, Box b){
+	public GameObjectVsGameObject(GameObject a, GameObject b){
 		this.a=a;
 		this.b=b;
-		aHalfWidth = (double)(a.getShape().getWidth())/2;
-		bHalfWidth = (double)(b.getShape().getWidth())/2;
-		aHalfHeight = (double)(a.getShape().getHeight())/2;
-		bHalfHeight =(double)( b.getShape().getHeight())/2;
+		aHalfWidth = (double)(a.getWidth())/2;
+		bHalfWidth = (double)(b.getWidth())/2;
+		aHalfHeight = (double)(a.getHeight())/2;
+		bHalfHeight =(double)( b.getHeight())/2;
 		halfHeights = aHalfHeight + bHalfHeight;
 		halfWidths = aHalfWidth + bHalfWidth;
 	}
 	
 	@Override
 	public Boolean areObjectsColliding() {
-		normal = subtract(b.getCenter(), a.getCenter());
+		normal = subtract(b.getUnitProperties().getCenter(), a.getUnitProperties().getCenter());
 		invasionOnX = halfWidths - abs(normal.getX());
 		invasionOnY = halfHeights - abs(normal.getY());
 		return isTherePenetration();
@@ -44,26 +45,19 @@ public class BoxVsBox implements CollisionDetective {
 	
 	@Override
 	public void resolveCollision() {
-		velocityNormal = b.getVelocity().addWith(a.getVelocity());
+		velocityNormal = b.getUnitProperties().getVelocity().addWith(
+				a.getUnitProperties().getVelocity());
 		double penetration = getPenetration();
 		setNormal();
 		double rVelocityLength = velocityNormal.dotProduct(normal);
 		if (-0.3<rVelocityLength && rVelocityLength <0.3)
 			return;
-		System.out.println("VelocityLength =  " + rVelocityLength);
-		System.out.println("A's Velocity: " + a.getVelocity().toString());
 		setVelocityNormal();
 		correctBoxes(rVelocityLength, penetration);
 		
 	}
 
 
-
-	private double stop() {
-		normal = new Vector2D (0,0);
-		velocityNormal = new Vector2D(0,0);
-		return 0.0;
-	}
 
 	private double getPenetration() {
 		if(xInvasionIsSmaller())
@@ -128,10 +122,10 @@ public class BoxVsBox implements CollisionDetective {
 			corr = penetration - slop;
 		
 		Vector2D correction = normal.scale(percent*corr*ratio);
-		a.setLocation((correction.subtractWith(a.getLocation())).returnNegative());
+		a.setPosition((correction.subtractWith(a.getUnitProperties().getPosition())).returnNegative());
 		ratio = b.mass / sumMass;
 		correction = normal.scale(percent*corr*ratio);
-		b.setLocation(correction.addWith(b.getLocation()));
+		b.setPosition(correction.addWith(b.getUnitProperties().getPosition()));
 
 		
 	}
@@ -142,13 +136,16 @@ public class BoxVsBox implements CollisionDetective {
 	private void setVelocityToRatio(Vector2D impulse) {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
 		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
-		Vector2D newVelocity = a.getVelocity().addWith(scaledImpulse);
+		Vector2D newVelocity = a.getUnitProperties().getVelocity().addWith(scaledImpulse);
 		System.out.println("newVelocity: " + newVelocity.toString());
-		a.setVelocity(scaledImpulse);
+		a.getUnitProperties().setVelocity(
+				a.getUnitProperties().getVelocity().addWith(
+				new Vector2D(0,scaledImpulse.getY()))
+										);
 
 		scaledImpulse = impulse.scale(b.invMass);
-		newVelocity = b.getVelocity().subtractWith(scaledImpulse);
-		b.setVelocity(newVelocity);
+		newVelocity = b.getUnitProperties().getVelocity().subtractWith(scaledImpulse);
+		b.getUnitProperties().setVelocity(newVelocity);
 	}
 	
 	
@@ -156,7 +153,6 @@ public class BoxVsBox implements CollisionDetective {
 		double e = min(a.restitution, b.restitution); // the object with less "bounciness" wins
 		double j = -(1 + e) * (velocityLength/2); // calculate an impulse scalar
 		
-		System.out.println("J = " + j + ". velocityNormal: " + velocityNormal.toString());
 		j /= (a.invMass + b.invMass);
 		
 		return velocityNormal.scale(j);

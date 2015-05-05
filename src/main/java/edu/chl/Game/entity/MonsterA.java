@@ -21,10 +21,10 @@ public class MonsterA extends Entity {
 		int r = rand.nextInt(2);
 
 		if (true) {
-			getUnitProperties().setVelX(2);
+			getUnitProperties().setVelocity(2, getUnitProperties().getVelocity().getY());
 			getEntityProperties().setFrame(0);
 		} else if (r == 1) {
-			getUnitProperties().setVelX(-2);
+			getUnitProperties().setVelocity(-2, getUnitProperties().getVelocity().getY());
 			getEntityState().setFacingDirection(FacingDirection.FacingRight);
 		}
 
@@ -65,8 +65,7 @@ public class MonsterA extends Entity {
 
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
-
+		/*
 		for (Tile t : getUnitProperties().getHandler().getTileList()) {
 			if (t.getUnitState().isSolid()) {
 				if (t.getUnitState().getId() == Id.wall) {
@@ -98,7 +97,7 @@ public class MonsterA extends Entity {
 			getEntityProperties().setGravity(getEntityProperties().getGravity()+0.1);
 			getUnitProperties().setVelY((int) getEntityProperties().getGravity());
 		}
-
+		*/
 		if (!getUnitState().isAnimate()) {
 			//frameDelay++;
 			getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay()+1);

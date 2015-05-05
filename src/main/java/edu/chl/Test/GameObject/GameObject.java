@@ -1,4 +1,4 @@
-package edu.chl.Game.GameObject;
+package edu.chl.Test.GameObject;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -9,6 +9,10 @@ import java.util.Observer;
 
 import edu.chl.Game.Vector.Vector2D;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public abstract class GameObject implements Observer {
 	private RectangularShape shape;
 	public double restitution;

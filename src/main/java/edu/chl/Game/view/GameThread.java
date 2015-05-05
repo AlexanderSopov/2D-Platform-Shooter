@@ -12,7 +12,7 @@ import edu.chl.Game.tile.Tile;
 
 /**
  * 
- * @author Mansoor, Alexander
+ * @author Mansoor, Alexander Sopov
  * @version 1.0
  */
 public class GameThread extends Observable implements Runnable {
@@ -74,6 +74,7 @@ public class GameThread extends Observable implements Runnable {
 	 * Update Timer, create a Buffer and update the handler.
 	 */
 	public void update(){
+			gameHandler.update();
 			setChanged();
 			render();
 			printTimer();
@@ -111,7 +112,7 @@ public class GameThread extends Observable implements Runnable {
 			frame.requestFocus();
 			g.setColor(new Color(135, 206, 235));
 			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
+			g.translate((int)gameHandler.getCamera().getX(), (int)gameHandler.getCamera().getY());
 			notifyObservers((Object)g);
 			gameHandler.render(g);
 			b.show();

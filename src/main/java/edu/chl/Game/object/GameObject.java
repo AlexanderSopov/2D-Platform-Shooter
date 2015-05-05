@@ -5,8 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import edu.chl.Game.Main;
+import edu.chl.Game.Vector.Vector2D;
 import edu.chl.Game.entity.*;
-import edu.chl.Game.entity.UnitProperties;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.view.GameThread;
 
@@ -14,17 +14,22 @@ public abstract class GameObject implements Observer {
 	public static GameThread gt = Main.game;
 	private UnitProperties unitProperties;
 	private UnitState unitState;
-	private UpdateMovement updateMovement;
-	private CalculateBounds calculateBounds;
+	public final double mass;
+	public final double invMass;
+	public final double restitution = 0.0;
 
-	public GameObject(int x, int y, int width, int height, boolean solid,
-			Id id, GameHandler handler) {
-		this.unitProperties = new UnitProperties(handler, x, y, width, height);
+	public GameObject(double d, double e, int width, int height, boolean solid,
+			Id id, GameHandler handler, double mass) {
+		this.unitProperties = new UnitProperties(handler, d, e, width, height);
 		this.unitState = new UnitState(id, solid);
-		this.updateMovement = new UpdateMovement(this.unitProperties,
-				this.unitState);
-		this.calculateBounds = new CalculateBounds(unitProperties);
+		this.mass = mass;
+		invMass = getInvMass();
+	}
 
+	private double getInvMass() {
+		if (mass == 0)
+			return 0;
+		return 1/mass;
 	}
 
 	public abstract void render(Graphics g);
@@ -51,39 +56,36 @@ public abstract class GameObject implements Observer {
 		return unitState;
 	}
 
-	public UpdateMovement getUpdateMovement() {
-		return this.updateMovement;
-	}
-
-	public CalculateBounds getCalculateBounds() {
-		return calculateBounds;
-	}
         
-        public GameHandler getHandler(){
+	public GameHandler getHandler(){
             return unitProperties.getHandler();
         }
 
-	public int getX() {
-		return unitProperties.getX();
+	public double getX() {
+		return unitProperties.getPosition().getX();
 	}
 
-	public int getY() {
-		return unitProperties.getY();
+	public double getY() {
+		return unitProperties.getPosition().getY();
 	}
 
-	public void setX(int x) {
-		unitProperties.setX(x);
+	public void setX(double d) {
+		unitProperties.setPosition(d,unitProperties.getPosition().getY());
 	}
 
-	public void setY(int y) {
-		unitProperties.setY(y);
+	public void setY(double y) {
+		unitProperties.setPosition(unitProperties.getPosition().getX(), y);
+	}
+	
+	public void setPosition(Vector2D v){
+		unitProperties.setPosition(v);
 	}
 
-	public int getWidth() {
+	public double getWidth() {
 		return unitProperties.getWidth();
 	}
 
-	public int getHeight() {
+	public double getHeight() {
 		return unitProperties.getHeight();
 	}
 

@@ -1,9 +1,13 @@
-package edu.chl.Game.GameObject;
+package edu.chl.Test.GameObject;
 
 import java.awt.geom.RectangularShape;
 
 import edu.chl.Game.Vector.Vector2D;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public abstract class Entity extends GameObject {
 	private Vector2D velocity; //vector array
 	private static final Vector2D gravity = new Vector2D(0, 0.3);

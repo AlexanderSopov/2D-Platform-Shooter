@@ -17,27 +17,29 @@ import java.awt.Graphics;
  */
 public class Bullet extends Entity{
     
-    private int targetPosX,targetPosY, speed;
+    double targetPosX;
+	double targetPosY;
+	private int speed;
     private float angle;
     private double firstAngle;
     private boolean passedTarget = false;
-    float length;
-    float xVelocity, yVelocity;
-    float nx,ny;
+    double length;
+    double xVelocity, yVelocity;
+    double nx,ny;
     
 
-    public Bullet(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler,int targetPosX, int targetPosY, int speed, double angle) {
-        super(x, y, width, height, solid, id, handler);
+    public Bullet(double d, double e, int width, int height, boolean solid, Id id,
+			GameHandler handler,double f, double g, int speed, double angle) {
+        super(d, e, width, height, solid, id, handler);
         
                 
-		this.setTargetPosX(targetPosX);
+		this.setTargetPosX(f);
                 
-		this.setTargetPosY(targetPosY);
+		this.setTargetPosY(g);
 		this.speed = 25;
                
-                ny = targetPosY-y;
-                nx = targetPosX-x;
+                ny = g-e;
+                nx = f-d;
                  
                 length = (float)Math.sqrt((nx * nx) + (ny* ny));
     }
@@ -45,7 +47,7 @@ public class Bullet extends Entity{
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
-	g.fillOval(getX()-(getWidth()/2),getY()-(getHeight()/2), getWidth(), getHeight());
+	g.fillOval((int)(getX()-(getWidth()/2)),(int)(getY()-(getHeight()/2)), (int)getWidth(), (int)getHeight());
         //g.setColor(Color.GREEN);
        // g.fillOval(this.targetPosX-(width/2), this.targetPosY-(height/2), width, height);
         //g.drawString(""+ angle, x, y);
@@ -58,8 +60,8 @@ public class Bullet extends Entity{
         xVelocity = nx / length * speed;
         yVelocity = ny / length * speed;
 
-	setX(getX() + (int)xVelocity);
-        setY(getY() + (int)yVelocity);
+	setX(getX() + xVelocity);
+        setY(getY() + yVelocity);
 
 	
     }
@@ -68,20 +70,20 @@ public class Bullet extends Entity{
 		
 	}
     
-    	public int getTargetPosX() {
+    	public double getTargetPosX() {
 		return targetPosX;
 	}
 
-	private void setTargetPosX(int targetPosX) {
-		this.targetPosX = targetPosX;
+	private void setTargetPosX(double f) {
+		this.targetPosX = f;
 	}
 
-	public int getTargetPosY() {
+	public double getTargetPosY() {
 		return targetPosY;
 	}
 
-	private void setTargetPosY(int targetPosY) {
-		this.targetPosY = targetPosY;
+	private void setTargetPosY(double g) {
+		this.targetPosY = g;
 	}
 
 	public int getSpeed() {

@@ -1,6 +1,9 @@
-package edu.chl.Game.GameObject;
+package edu.chl.Test.GameObject;
 
-
+/**
+*
+* @author Alexander Sopov
+*/
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 

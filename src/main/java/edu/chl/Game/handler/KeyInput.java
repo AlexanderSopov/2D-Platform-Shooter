@@ -1,6 +1,8 @@
 package edu.chl.Game.handler;
 
+import edu.chl.Game.Vector.Vector2D;
 import edu.chl.Game.entity.FacingDirection;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -31,20 +33,21 @@ public class KeyInput implements KeyListener {
 					switch (key) {
 					case KeyEvent.VK_W:
 					case 32:
-						if (!en.getEntityState().isJumping()) {
-							en.getEntityState().setJumping(true);
-							en.getEntityProperties().setGravity(8.0);
+						if (en.touchesGround()) {
+							en.getUnitProperties().setVelocity(
+									en.getUnitProperties().getVelocity().addWith(
+											new Vector2D(0,-30)));
 						}
 						break;
 					case KeyEvent.VK_A:
-						en.getUnitProperties().setVelX(-5);
-						// en.facing = 1;
+						en.getUnitProperties().setVelocity(new Vector2D(-5,
+								en.getUnitProperties().getVelocity().getY()));
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingLeft);
 						break;
 					case KeyEvent.VK_D:
-						en.getUnitProperties().setVelX(5);
-						// en.facing = 0;
+						en.getUnitProperties().setVelocity(new Vector2D(5,
+								en.getUnitProperties().getVelocity().getY()));
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingRight);
 						break;
@@ -60,8 +63,7 @@ public class KeyInput implements KeyListener {
 		if (GameThread.state == State.GAME) {
 			for (Entity en : handler.getEntityList()) {
 				if (en.getUnitState().getId() == Id.player) {
-					en.getUnitProperties().setVelY(0);
-					en.getUnitProperties().setVelX(0);
+					en.getUnitProperties().setVelocity(new Vector2D(0,0));
 				}
 			}
 		}

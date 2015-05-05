@@ -3,11 +3,15 @@ package edu.chl.Test.PhysicsTest;
 import java.util.Observable;
 import java.util.Observer;
 
-import edu.chl.Game.GameObject.Box;
-import edu.chl.Game.GameObject.Circle;
 import edu.chl.Game.Physics.CollisionStrategy;
 import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Test.GameObject.Box;
+import edu.chl.Test.GameObject.Circle;
 
+/**
+*
+* @author Alexander Sopov
+*/
 public class Handler implements Observer {
 	
 	private static Circle c1 = Main.c1;
