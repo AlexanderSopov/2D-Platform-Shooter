@@ -11,7 +11,7 @@ public class UnitProperties {
 	private GameHandler handler;
 	
 	public UnitProperties(GameHandler handler, double d, double e, int width, int height){
-		setPosition(d,e);
+		setPosition(d, e);
 		setVelocity(0,0);
 		this.width = width;
 		this.height = height;
