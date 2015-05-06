@@ -4,6 +4,7 @@ public class EntityState {
 	
 	private boolean jumping = false;
 	private boolean falling = true;
+	private boolean contactWithGround = false;
 	private FacingDirection facingDirection;
 	
 	public EntityState(FacingDirection facingDirection){
@@ -32,6 +33,14 @@ public class EntityState {
 
 	public FacingDirection getFacingDirection() {
 		return facingDirection;
+	}
+	
+	public boolean getContactWithGround() {
+		return contactWithGround;
+	}
+
+	public void setContactWithGround(boolean contactWithGround) {
+		this.contactWithGround = contactWithGround;
 	}
 
 }

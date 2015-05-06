@@ -3,7 +3,6 @@ package edu.chl.Game.object;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
 import edu.chl.Game.Main;
 import edu.chl.Game.entity.*;
 import edu.chl.Game.entity.UnitProperties;

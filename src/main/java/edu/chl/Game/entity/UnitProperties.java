@@ -29,8 +29,8 @@ public class UnitProperties {
 		return velY;
 	}
 	
-	public void setVelY(int velY){
-		this.velY = velY;
+	public void setVelY(int vely){
+		this.velY = vely;
 	}
 
 	public int getX() {

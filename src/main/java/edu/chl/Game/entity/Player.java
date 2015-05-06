@@ -77,20 +77,46 @@ public class Player extends Entity {
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
-			iteratingThroughFrames();
+			iterateThroughFrames();
 		}
 	}
 	
-	public void iteratingThroughFrames(){
-			getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay() + 1); // increases the frameDelay by 1
-			if (3 <= getEntityProperties().getFrameDelay()) {								// if the frameDelay is equal or higher than 3
-				getEntityProperties().setFrame(getEntityProperties().getFrame() + 1);		// increases the frame by 1
-				if (6 <= getEntityProperties().getFrame()) {								// if the frame is equal or higher than 6
-					getEntityProperties().setFrame(0);										// sets the frame to 0
-				}
-				getEntityProperties().setFrameDelay(0);										// sets the frameDelay to 0
-			}
+	public void iterateThroughFrames(){
+		increaseFrameDelay();
+	}
+
+	public void increaseFrameDelay(){
+		getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay() + 1);
+		checkFrameDelayLimit();
+	}
+	
+	public void checkFrameDelayLimit(){
+		if (3 <= getEntityProperties().getFrameDelay()){
+			increaseFrame();
+			setFrameDelayToZero();
 		}
 	}
+	
+	public void increaseFrame(){
+		getEntityProperties().setFrame(getEntityProperties().getFrame() + 1);
+		checkFrameLimit();
+	}
+	
+	public void checkFrameLimit(){
+		if (6 <= getEntityProperties().getFrame()) {
+			setFrameToZero();
+		}
+	}
+	
+	public void setFrameDelayToZero(){
+		getEntityProperties().setFrameDelay(0);
+	}
+	
+	public void setFrameToZero(){
+		getEntityProperties().setFrame(0);
+	}
+
+	
+}
 
 

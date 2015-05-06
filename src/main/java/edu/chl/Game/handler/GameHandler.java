@@ -5,16 +5,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
-
 import javax.imageio.ImageIO;
-
 import edu.chl.Game.Main;
-import edu.chl.Game.entity.Entity;
-import edu.chl.Game.entity.MonsterA;
+import edu.chl.Game.entity.*;
+import edu.chl.Game.Units.*;
 import edu.chl.Game.entity.Player;
 import edu.chl.Game.graphics.SpriteSheet;
 import edu.chl.Game.object.Id;
-import edu.chl.Game.tile.Tile;
+import edu.chl.Game.tile.*;
 import edu.chl.Game.tile.Wall;
 import edu.chl.Game.view.Frame;
 
@@ -29,6 +27,7 @@ public class GameHandler{
 	private SpriteSheet sheetTexture;
 	private BufferedImage mapImage;
 	private SpriteSheet sheetEnemyUnit0;
+	private SpriteSheet sheetDerangedBeast;
 	
 	private Camera camera;
     private GameCursor c;
@@ -73,6 +72,8 @@ public class GameHandler{
 		sheetTexture = new SpriteSheet("/spriteSheetTexture.png");
 		//64x64
 		sheetEnemyUnit0 = new SpriteSheet("/EnemyUnitGrid0.png");
+		//64x64
+		sheetDerangedBeast = new SpriteSheet("/SpriteSheet_DerangedBeast.png");
 	}
 	
 
@@ -95,15 +96,15 @@ public class GameHandler{
 				int blue = (pixel) & 0xff;
 				
 				if(red == 0 && green == 0 && blue == 0){
-					addTile(new Wall(x*64, y*64, 64, 64, true, Id.wall, this, 1));
+					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this, 1));
 				}else if(red == 0 && green == 255 && blue == 0){
-					addTile(new Wall(x*64, y*64, 64, 64, true, Id.wall, this, 3));
+					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this, 3));
 				}else if(red == 0 && green == 0 && blue == 255){
 					addEntity(new Player(x*64,y*64, 64, 64, true, Id.player, this));
 				}else if(red == 255 && green == 0 && blue == 0){
-					addEntity(new MonsterA(x*64,y*64, 64, 64, true, Id.monster, this, 1));
+					addEntity(new DerangedBeast(x*64,y*64, 64, 64, true, Id.monster, this, 1));
 				}else if(red == 255 && green == 0 && blue == 100){
-					addEntity(new MonsterA(x*64,y*64, 64, 64, true, Id.monster, this, 2));
+					addEntity(new DerangedBeast(x*64,y*64, 64, 64, true, Id.monster, this, 2));
 				}
 			}
                         
@@ -162,6 +163,10 @@ public class GameHandler{
 	
 	public SpriteSheet getSheetEnemyUnitGrid0(){
 		return sheetEnemyUnit0;
+	}
+	
+	public SpriteSheet getSheetDerangedBeast(){
+		return sheetDerangedBeast;
 	}
 
 }
