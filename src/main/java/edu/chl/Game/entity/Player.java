@@ -115,6 +115,14 @@ public class Player extends Entity {
 	public void setFrameToZero(){
 		getEntityProperties().setFrame(0);
 	}
+	
+	public void recieveDamage(double damage){
+		System.out.println(getUnitProperties().getHealthPoints());
+		getUnitProperties().setHealthPoints(getUnitProperties().getHealthPoints() - damage);
+	}
+	
+	
+
 
 	
 }

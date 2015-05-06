@@ -21,6 +21,7 @@ public class GameHandler{
 	private Frame frame;
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
+	private Player player;
 	
 	private SpriteSheet sheetPlayer;
 	private SpriteSheet sheetMonster;
@@ -28,6 +29,7 @@ public class GameHandler{
 	private BufferedImage mapImage;
 	private SpriteSheet sheetEnemyUnit0;
 	private SpriteSheet sheetDerangedBeast;
+	private SpriteSheet sheetDerangedBeast_AttackAnimation;
 	
 	private Camera camera;
     private GameCursor c;
@@ -74,6 +76,8 @@ public class GameHandler{
 		sheetEnemyUnit0 = new SpriteSheet("/EnemyUnitGrid0.png");
 		//64x64
 		sheetDerangedBeast = new SpriteSheet("/SpriteSheet_DerangedBeast.png");
+		//64x64
+		sheetDerangedBeast_AttackAnimation = new SpriteSheet("/db_aa.png");
 	}
 	
 
@@ -116,8 +120,17 @@ public class GameHandler{
                             }
                         }
                         
+                        for(int i=0; i<entity.size(); i++){
+                        	if(entity.get(i).getUnitState().getId() == Id.player){
+                        		this.player = (Player) entity.get(i);
+                        	}
+                        }
+                        
+                        
                         
 		}
+		
+		
 	}
 	
 	public Camera getCamera(){
@@ -167,6 +180,15 @@ public class GameHandler{
 	
 	public SpriteSheet getSheetDerangedBeast(){
 		return sheetDerangedBeast;
+	}
+	
+	public Player getPlayer(){
+		return player;
+	}
+	
+	
+	public SpriteSheet getSheetDerangedBeast_AttackAnimation(){
+		return sheetDerangedBeast_AttackAnimation;
 	}
 
 }

@@ -7,6 +7,7 @@ public class UnitProperties {
 	private int x, y;
 	private int velX, velY;
 	private int width, height;
+	private double healthPoints;
 	private GameHandler handler;
 	
 	public UnitProperties(GameHandler handler, int x, int y, int width, int height){
@@ -15,6 +16,7 @@ public class UnitProperties {
 		this.width = width;
 		this.height = height;
 		this.handler = handler;
+		this.healthPoints = 100.0;
 	}
 	
 	public int getVelX(){
@@ -67,6 +69,14 @@ public class UnitProperties {
 	
 	public GameHandler getHandler(){
 		return handler;
+	}
+	
+	public double getHealthPoints(){
+		return healthPoints;
+	}
+	
+	public void setHealthPoints(double healthPoints){
+		this.healthPoints = healthPoints;
 	}
 	
 }

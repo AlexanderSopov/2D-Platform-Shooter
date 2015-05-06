@@ -22,7 +22,6 @@ public abstract class GameObject implements Observer {
 		this.unitState = new UnitState(id, solid);
 		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
 		this.calculateBounds = new CalculateBounds(unitProperties);
-
 	}
 
 	public abstract void render(Graphics g);
