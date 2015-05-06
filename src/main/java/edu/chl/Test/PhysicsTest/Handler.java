@@ -25,11 +25,7 @@ public class Handler implements Observer {
 
 		c1.setVelocity(5.5,-1.25);
 		c3.setVelocity(-1.25, -12.5);
-/*
-		c1.setVelocity(22,-5);
-		c3.setVelocity(-2, -45);
 		b1.setVelocity(new Vector2D(-5,-5));
-*/
 	}
 	
 	
@@ -46,12 +42,12 @@ public class Handler implements Observer {
 		strategy = new CollisionStrategy(c1,c3);
 		if (strategy.areObjectsColliding())
 			strategy.resolveCollision();
-/*
+
 		strategy = new CollisionStrategy(b1,b2);
 		if (strategy.areObjectsColliding()){
 			strategy.resolveCollision();
 		}
-	*/		
+		/**/		
 		
 		
 	}

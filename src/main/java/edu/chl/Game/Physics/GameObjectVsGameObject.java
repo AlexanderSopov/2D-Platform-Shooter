@@ -50,9 +50,9 @@ public class GameObjectVsGameObject implements CollisionDetective {
 		double penetration = getPenetration();
 		setNormal();
 		double rVelocityLength = velocityNormal.dotProduct(normal);
-		if (-0.3<rVelocityLength && rVelocityLength <0.3)
+		if (Math.abs(rVelocityLength) <0.3)
 			return;
-		setVelocityNormal();
+		//setVelocityNormal();
 		correctBoxes(rVelocityLength, penetration);
 		
 	}
@@ -84,7 +84,6 @@ public class GameObjectVsGameObject implements CollisionDetective {
 			velocityNormal = new Vector2D(velocityNormal.getX(), -velocityNormal.getY());
 		else
 			velocityNormal = new Vector2D(-velocityNormal.getX(), velocityNormal.getY());
-			
 	}
 	private boolean xInvasionIsSmaller() {
 		return invasionOnX < invasionOnY;
@@ -105,7 +104,7 @@ public class GameObjectVsGameObject implements CollisionDetective {
 
 	private void correctBoxes(double velocityLength, double penetration) {
 		correctPositions(penetration);
-		Vector2D impulse = calculateImpulse(velocityNormal.makeUnitVector(), velocityLength);
+		Vector2D impulse = calculateImpulse(normal, velocityLength);
 		setVelocityToRatio(impulse);
 	}
 	
@@ -151,8 +150,7 @@ public class GameObjectVsGameObject implements CollisionDetective {
 	
 	private Vector2D calculateImpulse(Vector2D velocityNormal, double velocityLength) {
 		double e = min(a.restitution, b.restitution); // the object with less "bounciness" wins
-		double j = -(1 + e) * (velocityLength/2); // calculate an impulse scalar
-		
+		double j = -(1 + e) * (velocityLength); // calculate an impulse scalar
 		j /= (a.invMass + b.invMass);
 		
 		return velocityNormal.scale(j);

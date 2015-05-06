@@ -38,17 +38,5 @@ public class Jump extends Thread implements Runnable {
 			}
 		System.out.println("W was released");
 		}
-	
-	private void waitMs(int i) {
-		long timeSnap1 = System.nanoTime();
-		double nanosec = 1000000000.0;
-		long timeSnap2 = System.nanoTime();
-		double delta = (timeSnap2 - timeSnap1)/nanosec;
-		while(delta < i/1000){
-			timeSnap1 = timeSnap2;
-			timeSnap2 = System.nanoTime();
-			delta += (timeSnap2 - timeSnap1 )/nanosec;
-		}
-		System.out.println("Delta = " + delta);
-	}
+
 }
