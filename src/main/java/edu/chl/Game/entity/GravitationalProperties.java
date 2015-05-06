@@ -15,7 +15,7 @@ public class GravitationalProperties {
 	
 	public void jumpingMechanics(){
 		if(entityState.getContactWithGround()){
-			entityProperties.setGravity(20.0);
+			entityProperties.setGravity(25.0);
 		}
 		
 		if (entityState.isJumping()) {
@@ -31,7 +31,7 @@ public class GravitationalProperties {
 	
 	public void fallingMechanics(){
 		if (entityState.isFalling()) {													
-			entityProperties.setGravity(entityProperties.getGravity() + 1);		
+			entityProperties.setGravity(entityProperties.getGravity() + 1.0);		
 			unitProperties.setVelY(((int) entityProperties.getGravity()));		
 		}
 	}

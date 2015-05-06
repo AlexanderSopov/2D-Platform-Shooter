@@ -5,16 +5,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
-
 import javax.imageio.ImageIO;
-
 import edu.chl.Game.Main;
 import edu.chl.Game.entity.Entity;
 import edu.chl.Game.entity.MonsterA;
 import edu.chl.Game.entity.Player;
 import edu.chl.Game.graphics.SpriteSheet;
 import edu.chl.Game.object.Id;
-import edu.chl.Game.tile.Tile;
+import edu.chl.Game.tile.*;
 import edu.chl.Game.tile.Wall;
 import edu.chl.Game.view.Frame;
 
@@ -95,9 +93,9 @@ public class GameHandler{
 				int blue = (pixel) & 0xff;
 				
 				if(red == 0 && green == 0 && blue == 0){
-					addTile(new Wall(x*64, y*64, 64, 64, true, Id.wall, this, 1));
+					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this, 1));
 				}else if(red == 0 && green == 255 && blue == 0){
-					addTile(new Wall(x*64, y*64, 64, 64, true, Id.wall, this, 3));
+					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this, 3));
 				}else if(red == 0 && green == 0 && blue == 255){
 					addEntity(new Player(x*64,y*64, 64, 64, true, Id.player, this));
 				}else if(red == 255 && green == 0 && blue == 0){
