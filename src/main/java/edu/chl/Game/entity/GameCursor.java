@@ -15,6 +15,7 @@ public class GameCursor extends Entity {
 	private State state;
 	private Entity en;
 	private int counter;
+        Pistol p;
 
 	private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
 
@@ -30,6 +31,9 @@ public class GameCursor extends Entity {
 		this.state = State.AIM;
 		this.en = en;
 		this.counter = 0;
+                
+                p = new Pistol(en.getX(), en.getY(), en.getWidth(),en.getHeight(), false, null, handler, this,en);
+                
 	}
 
 	@Override
@@ -40,11 +44,12 @@ public class GameCursor extends Entity {
 			g.setColor(Color.red);
 			g.drawOval(getX() - 15, getY() - 15, 30, 30);
 			g.fillRect(getX(), getY(), 1, 1);
+                        
 
 			break;
 
 		}
-
+                p.render(g);
 		for (Bullet b : getBulletList()) {
 			b.render(g);
 		}
@@ -56,7 +61,7 @@ public class GameCursor extends Entity {
 		setX(MouseInput.getMousePosX() - (-en.getX() + Frame.WIDTH / 2));
 		setY(MouseInput.getMousePosY() - (-en.getY() + Frame.HEIGHT / 2 + 100));
 
-		
+		p.update();
 
 		for (Bullet b : getBulletList()) {
 			b.update();
