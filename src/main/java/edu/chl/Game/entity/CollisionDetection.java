@@ -54,7 +54,6 @@ public class CollisionDetection {
 	public void checkCollideWithFlor(Tile t){
 		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.floor){
 			if (calculateBounds.getBoundsBottom().intersects(t.getBounds())) {
-				System.out.println("<check> collide floor");
 				unitProperties.setY(t.getY() - unitProperties.getHeight());
 				unitProperties.setVelY(0);
 				entityState.setFalling(false);
@@ -78,7 +77,6 @@ public class CollisionDetection {
 	public void checkCollideWithRightWall(Tile t){
 		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.rightWall){
 			if (calculateBounds.getBoundsRight().intersects(t.getBounds())) {
-				System.out.println("<check> collide Right wall");
 				unitProperties.setVelX(0);
 				unitProperties.setX((t.getUnitProperties().getX() - t.getUnitProperties().getWidth()));
 			}
@@ -88,7 +86,6 @@ public class CollisionDetection {
 	public void checkCollideWithLeftWall(Tile t){
 		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.leftWall){
 			if (calculateBounds.getBoundsLeft().intersects(t.getBounds())) {
-				System.out.println("<check> collide Left wall");
 				unitProperties.setVelX(0);
 				unitProperties.setX((t.getUnitProperties().getX() + t.getUnitProperties().getWidth()));
 			}
