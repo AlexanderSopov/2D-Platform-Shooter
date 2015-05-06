@@ -22,10 +22,9 @@ public class Handler implements Observer {
 	private static Box b2 = Main.b2;
 	
 	public Handler(){
-
 		c1.setVelocity(5.5,-1.25);
 		c3.setVelocity(-1.25, -12.5);
-		b1.setVelocity(new Vector2D(-5,-5));
+		b1.setVelocity(new Vector2D(-10,5));
 	}
 	
 	

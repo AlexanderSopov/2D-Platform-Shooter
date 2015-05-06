@@ -79,12 +79,7 @@ public class GameObjectVsGameObject implements CollisionDetective {
 		}
 	}
 	
-	private void setVelocityNormal(){
-		if(xInvasionIsSmaller())
-			velocityNormal = new Vector2D(velocityNormal.getX(), -velocityNormal.getY());
-		else
-			velocityNormal = new Vector2D(-velocityNormal.getX(), velocityNormal.getY());
-	}
+
 	private boolean xInvasionIsSmaller() {
 		return invasionOnX < invasionOnY;
 	}
@@ -134,16 +129,14 @@ public class GameObjectVsGameObject implements CollisionDetective {
 
 	private void setVelocityToRatio(Vector2D impulse) {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
+		double frictionSum = 0.9;
 		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
-		Vector2D newVelocity = a.getUnitProperties().getVelocity().addWith(scaledImpulse);
+		Vector2D newVelocity = a.getUnitProperties().getVelocity().addWith(scaledImpulse).scale(frictionSum);
 		//System.out.println("newVelocity: " + newVelocity.toString());
-		a.getUnitProperties().setVelocity(
-				a.getUnitProperties().getVelocity().addWith(
-				new Vector2D(0,scaledImpulse.getY()))
-										);
+		a.getUnitProperties().setVelocity(newVelocity);
 
 		scaledImpulse = impulse.scale(b.invMass);
-		newVelocity = b.getUnitProperties().getVelocity().subtractWith(scaledImpulse);
+		newVelocity = b.getUnitProperties().getVelocity().subtractWith(scaledImpulse).scale(frictionSum);
 		b.getUnitProperties().setVelocity(newVelocity);
 	}
 	
