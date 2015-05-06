@@ -56,7 +56,12 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+                
+                System.out.println("hahaha");
+                if (c != null) {
+                    c.shoot();
+                }
+		/*
 		if(GameThread.state == State.GAME) {
 			c.shoot();
 			if (c != null) {
@@ -95,7 +100,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 			}
 			
 			frame.getContentPane().removeAll();
-		}
+		}*/
 
 	}
 

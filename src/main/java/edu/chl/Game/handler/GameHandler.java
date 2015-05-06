@@ -40,8 +40,9 @@ public class GameHandler{
                 createSheet();
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
-        frame.addMouseListener(new MouseInput(c));
-        frame.addMouseMotionListener(new MouseInput(c));
+                MouseInput mi = new MouseInput(c);
+                frame.addMouseListener(mi);
+                frame.addMouseMotionListener(mi);
 		
 	}
 	
