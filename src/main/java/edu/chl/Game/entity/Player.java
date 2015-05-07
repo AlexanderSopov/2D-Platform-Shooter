@@ -10,21 +10,24 @@ import edu.chl.Game.tile.Tile;
 
 public class Player extends Entity {
 
-	private Sprite player[] = new Sprite[12];
+	private Sprite player[] = new Sprite[40];
 	private ContactWithEnemy contactWithEnemy;
 	private GravitationalProperties gravitationalProperties;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
+		
+		getRenderClass().setFrameAmount(20);
 
-		for (int i = 0; i < 6; i++) {
-			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 64, 64);
+		// facing right
+		for (int i = 0; i < 20; i++) {
+			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
 		}
 
 		// facing left
-		for (int i = 0; i < 6; i++) {
-			player[i + 6] = new Sprite(handler.getSheetPlayer(), i, 1, 64, 64);
+		for (int i = 0; i < 20; i++) {
+			player[i + 20] = new Sprite(handler.getSheetPlayer(), i, 1, 62, 62);
 		}
 		
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
@@ -91,7 +94,7 @@ public class Player extends Entity {
 	}
 	
 	public void checkFrameDelayLimit(){
-		if (3 <= getEntityProperties().getFrameDelay()){
+		if (2 <= getEntityProperties().getFrameDelay()){
 			increaseFrame();
 			setFrameDelayToZero();
 		}
@@ -103,7 +106,7 @@ public class Player extends Entity {
 	}
 	
 	public void checkFrameLimit(){
-		if (6 <= getEntityProperties().getFrame()) {
+		if (20 <= getEntityProperties().getFrame()) {
 			setFrameToZero();
 		}
 	}

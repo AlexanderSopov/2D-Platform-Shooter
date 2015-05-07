@@ -67,7 +67,7 @@ public class GameHandler{
 	
 	public void createSheet(){
 		//28x41
-		sheetPlayer = new SpriteSheet("/SpriteSheet_Player.png");
+		sheetPlayer = new SpriteSheet("/SH_Player.png");
 		//32x32
 		sheetMonster = new SpriteSheet("/spriteSheetMonster.png");
 		//16x16
@@ -104,7 +104,7 @@ public class GameHandler{
 				}else if(red == 0 && green == 255 && blue == 0){
 					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this, 3));
 				}else if(red == 0 && green == 0 && blue == 255){
-					addEntity(new Player(x*64,y*64, 64, 64, true, Id.player, this));
+					addEntity(new Player(x*62,y*62, 62, 62, true, Id.player, this));
 				}else if(red == 255 && green == 0 && blue == 0){
 					addEntity(new DerangedBeast(x*64,y*64, 64, 64, true, Id.monster, this, 1));
 				}else if(red == 255 && green == 0 && blue == 100){
