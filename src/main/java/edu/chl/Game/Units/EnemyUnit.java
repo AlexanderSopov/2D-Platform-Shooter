@@ -161,11 +161,11 @@ public class EnemyUnit extends Entity {
 		attackTimer.updateAttackTimer();
 		if(attackTimer.isReadyToAttack()){
 			if(playerXCoordinate <= getX()){
-				if( (getX() - playerXCoordinate) <= 500 ){
+				if( (getX() - playerXCoordinate) <= 50 ){
 					dealDamage();
 				}
 			} else {
-				if( (playerXCoordinate - getX()) <= 500 ){
+				if( (playerXCoordinate - getX()) <= 50 ){
 					dealDamage();
 				}
 			}
