@@ -30,6 +30,7 @@ public class GameHandler{
 	private SpriteSheet sheetEnemyUnit0;
 	private SpriteSheet sheetDerangedBeast;
 	private SpriteSheet sheetDerangedBeast_AttackAnimation;
+	private SpriteSheet sheetPlayer_RecieveDamage;
 	
 	private Camera camera;
     private GameCursor c;
@@ -78,6 +79,8 @@ public class GameHandler{
 		sheetDerangedBeast = new SpriteSheet("/SpriteSheet_DerangedBeast.png");
 		//64x64
 		sheetDerangedBeast_AttackAnimation = new SpriteSheet("/db_aa.png");
+		//64x64
+		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
 	}
 	
 
@@ -186,9 +189,12 @@ public class GameHandler{
 		return player;
 	}
 	
-	
 	public SpriteSheet getSheetDerangedBeast_AttackAnimation(){
 		return sheetDerangedBeast_AttackAnimation;
+	}
+	
+	public SpriteSheet getSheetPlayer_RecieveDamage(){
+		return sheetPlayer_RecieveDamage;
 	}
 
 }

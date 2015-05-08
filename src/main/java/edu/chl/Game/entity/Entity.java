@@ -11,12 +11,14 @@ public abstract class Entity extends GameObject {
 	private EntityProperties entityProperties;
 	private EntityState entityState;
 	private RenderClass renderClass;
+	private RenderClass renderClass1;
 	private CollisionDetection collisionDetection;
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
 		renderClass = new RenderClass();
+		renderClass1 = new RenderClass();
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
 		collisionDetection = new CollisionDetection(getUnitProperties(), getUnitState(), getCalculateBounds(), entityProperties, entityState);
@@ -41,6 +43,10 @@ public abstract class Entity extends GameObject {
 
 	public RenderClass getRenderClass() {
 		return renderClass;
+	}
+	
+	public RenderClass getRenderClass1() {
+		return renderClass1;
 	}
 
 
