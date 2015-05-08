@@ -17,13 +17,13 @@ public class Wall extends Tile implements Observer {
 		super(x, y, width, height, solid, id, handler);
 		if (type == 1) {
 			// floor
-			floor = new Sprite(handler.getSheetTexture(), 0, 0, 16, 16);
+			floor = new Sprite(handler.getSheetTile(), 0, 0, 16, 16);
 		} else if (type == 2) {
 			// upper-floor
-			floor = new Sprite(handler.getSheetTexture(), 5, 0, 16, 16);
+			floor = new Sprite(handler.getSheetTile(), 5, 0, 16, 16);
 		} else if (type == 3) {
 			// cloud
-			floor = new Sprite(handler.getSheetTexture(), 5, 8, 16, 16);
+			floor = new Sprite(handler.getSheetTile(), 5, 8, 16, 16);
 		}
 	}
 

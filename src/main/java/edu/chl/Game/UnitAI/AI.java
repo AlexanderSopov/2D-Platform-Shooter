@@ -23,9 +23,9 @@ public class AI {
 	
 	public void followPlayer(){
 		if(handler.getPlayer().getX() < uP.getX()){
-			uP.setVelX(-2);
+			uP.setVelX(-1);
 		} else {
-			uP.setVelX(2);
+			uP.setVelX(1);
 		}
 	}
 	

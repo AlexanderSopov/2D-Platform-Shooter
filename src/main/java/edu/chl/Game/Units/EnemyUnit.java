@@ -21,7 +21,7 @@ import edu.chl.Game.graphics.*;
 public class EnemyUnit extends Entity {
 
 	private SpriteSheet spriteSheet_walking;
-	private Sprite[] spriteArray_walking = new Sprite[12];
+	private Sprite[] spriteArray_walking = new Sprite[16];
 	private int playerXCoordinate;
 	private AttackTimer attackTimer;
 	private double attackDamage;
@@ -68,6 +68,7 @@ public class EnemyUnit extends Entity {
 
 	public void initiate() {
 		loadingSprites.loadSprites();
+		getRenderClass().setFrameAmount(8);
 	}
 
 	// draws the animation
@@ -75,13 +76,13 @@ public class EnemyUnit extends Entity {
 	@Override
 	public void render(Graphics g) {
 		if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-			getRenderClass().renderAnimateRight(g, spriteArray_walking,
+					getRenderClass().renderAnimateRight(g, spriteArray_walking,
 					getEntityProperties().getFrame(),
 					getUnitProperties().getX(), getUnitProperties().getY(),
 					getUnitProperties().getWidth(),
 					getUnitProperties().getHeight());
 		} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-			getRenderClass().renderAnimateLeft(g, spriteArray_walking,
+					getRenderClass().renderAnimateLeft(g, spriteArray_walking,
 					getEntityProperties().getFrame(),
 					getUnitProperties().getX(), getUnitProperties().getY(),
 					getUnitProperties().getWidth(),
