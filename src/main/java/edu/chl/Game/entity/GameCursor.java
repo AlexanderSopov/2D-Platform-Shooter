@@ -17,7 +17,7 @@ public class GameCursor extends Entity {
 	private int counter;
         Pistol p;
 
-	private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
+	
 
 	private enum State {
 		AIM, DEFULT, RELODING;
@@ -50,9 +50,7 @@ public class GameCursor extends Entity {
 
 		}
                 p.render(g);
-		for (Bullet b : getBulletList()) {
-			b.render(g);
-		}
+		
 	}
 
 	@Override
@@ -63,29 +61,14 @@ public class GameCursor extends Entity {
 
 		p.update();
 
-		for (Bullet b : getBulletList()) {
-			b.update();
-			
-		}
+		
 
 	}
 
 	public void shoot() {
-		Bullet b = new Bullet(en.getX() + 32, en.getY() + 32, 10, 10, true, Id.bullet, getHandler(), getX(),getY(), 10, 0);
-		addBullet(b);
-		// System.out.println("shoot"+ handler.getEntityList().size());
+		p.shoot();
 	}
 
-	public void addBullet(Bullet b) {
-		bulletList.add(b);
-	}
 
-	public void removeBullet(Bullet b) {
-		bulletList.remove(b);
-	}
-
-	public LinkedList<Bullet> getBulletList() {
-		return bulletList;
-	}
 
 }
