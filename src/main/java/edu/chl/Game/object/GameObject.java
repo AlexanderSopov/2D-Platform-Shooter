@@ -3,7 +3,6 @@ package edu.chl.Game.object;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
 import edu.chl.Game.Main;
 import edu.chl.Game.entity.*;
 import edu.chl.Game.entity.UnitProperties;
@@ -23,10 +22,7 @@ public abstract class GameObject implements Observer {
 		this.unitState = new UnitState(id, solid);
 		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
 		this.calculateBounds = new CalculateBounds(unitProperties);
-
 	}
-
-	public abstract void render(Graphics g);
 
 	public void update(Observable o, Object arg) {
 		try {
@@ -37,6 +33,8 @@ public abstract class GameObject implements Observer {
 			System.out.println("oops!");
 		}
 	}
+	
+	public abstract void render(Graphics g);
 
 	public abstract void update();
 

@@ -1,36 +1,42 @@
 package edu.chl.Game.entity;
 
 import java.awt.Rectangle;
-
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.GameObject;
 import edu.chl.Game.object.Id;
+import edu.chl.Game.UnitTools.*;
 
 public abstract class Entity extends GameObject {
-	
+
 	private EntityProperties entityProperties;
 	private EntityState entityState;
 	private RenderClass renderClass;
+	private RenderClass renderClass1;
 	private CollisionDetection collisionDetection;
+	private FrameIterator frameIterator;
 
-	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+	public Entity(int x, int y, int width, int height, boolean solid, Id id,
+			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
 		renderClass = new RenderClass();
+		renderClass1 = new RenderClass();
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
-		collisionDetection = new CollisionDetection(getUnitProperties(), getUnitState(), getCalculateBounds(), entityProperties, entityState);
+		collisionDetection = new CollisionDetection(getUnitProperties(),
+				getUnitState(), getCalculateBounds(), entityProperties,
+				entityState);
 
 	}
 
-	public EntityProperties getEntityProperties(){
+	public EntityProperties getEntityProperties() {
 		return entityProperties;
 	}
-	
-	public EntityState getEntityState(){
+
+	public EntityState getEntityState() {
 		return entityState;
 	}
-	
+
 	public CollisionDetection getCollisionDetection() {
 		return collisionDetection;
 	}
@@ -43,6 +49,12 @@ public abstract class Entity extends GameObject {
 		return renderClass;
 	}
 
+	public RenderClass getRenderClass1() {
+		return renderClass1;
+	}
 
+	public FrameIterator getFrameIterator() {
+		return frameIterator;
+	}
 
 }

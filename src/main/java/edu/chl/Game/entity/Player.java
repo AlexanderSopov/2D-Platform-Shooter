@@ -1,6 +1,7 @@
 package edu.chl.Game.entity;
 
 import java.awt.Graphics;
+import edu.chl.Game.HUD.*;
 import java.util.LinkedList;
 
 import edu.chl.Game.graphics.Sprite;
@@ -10,62 +11,112 @@ import edu.chl.Game.tile.Tile;
 
 public class Player extends Entity {
 
-	private Sprite player[] = new Sprite[12];
+	private Sprite player[] = new Sprite[40];
+	private Sprite recieveDamage[] = new Sprite[10];
 	private ContactWithEnemy contactWithEnemy;
 	private GravitationalProperties gravitationalProperties;
+	private FrameCounter frameCounter;
+	private boolean isRecievingDamage;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
-		for (int i = 0; i < 6; i++) {
-			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 64, 64);
+		getRenderClass().setFrameAmount(20);
+		getRenderClass1().setFrameAmount(5);
+
+		// facing right
+		for (int i = 0; i < 20; i++) {
+			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
 		}
 
 		// facing left
-		for (int i = 0; i < 6; i++) {
-			player[i + 6] = new Sprite(handler.getSheetPlayer(), i, 1, 64, 64);
+		for (int i = 0; i < 20; i++) {
+			player[i + 20] = new Sprite(handler.getSheetPlayer(), i, 1, 62, 62);
 		}
+
+		for (int i = 0; i < 5; i++) {
+			recieveDamage[i] = new Sprite(
+					handler.getSheetPlayer_RecieveDamage(), i, 0, 62, 62);
+		}
+
+		for (int i = 0; i < 5; i++) {
+			recieveDamage[i + 5] = new Sprite(
+					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
+		}
+
+		this.frameCounter = new FrameCounter(5);
+
+		
 		
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
+		
+		
+
+	
 	}
 
 	@Override
 	public void render(Graphics g) {
-		if (getUnitState().isAnimate()) {
+		
+
+		
+		if (!isRecievingDamage) {
+			if (getUnitState().isAnimate()) {
+				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
+					getRenderClass().renderAnimateRight(g, player,
+							getEntityProperties().getFrame(),
+							getUnitProperties().getX(),
+							getUnitProperties().getY(),
+							getUnitProperties().getHeight(),
+							getUnitProperties().getWidth());
+				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
+					getRenderClass().renderAnimateLeft(g, player,
+							getEntityProperties().getFrame(),
+							getUnitProperties().getX(),
+							getUnitProperties().getY(),
+							getUnitProperties().getHeight(),
+							getUnitProperties().getWidth());
+				}
+			}
+
+			else if (!getUnitState().isAnimate()) {
+				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
+					getRenderClass().renderNotAnimateRight(g, player,
+							getEntityProperties().getFrame(),
+							getUnitProperties().getX(),
+							getUnitProperties().getY(),
+							getUnitProperties().getHeight(),
+							getUnitProperties().getWidth());
+				}
+
+				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
+					getRenderClass().renderNotAnimateLeft(g, player,
+							getEntityProperties().getFrame(),
+							getUnitProperties().getX(),
+							getUnitProperties().getY(),
+							getUnitProperties().getHeight(),
+							getUnitProperties().getWidth());
+				}
+			}
+		} else {
+
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-				getRenderClass().renderAnimateRight(g, player,
-						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
-						getUnitProperties().getHeight(),
-						getUnitProperties().getWidth());
+				getRenderClass1().renderAnimateRight(g, recieveDamage,
+						frameCounter.getCount(), getUnitProperties().getX(),
+						getUnitProperties().getY(),
+						getUnitProperties().getWidth(),
+						getUnitProperties().getHeight());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-				getRenderClass().renderAnimateLeft(g, player,
-						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
-						getUnitProperties().getHeight(),
-						getUnitProperties().getWidth());
+				getRenderClass1().renderAnimateLeft(g, recieveDamage,
+						frameCounter.getCount(), getUnitProperties().getX(),
+						getUnitProperties().getY(),
+						getUnitProperties().getWidth(),
+						getUnitProperties().getHeight());
 			}
 		}
 
-		else if (!getUnitState().isAnimate()) {
-			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-				getRenderClass().renderNotAnimateRight(g, player,
-						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
-						getUnitProperties().getHeight(),
-						getUnitProperties().getWidth());
-			}
-
-			else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-				getRenderClass().renderNotAnimateLeft(g, player,
-						getEntityProperties().getFrame(),
-						getUnitProperties().getX(), getUnitProperties().getY(),
-						getUnitProperties().getHeight(),
-						getUnitProperties().getWidth());
-			}
-		}
 	}
 
 	@Override
@@ -77,20 +128,58 @@ public class Player extends Entity {
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
-			iteratingThroughFrames();
+			iterateThroughFrames();
 		}
-	}
-	
-	public void iteratingThroughFrames(){
-			getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay() + 1); // increases the frameDelay by 1
-			if (3 <= getEntityProperties().getFrameDelay()) {								// if the frameDelay is equal or higher than 3
-				getEntityProperties().setFrame(getEntityProperties().getFrame() + 1);		// increases the frame by 1
-				if (6 <= getEntityProperties().getFrame()) {								// if the frame is equal or higher than 6
-					getEntityProperties().setFrame(0);										// sets the frame to 0
-				}
-				getEntityProperties().setFrameDelay(0);										// sets the frameDelay to 0
+		if (isRecievingDamage) {
+			frameCounter.updateCount();
+			if (frameCounter.isComplete()) {
+				isRecievingDamage = false;
 			}
 		}
+
 	}
 
+	public void iterateThroughFrames() {
+		increaseFrameDelay();
+	}
 
+	public void increaseFrameDelay() {
+		getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay() + 1);
+		checkFrameDelayLimit();
+	}
+
+	public void checkFrameDelayLimit() {
+		if (2 <= getEntityProperties().getFrameDelay()) {
+			increaseFrame();
+			setFrameDelayToZero();
+		}
+	}
+
+	public void increaseFrame() {
+		getEntityProperties().setFrame(getEntityProperties().getFrame() + 1);
+		checkFrameLimit();
+	}
+
+	public void checkFrameLimit() {
+		if (20 <= getEntityProperties().getFrame()) {
+			setFrameToZero();
+		}
+	}
+
+	public void setFrameDelayToZero() {
+		getEntityProperties().setFrameDelay(0);
+	}
+
+	public void setFrameToZero() {
+		getEntityProperties().setFrame(0);
+	}
+
+	public void recieveDamage(double damage) {
+		System.out.println(getUnitProperties().getHealthPoints());
+		if (!isRecievingDamage) {
+			isRecievingDamage = true;
+		}
+		getUnitProperties().setHealthPoints(getUnitProperties().getHealthPoints() - damage);
+	}
+
+}

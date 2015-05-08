@@ -150,7 +150,6 @@ public class GameThread extends Observable implements Runnable {
 	private void printTimer(){
 		Frame++;
 		if(isFrame()){
-			System.out.println(Frame + " updates/frames in the " + second + "th second");
 			second++;
 			Frame=1;
 		}
