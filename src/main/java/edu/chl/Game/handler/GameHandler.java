@@ -26,6 +26,8 @@ public class GameHandler {
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private Player player;
 
+	
+	private SpriteSheet sheetTile;
 	private SpriteSheet sheetPlayer;
 	private SpriteSheet sheetMonster;
 	private SpriteSheet sheetTexture;
@@ -36,6 +38,7 @@ public class GameHandler {
 	private SpriteSheet sheetPlayer_RecieveDamage;
 	private OpponentUnitProperties op_db;
 	private OpponentUnitProperties op_rb;
+	private SpriteSheet sheetRoaringBrute;
 	private FrameValues frameValues;
 
 	private Camera camera;
@@ -47,8 +50,8 @@ public class GameHandler {
 		camera = new Camera();
 		createSheet();
 		frameValues = new FrameValues(6, 3);
-		this.op_db = new OpponentUnitProperties(10.0, 60);
-		this.op_rb = new OpponentUnitProperties(25.0, 120);
+		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
+		this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
 		frame.addMouseListener(new MouseInput(c));
@@ -75,26 +78,24 @@ public class GameHandler {
 	}
 
 	public void createSheet() {
-		// 28x41
+		
+		sheetTile = new SpriteSheet("/floorTile1.png");
+
 		sheetPlayer = new SpriteSheet("/SH_Player.png");
-		// 32x32
-		sheetMonster = new SpriteSheet("/spriteSheetMonster.png");
-		// 16x16
-		sheetTexture = new SpriteSheet("/spriteSheetTexture.png");
-		// 64x64
-		sheetEnemyUnit0 = new SpriteSheet("/EnemyUnitGrid0.png");
-		// 64x64
+		
 		sheetDerangedBeast = new SpriteSheet("/SpriteSheet_DerangedBeast.png");
-		// 64x64
+
 		sheetDerangedBeast_AttackAnimation = new SpriteSheet("/db_aa.png");
-		// 64x64
+
 		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
+		
+		sheetRoaringBrute = new SpriteSheet("/SH_RB.png");
 	}
 
 	public void createMap() {
 		try {
 			mapImage = ImageIO.read(getClass().getResource(
-					"/unitTestingMap0.png"));
+					"/testMap0.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -110,21 +111,38 @@ public class GameHandler {
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
 
+				
+				//	( black )
 				if (red == 0 && green == 0 && blue == 0) {
-					addTile(new FloorTile(x * 64, y * 64, 64, 64, true,
-							Id.wall, this, 1));
-				} else if (red == 0 && green == 255 && blue == 0) {
-					addTile(new FloorTile(x * 64, y * 64, 64, 64, true,
-							Id.wall, this, 3));
-				} else if (red == 0 && green == 0 && blue == 255) {
-					addEntity(new Player(x * 62, y * 62, 62, 62, true,
-							Id.player, this));
-				} else if (red == 255 && green == 0 && blue == 0) {
+					System.out.println("<check_black>");
+					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this));
+				}
+				
+				//	( green )
+				else if (red == 0 && green == 255 && blue == 0) {
+					System.out.println("<check_green>");
+					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
+							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
+				}
+				
+				//	( blue )
+				else if (red == 0 && green == 0 && blue == 255) {
+					System.out.println("<check_blue>");
+					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
+				}
+				
+				//	( red )
+				else if (red == 255 && green == 0 && blue == 0) {
+					System.out.println("<check_3>");
 					addEntity(new DerangedBeast(x * 64, y * 64, 64, 64, true,
-							Id.monster, this, 1, op_db, frameValues));
-				} else if (red == 255 && green == 0 && blue == 100) {
-					addEntity(new DerangedBeast(x * 64, y * 64, 64, 64, true,
-							Id.monster, this, 2, op_db, frameValues));
+							Id.monster, this, op_db, frameValues, sheetDerangedBeast));
+				}
+				
+				//	( ??? )
+				else if (red == 022 && green == 0 && blue == 255) {
+					System.out.println("<check_4>");
+					addEntity(new RoaringBrute(x * 120, y * 115, 120, 115, true,
+							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
 				}
 			}
 
@@ -143,6 +161,8 @@ public class GameHandler {
 			}
 
 		}
+		
+		
 
 	}
 
@@ -182,8 +202,8 @@ public class GameHandler {
 		return sheetMonster;
 	}
 
-	public SpriteSheet getSheetTexture() {
-		return sheetTexture;
+	public SpriteSheet getSheetTile() {
+		return sheetTile;
 	}
 
 	public SpriteSheet getSheetEnemyUnitGrid0() {
@@ -204,6 +224,10 @@ public class GameHandler {
 
 	public SpriteSheet getSheetPlayer_RecieveDamage() {
 		return sheetPlayer_RecieveDamage;
+	}
+	
+	public SpriteSheet getSheetRoaringBrute() {
+		return sheetRoaringBrute;
 	}
 
 }
