@@ -36,6 +36,7 @@ public class GameHandler {
 	private SpriteSheet sheetPlayer_RecieveDamage;
 	private OpponentUnitProperties op_db;
 	private OpponentUnitProperties op_rb;
+	private SpriteSheet sheetRoaringBrute;
 	private FrameValues frameValues;
 
 	private Camera camera;
@@ -47,8 +48,8 @@ public class GameHandler {
 		camera = new Camera();
 		createSheet();
 		frameValues = new FrameValues(6, 3);
-		this.op_db = new OpponentUnitProperties(10.0, 60);
-		this.op_rb = new OpponentUnitProperties(25.0, 120);
+		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
+		this.op_rb = new OpponentUnitProperties(25.0, 120, 9, 120, 115);
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
 		frame.addMouseListener(new MouseInput(c));
@@ -89,12 +90,14 @@ public class GameHandler {
 		sheetDerangedBeast_AttackAnimation = new SpriteSheet("/db_aa.png");
 		// 64x64
 		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
+		
+		sheetRoaringBrute = new SpriteSheet("/SH_RB.png");
 	}
 
 	public void createMap() {
 		try {
 			mapImage = ImageIO.read(getClass().getResource(
-					"/unitTestingMap0.png"));
+					"/unitTestingMap1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -117,14 +120,17 @@ public class GameHandler {
 					addTile(new FloorTile(x * 64, y * 64, 64, 64, true,
 							Id.wall, this, 3));
 				} else if (red == 0 && green == 0 && blue == 255) {
+					System.out.println("DDD");
 					addEntity(new Player(x * 62, y * 62, 62, 62, true,
 							Id.player, this));
 				} else if (red == 255 && green == 0 && blue == 0) {
+					System.out.println("BBB");
 					addEntity(new DerangedBeast(x * 64, y * 64, 64, 64, true,
-							Id.monster, this, 1, op_db, frameValues));
-				} else if (red == 255 && green == 0 && blue == 100) {
-					addEntity(new DerangedBeast(x * 64, y * 64, 64, 64, true,
-							Id.monster, this, 2, op_db, frameValues));
+							Id.monster, this, op_db, frameValues, sheetDerangedBeast));
+				} else if (red == 0 && green == 255 && blue == 0) {
+					System.out.println("AAA");
+					addEntity(new RoaringBrute(x * 120, y * 115, 120, 115, true,
+							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
 				}
 			}
 
@@ -204,6 +210,10 @@ public class GameHandler {
 
 	public SpriteSheet getSheetPlayer_RecieveDamage() {
 		return sheetPlayer_RecieveDamage;
+	}
+	
+	public SpriteSheet getSheetRoaringBrute() {
+		return sheetRoaringBrute;
 	}
 
 }

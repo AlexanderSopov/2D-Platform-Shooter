@@ -5,7 +5,6 @@ import java.util.Random;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
 import edu.chl.Game.UnitAI.*;
 import edu.chl.Game.Main;
 import edu.chl.Game.entity.*;
@@ -17,12 +16,12 @@ import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.Tile;
 import edu.chl.Game.UnitTools.*;
+import edu.chl.Game.graphics.*;
 
 public class EnemyUnit extends Entity {
 
-	private Sprite monster[] = new Sprite[12];
-	private Sprite attackAnimation[] = new Sprite[12];
-	private Random rand = new Random();
+	private SpriteSheet spriteSheet_walking;
+	private Sprite[] spriteArray_walking = new Sprite[12];
 	private int playerXCoordinate;
 	private AttackTimer attackTimer;
 	private double attackDamage;
@@ -33,10 +32,14 @@ public class EnemyUnit extends Entity {
 	private FrameIterator frameIterator;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler, int type, OpponentUnitProperties op,
-			FrameValues frameValues) {
-		
+			GameHandler handler, OpponentUnitProperties op,
+			FrameValues frameValues, SpriteSheet spriteSheet_walking) {
+
 		super(x, y, width, height, solid, id, handler);
+
+		// set the SpriteSheet
+
+		this.spriteSheet_walking = spriteSheet_walking;
 
 		// set the unit properties
 
@@ -46,12 +49,14 @@ public class EnemyUnit extends Entity {
 
 		// loads the array with the sprites
 
-		this.loadingSprites = new LoadingSprites(this.monster, getHandler());
+		this.loadingSprites = new LoadingSprites(this.spriteSheet_walking,
+				this.spriteArray_walking, op.getNumberOfSprites(),
+				op.getWidth(), op.getHeight());
 		initiate();
 
 		// set the AI
 
-		this.aI = new AI(getHandler(), getUnitProperties());
+		this.aI = new AI(handler, getUnitProperties(), attackTimer, op);
 
 		// set the frameIterator
 
@@ -70,13 +75,13 @@ public class EnemyUnit extends Entity {
 	@Override
 	public void render(Graphics g) {
 		if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-			getRenderClass().renderAnimateRight(g, monster,
+			getRenderClass().renderAnimateRight(g, spriteArray_walking,
 					getEntityProperties().getFrame(),
 					getUnitProperties().getX(), getUnitProperties().getY(),
 					getUnitProperties().getWidth(),
 					getUnitProperties().getHeight());
 		} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-			getRenderClass().renderAnimateLeft(g, monster,
+			getRenderClass().renderAnimateLeft(g, spriteArray_walking,
 					getEntityProperties().getFrame(),
 					getUnitProperties().getX(), getUnitProperties().getY(),
 					getUnitProperties().getWidth(),
@@ -96,50 +101,27 @@ public class EnemyUnit extends Entity {
 			frameIteration();
 		}
 		UnitAI();
-		attack();
+		aI.attack();
 
 	}
-	
+
 	// iterates through the frames
-	
+
 	public void frameIteration() {
 		frameIterator.iterateThroughFrames();
 	}
 
 	public void UnitAI() {
-		findPlayer();
+		locatePlayer();
 		followBehaviour();
 	}
 
-	public void findPlayer() {
-		for (int i = 0; i < getHandler().getEntityList().size(); i++) {
-			if (getHandler().getEntityList().get(i).getUnitState().getId() == Id.player) {
-				playerXCoordinate = getHandler().getEntityList().get(i).getX();
-			}
-		}
+	public void locatePlayer() {
+		aI.findPlayer();
 	}
 
 	public void followBehaviour() {
 		aI.followPlayer();
-	}
-
-	public void attack() {
-		attackTimer.updateAttackTimer();
-		if (attackTimer.isReadyToAttack()) {
-			if (playerXCoordinate <= getX()) {
-				if ((getX() - playerXCoordinate) <= 50) {
-					dealDamage();
-				}
-			} else {
-				if ((playerXCoordinate - getX()) <= 50) {
-					dealDamage();
-				}
-			}
-		}
-	}
-
-	public void dealDamage() {
-		getHandler().getPlayer().recieveDamage(attackDamage);
 	}
 
 }
