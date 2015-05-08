@@ -1,6 +1,7 @@
 package edu.chl.Game.entity;
 
 import java.awt.Graphics;
+import edu.chl.Game.HUD.*;
 import java.util.LinkedList;
 
 import edu.chl.Game.graphics.Sprite;
@@ -46,14 +47,21 @@ public class Player extends Entity {
 
 		this.frameCounter = new FrameCounter(5);
 
-		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
-				getCalculateBounds());
-		this.gravitationalProperties = new GravitationalProperties(
-				getUnitProperties(), getEntityProperties(), getEntityState());
+		
+		
+		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
+		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
+		
+		
+
+	
 	}
 
 	@Override
 	public void render(Graphics g) {
+		
+
+		
 		if (!isRecievingDamage) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
@@ -167,11 +175,11 @@ public class Player extends Entity {
 	}
 
 	public void recieveDamage(double damage) {
+		System.out.println(getUnitProperties().getHealthPoints());
 		if (!isRecievingDamage) {
 			isRecievingDamage = true;
 		}
-		getUnitProperties().setHealthPoints(
-				getUnitProperties().getHealthPoints() - damage);
+		getUnitProperties().setHealthPoints(getUnitProperties().getHealthPoints() - damage);
 	}
 
 }

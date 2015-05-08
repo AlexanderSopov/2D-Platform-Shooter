@@ -24,8 +24,6 @@ public abstract class GameObject implements Observer {
 		this.calculateBounds = new CalculateBounds(unitProperties);
 	}
 
-	public abstract void render(Graphics g);
-
 	public void update(Observable o, Object arg) {
 		try {
 			Graphics g = (Graphics) arg;
@@ -35,6 +33,8 @@ public abstract class GameObject implements Observer {
 			System.out.println("oops!");
 		}
 	}
+	
+	public abstract void render(Graphics g);
 
 	public abstract void update();
 
