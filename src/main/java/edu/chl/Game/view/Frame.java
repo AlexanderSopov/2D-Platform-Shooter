@@ -24,11 +24,4 @@ public class Frame extends JFrame {
         setVisible(true);
 	}
 	
-	public int getFrameWidth(){
-		return WIDTH;
-	}
-	
-	public int getFrameHeight(){
-		return HEIGHT;
-	}
 }

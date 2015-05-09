@@ -20,11 +20,12 @@ public class GameThread extends Observable implements Runnable {
 	private Thread thread;
 	private Frame frame;
 	private StartMenu startMenu;
+	private MapView mapView;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	
 	//The state of the game
-	public static State state = State.GAME;
+	public static State state = State.MAP;
 	
 	private double delta = 0.0;
 	private int Frame=1;
@@ -34,7 +35,9 @@ public class GameThread extends Observable implements Runnable {
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
+		mapView = new MapView();
 		gameHandler = new GameHandler(thread, frame);
+		
 		start();
 		
 		for (Entity e: gameHandler.getEntityList())
@@ -83,7 +86,7 @@ public class GameThread extends Observable implements Runnable {
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
-		if(state == State.GAME){
+		if(state == State.GAME || state == State.MAP){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
 				frame.createBufferStrategy(3);
@@ -108,14 +111,20 @@ public class GameThread extends Observable implements Runnable {
 	 */
 	public void renderGraphics(BufferStrategy b) {
 		Graphics g = b.getDrawGraphics();
-			frame.requestFocus();
+		frame.requestFocus();
+		
+		if(state == State.GAME){
 			g.setColor(new Color(135, 206, 235));
 			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
 			notifyObservers((Object)g);
 			gameHandler.render(g);
-			b.show();
-			g.dispose();
+		}else if(state == State.MAP){
+			mapView.render(g);
+		}
+		
+		b.show();
+		g.dispose();
 	}
 	
 
