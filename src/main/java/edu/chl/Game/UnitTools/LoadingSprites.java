@@ -21,11 +21,11 @@ public class LoadingSprites {
 	public void loadSprites(){
 
 		for (int i = 0; i < (numberOfSprites/2); i++) {	
-			spriteArray[i] = new Sprite(spriteSheet, i, 1, width, height);
+			spriteArray[i] = new Sprite(spriteSheet, i, 0, width, height);
 		}
 
 		for (int i = 0; i < (numberOfSprites/2); i++) { 
-			spriteArray[i + (numberOfSprites/2)] = new Sprite(spriteSheet, i, 0, width, height);
+			spriteArray[i + (numberOfSprites/2)] = new Sprite(spriteSheet, i, 1, width, height);
 		}
 
 	}

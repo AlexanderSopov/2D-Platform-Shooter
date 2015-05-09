@@ -40,10 +40,8 @@ public class Bullet extends Entity{
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
         ((Graphics2D)g).rotate(angle, centerX, centerY);
-	g.fillOval(getX()-(getWidth()/2)+50,getY()-(getHeight()/2), getWidth(), getHeight());
+        g.fillOval(getX()-(getWidth()/2)+50,getY()-(getHeight()/2), getWidth(), getHeight());
         ((Graphics2D)g).rotate(-angle, centerX, centerY);
-
-	
     }
 
     @Override

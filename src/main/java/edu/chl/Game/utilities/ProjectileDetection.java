@@ -1,0 +1,57 @@
+package edu.chl.Game.utilities;
+
+import java.awt.*;
+import java.util.LinkedList;
+
+import edu.chl.Game.entity.*;
+import edu.chl.Game.handler.*;
+import edu.chl.Game.object.*;
+
+public class ProjectileDetection {
+
+	private Pistol pistol;
+	private GameHandler handler;
+	private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
+	private LinkedList<Entity> entityList = new LinkedList<Entity>();
+
+	public ProjectileDetection(GameHandler handler, Pistol pistol) {
+		this.handler = handler;
+		this.pistol = pistol;
+		bulletList = pistol.getBulletList();
+		entityList = handler.getEntityList();
+		
+	}
+
+	public void hitTarget() {
+		
+		if (!(bulletList.size() == 0)) {
+			for (int i = 0; i < bulletList.size(); i++) {
+				for (int j = 0; j < entityList.size(); j++) {
+					if (entityList.get(j).getUnitState().getId() == Id.monster) {
+						if (getBulletArea(i).intersects(getUnitArea(j))) {
+							System.out.println("Hit!");
+						}
+					}
+				}
+			}
+		}
+		
+	}
+
+	public Rectangle getBulletArea(int i) {
+		int x = (bulletList.get(i).getX() - (bulletList.get(i).getWidth() / 2) + 50);
+		int y = (bulletList.get(i).getY() - (bulletList.get(i).getHeight() / 2));
+		int w = bulletList.get(i).getWidth();
+		int h = bulletList.get(i).getHeight();
+		return new Rectangle(x, y, w, h);
+	}
+
+	public Rectangle getUnitArea(int i) {
+		int x = entityList.get(i).getX();
+		int y = entityList.get(i).getY();
+		int w = entityList.get(i).getWidth();
+		int h = entityList.get(i).getHeight();
+		return new Rectangle(x, y, w, h);
+	}
+
+}

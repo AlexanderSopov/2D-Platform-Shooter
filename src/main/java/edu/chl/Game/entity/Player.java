@@ -1,13 +1,16 @@
 package edu.chl.Game.entity;
 
 import java.awt.Graphics;
+
 import edu.chl.Game.HUD.*;
+
 import java.util.LinkedList;
 
 import edu.chl.Game.graphics.Sprite;
 import edu.chl.Game.handler.GameHandler;
 import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.Tile;
+import edu.chl.Game.utilities.*;
 
 public class Player extends Entity {
 
@@ -17,6 +20,8 @@ public class Player extends Entity {
 	private GravitationalProperties gravitationalProperties;
 	private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
+	private ProjectileDetection pd;
+	private boolean TEST = true;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -45,12 +50,14 @@ public class Player extends Entity {
 					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
 		}
 
-		this.frameCounter = new FrameCounter(5);
+		this.frameCounter = new FrameCounter(3, 5);
 
-		
+		//this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
 		
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
+		
+		TEST = true;
 		
 		
 
@@ -62,6 +69,9 @@ public class Player extends Entity {
 		
 		if (!isRecievingDamage) {
 			if (getUnitState().isAnimate()) {
+				if(TEST){
+					TESTMETHOD();
+				}
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, player,
 							getEntityProperties().getFrame(),
@@ -116,6 +126,12 @@ public class Player extends Entity {
 		}
 
 	}
+	
+	public void TESTMETHOD(){
+		System.out.println("hej");
+		TEST = false;
+		this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
+	}
 
 	@Override
 	public void update() {
@@ -133,6 +149,9 @@ public class Player extends Entity {
 			if (frameCounter.isComplete()) {
 				isRecievingDamage = false;
 			}
+		}
+		if(!TEST){
+			pd.hitTarget();
 		}
 
 	}

@@ -15,7 +15,7 @@ public class GameCursor extends Entity {
 	private State state;
 	private Entity en;
 	private int counter;
-        Pistol p;
+    Pistol p;
 
 	
 
@@ -67,6 +67,10 @@ public class GameCursor extends Entity {
 
 	public void shoot() {
 		p.shoot();
+	}
+	
+	public Pistol getPistol(){
+		return p;
 	}
 
 

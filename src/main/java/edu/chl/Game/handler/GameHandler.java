@@ -18,6 +18,7 @@ import edu.chl.Game.graphics.SpriteSheet;
 import edu.chl.Game.object.Id;
 import edu.chl.Game.tile.*;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.utilities.*;
 
 public class GameHandler {
 	private Thread thread;
@@ -25,7 +26,6 @@ public class GameHandler {
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private Player player;
-
 	
 	private SpriteSheet sheetTile;
 	private SpriteSheet sheetPlayer;
@@ -56,6 +56,7 @@ public class GameHandler {
 		frame.addKeyListener(new KeyInput(this));
 		frame.addMouseListener(new MouseInput(c));
 		frame.addMouseMotionListener(new MouseInput(c));
+		
 	}
 
 	public void render(Graphics g) {
@@ -74,6 +75,7 @@ public class GameHandler {
 		for (Tile t : getTileList()) {
 			t.update();
 		}
+
 
 	}
 
@@ -114,26 +116,23 @@ public class GameHandler {
 				
 				//	( black )
 				if (red == 0 && green == 0 && blue == 0) {
-					System.out.println("<check_black>");
 					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this));
 				}
 				
 				//	( green )
 				else if (red == 0 && green == 255 && blue == 0) {
-					System.out.println("<check_green>");
 					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
 							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
 				}
 				
 				//	( blue )
 				else if (red == 0 && green == 0 && blue == 255) {
-					System.out.println("<check_blue>");
 					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
 				}
 				
+				
 				//	( red )
 				else if (red == 255 && green == 0 && blue == 0) {
-					System.out.println("<check_3>");
 					addEntity(new DerangedBeast(x * 64, y * 64, 64, 64, true,
 							Id.monster, this, op_db, frameValues, sheetDerangedBeast));
 				}
@@ -228,6 +227,10 @@ public class GameHandler {
 	
 	public SpriteSheet getSheetRoaringBrute() {
 		return sheetRoaringBrute;
+	}
+	
+	public GameCursor getGameCursor(){
+		return c;
 	}
 
 }
