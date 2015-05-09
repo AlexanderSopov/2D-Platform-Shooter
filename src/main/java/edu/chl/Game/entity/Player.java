@@ -60,8 +60,6 @@ public class Player extends Entity {
 	@Override
 	public void render(Graphics g) {
 		
-
-		
 		if (!isRecievingDamage) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {

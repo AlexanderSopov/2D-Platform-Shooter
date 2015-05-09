@@ -79,7 +79,7 @@ public class GameHandler {
 
 	public void createSheet() {
 		
-		sheetTile = new SpriteSheet("/floorTile1.png");
+		sheetTile = new SpriteSheet("/floorTile.png");
 
 		sheetPlayer = new SpriteSheet("/SH_Player.png");
 		
