@@ -25,10 +25,10 @@ public class GameThread extends Observable implements Runnable {
 	private boolean running = false;
 	
 	//The state of the game
-	public static State state = State.MAP;
+	public static State state = State.MENU;
 	
 	private double delta = 0.0;
-	private int Frame=1;
+	private int frameRate=1;
 	private int second=1;
 	
 	public GameThread(){
@@ -95,14 +95,12 @@ public class GameThread extends Observable implements Runnable {
 			renderGraphics(bs);
 		}else if(state == State.MENU && !startMenu.inMenu()){
 			startMenu.setMenu();
-			frame.setVisible(true);
 		}else if(state == State.OPTION && !startMenu.inOption()){
 			startMenu.setOption();
-			frame.setVisible(true);
 		}else if(state == State.CREDIT && !startMenu.inCredit()){
 			startMenu.setCredit();
-			frame.setVisible(true);
 		}
+		frame.setVisible(true);
 	}
 	
 	/**
@@ -114,11 +112,8 @@ public class GameThread extends Observable implements Runnable {
 		frame.requestFocus();
 		
 		if(state == State.GAME){
-			g.setColor(new Color(135, 206, 235));
-			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
-			notifyObservers((Object)g);
 			gameHandler.render(g);
+			notifyObservers((Object)g);
 		}else if(state == State.MAP){
 			mapView.render(g);
 		}
@@ -157,10 +152,10 @@ public class GameThread extends Observable implements Runnable {
 	 * Printing frames per second.
 	 */
 	private void printTimer(){
-		Frame++;
+		frameRate++;
 		if(isFrame()){
 			second++;
-			Frame=1;
+			frameRate=1;
 		}
 	}
 	
@@ -169,6 +164,6 @@ public class GameThread extends Observable implements Runnable {
 	 * @return Frame - If frame is not 60 then return false otherwise true.
 	 */
 	private boolean isFrame() {
-		return Frame==60;
+		return frameRate==60;
 	}
 }
