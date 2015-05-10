@@ -43,7 +43,7 @@ public class ProjectileDetection {
 		int y = (bulletList.get(i).getY() - (bulletList.get(i).getHeight() / 2));
 		int w = bulletList.get(i).getWidth();
 		int h = bulletList.get(i).getHeight();
-		System.out.println("bullet: " + " x: " + x + " y: " + y + " w: " + w + " h: " + h);
+		//System.out.println("bullet: " + " x: " + x + " y: " + y + " w: " + w + " h: " + h);
 		return new Rectangle(x, y, w, h);
 	}
 

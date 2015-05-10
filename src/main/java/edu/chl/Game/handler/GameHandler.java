@@ -98,7 +98,7 @@ public class GameHandler {
 	public void createMap() {
 		try {
 			mapImage = ImageIO.read(getClass().getResource(
-					"/testMap0.png"));
+					"/level_1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

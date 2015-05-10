@@ -138,7 +138,7 @@ public class Player extends Entity {
 			}
 		}
 		engageInitiation();
-		hitTarget();
+		//hitTarget();
 	}
 
 	public void iterateThroughFrames() {
