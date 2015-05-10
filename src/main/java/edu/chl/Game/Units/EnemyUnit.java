@@ -56,7 +56,7 @@ public class EnemyUnit extends Entity {
 
 		// set the AI
 
-		this.aI = new AI(handler, getUnitProperties(), attackTimer, op);
+		this.aI = new AI(this, attackTimer, op);
 
 		// set the frameIterator
 
@@ -78,15 +78,15 @@ public class EnemyUnit extends Entity {
 		if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, spriteArray_walking,
 					getEntityProperties().getFrame(),
-					getUnitProperties().getX(), getUnitProperties().getY(),
-					getUnitProperties().getWidth(),
-					getUnitProperties().getHeight());
+					getX(), getY(),
+					getWidth(),
+					getHeight());
 		} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderAnimateLeft(g, spriteArray_walking,
 					getEntityProperties().getFrame(),
-					getUnitProperties().getX(), getUnitProperties().getY(),
-					getUnitProperties().getWidth(),
-					getUnitProperties().getHeight());
+					getX(), getY(),
+					getWidth(),
+					getHeight());
 		}
 	}
 

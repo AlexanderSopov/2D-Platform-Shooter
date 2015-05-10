@@ -165,6 +165,8 @@ public class GameHandler {
 		
 
 	}
+        
+ 
 
 	public Camera getCamera() {
 		return camera;

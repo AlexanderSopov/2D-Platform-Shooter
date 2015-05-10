@@ -13,19 +13,21 @@ public class AI {
 	private int playerXCoordinate;
 	private AttackTimer attackTimer;
 	private OpponentUnitProperties op;
-	
-	public AI(GameHandler handler, UnitProperties uP, AttackTimer attackTimer, OpponentUnitProperties op){
-		this.uP = uP;
-		this.handler = handler;
+        private Entity en;
+	//public AI(GameHandler handler, UnitProperties uP, AttackTimer attackTimer, OpponentUnitProperties op){
+	public AI(Entity en,AttackTimer attackTimer, OpponentUnitProperties op){
+                this.en = en;
+		this.uP = en.getUnitProperties();
+		this.handler = en.getHandler();
 		this.attackTimer = attackTimer;
 		this.op = op;
 	}
 	
 	public void followPlayer(){
-		if(handler.getPlayer().getX() < uP.getX()){
-			uP.setVelX(-1);
+		if(handler.getPlayer().getX() < en.getX()){
+			en.setVelX(-1);
 		} else {
-			uP.setVelX(1);
+			en.setVelX(1);
 		}
 	}
 	
@@ -36,12 +38,12 @@ public class AI {
 	public void attack() {
 		attackTimer.updateAttackTimer();
 		if (attackTimer.isReadyToAttack()) {
-			if (playerXCoordinate <= uP.getX()) {
-				if ((uP.getX() - playerXCoordinate) <= 50) {
+			if (playerXCoordinate <= en.getX()) {
+				if ((en.getX() - playerXCoordinate) <= 50) {
 					dealDamage();
 				}
 			} else {
-				if ((playerXCoordinate - uP.getX()) <= 50) {
+				if ((playerXCoordinate - en.getX()) <= 50) {
 					dealDamage();
 				}
 			}
