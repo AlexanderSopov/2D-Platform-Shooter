@@ -7,7 +7,6 @@ public class EntityProperties {
 	private double gravity;
 	
 	public EntityProperties(){
-		
 	}
 	
 	public int getFrame(){

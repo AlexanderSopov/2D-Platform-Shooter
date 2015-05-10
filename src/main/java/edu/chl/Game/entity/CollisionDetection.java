@@ -29,6 +29,7 @@ public class CollisionDetection {
 		for (Tile t : unitProperties.getHandler().getTileList()) {
 			checkIfSolid(t);
 		}
+
 	}
 
 	public void checkIfSolid(Tile t){
@@ -54,13 +55,13 @@ public class CollisionDetection {
 	public void checkCollideWithFlor(Tile t){
 		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.floor){
 			if (calculateBounds.getBoundsBottom().intersects(t.getBounds())) {
+				System.out.println("check");
 				unitProperties.setY(t.getY() - unitProperties.getHeight());
-				unitProperties.setVelY(0);
+				//unitProperties.setVelY(0);
 				entityState.setFalling(false);
 				entityState.setContactWithGround(true);
 			}
 		}
-		
 	}
 	
 	public void checkCollideWithRoof(Tile t){
@@ -75,21 +76,22 @@ public class CollisionDetection {
 	}
 	
 	public void checkCollideWithRightWall(Tile t){
-		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.rightWall){
+		//if(t.getTileState() == TileState.wall || t.getTileState() == TileState.rightWall){
 			if (calculateBounds.getBoundsRight().intersects(t.getBounds())) {
 				unitProperties.setVelX(0);
 				unitProperties.setX((t.getUnitProperties().getX() - t.getUnitProperties().getWidth()));
 			}
-		}
+		//}
 	}
 	
 	public void checkCollideWithLeftWall(Tile t){
-		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.leftWall){
+		//if(t.getTileState() == TileState.wall || t.getTileState() == TileState.leftWall){
 			if (calculateBounds.getBoundsLeft().intersects(t.getBounds())) {
 				unitProperties.setVelX(0);
 				unitProperties.setX((t.getUnitProperties().getX() + t.getUnitProperties().getWidth()));
 			}
-		}
+		//}
 	}
-
+	
+	
 }

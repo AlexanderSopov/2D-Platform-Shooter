@@ -12,7 +12,6 @@ public class GravitationalProperties {
 
 	}
 	
-	
 	public void jumpingMechanics(){
 		if(entityState.getContactWithGround()){
 			entityProperties.setGravity(25.0);
