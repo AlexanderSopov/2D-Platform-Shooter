@@ -40,6 +40,7 @@ public class GameHandler {
 	private OpponentUnitProperties op_rb;
 	private SpriteSheet sheetRoaringBrute;
 	private FrameValues frameValues;
+	private boolean changeHasHappened;
 
 	private Camera camera;
 	private GameCursor c;
@@ -231,6 +232,23 @@ public class GameHandler {
 	
 	public GameCursor getGameCursor(){
 		return c;
+	}
+	
+	public void removeUnit(int j){
+		entity.remove(j);
+	}
+	
+	public void unitChanges(boolean b){
+		changeHasHappened = b;
+	}
+	
+	public boolean checkForUpdate(){
+		if(changeHasHappened){
+			changeHasHappened = false;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

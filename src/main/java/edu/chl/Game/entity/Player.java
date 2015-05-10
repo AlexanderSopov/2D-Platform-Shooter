@@ -21,7 +21,7 @@ public class Player extends Entity {
 	private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
 	private ProjectileDetection pd;
-	private boolean TEST = true;
+	private boolean pdInit;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -51,17 +51,13 @@ public class Player extends Entity {
 		}
 
 		this.frameCounter = new FrameCounter(3, 5);
-
-		//this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
-		
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
-		
-		TEST = true;
-		
-		
-
+		this.pdInit = true;
+	}
 	
+	public void initiateProjectileDetection(){
+		this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
 	}
 
 	@Override
@@ -69,9 +65,6 @@ public class Player extends Entity {
 		
 		if (!isRecievingDamage) {
 			if (getUnitState().isAnimate()) {
-				if(TEST){
-					TESTMETHOD();
-				}
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, player,
 							getEntityProperties().getFrame(),
@@ -126,12 +119,6 @@ public class Player extends Entity {
 		}
 
 	}
-	
-	public void TESTMETHOD(){
-		System.out.println("hej");
-		TEST = false;
-		this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
-	}
 
 	@Override
 	public void update() {
@@ -150,10 +137,8 @@ public class Player extends Entity {
 				isRecievingDamage = false;
 			}
 		}
-		if(!TEST){
-			pd.hitTarget();
-		}
-
+		engageInitiation();
+		hitTarget();
 	}
 
 	public void iterateThroughFrames() {
@@ -189,6 +174,19 @@ public class Player extends Entity {
 
 	public void setFrameToZero() {
 		getEntityProperties().setFrame(0);
+	}
+	
+	public void engageInitiation(){
+		if(pdInit){
+			pdInit = false;
+			initiateProjectileDetection();
+		}
+	}
+	
+	public void hitTarget(){
+		if(!pdInit){
+			pd.hitTarget();
+		}
 	}
 
 	public void recieveDamage(double damage) {

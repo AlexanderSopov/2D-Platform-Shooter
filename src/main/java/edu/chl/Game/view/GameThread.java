@@ -114,6 +114,9 @@ public class GameThread extends Observable implements Runnable {
 			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
 			notifyObservers((Object)g);
 			gameHandler.render(g);
+			if(gameHandler.checkForUpdate()){
+				updateObserverList();
+			}
 			b.show();
 			g.dispose();
 	}
@@ -161,5 +164,15 @@ public class GameThread extends Observable implements Runnable {
 	 */
 	private boolean isFrame() {
 		return Frame==60;
+	}
+	
+	public void updateObserverList(){
+		deleteObservers();
+		for(Entity e: gameHandler.getEntityList()){
+			addObserver(e);
+		}
+		for (Tile t: gameHandler.getTileList()){
+			addObserver(t);
+		}
 	}
 }
