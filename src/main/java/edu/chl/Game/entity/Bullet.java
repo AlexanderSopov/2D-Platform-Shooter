@@ -6,6 +6,7 @@ import edu.chl.Game.view.Frame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 /**
  *
@@ -14,42 +15,45 @@ import java.awt.Graphics2D;
 public class Bullet extends Entity{
     
     private int targetPosX,targetPosY, speed;
-    private float xVelocity, yVelocity;
     private int centerX, centerY;
-    double angle;
+    private double angle;
+    private int rotatedX,rotatedY;
+    private int motionX, motionY;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler,int targetPosX, int targetPosY, int speed, double angle) {
         super(x, y, width, height, solid, id, handler);
-        
                 
                 this.angle = angle;
                 
 		this.setTargetPosX(targetPosX);
-                
 		this.setTargetPosY(targetPosY);
-		this.speed = speed;
                 
+		this.speed = speed;
                 this.centerX = getX() ;
                 this.centerY = getY() ;
+                this.motionX = getX()+50;
+                this.motionY = getY();
                
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
-        ((Graphics2D)g).rotate(angle, centerX, centerY);
-        g.fillOval(getX()-(getWidth()/2)+50,getY()-(getHeight()/2), getWidth(), getHeight());
-        ((Graphics2D)g).rotate(-angle, centerX, centerY);
+	g.fillOval(rotatedX -(getWidth()/2),rotatedY-(getHeight()/2), getWidth(), getHeight());
+        
+
     }
 
     @Override
     public void update() {
+        this.motionX = this.motionX + this.speed;
+       rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
+       rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
         
-        this.xVelocity = speed;
-	setX(getX() + (int)xVelocity);
-	
+	setX((int) rotatedX);
+        setY((int)rotatedY);
     }
     
     	public int getTargetPosX() {
