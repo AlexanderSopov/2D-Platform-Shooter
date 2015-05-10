@@ -62,7 +62,6 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		
 		if (!isRecievingDamage) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
@@ -138,7 +137,7 @@ public class Player extends Entity {
 			}
 		}
 		engageInitiation();
-		//hitTarget();
+		hitTarget();
 		
 		//System.out.println(getEntityState().isInAir());
 		System.out.println(getUnitProperties().getVelY());
