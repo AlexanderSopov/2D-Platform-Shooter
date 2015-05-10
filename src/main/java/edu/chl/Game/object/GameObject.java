@@ -13,15 +13,31 @@ public abstract class GameObject implements Observer {
 	public static GameThread gt = Main.game;
 	private UnitProperties unitProperties;
 	private UnitState unitState;
-	private UpdateMovement updateMovement;
+	
 	private CalculateBounds calculateBounds;
+        
+        private int x, y;
+	private int velX, velY;
+	private int width, height;
+	private double healthPoints;
+	private GameHandler handler;
+        private Id id;
+        private boolean solid; 
 
 	public GameObject(int x, int y, int width, int height, boolean solid,
 			Id id, GameHandler handler) {
-		this.unitProperties = new UnitProperties(handler, x, y, width, height);
+		
+                 this.x = x;
+                 this.y = y;
+                 this.width = width;
+                 this.height = height;
+                 this.id = id;
+                 this.solid = solid;
+                 this.handler = handler;
+                 this.unitProperties = new UnitProperties(handler, x,y,width,height);
 		this.unitState = new UnitState(id, solid);
-		this.updateMovement = new UpdateMovement(this.unitProperties, this.unitState);
-		this.calculateBounds = new CalculateBounds(unitProperties);
+		
+		this.calculateBounds = new CalculateBounds(this);
 	}
 
 	public void update(Observable o, Object arg) {
@@ -48,40 +64,62 @@ public abstract class GameObject implements Observer {
 		return unitState;
 	}
 
-	public UpdateMovement getUpdateMovement() {
-		return this.updateMovement;
-	}
+	
 
 	public CalculateBounds getCalculateBounds() {
 		return calculateBounds;
 	}
         
         public GameHandler getHandler(){
-            return unitProperties.getHandler();
+            return this.handler;
         }
 
 	public int getX() {
-		return unitProperties.getX();
+		return this.x;
 	}
 
 	public int getY() {
-		return unitProperties.getY();
+		return this.y;
 	}
 
 	public void setX(int x) {
-		unitProperties.setX(x);
+		this.x = x;
 	}
 
 	public void setY(int y) {
-		unitProperties.setY(y);
+		this.y = y;
 	}
 
 	public int getWidth() {
-		return unitProperties.getWidth();
+		return this.width;
 	}
 
 	public int getHeight() {
-		return unitProperties.getHeight();
+		return this.height;
+	}
+        
+        public double getHealthPoints(){
+		return healthPoints;
+	}
+	
+	public void setHealthPoints(double healthPoints){
+		this.healthPoints = healthPoints;
+	}
+        
+        public int getVelX(){
+		return velX;
+	}
+	
+	public void setVelX(int velX){
+		this.velX = velX;
+	}
+	
+	public int getVelY(){
+		return velY;
+	}
+	
+	public void setVelY(int vely){
+		this.velY = vely;
 	}
 
 }

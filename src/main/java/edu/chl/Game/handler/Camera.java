@@ -8,8 +8,8 @@ public class Camera {
 	public int x, y;
 
 	public void update(Entity player) {
-		setX(-player.getUnitProperties().getX() + Frame.WIDTH / 2);
-		setY(-player.getUnitProperties().getY() + Frame.HEIGHT / 2 + 100);
+		setX(-player.getX() + Frame.WIDTH / 2);
+		setY(-player.getY() + Frame.HEIGHT / 2 + 100);
 	}
 
 	public int getX() {

@@ -1,38 +1,40 @@
 package edu.chl.Game.entity;
 
+import edu.chl.Game.object.GameObject;
 import java.awt.Rectangle;
 
 public class CalculateBounds {
 	private UnitProperties unitProperties;
+        private GameObject go;
 
-	public CalculateBounds(UnitProperties unitProperties) {
-		this.unitProperties = unitProperties;
-
+	public CalculateBounds(GameObject go) {
+		this.unitProperties = go.getUnitProperties();
+                this.go = go;
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(unitProperties.getX(), unitProperties.getY(),
-				unitProperties.getWidth(), unitProperties.getHeight());
+		return new Rectangle(go.getX(), go.getY(),
+				go.getWidth(), go.getHeight());
 	}
 
 	public Rectangle getBoundsTop() {
-		return new Rectangle(unitProperties.getX() + 10, unitProperties.getY(),
-				unitProperties.getWidth() - 20, 5);
+		return new Rectangle(go.getX() + 10, go.getY(),
+				go.getWidth() - 20, 5);
 	}
 
 	public Rectangle getBoundsBottom() {
-		return new Rectangle(unitProperties.getX() + 10, unitProperties.getY() + unitProperties.getHeight() - 5, unitProperties.getWidth() - 20, 5);
+		return new Rectangle(go.getX() + 10, go.getY() + go.getHeight() - 5, go.getWidth() - 20, 5);
 	}
 
 	public Rectangle getBoundsLeft() {
-		return new Rectangle(unitProperties.getX(), unitProperties.getY() + 10,
+		return new Rectangle(go.getX(), go.getY() + 10,
 				5, unitProperties.getHeight() - 20);
 	}
 
 	public Rectangle getBoundsRight() {
-		return new Rectangle(unitProperties.getX() + unitProperties.getWidth()
-				- 5, unitProperties.getY() + 10, 5,
-				unitProperties.getHeight() - 20);
+		return new Rectangle(go.getX() + go.getWidth()
+				- 5, go.getY() + 10, 5,
+				go.getHeight() - 20);
 	}
 
 }

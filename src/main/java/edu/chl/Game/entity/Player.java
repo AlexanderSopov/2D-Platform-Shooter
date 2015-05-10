@@ -50,7 +50,7 @@ public class Player extends Entity {
 		
 		
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
-		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
+		this.gravitationalProperties = new GravitationalProperties(this);
 		
 		
 
@@ -67,17 +67,17 @@ public class Player extends Entity {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderAnimateLeft(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				}
 			}
 
@@ -85,35 +85,37 @@ public class Player extends Entity {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderNotAnimateRight(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				}
 
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderNotAnimateLeft(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				}
 			}
 		} else {
 
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass1().renderAnimateRight(g, recieveDamage,
-						frameCounter.getCount(), getUnitProperties().getX(),
-						getUnitProperties().getY(),
-						getUnitProperties().getWidth(),
-						getUnitProperties().getHeight());
+						frameCounter.getCount(),
+                                                getX(),
+						getY(),
+						getWidth(),
+						getHeight());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass1().renderAnimateLeft(g, recieveDamage,
-						frameCounter.getCount(), getUnitProperties().getX(),
-						getUnitProperties().getY(),
-						getUnitProperties().getWidth(),
-						getUnitProperties().getHeight());
+						frameCounter.getCount(), 
+                                                getX(),
+						getY(),
+						getWidth(),
+						getHeight());
 			}
 		}
 

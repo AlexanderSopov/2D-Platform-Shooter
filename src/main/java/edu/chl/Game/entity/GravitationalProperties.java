@@ -4,11 +4,13 @@ public class GravitationalProperties {
 	private UnitProperties unitProperties;
 	private EntityProperties entityProperties;
 	private EntityState entityState;
+        private Entity en;
 	
-	public GravitationalProperties(UnitProperties unitProperties, EntityProperties entityProperties, EntityState entityState){
-		this.unitProperties = unitProperties;
-		this.entityProperties = entityProperties;
-		this.entityState = entityState;
+	public GravitationalProperties(Entity en){
+		this.unitProperties = en.getUnitProperties();
+		this.entityProperties = en.getEntityProperties();
+		this.entityState = en.getEntityState();
+                this.en = en;
 
 	}
 	
@@ -21,7 +23,7 @@ public class GravitationalProperties {
 		if (entityState.isJumping()) {
 			entityState.setContactWithGround(false);
 			entityProperties.setGravity(entityProperties.getGravity() - 1.0);			
-			unitProperties.setVelY(((int) -entityProperties.getGravity()));				
+			en.setVelY(((int) -entityProperties.getGravity()));				
 			if (entityProperties.getGravity() <= 0.0) {									
 				entityState.setFalling(true);											 
 				entityState.setJumping(false);											
@@ -32,7 +34,7 @@ public class GravitationalProperties {
 	public void fallingMechanics(){
 		if (entityState.isFalling()) {													
 			entityProperties.setGravity(entityProperties.getGravity() + 1.0);		
-			unitProperties.setVelY(((int) entityProperties.getGravity()));		
+			en.setVelY(((int) entityProperties.getGravity()));		
 		}
 	}
 	
