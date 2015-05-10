@@ -34,6 +34,7 @@ public class Pistol extends Entity{
         
         g.fillRect(centerX, centerY-5, 50, 10); 
         ((Graphics2D)g).rotate(-angle, centerX, centerY);
+
         
         for (Bullet b : getBulletList()) {
 			b.render(g);

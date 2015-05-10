@@ -15,54 +15,45 @@ import java.awt.geom.AffineTransform;
 public class Bullet extends Entity{
     
     private int targetPosX,targetPosY, speed;
-    private float xVelocity, yVelocity;
     private int centerX, centerY;
     private double angle;
-    private AffineTransform at;
+    private int rotatedX,rotatedY;
+    private int motionX, motionY;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler,int targetPosX, int targetPosY, int speed, double angle) {
         super(x, y, width, height, solid, id, handler);
-        
-                at = new AffineTransform();
                 
                 this.angle = angle;
                 
 		this.setTargetPosX(targetPosX);
-                
 		this.setTargetPosY(targetPosY);
+                
 		this.speed = speed;
-                this.speed = 1;
                 this.centerX = getX() ;
                 this.centerY = getY() ;
+                this.motionX = getX()+50;
+                this.motionY = getY();
                
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
-       // at = at.getRotateInstance(angle, centerX, centerY);
+	g.fillOval(rotatedX -(getWidth()/2),rotatedY-(getHeight()/2), getWidth(), getHeight());
         
-        ((Graphics2D)g).rotate(angle, centerX, centerY);
-	g.fillOval(getX()-(getWidth()/2)+50,this.centerY-(getHeight()/2), getWidth(), getHeight());
-        g.setColor(Color.red);
-        g.drawString(this.getY()+"", this.getX(), this.centerY-(getHeight()/2));
-        
-        ((Graphics2D)g).rotate(-angle, centerX, centerY);
 
-	
     }
 
     @Override
     public void update() {
+        this.motionX = this.motionX + this.speed;
+       rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
+       rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
         
-       
-        
-        this.xVelocity = speed;
-	setX(getX() + (int)xVelocity);
-	//setX((int)((getX() - this.centerX) * Math.cos(this.angle) - (getY() - this.centerY) * Math.sin(this.angle) + this.centerX));
-        setY((int)((getY() - this.centerY) * Math.cos(this.angle) + (getX() - this.centerX) * Math.sin(this.angle) + this.centerY));
+	setX((int) rotatedX);
+        setY((int)rotatedY);
     }
     
     	public int getTargetPosX() {
