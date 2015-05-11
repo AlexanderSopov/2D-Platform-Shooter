@@ -149,6 +149,7 @@ public class RefreshTimer extends Observable implements Runnable {
 		if(d>1){
 			delta=delta-1;
 			update();
+                        updateObserverList();
 		}
 	}
 	
@@ -171,7 +172,9 @@ public class RefreshTimer extends Observable implements Runnable {
 		return frameRate==60;
 	}
 	
-	public void updateObserverList(){
+	public  void updateObserverList(){
+            if(gameHandler.getRef()>0){
+                gameHandler.resetRef();
 		deleteObservers();
 		for(Entity e: gameHandler.getEntityList()){
 			addObserver(e);
@@ -179,5 +182,6 @@ public class RefreshTimer extends Observable implements Runnable {
 		for (Tile t: gameHandler.getTileList()){
 			addObserver(t);
 		}
+            }
 	}
 }

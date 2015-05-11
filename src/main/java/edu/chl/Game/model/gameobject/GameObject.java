@@ -74,6 +74,10 @@ public abstract class GameObject implements Observer {
         public GameHandler getHandler(){
             return this.handler;
         }
+        
+        public Id getId(){
+            return this.id;
+        }
 
 	public int getX() {
 		return this.x;

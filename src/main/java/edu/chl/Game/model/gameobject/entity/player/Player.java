@@ -22,8 +22,8 @@ public class Player extends Entity {
 	private GravitationalProperties gravitationalProperties;
 	private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
-	private ProjectileDetection pd;
-	private boolean pdInit;
+	
+	
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -56,11 +56,10 @@ public class Player extends Entity {
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
 				getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(this);
+                                
 	}
 
-	public void initiateProjectileDetection() {
-		this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
-	}
+
 
 	@Override
 	public void render(Graphics g) {
@@ -122,11 +121,7 @@ public class Player extends Entity {
 				isRecievingDamage = false;
 			}
 		}
-		engageInitiation();
-		//hitTarget();
-
-		// System.out.println(getEntityState().isInAir());
-		System.out.println(getUnitProperties().getVelY());
+		
 
 	}
 
@@ -164,20 +159,10 @@ public class Player extends Entity {
 
 	public void setFrameToZero() {
 		getEntityProperties().setFrame(0);
+                
 	}
 
-	public void engageInitiation() {
-		if (pdInit) {
-			pdInit = false;
-			initiateProjectileDetection();
-		}
-	}
 
-	public void hitTarget() {
-		if (!pdInit) {
-			pd.hitTarget();
-		}
-	}
 
 	public void recieveDamage(double damage) {
 		System.out.println(getUnitProperties().getHealthPoints());

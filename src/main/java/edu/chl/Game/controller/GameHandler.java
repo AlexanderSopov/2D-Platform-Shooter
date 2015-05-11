@@ -41,6 +41,8 @@ public class GameHandler {
 	private SpriteSheet sheetRoaringBrute;
 	private FrameValues frameValues;
 	private boolean changeHasHappened;
+        
+        private int ref;
 
 	private Camera camera;
 	private GameCursor c;
@@ -49,6 +51,7 @@ public class GameHandler {
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
+                this.ref = 0;
 		createSheet();
 		frameValues = new FrameValues(6, 3);
 		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
@@ -170,33 +173,44 @@ public class GameHandler {
 
 	}
         
- 
+        public void resetRef(){
+           this.ref = 0;
+        }
+        
+        public int getRef(){
+            return ref;
+        }
 
 	public Camera getCamera() {
 		return camera;
 	}
 
-	public LinkedList<Entity> getEntityList() {
+	public synchronized LinkedList<Entity> getEntityList() {
 		return entity;
 	}
 
-	public void addEntity(Entity e) {
+	public synchronized void addEntity(Entity e) {
 		entity.add(e);
+                ref++;
 	}
 
-	public void removeEntity(Entity e) {
+	public synchronized void removeEntity(Entity e) {
 		entity.remove(e);
+                ref++;
+                
 	}
 
-	public void addTile(Tile t) {
+	public synchronized void addTile(Tile t) {
 		tile.add(t);
+                ref++;
 	}
 
-	public void removeTile(Tile t) {
+	public synchronized void removeTile(Tile t) {
 		tile.remove(t);
+                ref++;
 	}
 
-	public LinkedList<Tile> getTileList() {
+	public synchronized LinkedList<Tile> getTileList() {
 		return tile;
 	}
 

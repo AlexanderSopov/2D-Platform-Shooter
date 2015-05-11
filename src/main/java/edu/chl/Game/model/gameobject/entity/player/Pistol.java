@@ -3,6 +3,7 @@ package edu.chl.Game.model.gameobject.entity.player;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.physics.ProjectileDetection;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,11 +15,14 @@ import java.util.LinkedList;
  * @author Rasmus
  */
 public class Pistol extends Entity{
-    int centerX = getWidth() / 2;
-     int  centerY = getHeight() / 2;
-     double angle;
-     GameCursor gc;
-     Entity en;
+    
+     private int centerX = getWidth() / 2;
+     private int  centerY = getHeight() / 2;
+     private double angle;
+     private GameCursor gc;
+     private Entity en;
+     private ProjectileDetection pd;
+     
      private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
     
     public Pistol(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler, GameCursor gc, Entity en) {
@@ -27,6 +31,7 @@ public class Pistol extends Entity{
         this.centerX = x + width/2;
         this.centerY = y + height/2;
         this.en = en;
+        this.pd = new ProjectileDetection(this);
     }
 
     @Override
@@ -52,6 +57,8 @@ public class Pistol extends Entity{
         for (Bullet b : getBulletList()) {
 			b.update();
         }
+        
+        pd.hitTarget();
     }
         
         public void shoot() {
