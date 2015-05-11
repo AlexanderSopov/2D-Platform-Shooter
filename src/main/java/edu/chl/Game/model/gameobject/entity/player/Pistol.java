@@ -45,8 +45,8 @@ public class Pistol extends Entity{
 
     @Override
     public void update() {
-        this.centerX = en.getX() + en.getWidth()/2;
-        this.centerY = en.getY() + en.getHeight()/2;
+        this.centerX = en.getX() + en.getWidth()/2 + en.getVelX();
+        this.centerY = en.getY() + en.getHeight()/2 + en.getVelY();
         angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX()) - Math.PI ;
         
         for (Bullet b : getBulletList()) {
