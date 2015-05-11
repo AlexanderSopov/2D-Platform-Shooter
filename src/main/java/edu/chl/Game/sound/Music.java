@@ -31,7 +31,6 @@ public class Music {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void play() {

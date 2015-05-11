@@ -58,7 +58,7 @@ public class GameHandler {
 		camera = new Camera();
 		createSheet();
 		frameValues = new FrameValues(6, 3);
-		music = new Music("intro.mp3");
+		music = new Music("/intro.mp3");
 		music.play();
 		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
 		this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
