@@ -1,90 +1,46 @@
 package edu.chl.Game.sound;
 
-import java.util.LinkedList;
-
-import javax.sound.sampled.*;
-
+import javax.sound.sampled.Clip;
 
 /**
  * Music for the Game.
  */
-public class Music {
+public class Music extends Sound {
 	
-	private LinkedList<Music> musicList = new LinkedList<>();
-	private Clip clip;
+	private MusicInterface musicInterface;
 	
-	public Music(String s) {
+	public Music() {
+		super();
+	}
+	public Music getMusic() {
+		return new Music();
+	}
+	public void setMenyMusic(Music music) {
 		
-		try {
-			
-			AudioInputStream ais =
-				AudioSystem.getAudioInputStream(getClass().getResourceAsStream(s));
-			AudioFormat baseFormat = ais.getFormat();
-			AudioFormat decodeFormat = new AudioFormat(
-				AudioFormat.Encoding.PCM_SIGNED,
-				baseFormat.getSampleRate(),
-				16,
-				baseFormat.getChannels(),
-				baseFormat.getChannels() * 2,
-				baseFormat.getSampleRate(),
-				false
-			);
-			AudioInputStream dais =
-				AudioSystem.getAudioInputStream(
-					decodeFormat, ais);
-			clip = AudioSystem.getClip();
-			clip.open(dais);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
-	
-	/**
-	 * Get the Music List.
-	 * @return - Returns the Music List of type LinkedList<Music>
-	 */
-	public LinkedList<Music> getMusicList() {
-		return this.musicList;
+	public Music getMenyMusic() {
+		return null;
 	}
-	/**
-	 * Add music to the music list
-	 * @param music - Add music of the type Music.
-	 */
-	public void addMusicList(Music music) {
-		musicList.add(music);
+	public void setOutroMusic(Music music) {
+		
 	}
-	/**
-	 * Remove a music from the music list.
-	 * @param music - Remove music of the type Music
-	 */
-	public void removeMusicList(Music music) {
-		musicList.remove(music);
+	public Music getOutroMusic() {
+		return null;
 	}
-	public void clearMusicList() {
-		musicList.clear();
+	public void setIntroMusic() {
+		
 	}
-	/**
-	 * Play the music
-	 */
-	public void play() {
-		if(clip == null) return;
-		stop();
-		clip.setFramePosition(0);
-		clip.start();
+	public Music getIntroMusic() {
+		return null;
 	}
-	/**
-	 * Stop the current music.
-	 */
-	public void stop() {
-		if(clip.isRunning()) clip.stop();
+	@Override
+	public Clip getClip() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	/**
-	 * Close the  current music.
-	 */
-	public void close() {
-		stop();
-		clip.close();
+	@Override
+	public void setFileName(String fileName) {
+		
 	}
 }
 

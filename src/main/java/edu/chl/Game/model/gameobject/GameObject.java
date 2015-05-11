@@ -10,7 +10,7 @@ import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.physics.CalculateBounds;
 
-public abstract class GameObject implements Observer {
+public abstract class GameObject implements Observer, GameInterface {
 	public static RefreshTimer gt = Main.game;
 	private UnitProperties unitProperties;
 	private UnitState unitState;

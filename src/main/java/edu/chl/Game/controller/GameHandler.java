@@ -20,6 +20,8 @@ import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.sound.Music;
+import edu.chl.Game.sound.Sound;
+import edu.chl.Game.sound.SFX;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
@@ -50,7 +52,6 @@ public class GameHandler {
 	private Camera camera;
 	private GameCursor c;
 
-	private Music music;
 	
 	public GameHandler(Thread thread, Frame frame) {
 		this.thread = thread;
@@ -58,8 +59,8 @@ public class GameHandler {
 		camera = new Camera();
 		createSheet();
 		frameValues = new FrameValues(6, 3);
-		music = new Music("/intro.mp3");
-		music.play();
+		
+		
 		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
 		this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
 		createMap();
