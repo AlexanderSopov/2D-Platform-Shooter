@@ -4,5 +4,6 @@ public enum State {
 	MENU,
 	GAME,
 	OPTION,
-	CREDIT;
+	CREDIT,
+	MAP;
 }

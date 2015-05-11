@@ -20,21 +20,24 @@ public class GameThread extends Observable implements Runnable {
 	private Thread thread;
 	private Frame frame;
 	private StartMenu startMenu;
+	private MapView mapView;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	
 	//The state of the game
-	public static State state = State.GAME;
+	public static State state = State.MENU;
 	
 	private double delta = 0.0;
-	private int Frame=1;
+	private int frameRate=1;
 	private int second=1;
 	
 	public GameThread(){
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
+		mapView = new MapView();
 		gameHandler = new GameHandler(thread, frame);
+		
 		start();
 		
 		for (Entity e: gameHandler.getEntityList())
@@ -83,7 +86,7 @@ public class GameThread extends Observable implements Runnable {
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
-		if(state == State.GAME){
+		if(state == State.GAME || state == State.MAP){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
 				frame.createBufferStrategy(3);
@@ -92,14 +95,12 @@ public class GameThread extends Observable implements Runnable {
 			renderGraphics(bs);
 		}else if(state == State.MENU && !startMenu.inMenu()){
 			startMenu.setMenu();
-			frame.setVisible(true);
 		}else if(state == State.OPTION && !startMenu.inOption()){
 			startMenu.setOption();
-			frame.setVisible(true);
 		}else if(state == State.CREDIT && !startMenu.inCredit()){
 			startMenu.setCredit();
-			frame.setVisible(true);
 		}
+		frame.setVisible(true);
 	}
 	
 	/**
@@ -108,14 +109,17 @@ public class GameThread extends Observable implements Runnable {
 	 */
 	public void renderGraphics(BufferStrategy b) {
 		Graphics g = b.getDrawGraphics();
-			frame.requestFocus();
-			g.setColor(new Color(135, 206, 235));
-			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-			g.translate(gameHandler.getCamera().getX(), gameHandler.getCamera().getY());
-			notifyObservers((Object)g);
+		frame.requestFocus();
+		
+		if(state == State.GAME){
 			gameHandler.render(g);
-			b.show();
-			g.dispose();
+			notifyObservers((Object)g);
+		}else if(state == State.MAP){
+			mapView.render(g);
+		}
+		
+		b.show();
+		g.dispose();
 	}
 	
 
@@ -148,10 +152,10 @@ public class GameThread extends Observable implements Runnable {
 	 * Printing frames per second.
 	 */
 	private void printTimer(){
-		Frame++;
+		frameRate++;
 		if(isFrame()){
 			second++;
-			Frame=1;
+			frameRate=1;
 		}
 	}
 	
@@ -160,6 +164,6 @@ public class GameThread extends Observable implements Runnable {
 	 * @return Frame - If frame is not 60 then return false otherwise true.
 	 */
 	private boolean isFrame() {
-		return Frame==60;
+		return frameRate==60;
 	}
 }
