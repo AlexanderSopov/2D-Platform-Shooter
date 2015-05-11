@@ -1,9 +1,6 @@
 package edu.chl.Game.model.gameobject.entity.items;
 
-import java.awt.Graphics;	
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
-import java.util.Random;
 
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;

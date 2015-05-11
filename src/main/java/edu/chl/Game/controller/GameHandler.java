@@ -3,6 +3,7 @@ package edu.chl.Game.controller;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -18,6 +19,7 @@ import edu.chl.Game.model.gameobject.entity.items.Gun;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
+import edu.chl.Game.music.Music;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
@@ -54,6 +56,12 @@ public class GameHandler {
 		camera = new Camera();
 		createSheet();
 		frameValues = new FrameValues(6, 3);
+		try {
+			Music.playMusic();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
 		this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
 		createMap();

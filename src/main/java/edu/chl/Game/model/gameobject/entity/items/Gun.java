@@ -1,8 +1,6 @@
 package edu.chl.Game.model.gameobject.entity.items;
 
-import java.awt.Graphics;	
-import java.awt.image.BufferedImage;
-import java.util.LinkedList;
+import java.awt.Graphics;
 import java.util.Random;
 
 import edu.chl.Game.controller.GameHandler;
@@ -36,14 +34,11 @@ public class Gun extends Items {
 	
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
-		getUpdateMovement().toggleAnimate();
-		setRandomDirection();
+		getUpdateMovement().updateCoordinates();		
+		getUnitProperties().setVelX(2);
 		getCollisionDetection().checkForCollision();
+		getEntityProperties().setGravity(1.0);
 		gravitationalProperties.fallingMechanics();
-		getEntityState().setFalling(true);
-		getEntityProperties().setGravity(2.0);
-		getCollisionDetection().checkForCollision();
 	}
 	/**
 	 * Set a random direction for the object
