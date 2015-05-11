@@ -15,8 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import edu.chl.Game.handler.KeyInput;
-import edu.chl.Game.handler.MouseInput;
+import edu.chl.Game.controller.KeyInput;
+import edu.chl.Game.controller.MouseInput;
 
 
 /**

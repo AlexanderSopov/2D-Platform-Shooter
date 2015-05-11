@@ -1,7 +1,6 @@
 package edu.chl.Game.UnitTools;
-import edu.chl.Game.graphics.Sprite;
 import edu.chl.Game.handler.*;
-import edu.chl.Game.graphics.*;
+import edu.chl.Game.view.graphics.*;
 
 public class LoadingSprites {
 

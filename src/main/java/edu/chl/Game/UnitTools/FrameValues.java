@@ -1,5 +1,5 @@
 package edu.chl.Game.UnitTools;
-import edu.chl.Game.entity.*;
+import edu.chl.Game.model.gameobject.entity.*;
 
 public class FrameValues {
 	private int frameDelayLimit;

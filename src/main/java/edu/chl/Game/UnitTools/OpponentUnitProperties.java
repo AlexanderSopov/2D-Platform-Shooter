@@ -1,6 +1,6 @@
 package edu.chl.Game.UnitTools;
 
-import edu.chl.Game.Units.AttackTimer;
+import edu.chl.Game.model.gameobject.entity.enemy.AttackTimer;
 
 public class OpponentUnitProperties {
 	

@@ -1,6 +1,6 @@
 package edu.chl.Game.handler;
 
-import edu.chl.Game.entity.Entity;
+import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.view.Frame;
 
 public class Camera {

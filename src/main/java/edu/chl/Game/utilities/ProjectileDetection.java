@@ -3,9 +3,12 @@ package edu.chl.Game.utilities;
 import java.awt.*;
 import java.util.LinkedList;
 
-import edu.chl.Game.entity.*;
+import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.handler.*;
-import edu.chl.Game.object.*;
+import edu.chl.Game.model.gameobject.*;
+import edu.chl.Game.model.gameobject.entity.*;
+import edu.chl.Game.model.gameobject.entity.player.Bullet;
+import edu.chl.Game.model.gameobject.entity.player.Pistol;
 
 public class ProjectileDetection {
 
