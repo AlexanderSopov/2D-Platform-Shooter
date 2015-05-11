@@ -46,6 +46,10 @@ public class RefreshTimer extends Observable implements Runnable {
 			addObserver(e);
 		for (Tile t: gameHandler.getTileList())
 			addObserver(t);
+		
+		frame.addKeyListener(new KeyInput(gameHandler));
+		frame.addMouseMotionListener(new MouseInput(gameHandler.getGameCursor()));
+		frame.addMouseListener(new MouseInput(gameHandler.getGameCursor(), frame, mapView));
 	}
 
 	/**
