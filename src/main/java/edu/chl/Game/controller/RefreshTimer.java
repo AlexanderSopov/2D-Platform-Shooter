@@ -27,7 +27,7 @@ public class RefreshTimer extends Observable implements Runnable {
 	private boolean running = false;
 	
 	//The state of the game
-	public static State state = State.GAME;
+	public static State state = State.MAP;
 	
 	private double delta = 0.0;
 	private int frameRate=1;
