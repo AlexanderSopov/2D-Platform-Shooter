@@ -1,11 +1,11 @@
-package edu.chl.Game.UnitAI;
+package edu.chl.Game.model.gameobject.entity.entityTools;
 import edu.chl.Game.*;
 import edu.chl.Game.handler.*;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
+import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.controller.GameHandler;
-import edu.chl.Game.UnitTools.*;
 
 public class AI {
 	

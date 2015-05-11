@@ -17,7 +17,7 @@ import edu.chl.Game.view.StartMenu;
  * @author Mansoor, Alexander
  * @version 1.0
  */
-public class GameThread extends Observable implements Runnable {
+public class RefreshTimer extends Observable implements Runnable {
 
 	private Thread thread;
 	private Frame frame;
@@ -33,7 +33,7 @@ public class GameThread extends Observable implements Runnable {
 	private int frameRate=1;
 	private int second=1;
 	
-	public GameThread(){
+	public RefreshTimer(){
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);

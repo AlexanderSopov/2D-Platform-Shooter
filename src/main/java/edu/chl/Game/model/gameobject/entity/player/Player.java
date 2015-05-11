@@ -5,13 +5,13 @@ import java.util.LinkedList;
 
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.model.gameobject.entity.ContactWithEnemy;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.FrameCounter;
 import edu.chl.Game.model.gameobject.entity.GravitationalProperties;
 import edu.chl.Game.model.gameobject.tile.Tile;
-import edu.chl.Game.utilities.*;
+import edu.chl.Game.model.physics.ContactWithEnemy;
+import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.Sprite;
 
 public class Player extends Entity {

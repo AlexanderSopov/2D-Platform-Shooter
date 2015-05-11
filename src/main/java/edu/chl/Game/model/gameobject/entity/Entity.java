@@ -5,14 +5,17 @@ import java.awt.Rectangle;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.UnitTools.*;
+import edu.chl.Game.model.gameobject.entity.entityTools.*;
+import edu.chl.Game.model.physics.CollisionDetection;
+import edu.chl.Game.model.physics.UpdateMovement;
+import edu.chl.Game.view.graphics.EntityRender;
 
 public abstract class Entity extends GameObject {
 
 	private EntityProperties entityProperties;
 	private EntityState entityState;
-	private RenderClass renderClass;
-	private RenderClass renderClass1;
+	private EntityRender renderClass;
+	private EntityRender renderClass1;
 	private CollisionDetection collisionDetection;
 	private FrameIterator frameIterator;
         private UpdateMovement updateMovement;
@@ -21,8 +24,8 @@ public abstract class Entity extends GameObject {
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
-		renderClass = new RenderClass();
-		renderClass1 = new RenderClass();
+		renderClass = new EntityRender();
+		renderClass1 = new EntityRender();
                 this.updateMovement = new UpdateMovement(this);
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
@@ -46,11 +49,11 @@ public abstract class Entity extends GameObject {
 		getHandler().removeEntity(this);
 	}
 
-	public RenderClass getRenderClass() {
+	public EntityRender getRenderClass() {
 		return renderClass;
 	}
 
-	public RenderClass getRenderClass1() {
+	public EntityRender getRenderClass1() {
 		return renderClass1;
 	}
 

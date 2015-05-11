@@ -1,9 +1,7 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.view.graphics;
 import java.awt.Graphics;
 
-import edu.chl.Game.view.graphics.Sprite;
-
-public class RenderClass {
+public class EntityRender {
 	
 	private int frameAmount;
 

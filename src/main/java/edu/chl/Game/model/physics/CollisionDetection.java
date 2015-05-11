@@ -1,8 +1,13 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.model.physics;
 
 import com.sun.javafx.css.CalculatedValue;
 
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.gameobject.entity.EntityProperties;
+import edu.chl.Game.model.gameobject.entity.EntityState;
+import edu.chl.Game.model.gameobject.entity.UnitProperties;
+import edu.chl.Game.model.gameobject.entity.UnitState;
 import edu.chl.Game.model.gameobject.tile.*;
 
 public class CollisionDetection {

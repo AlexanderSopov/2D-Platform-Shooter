@@ -1,6 +1,7 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.model.physics;
 
 import edu.chl.Game.model.gameobject.GameObject;
+import edu.chl.Game.model.gameobject.entity.UnitProperties;
 
 import java.awt.Rectangle;
 

@@ -45,7 +45,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if (GameThread.state == State.GAME){
+		if (RefreshTimer.state == State.GAME){
 			if (onCanvas) {
 				setMousePosX(e.getX());
 				setMousePosY(e.getY());
@@ -57,26 +57,26 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		if(GameThread.state == State.GAME) {
+		if(RefreshTimer.state == State.GAME) {
 			c.shoot();
 			if (c != null) {
 				c.shoot();
 			}
 		}else if(e.getSource() instanceof JButton){
 			String button = ((JButton) e.getSource()).getText();
-			if(GameThread.state == State.MENU){
+			if(RefreshTimer.state == State.MENU){
 				switch(button){
 					case "Start":
-						GameThread.state = State.GAME;
+						RefreshTimer.state = State.GAME;
 						break;
 					case "New":
-						GameThread.state = State.GAME;
+						RefreshTimer.state = State.GAME;
 						break;
 					case "Option":
-						GameThread.state = State.OPTION;
+						RefreshTimer.state = State.OPTION;
 						break;
 					case "Credit":
-						GameThread.state = State.CREDIT;
+						RefreshTimer.state = State.CREDIT;
 						break;
 					case "Exit":
 						System.exit(0);
@@ -84,10 +84,10 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 					default:
 						break;
 				}
-			}else if(GameThread.state == State.OPTION){
+			}else if(RefreshTimer.state == State.OPTION){
 				switch(button){
 				case "Back":
-					GameThread.state = State.MENU;
+					RefreshTimer.state = State.MENU;
 					break;
 				default:
 					break;
@@ -102,7 +102,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		if(GameThread.state == State.GAME) {
+		if(RefreshTimer.state == State.GAME) {
 			pressed = true;
 		}
 
@@ -111,7 +111,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		
-		if(GameThread.state == State.GAME) {
+		if(RefreshTimer.state == State.GAME) {
 			pressed = false;
 		}
 
@@ -120,7 +120,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
-		if(GameThread.state == State.GAME) {	
+		if(RefreshTimer.state == State.GAME) {	
 			e.getComponent().setCursor(blankCursor);
 			if (c != null) {
 				e.getComponent().setCursor(blankCursor);

@@ -1,4 +1,4 @@
-package edu.chl.Game.utilities;
+package edu.chl.Game.model.physics;
 
 import java.awt.*;
 import java.util.LinkedList;

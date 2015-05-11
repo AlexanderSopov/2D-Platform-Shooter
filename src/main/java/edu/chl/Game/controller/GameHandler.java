@@ -8,19 +8,17 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
-import edu.chl.Game.UnitTools.*;
 import edu.chl.Game.Main;
-import edu.chl.Game.UnitTools.OpponentUnitProperties;
 import edu.chl.Game.handler.Camera;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
+import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
-import edu.chl.Game.utilities.*;
 
 public class GameHandler {
 	private Thread thread;

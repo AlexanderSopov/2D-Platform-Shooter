@@ -1,4 +1,4 @@
-package edu.chl.Game.model.gameobject.entity.enemy;
+package edu.chl.Game.model.gameobject.entity.entityTools;
 
 public class AttackTimer {
 	

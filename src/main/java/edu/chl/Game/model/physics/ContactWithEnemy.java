@@ -1,8 +1,10 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.model.physics;
 
 import java.util.LinkedList;
 
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.gameobject.entity.UnitProperties;
 
 public class ContactWithEnemy {
 	

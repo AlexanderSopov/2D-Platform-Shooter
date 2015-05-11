@@ -25,7 +25,7 @@ public class KeyInput implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		if (GameThread.state == State.GAME) {
+		if (RefreshTimer.state == State.GAME) {
 			for (Entity en : handler.getEntityList()) {
 				if (en.getUnitState().getId() == Id.player) {
 					switch (key) {
@@ -57,7 +57,7 @@ public class KeyInput implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (GameThread.state == State.GAME) {
+		if (RefreshTimer.state == State.GAME) {
 			for (Entity en : handler.getEntityList()) {
 				if (en.getUnitState().getId() == Id.player) {
 					en.setVelY(0);

@@ -1,8 +1,11 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.model.physics;
 
 import java.util.LinkedList;
 
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.gameobject.entity.UnitProperties;
+import edu.chl.Game.model.gameobject.entity.UnitState;
 import edu.chl.Game.model.gameobject.tile.Tile;
 
 public class UpdateMovement {

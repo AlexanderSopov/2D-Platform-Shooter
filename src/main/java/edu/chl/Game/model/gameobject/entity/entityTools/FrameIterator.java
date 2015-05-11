@@ -1,4 +1,4 @@
-package edu.chl.Game.UnitTools;
+package edu.chl.Game.model.gameobject.entity.entityTools;
 import edu.chl.Game.model.gameobject.entity.*;
 
 public class FrameIterator {

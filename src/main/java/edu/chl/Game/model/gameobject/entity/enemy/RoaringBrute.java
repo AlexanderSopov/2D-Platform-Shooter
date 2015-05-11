@@ -1,9 +1,9 @@
 package edu.chl.Game.model.gameobject.entity.enemy;
 
-import edu.chl.Game.UnitTools.FrameValues;
-import edu.chl.Game.UnitTools.OpponentUnitProperties;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.entity.entityTools.FrameValues;
+import edu.chl.Game.model.gameobject.entity.entityTools.OpponentUnitProperties;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
 public class RoaringBrute extends EnemyUnit {
