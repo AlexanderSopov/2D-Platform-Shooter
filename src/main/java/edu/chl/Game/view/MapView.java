@@ -6,6 +6,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+/**
+ * Temporary class for the map
+ * @author Martin Tran
+ * @version 1.0
+ */
+
 public class MapView {
 	
 	public Rectangle startButton = new Rectangle(Frame.WIDTH / 3 + 80, Frame.HEIGHT/4, 160, 60);
