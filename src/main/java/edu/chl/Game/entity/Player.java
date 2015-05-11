@@ -52,9 +52,16 @@ public class Player extends Entity {
 
 		this.frameCounter = new FrameCounter(3, 5);
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
+<<<<<<< HEAD
 		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
 		this.pdInit = true;
 	}
+=======
+		this.gravitationalProperties = new GravitationalProperties(this);
+		
+		
+
+>>>>>>> a977b293f066842a1fa73ade1c78d5956e775cff
 	
 	public void initiateProjectileDetection(){
 		this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
@@ -67,17 +74,17 @@ public class Player extends Entity {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderAnimateLeft(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				}
 			}
 
@@ -85,35 +92,37 @@ public class Player extends Entity {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderNotAnimateRight(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				}
 
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderNotAnimateLeft(g, player,
 							getEntityProperties().getFrame(),
-							getUnitProperties().getX(),
-							getUnitProperties().getY(),
-							getUnitProperties().getHeight(),
-							getUnitProperties().getWidth());
+							getX(),
+							getY(),
+							getHeight(),
+							getWidth());
 				}
 			}
 		} else {
 
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass1().renderAnimateRight(g, recieveDamage,
-						frameCounter.getCount(), getUnitProperties().getX(),
-						getUnitProperties().getY(),
-						getUnitProperties().getWidth(),
-						getUnitProperties().getHeight());
+						frameCounter.getCount(),
+                                                getX(),
+						getY(),
+						getWidth(),
+						getHeight());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass1().renderAnimateLeft(g, recieveDamage,
-						frameCounter.getCount(), getUnitProperties().getX(),
-						getUnitProperties().getY(),
-						getUnitProperties().getWidth(),
-						getUnitProperties().getHeight());
+						frameCounter.getCount(), 
+                                                getX(),
+						getY(),
+						getWidth(),
+						getHeight());
 			}
 		}
 

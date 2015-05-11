@@ -20,7 +20,7 @@ import edu.chl.Game.handler.MouseInput;
 
 
 /**
- * Temporary setup for the menus
+ * Temporary class for the menus
  * @author Martin Tran
  * @version 1.0
  */

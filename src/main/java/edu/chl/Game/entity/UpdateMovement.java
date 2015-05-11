@@ -9,19 +9,21 @@ public class UpdateMovement {
 
 	private UnitProperties unitProperties;
 	private UnitState unitState;
+        private Entity en;
 
-	public UpdateMovement(UnitProperties unitProperties, UnitState unitState) {
-		this.unitProperties = unitProperties;
-		this.unitState = unitState;
+	public UpdateMovement(Entity en) {
+                this.en = en;
+		this.unitProperties = en.getUnitProperties();
+		this.unitState = en.getUnitState();
 	}
 
 	public void updateCoordinates() {
-		unitProperties.setX(unitProperties.getX() + unitProperties.getVelX());
-		unitProperties.setY(unitProperties.getY() + unitProperties.getVelY());
+		en.setX(en.getX() + en.getVelX());
+		en.setY(en.getY() + en.getVelY());
 	}
 
 	public void toggleAnimate() {
-		if (unitProperties.getVelX() != 0) {
+		if (en.getVelX() != 0) {
 			unitState.setAnimate(true);
 		} else {
 			unitState.setAnimate(false);

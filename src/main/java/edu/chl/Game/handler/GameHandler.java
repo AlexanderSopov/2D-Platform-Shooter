@@ -2,12 +2,14 @@ package edu.chl.Game.handler;
 
 import edu.chl.Game.entity.GameCursor;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+
 import edu.chl.Game.UnitTools.*;
 import edu.chl.Game.Main;
 import edu.chl.Game.entity.*;
@@ -61,6 +63,10 @@ public class GameHandler {
 	}
 
 	public void render(Graphics g) {
+		g.setColor(new Color(135, 206, 235));
+		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
+		g.translate(camera.getX(), camera.getY());
+		
 		for (Entity e : getEntityList()) {
 			if (e.getUnitState().getId() == Id.player) {
 				camera.update(e);
@@ -165,6 +171,8 @@ public class GameHandler {
 		
 
 	}
+        
+ 
 
 	public Camera getCamera() {
 		return camera;

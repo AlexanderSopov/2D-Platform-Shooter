@@ -61,8 +61,6 @@ public class GameCursor extends Entity {
 
 		p.update();
 
-		
-
 	}
 
 	public void shoot() {

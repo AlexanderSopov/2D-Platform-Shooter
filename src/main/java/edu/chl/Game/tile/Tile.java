@@ -17,13 +17,11 @@ public abstract class Tile extends GameObject {
 
 
 	public Rectangle getBounds() {
-		return new Rectangle(getUnitProperties().getX(), getUnitProperties()
-				.getY(), getUnitProperties().getWidth(), getUnitProperties()
-				.getHeight());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 
 	public void remove() {
-		getUnitProperties().getHandler().removeTile(this);
+		getHandler().removeTile(this);
 	}
 	
 	public void setTileState(TileState tileState){

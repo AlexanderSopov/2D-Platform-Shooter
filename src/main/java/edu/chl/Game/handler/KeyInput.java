@@ -37,13 +37,13 @@ public class KeyInput implements KeyListener {
 						}
 						break;
 					case KeyEvent.VK_A:
-						en.getUnitProperties().setVelX(-5);
+						en.setVelX(-5);
 						// en.facing = 1;
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingLeft);
 						break;
 					case KeyEvent.VK_D:
-						en.getUnitProperties().setVelX(5);
+						en.setVelX(5);
 						// en.facing = 0;
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingRight);
@@ -60,8 +60,8 @@ public class KeyInput implements KeyListener {
 		if (GameThread.state == State.GAME) {
 			for (Entity en : handler.getEntityList()) {
 				if (en.getUnitState().getId() == Id.player) {
-					en.getUnitProperties().setVelY(0);
-					en.getUnitProperties().setVelX(0);
+					en.setVelY(0);
+					en.setVelX(0);
 				}
 			}
 		}
