@@ -97,14 +97,15 @@ public class EnemyUnit extends Entity {
 	public void update() {
 		getUpdateMovement().updateCoordinates();
 		getUpdateMovement().toggleAnimate();
+		getUpdateMovement().updateFacing();
 		getCollisionDetection().checkForCollision();
 		if (getUnitState().isAnimate()) {
 			frameIteration();
 		}
 		UnitAI();
 		aI.attack();
-		updateFace();
 		System.out.println(getEntityState().getFacingDirection());
+		System.out.println("EnemyUnit: " + getVelX());
 	}
 
 	// iterates through the frames
@@ -126,13 +127,4 @@ public class EnemyUnit extends Entity {
 		aI.followPlayer();
 	}
 	
-	public void updateFace(){
-		if(getVelX()<0){
-			getEntityState().setFacingDirection(FacingDirection.FacingLeft);
-		} else {
-			getEntityState().setFacingDirection(FacingDirection.FacingRight);
-		}
-	}
-	
-
 }

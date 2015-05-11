@@ -53,8 +53,7 @@ public class Player extends Entity {
 		}
 
 		this.frameCounter = new FrameCounter(3, 5);
-		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
-				getCalculateBounds());
+		this.contactWithEnemy = new ContactWithEnemy(this);
 		this.gravitationalProperties = new GravitationalProperties(this);
 	}
 
@@ -126,7 +125,6 @@ public class Player extends Entity {
 		//hitTarget();
 
 		// System.out.println(getEntityState().isInAir());
-		System.out.println(getUnitProperties().getVelY());
 
 	}
 
@@ -180,12 +178,10 @@ public class Player extends Entity {
 	}
 
 	public void recieveDamage(double damage) {
-		System.out.println(getUnitProperties().getHealthPoints());
 		if (!isRecievingDamage) {
 			isRecievingDamage = true;
 		}
-		getUnitProperties().setHealthPoints(
-				getUnitProperties().getHealthPoints() - damage);
+		setHealthPoints(getHealthPoints() - damage);
 	}
 
 }

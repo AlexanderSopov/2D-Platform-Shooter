@@ -144,7 +144,6 @@ public class GameHandler {
 				
 				//	( ??? )
 				else if (red == 022 && green == 0 && blue == 255) {
-					System.out.println("<check_4>");
 					addEntity(new RoaringBrute(x * 120, y * 115, 120, 115, true,
 							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
 				}

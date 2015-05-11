@@ -26,7 +26,7 @@ public abstract class Entity extends GameObject {
 
 		renderClass = new EntityRender();
 		renderClass1 = new EntityRender();
-                this.updateMovement = new UpdateMovement(this);
+        this.updateMovement = new UpdateMovement(this);
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
 		collisionDetection = new CollisionDetection(this);

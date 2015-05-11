@@ -1,32 +1,28 @@
 package edu.chl.Game.model.physics;
 
 import com.sun.javafx.css.CalculatedValue;
-
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.EntityProperties;
 import edu.chl.Game.model.gameobject.entity.EntityState;
-import edu.chl.Game.model.gameobject.entity.UnitProperties;
 import edu.chl.Game.model.gameobject.entity.UnitState;
 import edu.chl.Game.model.gameobject.tile.*;
 
 public class CollisionDetection {
 
-	private UnitProperties unitProperties;
 	private UnitState unitState;
 	private EntityState entityState;
 	private EntityProperties entityProp;
 	private CalculateBounds calculateBounds;
-        private Entity en;
+    private Entity en;
 
 
 	public CollisionDetection(Entity en) {	
-		this.unitProperties = en.getUnitProperties();
 		this.unitState = en.getUnitState();
 		this.calculateBounds = en.getCalculateBounds();
 		this.entityProp = en.getEntityProperties();
 		this.entityState = en.getEntityState();
-                this.en = en;
+        this.en = en;
 	}
 
 	public void checkForCollision(){
@@ -89,7 +85,7 @@ public class CollisionDetection {
 		//if(t.getTileState() == TileState.wall || t.getTileState() == TileState.rightWall){
 			if (calculateBounds.getBoundsRight().intersects(t.getBounds())) {
 				en.setVelX(0);
-				en.setX((t.getUnitProperties().getX() - t.getUnitProperties().getWidth()));
+				en.setX((t.getX() - t.getWidth()));
 			}
 		//}
 	}
@@ -98,7 +94,7 @@ public class CollisionDetection {
 		//if(t.getTileState() == TileState.wall || t.getTileState() == TileState.leftWall){
 			if (calculateBounds.getBoundsLeft().intersects(t.getBounds())) {
 				en.setVelX(0);
-				en.setX((t.getUnitProperties().getX() + t.getUnitProperties().getWidth()));
+				en.setX((t.getX() + t.getWidth()));
 			}
 		//}
 	}

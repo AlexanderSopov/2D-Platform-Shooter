@@ -23,9 +23,7 @@ public class FloorTile extends Tile implements Observer {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(floor.getBufferedImage(), getUnitProperties().getX(),
-				getUnitProperties().getY(), getUnitProperties().getWidth(),
-				getUnitProperties().getHeight(), null);
+		g.drawImage(floor.getBufferedImage(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 
 	@Override
@@ -46,7 +44,7 @@ public class FloorTile extends Tile implements Observer {
 	
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(getUnitProperties().getX(), getUnitProperties().getY(), getUnitProperties().getWidth(), getUnitProperties().getHeight());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 	
 	

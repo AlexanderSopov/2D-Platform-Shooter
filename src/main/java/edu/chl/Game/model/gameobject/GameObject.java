@@ -12,32 +12,26 @@ import edu.chl.Game.model.physics.CalculateBounds;
 
 public abstract class GameObject implements Observer {
 	public static RefreshTimer gt = Main.game;
-	private UnitProperties unitProperties;
 	private UnitState unitState;
-	
 	private CalculateBounds calculateBounds;
-        
-        private int x, y;
+	private int x, y;
 	private int velX, velY;
 	private int width, height;
 	private double healthPoints;
 	private GameHandler handler;
-        private Id id;
-        private boolean solid; 
+	private Id id;
+	private boolean solid;
 
-	public GameObject(int x, int y, int width, int height, boolean solid,
-			Id id, GameHandler handler) {
-		
-                 this.x = x;
-                 this.y = y;
-                 this.width = width;
-                 this.height = height;
-                 this.id = id;
-                 this.solid = solid;
-                 this.handler = handler;
-                 this.unitProperties = new UnitProperties(handler, x,y,width,height);
+	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.id = id;
+		this.solid = solid;
+		this.handler = handler;
 		this.unitState = new UnitState(id, solid);
-		
+		this.healthPoints = 100.0;
 		this.calculateBounds = new CalculateBounds(this);
 	}
 
@@ -50,30 +44,24 @@ public abstract class GameObject implements Observer {
 			System.out.println("oops!");
 		}
 	}
-	
+
 	public abstract void render(Graphics g);
 
 	public abstract void update();
 
 	public abstract void remove();
 
-	public UnitProperties getUnitProperties() {
-		return unitProperties;
-	}
-
 	public UnitState getUnitState() {
 		return unitState;
 	}
 
-	
-
 	public CalculateBounds getCalculateBounds() {
 		return calculateBounds;
 	}
-        
-        public GameHandler getHandler(){
-            return this.handler;
-        }
+
+	public GameHandler getHandler() {
+		return this.handler;
+	}
 
 	public int getX() {
 		return this.x;
@@ -98,28 +86,28 @@ public abstract class GameObject implements Observer {
 	public int getHeight() {
 		return this.height;
 	}
-        
-        public double getHealthPoints(){
+
+	public double getHealthPoints() {
 		return healthPoints;
 	}
-	
-	public void setHealthPoints(double healthPoints){
+
+	public void setHealthPoints(double healthPoints) {
 		this.healthPoints = healthPoints;
 	}
-        
-        public int getVelX(){
+
+	public int getVelX() {
 		return velX;
 	}
-	
-	public void setVelX(int velX){
+
+	public void setVelX(int velX) {
 		this.velX = velX;
 	}
-	
-	public int getVelY(){
+
+	public int getVelY() {
 		return velY;
 	}
-	
-	public void setVelY(int vely){
+
+	public void setVelY(int vely) {
 		this.velY = vely;
 	}
 
