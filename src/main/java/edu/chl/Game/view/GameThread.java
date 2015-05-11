@@ -25,7 +25,7 @@ public class GameThread extends Observable implements Runnable {
 	private boolean running = false;
 	
 	//The state of the game
-	public static State state = State.MENU;
+	public static State state = State.GAME;
 	
 	private double delta = 0.0;
 	private int frameRate=1;
@@ -113,13 +113,7 @@ public class GameThread extends Observable implements Runnable {
 		
 		if(state == State.GAME){
 			gameHandler.render(g);
-<<<<<<< HEAD
-			if(gameHandler.checkForUpdate()){
-				updateObserverList();
-			}
-			b.show();
-			g.dispose();
-=======
+
 			notifyObservers((Object)g);
 		}else if(state == State.MAP){
 			mapView.render(g);
@@ -127,7 +121,7 @@ public class GameThread extends Observable implements Runnable {
 		
 		b.show();
 		g.dispose();
->>>>>>> a977b293f066842a1fa73ade1c78d5956e775cff
+
 	}
 	
 

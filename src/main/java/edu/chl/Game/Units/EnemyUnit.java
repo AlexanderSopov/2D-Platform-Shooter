@@ -56,11 +56,9 @@ public class EnemyUnit extends Entity {
 
 		// set the AI
 
-<<<<<<< HEAD
-		this.aI = new AI(handler, getUnitProperties(), attackTimer, op, getEntityState());
-=======
+
 		this.aI = new AI(this, attackTimer, op);
->>>>>>> a977b293f066842a1fa73ade1c78d5956e775cff
+
 
 		// set the frameIterator
 

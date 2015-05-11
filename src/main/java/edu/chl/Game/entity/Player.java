@@ -51,19 +51,12 @@ public class Player extends Entity {
 		}
 
 		this.frameCounter = new FrameCounter(3, 5);
-		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(), getCalculateBounds());
-<<<<<<< HEAD
-		this.gravitationalProperties = new GravitationalProperties(getUnitProperties(), getEntityProperties(), getEntityState());
-		this.pdInit = true;
-	}
-=======
+		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
+				getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(this);
-		
-		
+	}
 
->>>>>>> a977b293f066842a1fa73ade1c78d5956e775cff
-	
-	public void initiateProjectileDetection(){
+	public void initiateProjectileDetection() {
 		this.pd = new ProjectileDetection(getHandler(), getHandler().getGameCursor().getPistol());
 	}
 
@@ -73,55 +66,37 @@ public class Player extends Entity {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, player,
-							getEntityProperties().getFrame(),
-							getX(),
-							getY(),
-							getHeight(),
-							getWidth());
+							getEntityProperties().getFrame(), getX(), getY(),
+							getHeight(), getWidth());
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderAnimateLeft(g, player,
-							getEntityProperties().getFrame(),
-							getX(),
-							getY(),
-							getHeight(),
-							getWidth());
+							getEntityProperties().getFrame(), getX(), getY(),
+							getHeight(), getWidth());
 				}
 			}
 
 			else if (!getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderNotAnimateRight(g, player,
-							getEntityProperties().getFrame(),
-							getX(),
-							getY(),
-							getHeight(),
-							getWidth());
+							getEntityProperties().getFrame(), getX(), getY(),
+							getHeight(), getWidth());
 				}
 
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderNotAnimateLeft(g, player,
-							getEntityProperties().getFrame(),
-							getX(),
-							getY(),
-							getHeight(),
-							getWidth());
+							getEntityProperties().getFrame(), getX(), getY(),
+							getHeight(), getWidth());
 				}
 			}
 		} else {
 
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 				getRenderClass1().renderAnimateRight(g, recieveDamage,
-						frameCounter.getCount(),
-                                                getX(),
-						getY(),
-						getWidth(),
+						frameCounter.getCount(), getX(), getY(), getWidth(),
 						getHeight());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass1().renderAnimateLeft(g, recieveDamage,
-						frameCounter.getCount(), 
-                                                getX(),
-						getY(),
-						getWidth(),
+						frameCounter.getCount(), getX(), getY(), getWidth(),
 						getHeight());
 			}
 		}
@@ -146,11 +121,11 @@ public class Player extends Entity {
 			}
 		}
 		engageInitiation();
-		hitTarget();
-		
-		//System.out.println(getEntityState().isInAir());
+		//hitTarget();
+
+		// System.out.println(getEntityState().isInAir());
 		System.out.println(getUnitProperties().getVelY());
-		
+
 	}
 
 	public void iterateThroughFrames() {
@@ -158,7 +133,8 @@ public class Player extends Entity {
 	}
 
 	public void increaseFrameDelay() {
-		getEntityProperties().setFrameDelay(getEntityProperties().getFrameDelay() + 1);
+		getEntityProperties().setFrameDelay(
+				getEntityProperties().getFrameDelay() + 1);
 		checkFrameDelayLimit();
 	}
 
@@ -187,16 +163,16 @@ public class Player extends Entity {
 	public void setFrameToZero() {
 		getEntityProperties().setFrame(0);
 	}
-	
-	public void engageInitiation(){
-		if(pdInit){
+
+	public void engageInitiation() {
+		if (pdInit) {
 			pdInit = false;
 			initiateProjectileDetection();
 		}
 	}
-	
-	public void hitTarget(){
-		if(!pdInit){
+
+	public void hitTarget() {
+		if (!pdInit) {
 			pd.hitTarget();
 		}
 	}
@@ -206,7 +182,8 @@ public class Player extends Entity {
 		if (!isRecievingDamage) {
 			isRecievingDamage = true;
 		}
-		getUnitProperties().setHealthPoints(getUnitProperties().getHealthPoints() - damage);
+		getUnitProperties().setHealthPoints(
+				getUnitProperties().getHealthPoints() - damage);
 	}
 
 }

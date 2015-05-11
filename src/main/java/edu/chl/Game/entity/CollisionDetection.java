@@ -13,7 +13,7 @@ public class CollisionDetection {
 	private CalculateBounds calculateBounds;
         private Entity en;
 
-	//public CollisionDetection(UnitProperties unitProperties, UnitState unitState, CalculateBounds calculateBounds, EntityProperties entityProperties, EntityState entityState) {
+
 	public CollisionDetection(Entity en) {	
 		this.unitProperties = en.getUnitProperties();
 		this.unitState = en.getUnitState();
@@ -57,14 +57,11 @@ public class CollisionDetection {
 	public void checkCollideWithFlor(Tile t){
 		if(t.getTileState() == TileState.wall || t.getTileState() == TileState.floor){
 			if (calculateBounds.getBoundsBottom().intersects(t.getBounds())) {
-<<<<<<< HEAD
-				System.out.println("check");
-				unitProperties.setY(t.getY() - unitProperties.getHeight());
-				//unitProperties.setVelY(0);
-=======
+
+
 				en.setY(t.getY() - en.getHeight());
 				en.setVelY(0);
->>>>>>> a977b293f066842a1fa73ade1c78d5956e775cff
+
 				entityState.setFalling(false);
 				entityState.setContactWithGround(true);
 			}
