@@ -7,7 +7,7 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.Tile;
-import edu.chl.Game.music.Music;
+import edu.chl.Game.sound.Music;
 import edu.chl.Game.controller.RefreshTimer;
 
 /*
@@ -21,7 +21,12 @@ public final class Main {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-					game = new RefreshTimer();
+					try {
+						game = new RefreshTimer();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 });
 	}
 

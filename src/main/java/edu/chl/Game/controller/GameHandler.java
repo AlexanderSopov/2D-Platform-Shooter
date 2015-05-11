@@ -19,7 +19,7 @@ import edu.chl.Game.model.gameobject.entity.items.Gun;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
-import edu.chl.Game.music.Music;
+import edu.chl.Game.sound.Music;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
@@ -50,18 +50,16 @@ public class GameHandler {
 	private Camera camera;
 	private GameCursor c;
 
+	private Music music;
+	
 	public GameHandler(Thread thread, Frame frame) {
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
 		createSheet();
 		frameValues = new FrameValues(6, 3);
-		try {
-			Music.playMusic();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		music = new Music("intro.mp3");
+		music.play();
 		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
 		this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
 		createMap();
