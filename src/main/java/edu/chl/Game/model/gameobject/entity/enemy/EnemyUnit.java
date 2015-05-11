@@ -29,6 +29,7 @@ public class EnemyUnit extends Entity {
 	private LoadingSprites loadingSprites;
 	private OpponentUnitProperties op;
 	private FrameIterator frameIterator;
+	private boolean isAttacking = false;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler, OpponentUnitProperties op,
@@ -121,6 +122,14 @@ public class EnemyUnit extends Entity {
 
 	public void followBehaviour() {
 		aI.followPlayer();
+	}
+	
+	public boolean isAttacking(){
+		return isAttacking;
+	}
+	
+	public void setAttacking(boolean b){
+		isAttacking = b;
 	}
 	
 }
