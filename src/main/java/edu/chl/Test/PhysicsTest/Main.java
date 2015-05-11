@@ -25,7 +25,7 @@ public class Main  {
 		run.start();
 
 		c1 = new Circle(0 ,-30, 50, new Float(0.5), 75);
-		c2 = new Circle(750, 150, 150, new Float(0.7),500);
+		c2 = new Circle(750, 150, 150, new Float(0.7),1500);
 		c3 = new Circle(950, 1150, 150, new Float(0.85), 800);
 
 
