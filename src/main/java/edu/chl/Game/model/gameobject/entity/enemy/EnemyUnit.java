@@ -48,9 +48,7 @@ public class EnemyUnit extends Entity {
 
 		// loads the array with the sprites
 
-		this.loadingSprites = new LoadingSprites(this.spriteSheet_walking,
-				this.spriteArray_walking, op.getNumberOfSprites(),
-				op.getWidth(), op.getHeight());
+		this.loadingSprites = new LoadingSprites(this.spriteSheet_walking, this.spriteArray_walking, op.getNumberOfSprites(), op.getWidth(), op.getHeight());
 		initiate();
 
 		// set the AI
@@ -104,8 +102,6 @@ public class EnemyUnit extends Entity {
 		}
 		UnitAI();
 		aI.attack();
-		System.out.println(getEntityState().getFacingDirection());
-		System.out.println("EnemyUnit: " + getVelX());
 	}
 
 	// iterates through the frames

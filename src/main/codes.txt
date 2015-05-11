@@ -1,0 +1,9 @@
+Player
+	moving 		= 
+	takeDamage 	=
+	
+RoaringBrute
+	moving		=	
+	takeDamage	=
+	attacking	= b03
+	

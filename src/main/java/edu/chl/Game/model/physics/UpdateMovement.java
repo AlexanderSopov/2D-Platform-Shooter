@@ -31,9 +31,7 @@ public class UpdateMovement {
 	}
 	
 	public void updateFacing(){
-		
-		System.out.println("updateMovement velX " + en.getVelX());
-		
+
 			if(en.getVelX()<0){
 				en.getEntityState().setFacingDirection(FacingDirection.FacingLeft);
 			} else {
