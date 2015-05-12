@@ -3,34 +3,25 @@ import edu.chl.Game.handler.*;
 import edu.chl.Game.view.graphics.*;
 
 public class LoadingSprites {
-
-	private Sprite[] spriteArray;
-	private int numberOfSprites;
-	private SpriteSheet spriteSheet;
-	private int width, height;
 	
-	public LoadingSprites(SpriteSheet spriteSheet, Sprite[] spriteArray, int numberOfSprites, int width, int height){
-		this.width = width;
-		this.height = height;
-		this.spriteSheet = spriteSheet;
-		this.numberOfSprites = numberOfSprites;
-		this.spriteArray = spriteArray;
-	}
 	
-	public void loadSprites(){
+	public Sprite[] loadSprites(SpriteSheet spriteSheet, Sprite[] spriteArray, int numberOfSprites, int width, int height){
+		
+		System.out.println("spriteSheet: " + spriteSheet); // works
+		System.out.println("spriteArray: " + spriteArray); // null
 
+		
+		
 		for (int i = 0; i < (numberOfSprites/2); i++) {	
 			spriteArray[i] = new Sprite(spriteSheet, i, 0, width, height);
 		}
 		
-
-
 		for (int i = 0; i < (numberOfSprites/2); i++) { 
 			spriteArray[i + (numberOfSprites/2)] = new Sprite(spriteSheet, i, 1, width, height);
 		}
-
 		
-		System.out.println("here");
+		return spriteArray;
+		
 	}
 
 }

@@ -19,9 +19,28 @@ public class DerangedBeast extends EnemyUnit {
 	private Sprite[] attackAnimationArray;
 	private LoadingSprites load;
 
-	public DerangedBeast(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler, OpponentUnitProperties op, FrameValues frameValues, SpriteSheet spriteSheet_walking) {
-		super(x, y, width, height, solid, id, handler, op, frameValues, spriteSheet_walking);
+	public DerangedBeast(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler, OpponentUnitProperties op, FrameValues frameValues) {
+		super(x, y, width, height, solid, id, handler, op, frameValues);
 		
+		
+	}
+
+
+	@Override
+	public void loadSprites() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initiateSpriteSheets() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initiateSpriteArrays() {
+		// TODO Auto-generated method stub
 		
 	}
 	

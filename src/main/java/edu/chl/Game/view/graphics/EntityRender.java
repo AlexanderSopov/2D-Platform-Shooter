@@ -2,14 +2,12 @@ package edu.chl.Game.view.graphics;
 import java.awt.Graphics;
 
 public class EntityRender {
-	
-	private int frameAmount;
 
 	public void renderAnimateRight(Graphics g, Sprite[] unit, int frame, int x, int y, int width, int height){
 		g.drawImage(unit[frame].getBufferedImage(), x, y, width, height, null);
 	}
 	
-	public void renderAnimateLeft(Graphics g, Sprite[] unit, int frame, int x, int y, int width, int height){
+	public void renderAnimateLeft(Graphics g, Sprite[] unit, int frame, int x, int y, int width, int height, int frameAmount){
 		g.drawImage(unit[frame+frameAmount].getBufferedImage(), x, y, width, height, null);
 	}
 	
@@ -17,13 +15,8 @@ public class EntityRender {
 		g.drawImage(unit[0].getBufferedImage(), x, y, width, height, null);
 	}
 	
-	public void renderNotAnimateLeft(Graphics g, Sprite[] unit, int frame, int x, int y, int width, int height){
+	public void renderNotAnimateLeft(Graphics g, Sprite[] unit, int frame, int x, int y, int width, int height, int frameAmount){
 		g.drawImage(unit[frameAmount].getBufferedImage(), x, y, width, height, null);
-	}
-	
-	
-	public void setFrameAmount(int frameAmount){
-		this.frameAmount = frameAmount;
 	}
 
 }

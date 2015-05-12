@@ -29,9 +29,6 @@ public class Player extends Entity {
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
-		getRenderClass().setFrameAmount(20);
-		getRenderClass1().setFrameAmount(5);
-
 		// facing right
 		for (int i = 0; i < 20; i++) {
 			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
@@ -72,7 +69,7 @@ public class Player extends Entity {
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderAnimateLeft(g, player,
 							getEntityProperties().getFrame(), getX(), getY(),
-							getHeight(), getWidth());
+							getHeight(), getWidth(), 20);
 				}
 			}
 
@@ -86,7 +83,7 @@ public class Player extends Entity {
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderNotAnimateLeft(g, player,
 							getEntityProperties().getFrame(), getX(), getY(),
-							getHeight(), getWidth());
+							getHeight(), getWidth(), 20);
 				}
 			}
 		} else {
@@ -98,7 +95,7 @@ public class Player extends Entity {
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass1().renderAnimateLeft(g, recieveDamage,
 						frameCounter.getCount(), getX(), getY(), getWidth(),
-						getHeight());
+						getHeight(), 8);
 			}
 		}
 

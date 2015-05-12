@@ -1,13 +1,10 @@
 package edu.chl.Game.model.gameobject.entity.enemy;
-
 import java.awt.Graphics;
 import java.util.Random;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
 import com.sun.prism.impl.BaseMesh.FaceMembers;
-
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
@@ -17,10 +14,15 @@ import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.graphics.*;
 
-public class EnemyUnit extends Entity {
+public abstract class EnemyUnit extends Entity {
 
-	private SpriteSheet spriteSheet_walking;
-	private Sprite[] spriteArray_walking = new Sprite[16];
+	private SpriteSheet sheetMovingAnimation;
+	private SpriteSheet sheetAttackAnimation;
+	private Sprite[] arrayMovingAnimation;
+	private Sprite[] arrayAttackAnimation;
+	private LoadingSprites load;
+
+	
 	private int playerXCoordinate;
 	private AttackTimer attackTimer;
 	private double attackDamage;
@@ -33,64 +35,42 @@ public class EnemyUnit extends Entity {
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler, OpponentUnitProperties op,
-			FrameValues frameValues, SpriteSheet spriteSheet_walking) {
+			FrameValues frameValues) {
 
 		super(x, y, width, height, solid, id, handler);
-
-		// set the SpriteSheet
-
-		this.spriteSheet_walking = spriteSheet_walking;
-
-		// set the unit properties
-
+		
+		
 		this.op = op;
 		this.attackTimer = op.getAttackTimer();
 		this.attackDamage = op.getAttackDamage();
-
-		// loads the array with the sprites
-
-		this.loadingSprites = new LoadingSprites(this.spriteSheet_walking, this.spriteArray_walking, op.getNumberOfSprites(), op.getWidth(), op.getHeight());
-		initiate();
-
-		// set the AI
-
-
 		this.aI = new AI(this, attackTimer, op);
-
-
-		// set the frameIterator
-
 		this.frameIterator = new FrameIterator(getEntityProperties(),
 				frameValues.getFrameDelayLimit(), frameValues.getFrameLimit());
+		
+		
+		this.load = new LoadingSprites();
+		initiateSpriteSheets();
+		initiateSpriteArrays();
+		loadSprites();
 	}
 
-	// loads the sprites
-
-	public void initiate() {
-		loadingSprites.loadSprites();
-		getRenderClass().setFrameAmount(8);
-	}
-
-	// draws the animation
 
 	@Override
 	public void render(Graphics g) {
 		if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {	
-					getRenderClass().renderAnimateRight(g, spriteArray_walking,
+					getRenderClass().renderAnimateRight(g, arrayMovingAnimation,
 					getEntityProperties().getFrame(),
 					getX(), getY(),
 					getWidth(),
 					getHeight());
 		} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderAnimateLeft(g, spriteArray_walking,
+					getRenderClass().renderAnimateLeft(g, arrayMovingAnimation,
 					getEntityProperties().getFrame(),
 					getX(), getY(),
 					getWidth(),
-					getHeight());
+					getHeight(), 8);
 		}
 	}
-
-	// updates the mechanics of the unit
 
 	@Override
 	public void update() {
@@ -104,9 +84,7 @@ public class EnemyUnit extends Entity {
 		UnitAI();
 		aI.attack();
 	}
-
-	// iterates through the frames
-
+	
 	public void frameIteration() {
 		frameIterator.iterateThroughFrames();
 	}
@@ -131,5 +109,52 @@ public class EnemyUnit extends Entity {
 	public void setAttacking(boolean b){
 		isAttacking = b;
 	}
+	
+	public SpriteSheet getSheetMovingAnimation(){
+		return sheetMovingAnimation;
+	}
+	
+	public SpriteSheet getSheetAttackAnimation(){
+		return sheetAttackAnimation;
+	}
+	
+	public void setSheetMovingAnimation(SpriteSheet ss){
+		this.sheetMovingAnimation = ss;
+	}
+	
+	public void setSheetAttackAnimation(SpriteSheet ss){
+		this.sheetAttackAnimation = ss;
+	}
+	
+	public Sprite[] getArrayMovingAnimation(){
+		return arrayMovingAnimation;
+	}
+	
+	public Sprite[] getArrayAttackAnimation(){
+		return arrayAttackAnimation;
+	}
+	
+	public void setArrayMovingAnimation(Sprite[] sa){
+		this.arrayMovingAnimation = sa;
+	}
+	
+	public void setArrayAttackAnimation(Sprite[] sa){
+		this.arrayAttackAnimation = sa;
+	}
+	
+	public LoadingSprites getLoad(){
+		return load;
+	}
+	
+	public void setLoad(LoadingSprites sp){
+		this.load = sp;
+	}
+	
+	public abstract void initiateSpriteSheets();
+	public abstract void initiateSpriteArrays();
+	public abstract void loadSprites();
+	
+	
+	
 	
 }

@@ -127,7 +127,7 @@ public class GameHandler {
 				//	( green )
 				else if (red == 0 && green == 255 && blue == 0) {
 					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
-							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
+							Id.monster, this, op_rb, frameValues));
 				}
 				
 				//	( blue )
@@ -136,17 +136,6 @@ public class GameHandler {
 				}
 				
 				
-				//	( red )
-				else if (red == 255 && green == 0 && blue == 0) {
-					addEntity(new DerangedBeast(x * 64, y * 64, 64, 64, true,
-							Id.monster, this, op_db, frameValues, sheetDerangedBeast));
-				}
-				
-				//	( ??? )
-				else if (red == 022 && green == 0 && blue == 255) {
-					addEntity(new RoaringBrute(x * 120, y * 115, 120, 115, true,
-							Id.monster, this, op_rb, frameValues, sheetRoaringBrute));
-				}
 			}
 
 			for (Entity e : getEntityList()) {
