@@ -19,34 +19,34 @@ public class FrameIterator {
 	}
 
 	public void increaseFrameDelay() {
-		ep.setFrameDelay(ep.getFrameDelay() + 1);
+		eu.getEntityProperties().setFrameDelay(eu.getEntityProperties().getFrameDelay() + 1);
 		checkFrameDelayLimit();
 	}
 
 	public void checkFrameDelayLimit() {
-		if (frameLimit <= ep.getFrameDelay()) {
+		if (frameDelayLimit <= eu.getEntityProperties().getFrameDelay()) {
 			increaseFrame();
 			setFrameDelayToZero();
 		}
 	}
 
 	public void increaseFrame() {
-		ep.setFrame(ep.getFrame() + 1);
+		eu.getEntityProperties().setFrame(eu.getEntityProperties().getFrame() + 1);
 		checkFrameLimit();
 	}
 
 	public void checkFrameLimit() {
-		if (frameDelayLimit <= ep.getFrame()) {
+		if (frameLimit <= eu.getEntityProperties().getFrame()) {
 			setFrameToZero();
 		}
 	}
 
 	public void setFrameDelayToZero() {
-		ep.setFrameDelay(0);
+		eu.getEntityProperties().setFrameDelay(0);
 	}
 
 	public void setFrameToZero() {
-		ep.setFrame(0);
+		eu.getEntityProperties().setFrame(0);
 	}
 
 }

@@ -49,8 +49,8 @@ public class RoaringBrute extends EnemyUnit {
 	public void initiateProperties() {
 		setAttackDamage(25.0);
 		setAttackTimer(new AttackTimer(120));
-		setFrameDelayLimit(6);
-		setFrameLimit(3);
+		setFrameDelayLimit(3);
+		setFrameLimit(8);
 		setFrameIterator(new FrameIterator(this, getFrameDelayLimit(), getFrameLimit()));
 		
 		

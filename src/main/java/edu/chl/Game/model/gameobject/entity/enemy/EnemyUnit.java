@@ -41,9 +41,6 @@ public abstract class EnemyUnit extends Entity {
 		this.load = new LoadingSprites();
 		this.initiateUnit();
 		this.aI = new AI(this, attackTimer);
-	
-		this.frameIterator = new FrameIterator(getEntityProperties(),
-				frameValues.getFrameDelayLimit(), frameValues.getFrameLimit());
 		
 	
 	}
@@ -168,7 +165,7 @@ public abstract class EnemyUnit extends Entity {
 		return frameLimit;
 	}
 	
-	public void setFrameLimit(int frameDelayLimit){
+	public void setFrameLimit(int frameLimit){
 		this.frameLimit = frameLimit;
 	}
 	
