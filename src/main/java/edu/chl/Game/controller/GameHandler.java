@@ -46,11 +46,14 @@ public class GameHandler {
 
 	private Camera camera;
 	private GameCursor c;
+        
+        private RefreshTimer rfr;
 
-	public GameHandler(Thread thread, Frame frame) {
+	public GameHandler(RefreshTimer rfr,Thread thread, Frame frame) {
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
+                this.rfr = rfr;
                 this.ref = 0;
 		createSheet();
 		frameValues = new FrameValues(6, 3);
@@ -185,32 +188,39 @@ public class GameHandler {
 		return camera;
 	}
 
-	public synchronized LinkedList<Entity> getEntityList() {
+	public  LinkedList<Entity> getEntityList() {
 		return entity;
 	}
 
-	public synchronized void addEntity(Entity e) {
-		entity.add(e);
-                ref++;
+	public  void addEntity(Entity e) {
+      
+            entity.add(e);
+            rfr.addObserver(e);    
+               
 	}
 
-	public synchronized void removeEntity(Entity e) {
-		entity.remove(e);
-                ref++;
+	public  void removeEntity(Entity e) {
+
+		rfr.deleteObserver(e);
+                entity.remove(e);
+              
+	}
+
+	public void addTile(Tile t) {
+            
+		tile.add(t);
+                rfr.addObserver(t);
                 
 	}
 
-	public synchronized void addTile(Tile t) {
-		tile.add(t);
-                ref++;
-	}
-
-	public synchronized void removeTile(Tile t) {
+	public void removeTile(Tile t) {
+            
 		tile.remove(t);
-                ref++;
+                rfr.deleteObserver(t);
+                
 	}
 
-	public synchronized LinkedList<Tile> getTileList() {
+	public  LinkedList<Tile> getTileList() {
 		return tile;
 	}
 
@@ -252,23 +262,6 @@ public class GameHandler {
 	
 	public GameCursor getGameCursor(){
 		return c;
-	}
-	
-	public void removeUnit(int j){
-		entity.remove(j);
-	}
-	
-	public void unitChanges(boolean b){
-		changeHasHappened = b;
-	}
-	
-	public boolean checkForUpdate(){
-		if(changeHasHappened){
-			changeHasHappened = false;
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }

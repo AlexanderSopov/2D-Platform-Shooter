@@ -11,6 +11,7 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.MapView;
 import edu.chl.Game.view.StartMenu;
+import java.util.Observer;
 
 /**
  * 
@@ -38,14 +39,10 @@ public class RefreshTimer extends Observable implements Runnable {
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
 		mapView = new MapView();
-		gameHandler = new GameHandler(thread, frame);
+		gameHandler = new GameHandler(this,thread, frame);
 		
 		start();
 		
-		for (Entity e: gameHandler.getEntityList())
-			addObserver(e);
-		for (Tile t: gameHandler.getTileList())
-			addObserver(t);
 	}
 
 	/**
@@ -149,7 +146,6 @@ public class RefreshTimer extends Observable implements Runnable {
 		if(d>1){
 			delta=delta-1;
 			update();
-                        updateObserverList();
 		}
 	}
 	
@@ -171,17 +167,8 @@ public class RefreshTimer extends Observable implements Runnable {
 	private boolean isFrame() {
 		return frameRate==60;
 	}
+        
+        
 	
-	public  void updateObserverList(){
-            if(gameHandler.getRef()>0){
-                gameHandler.resetRef();
-		deleteObservers();
-		for(Entity e: gameHandler.getEntityList()){
-			addObserver(e);
-		}
-		for (Tile t: gameHandler.getTileList()){
-			addObserver(t);
-		}
-            }
-	}
+	
 }

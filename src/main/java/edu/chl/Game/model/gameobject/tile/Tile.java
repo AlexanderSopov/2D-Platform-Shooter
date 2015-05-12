@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.view.graphics.SpriteSheet;
 
 public abstract class Tile extends GameObject {
 	
@@ -14,6 +15,7 @@ public abstract class Tile extends GameObject {
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 	}
+        
 
 
 	public Rectangle getBounds() {

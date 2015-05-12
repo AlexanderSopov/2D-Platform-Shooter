@@ -9,6 +9,7 @@ import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.physics.CollisionDetection;
 import edu.chl.Game.model.physics.UpdateMovement;
 import edu.chl.Game.view.graphics.EntityRender;
+import edu.chl.Game.view.graphics.SpriteSheet;
 
 public abstract class Entity extends GameObject {
 
@@ -32,6 +33,7 @@ public abstract class Entity extends GameObject {
 		collisionDetection = new CollisionDetection(this);
 
 	}
+        
 
 	public EntityProperties getEntityProperties() {
 		return entityProperties;
@@ -45,6 +47,7 @@ public abstract class Entity extends GameObject {
 		return collisionDetection;
 	}
 
+        @Override
 	public void remove() {
 		getHandler().removeEntity(this);
 	}

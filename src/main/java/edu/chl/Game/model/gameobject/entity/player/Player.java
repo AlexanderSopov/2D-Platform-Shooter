@@ -13,6 +13,7 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.Sprite;
+import edu.chl.Game.view.graphics.SpriteSheet;
 
 public class Player extends Entity {
 
@@ -32,23 +33,20 @@ public class Player extends Entity {
 		getRenderClass().setFrameAmount(20);
 		getRenderClass1().setFrameAmount(5);
 
-		// facing right
+		
 		for (int i = 0; i < 20; i++) {
-			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
+			// facing right
+                        player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
+                        // facing left
+                        player[i + 20] = new Sprite(handler.getSheetPlayer(), i, 1, 62, 62);
 		}
 
-		// facing left
-		for (int i = 0; i < 20; i++) {
-			player[i + 20] = new Sprite(handler.getSheetPlayer(), i, 1, 62, 62);
-		}
+		
 
 		for (int i = 0; i < 5; i++) {
 			recieveDamage[i] = new Sprite(
 					handler.getSheetPlayer_RecieveDamage(), i, 0, 62, 62);
-		}
-
-		for (int i = 0; i < 5; i++) {
-			recieveDamage[i + 5] = new Sprite(
+                        recieveDamage[i + 5] = new Sprite(
 					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
 		}
 
@@ -56,7 +54,8 @@ public class Player extends Entity {
 		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
 				getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(this);
-                                
+                
+                this.setSpriteSheet(new SpriteSheet("/SH_Player.png"));
 	}
 
 
