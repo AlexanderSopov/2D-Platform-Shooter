@@ -9,6 +9,7 @@ import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.physics.CalculateBounds;
+import edu.chl.Game.view.graphics.SpriteSheet;
 
 public abstract class GameObject implements Observer {
 	public static RefreshTimer gt = Main.game;
@@ -34,6 +35,8 @@ public abstract class GameObject implements Observer {
 		this.healthPoints = 100.0;
 		this.calculateBounds = new CalculateBounds(this);
 	}
+        
+  
 
 	public void update(Observable o, Object arg) {
 		try {
@@ -59,9 +62,14 @@ public abstract class GameObject implements Observer {
 		return calculateBounds;
 	}
 
-	public GameHandler getHandler() {
-		return this.handler;
-	}
+        
+        public GameHandler getHandler(){
+            return this.handler;
+        }
+        
+        public Id getId(){
+            return this.id;
+        }
 
 	public int getX() {
 		return this.x;
@@ -95,7 +103,18 @@ public abstract class GameObject implements Observer {
 		this.healthPoints = healthPoints;
 	}
 
-	public int getVelX() {
+        
+        public void takeDamage(double damage){
+                System.out.println(getHealthPoints());
+		setHealthPoints(getHealthPoints() - damage); 
+                if(getHealthPoints() <= 0.0){
+                    this.remove();
+                }
+                
+	}
+        
+        public int getVelX(){
+
 		return velX;
 	}
 
@@ -110,5 +129,6 @@ public abstract class GameObject implements Observer {
 	public void setVelY(int vely) {
 		this.velY = vely;
 	}
+        
 
 }

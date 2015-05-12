@@ -40,14 +40,20 @@ public class GameHandler {
 	private SpriteSheet sheetRoaringBrute;
 	//private FrameValues frameValues;
 	private boolean changeHasHappened;
+        
+        private int ref;
 
 	private Camera camera;
 	private GameCursor c;
+        
+        private RefreshTimer rfr;
 
-	public GameHandler(Thread thread, Frame frame) {
+	public GameHandler(RefreshTimer rfr,Thread thread, Frame frame) {
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
+                this.rfr = rfr;
+                this.ref = 0;
 		createSheet();
 		//frameValues = new FrameValues(6, 3);
 		//this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
@@ -157,33 +163,51 @@ public class GameHandler {
 
 	}
         
- 
+        public void resetRef(){
+           this.ref = 0;
+        }
+        
+        public int getRef(){
+            return ref;
+        }
 
 	public Camera getCamera() {
 		return camera;
 	}
 
-	public LinkedList<Entity> getEntityList() {
+	public  LinkedList<Entity> getEntityList() {
 		return entity;
 	}
 
-	public void addEntity(Entity e) {
-		entity.add(e);
+	public  void addEntity(Entity e) {
+      
+            entity.add(e);
+            rfr.addObserver(e);    
+               
 	}
 
-	public void removeEntity(Entity e) {
-		entity.remove(e);
+	public  void removeEntity(Entity e) {
+
+		rfr.deleteObserver(e);
+                entity.remove(e);
+              
 	}
 
 	public void addTile(Tile t) {
+            
 		tile.add(t);
+                rfr.addObserver(t);
+                
 	}
 
 	public void removeTile(Tile t) {
+            
 		tile.remove(t);
+                rfr.deleteObserver(t);
+                
 	}
 
-	public LinkedList<Tile> getTileList() {
+	public  LinkedList<Tile> getTileList() {
 		return tile;
 	}
 
@@ -225,23 +249,6 @@ public class GameHandler {
 	
 	public GameCursor getGameCursor(){
 		return c;
-	}
-	
-	public void removeUnit(int j){
-		entity.remove(j);
-	}
-	
-	public void unitChanges(boolean b){
-		changeHasHappened = b;
-	}
-	
-	public boolean checkForUpdate(){
-		if(changeHasHappened){
-			changeHasHappened = false;
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }

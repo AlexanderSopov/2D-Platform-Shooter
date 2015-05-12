@@ -58,7 +58,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		
 		if(RefreshTimer.state == State.GAME) {
-			c.shoot();
+			
 			if (c != null) {
 				c.shoot();
 			}

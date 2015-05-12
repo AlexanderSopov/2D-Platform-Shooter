@@ -52,6 +52,10 @@ public class RoaringBrute extends EnemyUnit {
 		setFrameDelayLimit(3);
 		setFrameLimit(8);
 		setFrameIterator(new FrameIterator(this, getFrameDelayLimit(), getFrameLimit()));
+
+		this.setHealthPoints(50);
+
+
 	}
 
 
