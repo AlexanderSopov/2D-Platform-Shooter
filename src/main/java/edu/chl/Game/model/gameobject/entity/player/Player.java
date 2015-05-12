@@ -125,8 +125,8 @@ public class Player extends Entity {
 		engageInitiation();
 		//hitTarget();
 
-		// System.out.println(getEntityState().isInAir());
-		System.out.println(getUnitProperties().getVelY());
+		//System.out.println(getEntityState().isInAir());
+		//System.out.println(getUnitProperties().getVelY());
 
 	}
 
