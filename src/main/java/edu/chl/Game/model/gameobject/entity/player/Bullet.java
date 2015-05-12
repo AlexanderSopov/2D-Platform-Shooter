@@ -3,6 +3,7 @@ package edu.chl.Game.model.gameobject.entity.player;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.Frame;
 
 import java.awt.Color;
@@ -21,6 +22,7 @@ public class Bullet extends Entity{
     private double angle;
     private int rotatedX,rotatedY;
     private int motionX, motionY;
+    private ProjectileDetection pd;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
@@ -37,6 +39,8 @@ public class Bullet extends Entity{
                 this.centerY = getY() ;
                 this.motionX = getX()+50;
                 this.motionY = getY();
+                
+                this.pd = new ProjectileDetection(this);
                
     }
 
@@ -56,6 +60,8 @@ public class Bullet extends Entity{
         
 	setX((int) rotatedX);
         setY((int)rotatedY);
+        
+        pd.hitTarget();
     }
     
     	public int getTargetPosX() {

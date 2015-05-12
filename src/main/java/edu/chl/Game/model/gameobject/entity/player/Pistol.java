@@ -21,7 +21,7 @@ public class Pistol extends Entity{
      private double angle;
      private GameCursor gc;
      private Entity en;
-     private ProjectileDetection pd;
+     
      
      private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
     
@@ -31,7 +31,7 @@ public class Pistol extends Entity{
         this.centerX = x + width/2;
         this.centerY = y + height/2;
         this.en = en;
-        this.pd = new ProjectileDetection(this);
+        
     }
 
     @Override
@@ -42,10 +42,11 @@ public class Pistol extends Entity{
         g.fillRect(centerX, centerY-5, 50, 10); 
         ((Graphics2D)g).rotate(-angle, centerX, centerY);
 
-        
+        /*
         for (Bullet b : getBulletList()) {
 			b.render(g);
 		}
+        */
     }
 
     @Override
@@ -53,17 +54,18 @@ public class Pistol extends Entity{
         this.centerX = en.getX() + en.getWidth()/2 + en.getVelX();
         this.centerY = en.getY() + en.getHeight()/2 + en.getVelY();
         angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX()) - Math.PI ;
-        
+        /*
         for (Bullet b : getBulletList()) {
 			b.update();
-        }
+                       
+        }*/
         
-        pd.hitTarget();
+        
     }
         
         public void shoot() {
 		Bullet b = new Bullet( this.centerX, this.centerY , 10, 10, true, Id.bullet, getHandler(), gc.getX(), gc.getY(), 10, this.angle);
-		addBullet(b);
+		getHandler().addEntity(b);
 	}
     
     	public void addBullet(Bullet b) {
