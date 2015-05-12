@@ -58,4 +58,11 @@ public class DerangedBeast extends EnemyUnit {
 	}
 
 
+	@Override
+	public void setAlternativeMeasurement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

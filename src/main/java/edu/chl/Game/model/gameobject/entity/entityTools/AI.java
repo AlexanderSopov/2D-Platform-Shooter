@@ -22,27 +22,31 @@ public class AI {
 		this.es = eu.getEntityState();
 	}
 	
-	public void followPlayer(){
-
-		if(handler.getPlayer().getX() < eu.getX()){
-			eu.setVelX(-1);
-		} else {
-			eu.setVelX(1);
-
-		}
-		
-		if( (handler.getPlayer().getX()-50) < eu.getX() && eu.getX() < (handler.getPlayer().getX()+50) ){
-			eu.setVelX(0);
-		}
-		updateFacingDirection();
+	public void exerciseBehaviour(){
+		findPlayer();
+		followPlayer();
 	}
 	
-	public void updateFacingDirection(){
-		if(eu.getVelX() < 0){
-			es.setFacingDirection(FacingDirection.FacingLeft);
-		} else if(0 < eu.getVelX()) {
-			es.setFacingDirection(FacingDirection.FacingRight);
+	public void followPlayer(){
+		if(handler.getPlayer().getX() < eu.getX()){
+			eu.setVelX(-1);
+			updateFacingDirectionLeft();
+		} else {
+			eu.setVelX(1);
+			updateFacingDirectionRight();
 		}
+		
+		if( (handler.getPlayer().getX()-100) < eu.getX() && eu.getX() < (handler.getPlayer().getX()+100) ){
+			eu.setVelX(0);
+		}
+	}
+	
+	public void updateFacingDirectionRight(){
+			es.setFacingDirection(FacingDirection.FacingRight);
+	}
+	
+	public void updateFacingDirectionLeft(){
+			es.setFacingDirection(FacingDirection.FacingLeft);
 	}
 	
 	public void findPlayer() {
@@ -53,11 +57,11 @@ public class AI {
 		attackTimer.updateAttackTimer();
 		if (attackTimer.isReadyToAttack()) {
 			if (playerXCoordinate <= eu.getX()) {
-				if ((eu.getX() - playerXCoordinate) <= 50) {
+				if ((eu.getX() - playerXCoordinate) <= 100) {
 					dealDamage();
 				}
 			} else {
-				if ((playerXCoordinate - eu.getX()) <= 50) {
+				if ((playerXCoordinate - eu.getX()) <= 100) {
 					dealDamage();
 				}
 			}

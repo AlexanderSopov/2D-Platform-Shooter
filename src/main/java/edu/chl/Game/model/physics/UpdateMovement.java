@@ -34,7 +34,7 @@ public class UpdateMovement {
 
 			if(en.getVelX()<0){
 				en.getEntityState().setFacingDirection(FacingDirection.FacingLeft);
-			} else {
+			} else if(0<en.getVelX()) {
 				en.getEntityState().setFacingDirection(FacingDirection.FacingRight);
 			}
 	}

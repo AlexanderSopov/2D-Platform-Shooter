@@ -19,7 +19,7 @@ public abstract class Entity extends GameObject {
 	private EntityRender renderClass1;
 	private CollisionDetection collisionDetection;
 	private FrameIterator frameIterator;
-        private UpdateMovement updateMovement;
+    private UpdateMovement updateMovement;
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {

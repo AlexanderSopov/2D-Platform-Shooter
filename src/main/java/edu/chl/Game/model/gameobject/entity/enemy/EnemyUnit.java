@@ -1,10 +1,15 @@
 package edu.chl.Game.model.gameobject.entity.enemy;
+
 import java.awt.Graphics;
 import java.util.Random;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
+
+import sun.swing.text.html.FrameEditorPaneTag;
+
 import com.sun.prism.impl.BaseMesh.FaceMembers;
+
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
@@ -21,46 +26,32 @@ public abstract class EnemyUnit extends Entity {
 	private Sprite[] arrayMovingAnimation;
 	private Sprite[] arrayAttackAnimation;
 	private LoadingSprites load;
+	private UnitGraphicsRender ur;
 
+	private int altWidth;
+	private int altHeight;
 	private AttackTimer attackTimer;
 	private AI aI;
-	private int frameDelayLimit;
-	private int frameLimit;
 	private double attackDamage;
-
-	
-	private FrameIterator frameIterator;
 	private boolean isAttacking = false;
+	private FrameIterator frameIterator_moving;
+	private FrameIterator frameIterator_attack;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 
 		super(x, y, width, height, solid, id, handler);
 
-
 		this.load = new LoadingSprites();
+		this.ur = new UnitGraphicsRender();
 		this.initiateUnit();
 		this.aI = new AI(this, attackTimer);
-		
-	
-	}
 
+	}
 
 	@Override
 	public void render(Graphics g) {
-		if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {	
-					getRenderClass().renderAnimateRight(g, arrayMovingAnimation,
-					getEntityProperties().getFrame(),
-					getX(), getY(),
-					getWidth(),
-					getHeight());
-		} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderAnimateLeft(g, arrayMovingAnimation,
-					getEntityProperties().getFrame(),
-					getX(), getY(),
-					getWidth(),
-					getHeight(), 8);
-		}
+		ur.renderGraphics(this, g);
 	}
 
 	@Override
@@ -70,107 +61,131 @@ public abstract class EnemyUnit extends Entity {
 		getUpdateMovement().updateFacing();
 		getCollisionDetection().checkForCollision();
 		if (getUnitState().isAnimate()) {
-			frameIteration();
+			iterateMoving();
 		}
-		UnitAI();
+		if (isAttacking) {
+			iterateAttack();
+		}
+		exerciseAI();
 		aI.attack();
 	}
-	
-	public void frameIteration() {
-		frameIterator.iterateThroughFrames();
+
+	public void iterateMoving() {
+		frameIterator_moving.updateFrameCounter();
 	}
 
-	public void UnitAI() {
-		locatePlayer();
-		followBehaviour();
+	public void iterateAttack() {
+		frameIterator_attack.updateFrameCounter();
+		if(!frameIterator_attack.isActive()){
+			isAttacking = false;
+		}
 	}
 
-	public void locatePlayer() {
-		aI.findPlayer();
+	public void exerciseAI() {
+		aI.exerciseBehaviour();
 	}
 
-	public void followBehaviour() {
-		aI.followPlayer();
-	}
-	
-	public boolean isAttacking(){
+	public boolean isAttacking() {
 		return isAttacking;
 	}
-	
-	public void setAttacking(boolean b){
+
+	public void setAttacking(boolean b) {
 		isAttacking = b;
 	}
 	
-	public SpriteSheet getSheetMovingAnimation(){
+	// Getters And Setters
+	
+	public int getAdjustedY(){
+		int hightAdd = (altHeight - getHeight());		
+		return getY() - hightAdd;
+	}
+	
+	public int getAdjustedX(){	
+		return getX() - 53;
+	}
+
+	public SpriteSheet getSheetMovingAnimation() {
 		return sheetMovingAnimation;
 	}
-	
-	public SpriteSheet getSheetAttackAnimation(){
+
+	public SpriteSheet getSheetAttackAnimation() {
 		return sheetAttackAnimation;
 	}
-	
-	public void setSheetMovingAnimation(SpriteSheet ss){
+
+	public void setSheetMovingAnimation(SpriteSheet ss) {
 		this.sheetMovingAnimation = ss;
 	}
-	
-	public void setSheetAttackAnimation(SpriteSheet ss){
+
+	public void setSheetAttackAnimation(SpriteSheet ss) {
 		this.sheetAttackAnimation = ss;
 	}
-	
-	public Sprite[] getArrayMovingAnimation(){
+
+	public Sprite[] getArrayMovingAnimation() {
 		return arrayMovingAnimation;
 	}
-	
-	public Sprite[] getArrayAttackAnimation(){
+
+	public Sprite[] getArrayAttackAnimation() {
 		return arrayAttackAnimation;
 	}
-	
-	public void setArrayMovingAnimation(Sprite[] sa){
+
+	public void setArrayMovingAnimation(Sprite[] sa) {
 		this.arrayMovingAnimation = sa;
 	}
-	
-	public void setArrayAttackAnimation(Sprite[] sa){
+
+	public void setArrayAttackAnimation(Sprite[] sa) {
 		this.arrayAttackAnimation = sa;
 	}
-	
-	public LoadingSprites getLoad(){
+
+	public LoadingSprites getLoad() {
 		return load;
 	}
-	
-	public double getAttackDamage(){
+
+	public double getAttackDamage() {
 		return attackDamage;
 	}
-	
-	public void setAttackDamage(double attackDamage){
+
+	public void setAttackDamage(double attackDamage) {
 		this.attackDamage = attackDamage;
 	}
-	
-	public AttackTimer getAttackTimer(){
+
+	public AttackTimer getAttackTimer() {
 		return attackTimer;
 	}
-	
-	public void setAttackTimer(AttackTimer attackTimer){
+
+	public void setAttackTimer(AttackTimer attackTimer) {
 		this.attackTimer = attackTimer;
 	}
-	
-	public int getFrameDelayLimit(){
-		return frameDelayLimit;
+
+	public void setFrameIterator_moving(FrameIterator fi) {
+		this.frameIterator_moving = fi;
+	}
+
+	public void setFrameIterator_attack(FrameIterator fi) {
+		this.frameIterator_attack = fi;
 	}
 	
-	public void setFrameDelayLimit(int frameDelayLimit){
-		this.frameDelayLimit = frameDelayLimit;
+	public FrameIterator getFrameIterator_moving() {
+		return frameIterator_moving;
+	}
+
+	public FrameIterator getFrameIterator_attack() {
+		return frameIterator_attack;
 	}
 	
-	public int getFrameLimit(){
-		return frameLimit;
+	public int getAltWidth(){
+		return altWidth;
 	}
 	
-	public void setFrameLimit(int frameLimit){
-		this.frameLimit = frameLimit;
+	public int getAltHeight(){
+		return altHeight;
 	}
 	
-	public void setFrameIterator(FrameIterator frameIterator){
-		this.frameIterator = frameIterator;
+	public void setAltWidth(int altWidth){
+		this.altWidth = altWidth;
+	}
+	
+	public void setAltHeight(int altHeight){
+		this.altHeight = altHeight;
 	}
 	
 	public abstract void initiateSpriteSheets();
@@ -178,8 +193,6 @@ public abstract class EnemyUnit extends Entity {
 	public abstract void loadSprites();
 	public abstract void initiateProperties();
 	public abstract void initiateUnit();
-	
-	
-	
-	
+	public abstract void setAlternativeMeasurement();
+
 }

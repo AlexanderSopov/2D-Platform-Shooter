@@ -4,49 +4,79 @@ import edu.chl.Game.model.gameobject.entity.enemy.*;
 
 public class FrameIterator {
 	
-	private EnemyUnit eu;
+	private Entity en;
+	
+	private int frame;
+	private int frameDelay;
 	private int frameDelayLimit;
 	private int frameLimit;
+	private boolean active;
 	
-	public FrameIterator(EnemyUnit eu, int frameDelayLimit, int frameLimit){
+	public FrameIterator(Entity en, int frameDelayLimit, int frameLimit){
 		this.frameDelayLimit = frameDelayLimit;
 		this.frameLimit = frameLimit;
-		this.eu = eu;
+		this.en = en;
+		this.frame = 0;
+		this.frameDelay = 0;
 	}
 	
-	public void iterateThroughFrames() {
+	public void updateFrameCounter() {
+		activate();
 		increaseFrameDelay();
+	}
+	
+	public void activate(){
+		if(!active){
+			active = true;
+		}
+	}
+	
+	public void deActivate(){
+		active = false;
 	}
 
 	public void increaseFrameDelay() {
-		eu.getEntityProperties().setFrameDelay(eu.getEntityProperties().getFrameDelay() + 1);
+		frameDelay++;
 		checkFrameDelayLimit();
 	}
 
 	public void checkFrameDelayLimit() {
-		if (frameDelayLimit <= eu.getEntityProperties().getFrameDelay()) {
+		if (frameDelayLimit <= frameDelay) {
 			increaseFrame();
 			setFrameDelayToZero();
 		}
 	}
 
 	public void increaseFrame() {
-		eu.getEntityProperties().setFrame(eu.getEntityProperties().getFrame() + 1);
+		frame++;
 		checkFrameLimit();
 	}
 
 	public void checkFrameLimit() {
-		if (frameLimit <= eu.getEntityProperties().getFrame()) {
+		if (frameLimit <= frame) {
 			setFrameToZero();
 		}
 	}
 
 	public void setFrameDelayToZero() {
-		eu.getEntityProperties().setFrameDelay(0);
+		frameDelay = 0;
 	}
 
 	public void setFrameToZero() {
-		eu.getEntityProperties().setFrame(0);
+		frame = 0;
+		deActivate();
 	}
 
+	public boolean isActive(){
+		return active;
+	}
+	
+	public int getFrame(){
+		return frame;
+	}
+	
+	public int getFrameDelay(){
+		return frameDelay;
+	}
+	
 }

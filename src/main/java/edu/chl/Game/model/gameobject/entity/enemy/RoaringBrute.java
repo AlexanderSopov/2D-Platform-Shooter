@@ -23,6 +23,7 @@ public class RoaringBrute extends EnemyUnit {
 	public void initiateUnit() {
 		initiateSpriteSheets();
 		initiateSpriteArrays();
+		setAlternativeMeasurement();
 		initiateProperties();
 		loadSprites();
 	}
@@ -36,25 +37,28 @@ public class RoaringBrute extends EnemyUnit {
 	@Override
 	public void initiateSpriteArrays() {
 		setArrayMovingAnimation(new Sprite[20]);
-		setArrayAttackAnimation(new Sprite[16]);
+		setArrayAttackAnimation(new Sprite[20]);
+	}
+	
+	@Override
+	public void setAlternativeMeasurement(){
+		setAltWidth(188);
+		setAltHeight(131);
 	}
 	
 	@Override
 	public void loadSprites() {
 		setArrayMovingAnimation( getLoad().loadSprites(getSheetMovingAnimation(), getArrayMovingAnimation(), 16, getWidth(), getHeight()) );
-		setArrayAttackAnimation( getLoad().loadSprites(getSheetAttackAnimation(), getArrayAttackAnimation(), 8, 148, 126) );
+		setArrayAttackAnimation( getLoad().loadSprites(getSheetAttackAnimation(), getArrayAttackAnimation(), 20, 188, 131) );
 	}
 
 	@Override
 	public void initiateProperties() {
 		setAttackDamage(25.0);
 		setAttackTimer(new AttackTimer(120));
-		setFrameDelayLimit(3);
-		setFrameLimit(8);
-		setFrameIterator(new FrameIterator(this, getFrameDelayLimit(), getFrameLimit()));
-
+		setFrameIterator_moving(new FrameIterator(this, 3, 8));
+		setFrameIterator_attack(new FrameIterator(this, 2, 10));
 		this.setHealthPoints(50);
-
 
 	}
 

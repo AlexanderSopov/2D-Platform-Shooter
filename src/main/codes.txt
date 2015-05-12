@@ -3,7 +3,7 @@ Player
 	takeDamage 	=
 	
 RoaringBrute
-	moving		=	
-	takeDamage	=
+	moving		= b00	
+	takeDamage	= 
 	attacking	= b03
 	
