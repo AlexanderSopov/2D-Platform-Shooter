@@ -13,7 +13,8 @@ public class RoaringBrute extends EnemyUnit {
 		super(x, y, width, height, solid, id, handler, op, frameValues, spriteSheet_walking);
 		
 		getRenderClass().setFrameAmount(8);
-		
+		this.setHealthPoints(50);
+                System.out.println(this.getHealthPoints());
 	}
 
 }

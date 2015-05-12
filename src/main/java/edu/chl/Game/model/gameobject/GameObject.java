@@ -115,6 +115,15 @@ public abstract class GameObject implements Observer {
 		this.healthPoints = healthPoints;
 	}
         
+        public void takeDamage(double damage){
+                System.out.println(getHealthPoints());
+		setHealthPoints(getHealthPoints() - damage); 
+                if(getHealthPoints() <= 0.0){
+                    this.remove();
+                }
+                
+	}
+        
         public int getVelX(){
 		return velX;
 	}

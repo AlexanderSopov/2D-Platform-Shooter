@@ -17,7 +17,7 @@ public class GameCursor extends Entity {
 	private State state;
 	private Entity en;
 	private int counter;
-    Pistol p;
+        Pistol p;
 
 	
 

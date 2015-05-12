@@ -30,11 +30,12 @@ public class ProjectileDetection {
                                 for(Entity en : this.entityList) {
 					if (en.getId() == Id.monster) {
                                                 if (bu.getCalculateBounds().getBounds().intersects(en.getCalculateBounds().getBounds())) {
-							System.out.println("Hit!");
-							en.remove();
-                                                        bu.remove();
-							
-                                                        break;
+							if(bu != null){
+                                                            System.err.println("Im hit!!!");
+                                                            en.takeDamage(1);
+                                                            bu.remove();
+                                                            break;
+                                                        }
 						}
 					}
 				}
