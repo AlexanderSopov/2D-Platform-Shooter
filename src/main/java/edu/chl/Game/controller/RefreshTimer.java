@@ -27,9 +27,9 @@ public class RefreshTimer extends Observable implements Runnable {
 	private MouseInput mouseInput;
 	
 	//The state of the game
-	public static State state = State.MENU;
+	public static State state = State.GAME;
 	//The selected map/level
-	public static String selectedMap;
+	public static String selectedMap = "level_1";
 	
 	private double delta = 0.0;
 	private int frameRate=1;
