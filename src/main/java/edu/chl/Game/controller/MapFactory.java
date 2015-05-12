@@ -15,6 +15,12 @@ import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.FloorTile;
 import edu.chl.Game.model.gameobject.tile.Tile;
 
+/**
+ * 
+ * @author Marre
+ *
+ */
+
 public class MapFactory {
 	public static BufferedImage mapImage;
 	
@@ -73,15 +79,15 @@ public class MapFactory {
 	private static String selectMap(){
 		switch(RefreshTimer.selectedMap){
 			case "level_1":
-				return "/level_1.png";
+				return "/mapLevel/level_1.png";
 			case "level_2":
-				return "/level_2.png";
+				return "/mapLevel/level_2.png";
 			case "level_3":
-				return "/level_3.png";
+				return "/mapLevel/level_3.png";
 			case "level_4":
-				return "/level_4.png";
+				return "/mapLevel/level_4.png";
 			case "level_5":
-				return "/level_5.png";
+				return "/mapLevel/level_5.png";
 			default:
 				return null;
 		}
