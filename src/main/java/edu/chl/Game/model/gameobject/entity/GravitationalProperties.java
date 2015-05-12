@@ -10,8 +10,7 @@ public class GravitationalProperties {
 		this.unitProperties = en.getUnitProperties();
 		this.entityProperties = en.getEntityProperties();
 		this.entityState = en.getEntityState();
-                this.en = en;
-
+		this.en = en;
 	}
 	
 	public void jumpingMechanics(){

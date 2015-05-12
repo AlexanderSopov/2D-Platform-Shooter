@@ -7,11 +7,13 @@ import edu.chl.Game.handler.State;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
+import edu.chl.Game.model.gameobject.entity.items.Inventory;
 
 public class KeyInput implements KeyListener {
 
 	private GameHandler handler;
-
+	private Inventory inventory;
+	
 	public KeyInput(GameHandler handler) {
 		this.handler = handler;
 	}
@@ -48,7 +50,9 @@ public class KeyInput implements KeyListener {
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingRight);
 						break;
-
+					case KeyEvent.VK_I:
+						inventory.showInventory();
+						break;
 					}
 				}
 			}

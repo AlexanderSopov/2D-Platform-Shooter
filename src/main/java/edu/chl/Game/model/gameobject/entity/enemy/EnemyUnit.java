@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.sun.prism.impl.BaseMesh.FaceMembers;
+
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
@@ -93,7 +95,6 @@ public class EnemyUnit extends Entity {
 
 	@Override
 	public void update() {
-
 		getUpdateMovement().updateCoordinates();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
@@ -102,7 +103,8 @@ public class EnemyUnit extends Entity {
 		}
 		UnitAI();
 		aI.attack();
-
+		updateFace();
+		System.out.println(getEntityState().getFacingDirection());
 	}
 
 	// iterates through the frames
@@ -122,6 +124,14 @@ public class EnemyUnit extends Entity {
 
 	public void followBehaviour() {
 		aI.followPlayer();
+	}
+	
+	public void updateFace(){
+		if(getVelX()<0){
+			getEntityState().setFacingDirection(FacingDirection.FacingLeft);
+		} else {
+			getEntityState().setFacingDirection(FacingDirection.FacingRight);
+		}
 	}
 	
 
