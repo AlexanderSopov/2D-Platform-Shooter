@@ -13,7 +13,7 @@ import java.awt.geom.AffineTransform;
  * @version 1.0
  */
 
-public class MapView {
+public class WorldMapView {
 	
 	public Rectangle level1 = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 130, 60);
 	public Rectangle level2 = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 130, 60);
@@ -26,7 +26,7 @@ public class MapView {
 	
 	private Font fnt;
 	
-	public MapView(){
+	public WorldMapView(){
 		
 	}
 	
