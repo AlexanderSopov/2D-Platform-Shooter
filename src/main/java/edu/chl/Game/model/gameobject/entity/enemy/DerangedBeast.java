@@ -42,9 +42,12 @@ public class DerangedBeast extends EnemyUnit {
 		
 	}
 
+
 	@Override
 	public void initiateProperties() {
 		
+                this.setHealthPoints(50);
+
 	}
 
 
