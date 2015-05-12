@@ -41,7 +41,8 @@ public class Pistol extends Entity{
         
         g.fillRect(centerX, centerY-5, 50, 10); 
         ((Graphics2D)g).rotate(-angle, centerX, centerY);
-
+        
+         //Temporaty removed 
         /*
         for (Bullet b : getBulletList()) {
 			b.render(g);
@@ -54,6 +55,7 @@ public class Pistol extends Entity{
         this.centerX = en.getX() + en.getWidth()/2 + en.getVelX();
         this.centerY = en.getY() + en.getHeight()/2 + en.getVelY();
         angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX()) - Math.PI ;
+         //Temporaty removed 
         /*
         for (Bullet b : getBulletList()) {
 			b.update();
@@ -64,7 +66,7 @@ public class Pistol extends Entity{
     }
         
         public void shoot() {
-		Bullet b = new Bullet( this.centerX, this.centerY , 10, 10, true, Id.bullet, getHandler(), gc.getX(), gc.getY(), 10, this.angle);
+		Bullet b = new Bullet( this.centerX, this.centerY , 10, 10, true, Id.bullet, getHandler(), 10, this.angle);
 		getHandler().addEntity(b);
 	}
     
