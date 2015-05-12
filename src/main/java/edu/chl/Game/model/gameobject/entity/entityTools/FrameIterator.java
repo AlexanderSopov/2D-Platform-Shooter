@@ -1,16 +1,17 @@
 package edu.chl.Game.model.gameobject.entity.entityTools;
 import edu.chl.Game.model.gameobject.entity.*;
+import edu.chl.Game.model.gameobject.entity.enemy.*;
 
 public class FrameIterator {
 	
-	private EntityProperties ep;
+	private EnemyUnit eu;
 	private int frameDelayLimit;
 	private int frameLimit;
 	
-	public FrameIterator(EntityProperties ep, int frameDelayLimit, int frameLimit){
+	public FrameIterator(EnemyUnit eu, int frameDelayLimit, int frameLimit){
 		this.frameDelayLimit = frameDelayLimit;
 		this.frameLimit = frameLimit;
-		this.ep = ep;
+		this.eu = eu;
 	}
 	
 	public void iterateThroughFrames() {

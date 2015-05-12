@@ -95,7 +95,7 @@ public class Player extends Entity {
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass1().renderAnimateLeft(g, recieveDamage,
 						frameCounter.getCount(), getX(), getY(), getWidth(),
-						getHeight(), 8);
+						getHeight(), 4);
 			}
 		}
 

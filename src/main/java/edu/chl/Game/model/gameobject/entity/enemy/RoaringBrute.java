@@ -15,17 +15,23 @@ import edu.chl.Game.view.graphics.SpriteSheet;
 
 public class RoaringBrute extends EnemyUnit {
 	
-	public RoaringBrute(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler, OpponentUnitProperties op, FrameValues frameValues) {
-		super(x, y, width, height, solid, id, handler, op, frameValues);
-		
+	public RoaringBrute(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+		super(x, y, width, height, solid, id, handler);
 	}
 
+	@Override
+	public void initiateUnit() {
+		initiateSpriteSheets();
+		initiateSpriteArrays();
+		initiateProperties();
+		loadSprites();
+	}
+	
 	@Override
 	public void initiateSpriteSheets() {
 		setSheetMovingAnimation(new SpriteSheet("/b00.png"));
 		setSheetAttackAnimation(new SpriteSheet("/b03.png"));
 	}
-	
 
 	@Override
 	public void initiateSpriteArrays() {
@@ -35,12 +41,24 @@ public class RoaringBrute extends EnemyUnit {
 	
 	@Override
 	public void loadSprites() {
-		
 		setArrayMovingAnimation( getLoad().loadSprites(getSheetMovingAnimation(), getArrayMovingAnimation(), 16, getWidth(), getHeight()) );
 		setArrayAttackAnimation( getLoad().loadSprites(getSheetAttackAnimation(), getArrayAttackAnimation(), 8, 148, 126) );
+	}
+
+	@Override
+	public void initiateProperties() {
+		setAttackDamage(25.0);
+		setAttackTimer(new AttackTimer(120));
+		setFrameDelayLimit(6);
+		setFrameLimit(3);
+		setFrameIterator(new FrameIterator(this, getFrameDelayLimit(), getFrameLimit()));
 		
 		
 	}
+
+
+
+
 
 
 

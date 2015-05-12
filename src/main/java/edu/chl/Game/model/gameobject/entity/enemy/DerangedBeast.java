@@ -3,15 +3,13 @@ package edu.chl.Game.model.gameobject.entity.enemy;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
-import edu.chl.Game.view.graphics.Sprite;
-import edu.chl.Game.view.graphics.SpriteSheet;
+import edu.chl.Game.view.graphics.*;
 
 public class DerangedBeast extends EnemyUnit {
 	
@@ -19,8 +17,8 @@ public class DerangedBeast extends EnemyUnit {
 	private Sprite[] attackAnimationArray;
 	private LoadingSprites load;
 
-	public DerangedBeast(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler, OpponentUnitProperties op, FrameValues frameValues) {
-		super(x, y, width, height, solid, id, handler, op, frameValues);
+	public DerangedBeast(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+		super(x, y, width, height, solid, id, handler);
 		
 		
 	}
@@ -43,7 +41,18 @@ public class DerangedBeast extends EnemyUnit {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	@Override
+	public void initiateProperties() {
+		
+	}
+
+
+	@Override
+	public void initiateUnit() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

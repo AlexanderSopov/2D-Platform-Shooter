@@ -22,36 +22,30 @@ public abstract class EnemyUnit extends Entity {
 	private Sprite[] arrayAttackAnimation;
 	private LoadingSprites load;
 
-	
-	private int playerXCoordinate;
 	private AttackTimer attackTimer;
-	private double attackDamage;
-	private boolean performingAttack = false;
 	private AI aI;
-	private LoadingSprites loadingSprites;
-	private OpponentUnitProperties op;
+	private int frameDelayLimit;
+	private int frameLimit;
+	private double attackDamage;
+
+	
 	private FrameIterator frameIterator;
 	private boolean isAttacking = false;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler, OpponentUnitProperties op,
-			FrameValues frameValues) {
+			GameHandler handler) {
 
 		super(x, y, width, height, solid, id, handler);
-		
-		
-		this.op = op;
-		this.attackTimer = op.getAttackTimer();
-		this.attackDamage = op.getAttackDamage();
-		this.aI = new AI(this, attackTimer, op);
+
+
+		this.load = new LoadingSprites();
+		this.initiateUnit();
+		this.aI = new AI(this, attackTimer);
+	
 		this.frameIterator = new FrameIterator(getEntityProperties(),
 				frameValues.getFrameDelayLimit(), frameValues.getFrameLimit());
 		
-		
-		this.load = new LoadingSprites();
-		initiateSpriteSheets();
-		initiateSpriteArrays();
-		loadSprites();
+	
 	}
 
 
@@ -146,13 +140,47 @@ public abstract class EnemyUnit extends Entity {
 		return load;
 	}
 	
-	public void setLoad(LoadingSprites sp){
-		this.load = sp;
+	public double getAttackDamage(){
+		return attackDamage;
+	}
+	
+	public void setAttackDamage(double attackDamage){
+		this.attackDamage = attackDamage;
+	}
+	
+	public AttackTimer getAttackTimer(){
+		return attackTimer;
+	}
+	
+	public void setAttackTimer(AttackTimer attackTimer){
+		this.attackTimer = attackTimer;
+	}
+	
+	public int getFrameDelayLimit(){
+		return frameDelayLimit;
+	}
+	
+	public void setFrameDelayLimit(int frameDelayLimit){
+		this.frameDelayLimit = frameDelayLimit;
+	}
+	
+	public int getFrameLimit(){
+		return frameLimit;
+	}
+	
+	public void setFrameLimit(int frameDelayLimit){
+		this.frameLimit = frameLimit;
+	}
+	
+	public void setFrameIterator(FrameIterator frameIterator){
+		this.frameIterator = frameIterator;
 	}
 	
 	public abstract void initiateSpriteSheets();
 	public abstract void initiateSpriteArrays();
 	public abstract void loadSprites();
+	public abstract void initiateProperties();
+	public abstract void initiateUnit();
 	
 	
 	

@@ -12,16 +12,13 @@ public class AI {
 	private GameHandler handler;
 	private int playerXCoordinate;
 	private AttackTimer attackTimer;
-	private OpponentUnitProperties op;
 	private EntityState es;
-	
     private EnemyUnit eu;
 
-	public AI(EnemyUnit eu, AttackTimer attackTimer, OpponentUnitProperties op){
+	public AI(EnemyUnit eu, AttackTimer attackTimer){
         this.eu = eu;
 		this.handler = eu.getHandler();
 		this.attackTimer = attackTimer;
-		this.op = op;
 		this.es = eu.getEntityState();
 	}
 	
@@ -69,7 +66,7 @@ public class AI {
 
 	public void dealDamage() {
 		eu.setAttacking(true);
-		handler.getPlayer().recieveDamage(op.getAttackDamage());
+		handler.getPlayer().recieveDamage(eu.getAttackDamage());
 	}
 	
 

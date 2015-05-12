@@ -36,10 +36,9 @@ public class GameHandler {
 	private SpriteSheet sheetDerangedBeast;
 	private SpriteSheet sheetDerangedBeast_AttackAnimation;
 	private SpriteSheet sheetPlayer_RecieveDamage;
-	private OpponentUnitProperties op_db;
-	private OpponentUnitProperties op_rb;
+
 	private SpriteSheet sheetRoaringBrute;
-	private FrameValues frameValues;
+	//private FrameValues frameValues;
 	private boolean changeHasHappened;
 
 	private Camera camera;
@@ -50,9 +49,9 @@ public class GameHandler {
 		this.frame = frame;
 		camera = new Camera();
 		createSheet();
-		frameValues = new FrameValues(6, 3);
-		this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
-		this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
+		//frameValues = new FrameValues(6, 3);
+		//this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
+		//this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
 		frame.addMouseListener(new MouseInput(c));
@@ -127,7 +126,7 @@ public class GameHandler {
 				//	( green )
 				else if (red == 0 && green == 255 && blue == 0) {
 					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
-							Id.monster, this, op_rb, frameValues));
+							Id.monster, this));
 				}
 				
 				//	( blue )
