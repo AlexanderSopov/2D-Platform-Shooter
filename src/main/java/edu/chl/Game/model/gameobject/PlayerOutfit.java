@@ -11,7 +11,7 @@ import edu.chl.Game.model.gameobject.entity.player.Player;
  *
  * @author Rasmus
  */
-public class PlayerOutfit implements Outfit{
+public class PlayerOutfit implements Character{
     
     ItemMap itemMap;
     Player player;

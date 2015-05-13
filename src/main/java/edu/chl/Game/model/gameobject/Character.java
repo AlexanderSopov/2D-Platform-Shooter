@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author Rasmus
  */
-public interface Outfit{
+public interface Character{
     
    public void eqipeItem(Item item);
 

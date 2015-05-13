@@ -9,13 +9,13 @@ package edu.chl.Game.model.gameobject;
  *
  * @author Rasmus
  */
-public class OutfitDecorator  implements Outfit  {
+public class CaracterDecorator  implements Character  {
     
     //All items should implement itemdecorator
     
-    protected Outfit outfit;
+    protected Character outfit;
     
-    public OutfitDecorator(Outfit outfit){
+    public CaracterDecorator(Character outfit){
         this.outfit = outfit;
     }
     
