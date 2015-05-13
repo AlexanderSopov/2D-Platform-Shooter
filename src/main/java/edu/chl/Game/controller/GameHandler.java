@@ -69,25 +69,12 @@ public class GameHandler {
 		g.setColor(new Color(135, 206, 235));
 		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
 		g.translate(camera.getX(), camera.getY());
+
+		camera.update(getPlayer());
 		
-		for (Entity e : getEntityList()) {
-			if (e.getUnitState().getId() == Id.player) {
-				camera.update(e);
-			}
-		}
 	}
 
-	public void update() {
-		for (Entity e : getEntityList()) {
-			e.update();
-		}
 
-		for (Tile t : getTileList()) {
-			t.update();
-		}
-
-
-	}
 
 	public void createSheet() {
 		
@@ -128,6 +115,11 @@ public class GameHandler {
 				if (red == 0 && green == 0 && blue == 0) {
 					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this));
 				}
+                                
+                                //	( blue )
+				else if (red == 0 && green == 0 && blue == 255) {
+					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
+				}
 				
 				//	( green )
 				else if (red == 0 && green == 255 && blue == 0) {
@@ -135,27 +127,20 @@ public class GameHandler {
 							Id.monster, this));
 				}
 				
-				//	( blue )
-				else if (red == 0 && green == 0 && blue == 255) {
-					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
-				}
+				
 				
 				
 			}
 
 			for (Entity e : getEntityList()) {
-				if (e.getUnitState().getId() == Id.player) {
+				if (e.getId() == Id.player) {
 					c = new GameCursor(e, this);
 					addEntity(c);
+                                        this.player  = (Player)e;
 					break;
 				}
 			}
 
-			for (int i = 0; i < entity.size(); i++) {
-				if (entity.get(i).getUnitState().getId() == Id.player) {
-					this.player = (Player) entity.get(i);
-				}
-			}
 
 		}
 		

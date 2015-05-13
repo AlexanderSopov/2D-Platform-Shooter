@@ -88,9 +88,9 @@ public class RefreshTimer extends Observable implements Runnable {
 		if(state == State.GAME || state == State.MAP){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
-				frame.createBufferStrategy(3);
-				return;
-				}
+                            frame.createBufferStrategy(3);
+                            return;
+			}
 			renderGraphics(bs);
 		}else if(state == State.MENU && !startMenu.inMenu()){
 			startMenu.setMenu();

@@ -17,12 +17,12 @@ public class ContactWithEnemy {
 	}
 	
 	public void checkForContact(){
-		LinkedList<Entity> e = player.getHandler().getEntityList();
-		for (int i = 0; i < e.size(); i++) {																		//looks through the entitylist
-			if (e.get(i).getUnitState().getId() == Id.monster) {													//finds monsters
-				if (calculateBounds.getBounds().intersects(e.get(i).getCalculateBounds().getBoundsTop())) {			//checks if the playable unit is ontop of a monster	
+		LinkedList<Entity> entityList = player.getHandler().getEntityList();
+		for (Entity en : entityList) {												//looks through the entitylist
+			if (en.getId() == Id.monster) {											//finds monsters
+				if (calculateBounds.getBounds().intersects(en.getCalculateBounds().getBoundsTop())) {			//checks if the playable unit is ontop of a monster	
 					// -add code here- ;
-				} else if (calculateBounds.getBounds().intersects(e.get(i).getCalculateBounds().getBounds())) {		//checks if the playable unit touches the monster
+				} else if (calculateBounds.getBounds().intersects(en.getCalculateBounds().getBounds())) {		//checks if the playable unit touches the monster
 					// -add code here- ;
 				}
 			}
