@@ -20,7 +20,6 @@ public class Player extends Entity {
 	private Sprite recieveDamage[] = new Sprite[10];
 	private ContactWithEnemy contactWithEnemy;
 	private GravitationalProperties gravitationalProperties;
-	private boolean isRecievingDamage;
 	private FrameIterator frameIterator_moving;
 	private FrameIterator frameIterator_takeDamage;
 	
@@ -49,8 +48,7 @@ public class Player extends Entity {
                         recieveDamage[i + 5] = new Sprite(
 					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
 		}
-
-		//this.frameCounter = new FrameCounter(3, 5);
+		
 		this.frameIterator_moving = new FrameIterator(this, 2, 20);
 		this.frameIterator_takeDamage = new FrameIterator(this, 3, 5);
 		this.contactWithEnemy = new ContactWithEnemy(this);
@@ -63,7 +61,7 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		if (!isRecievingDamage) {
+		if (!isRecievingDamage()) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 					getRenderClass().renderAnimateRight(g, player,
@@ -101,6 +99,8 @@ public class Player extends Entity {
 						getHeight(), 4);
 			}
 		}
+		
+		//displayScore(g);
 
 	}
 
@@ -115,13 +115,17 @@ public class Player extends Entity {
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}
-		if (isRecievingDamage) {
+		if (isRecievingDamage()) {
 			iterateTakingDamage();
-			if (!frameIterator_takeDamage.isActive()) {
-				isRecievingDamage = false;
-			}
+			processDamageTaking();
 		}
 
+	}
+	
+	public void processDamageTaking(){
+		if (!frameIterator_takeDamage.isActive()) {
+			setRecievingDamage(false);
+		}
 	}
 
 	public void iterateMoving() {
@@ -133,8 +137,8 @@ public class Player extends Entity {
 	}
 	
 	public void recieveDamage(double damage) {
-		if (!isRecievingDamage) {
-			isRecievingDamage = true;
+		if (!isRecievingDamage()) {
+			setRecievingDamage(true);
 		}
 		setHealthPoints(getHealthPoints() - damage);
 	}

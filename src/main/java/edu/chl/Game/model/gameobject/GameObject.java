@@ -23,7 +23,8 @@ public abstract class GameObject implements Observer {
 	private Id id;
 	private boolean solid;
 
-	public GameObject(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
+	public GameObject(int x, int y, int width, int height, boolean solid,
+			Id id, GameHandler handler) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -35,8 +36,6 @@ public abstract class GameObject implements Observer {
 		this.healthPoints = 100.0;
 		this.calculateBounds = new CalculateBounds(this);
 	}
-        
-  
 
 	public void update(Observable o, Object arg) {
 		try {
@@ -62,14 +61,13 @@ public abstract class GameObject implements Observer {
 		return calculateBounds;
 	}
 
-        
-        public GameHandler getHandler(){
-            return this.handler;
-        }
-        
-        public Id getId(){
-            return this.id;
-        }
+	public GameHandler getHandler() {
+		return this.handler;
+	}
+
+	public Id getId() {
+		return this.id;
+	}
 
 	public int getX() {
 		return this.x;
@@ -103,17 +101,16 @@ public abstract class GameObject implements Observer {
 		this.healthPoints = healthPoints;
 	}
 
-        
-        public void takeDamage(double damage){
-                System.out.println(getHealthPoints());
-		setHealthPoints(getHealthPoints() - damage); 
-                if(getHealthPoints() <= 0.0){
-                    this.remove();
-                }
-                
+	public void takeDamage(double damage) {
+		System.out.println(getHealthPoints());
+		setHealthPoints(getHealthPoints() - damage);
+		if (getHealthPoints() <= 0.0) {
+			this.remove();
+		}
+
 	}
-        
-        public int getVelX(){
+
+	public int getVelX() {
 
 		return velX;
 	}
@@ -129,6 +126,5 @@ public abstract class GameObject implements Observer {
 	public void setVelY(int vely) {
 		this.velY = vely;
 	}
-        
 
 }

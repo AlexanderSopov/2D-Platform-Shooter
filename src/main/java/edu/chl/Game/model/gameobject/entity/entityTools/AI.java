@@ -70,7 +70,7 @@ public class AI {
 
 	public void dealDamage() {
 		eu.setAttacking(true);
-		handler.getPlayer().recieveDamage(eu.getAttackDamage());
+		handler.getPlayer().takeDamage((eu.getAttackDamage()));
 	}
 	
 

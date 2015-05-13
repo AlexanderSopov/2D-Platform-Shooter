@@ -42,7 +42,6 @@ public class UnitGraphicsRender {
 					en.getArrayMovingAnimation(), 0, en.getX(), en.getY(),
 					en.getWidth(), en.getHeight());
 		} else if (en.getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-			System.out.println("hej");
 			en.getRenderClass().renderNotAnimateLeft(g,
 					en.getArrayMovingAnimation(), 10, en.getX(), en.getY(),
 					en.getWidth(), en.getHeight(), 8);

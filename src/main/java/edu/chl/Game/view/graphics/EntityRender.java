@@ -1,4 +1,5 @@
 package edu.chl.Game.view.graphics;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class EntityRender {

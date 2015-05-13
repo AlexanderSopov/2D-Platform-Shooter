@@ -34,8 +34,8 @@ public abstract class EnemyUnit extends Entity {
 	private AI aI;
 	private double attackDamage;
 	private boolean isAttacking = false;
-	private FrameIterator frameIterator_moving;
-	private FrameIterator frameIterator_attack;
+	//private FrameIterator frameIterator_moving;
+	//private FrameIterator frameIterator_attack;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -52,6 +52,7 @@ public abstract class EnemyUnit extends Entity {
 	@Override
 	public void render(Graphics g) {
 		ur.renderGraphics(this, g);
+		checkIfHurt(g);
 	}
 
 	@Override
@@ -66,17 +67,31 @@ public abstract class EnemyUnit extends Entity {
 		if (isAttacking) {
 			iterateAttack();
 		}
+		if (isRecievingDamage()) {
+			iterateTakingDamage();
+			processDamageTaking();
+		}
 		exerciseAI();
 		aI.attack();
 	}
+	
+	public void processDamageTaking(){
+		if (!getFrameIterator_takeDamage().isActive()) {
+			setRecievingDamage(false);
+		}
+	}
+	
+	public void iterateTakingDamage() {
+		getFrameIterator_takeDamage().updateFrameCounter();
+	}
 
 	public void iterateMoving() {
-		frameIterator_moving.updateFrameCounter();
+		getFrameIterator_moving().updateFrameCounter();
 	}
 
 	public void iterateAttack() {
-		frameIterator_attack.updateFrameCounter();
-		if(!frameIterator_attack.isActive()){
+		getFrameIterator_attack().updateFrameCounter();
+		if(!getFrameIterator_attack().isActive()){
 			isAttacking = false;
 		}
 	}
@@ -156,22 +171,6 @@ public abstract class EnemyUnit extends Entity {
 		this.attackTimer = attackTimer;
 	}
 
-	public void setFrameIterator_moving(FrameIterator fi) {
-		this.frameIterator_moving = fi;
-	}
-
-	public void setFrameIterator_attack(FrameIterator fi) {
-		this.frameIterator_attack = fi;
-	}
-	
-	public FrameIterator getFrameIterator_moving() {
-		return frameIterator_moving;
-	}
-
-	public FrameIterator getFrameIterator_attack() {
-		return frameIterator_attack;
-	}
-	
 	public int getAltWidth(){
 		return altWidth;
 	}
