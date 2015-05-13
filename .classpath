@@ -3,5 +3,5 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="src/main/resources"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="target/classes/"/>
 </classpath>
