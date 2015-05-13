@@ -1,6 +1,5 @@
 package edu.chl.Game.controller;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Observable;
@@ -9,7 +8,7 @@ import edu.chl.Game.handler.State;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.Frame;
-import edu.chl.Game.view.MapView;
+import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
 
 /**
@@ -22,30 +21,33 @@ public class RefreshTimer extends Observable implements Runnable {
 	private Thread thread;
 	private Frame frame;
 	private StartMenu startMenu;
-	private MapView mapView;
+	private WorldMapView mapView;
 	private GameHandler gameHandler;
 	private boolean running = false;
+	private MouseInput mouseInput;
 	
 	//The state of the game
 	public static State state = State.GAME;
+	//The selected map/level
+	public static String selectedMap = "level_1";
 	
 	private double delta = 0.0;
 	private int frameRate=1;
 	private int second=1;
 	
-	public RefreshTimer(){
+	public RefreshTimer() throws Exception{
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
-		mapView = new MapView();
-		gameHandler = new GameHandler(thread, frame);
+		mapView = new WorldMapView();
+		gameHandler = new GameHandler(this, frame);
+		mouseInput = new MouseInput(frame, mapView);
 		
 		start();
 		
-		for (Entity e: gameHandler.getEntityList())
-			addObserver(e);
-		for (Tile t: gameHandler.getTileList())
-			addObserver(t);
+		frame.addKeyListener(new KeyInput(gameHandler));
+		frame.addMouseListener(mouseInput);
+		frame.addMouseMotionListener(mouseInput);
 	}
 
 	/**
@@ -179,5 +181,9 @@ public class RefreshTimer extends Observable implements Runnable {
 		for (Tile t: gameHandler.getTileList()){
 			addObserver(t);
 		}
+	}
+	
+	public MouseInput getMouseInput(){
+		return mouseInput;
 	}
 }

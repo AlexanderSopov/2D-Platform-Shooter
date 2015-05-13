@@ -3,6 +3,7 @@ package edu.chl.Game.controller;
 import edu.chl.Game.handler.State;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.WorldMapView;
 
 import java.awt.Cursor;
 import java.awt.Point;
@@ -21,10 +22,15 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private static boolean pressed = false;
 	
 	private Frame frame;
+	private WorldMapView mapView;
 	private Cursor blankCursor;//hide 
     private GameCursor c;
+    
+    public MouseInput(Frame frame){
+    	this.frame = frame;
+    }
 	
-	MouseInput(GameCursor c){
+	public void setCursor(GameCursor c){
 		//Put all the pre-load content here
 
 		this.c = c;
@@ -38,8 +44,9 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	}
 
 
-	public MouseInput(Frame frame) {
+	public MouseInput(Frame frame, WorldMapView mapView){
 		this.frame = frame;
+		this.mapView = mapView;
 	}
 
 
@@ -62,15 +69,48 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 			if (c != null) {
 				c.shoot();
 			}
-		}else if(e.getSource() instanceof JButton){
+		}else if(RefreshTimer.state == State.MAP){
+			int mx = e.getX();
+			int my = e.getY();
+			
+			if(mx > mapView.level1.getX() && mx < mapView.level1.getMaxX() && my > mapView.level1.getY() && my < mapView.level1.getMaxY()){
+				System.out.println("Level 1");
+				RefreshTimer.selectedMap = "level_1";
+				RefreshTimer.state = State.GAME;
+			}else if(mx > mapView.level2.getX() && mx < mapView.level2.getMaxX() && my > mapView.level2.getY() && my < mapView.level2.getMaxY()){
+				System.out.println("Level 2");
+				RefreshTimer.selectedMap = "level_2";
+				RefreshTimer.state = State.GAME;
+			}else if(mx > mapView.level3.getX() && mx < mapView.level3.getMaxX() && my > mapView.level3.getY() && my < mapView.level3.getMaxY()){
+				System.out.println("Level 3");
+				RefreshTimer.selectedMap = "level_3";
+				RefreshTimer.state = State.GAME;
+			}else if(mx > mapView.level4.getX() && mx < mapView.level4.getMaxX() && my > mapView.level4.getY() && my < mapView.level4.getMaxY()){
+				System.out.println("Level 4");
+				RefreshTimer.selectedMap = "level_4";
+				RefreshTimer.state = State.GAME;
+			}else if(mx > mapView.level5.getX() && mx < mapView.level5.getMaxX() && my > mapView.level5.getY() && my < mapView.level5.getMaxY()){
+				System.out.println("Level 5");
+				RefreshTimer.selectedMap = "level_5";
+				RefreshTimer.state = State.GAME;
+			}else if(mx > mapView.shop.getX() && mx < mapView.shop.getMaxX() && my > mapView.shop.getY() && my < mapView.shop.getMaxY()){
+				System.out.println("Shop");
+			}else if(mx > mapView.character.getX() && mx < mapView.character.getMaxX() && my > mapView.character.getY() && my < mapView.character.getMaxY()){
+				System.out.println("Character");
+			}
+		}
+		
+		
+		if(e.getSource() instanceof JButton){
 			String button = ((JButton) e.getSource()).getText();
 			if(RefreshTimer.state == State.MENU){
 				switch(button){
 					case "Start":
 						RefreshTimer.state = State.GAME;
+						RefreshTimer.selectedMap = "level_1";
 						break;
 					case "New":
-						RefreshTimer.state = State.GAME;
+						RefreshTimer.state = State.MAP;
 						break;
 					case "Option":
 						RefreshTimer.state = State.OPTION;

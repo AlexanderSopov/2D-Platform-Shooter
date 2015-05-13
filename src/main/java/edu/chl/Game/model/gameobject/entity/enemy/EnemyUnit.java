@@ -104,7 +104,7 @@ public class EnemyUnit extends Entity {
 		UnitAI();
 		aI.attack();
 		updateFace();
-		System.out.println(getEntityState().getFacingDirection());
+		//System.out.println(getEntityState().getFacingDirection());
 	}
 
 	// iterates through the frames
