@@ -18,7 +18,6 @@ import edu.chl.Game.model.physics.Vector2D;
 
 public abstract class GameObject implements Observer, GameInterface {
 	public static RefreshTimer gt = Main.game;
-	private UnitProperties unitProperties;
 	private UnitState unitState;
 	private CalculateBounds calculateBounds;
 	private PhysicalProperties physicalProperties;
@@ -30,14 +29,12 @@ public abstract class GameObject implements Observer, GameInterface {
 	public GameObject(int x, int y, int width, int height, boolean solid,
 			Id id, GameHandler handler) {
 		
-                 physicalProperties = new PhysicalProperties(
+		physicalProperties = new PhysicalProperties(
                 		 new Vector2D(x,y), new Vector2D(0,0), width, height);
-                 this.id = id;
-                 this.solid = solid;
-                 this.handler = handler;
-                 this.unitProperties = new UnitProperties(handler, x,y,width,height);
+		this.id = id;
+		this.solid = solid;
+		this.handler = handler;
 		this.unitState = new UnitState(id, solid);
-		
 		this.calculateBounds = new CalculateBounds(this);
 	}
 
@@ -57,9 +54,6 @@ public abstract class GameObject implements Observer, GameInterface {
 
 	public abstract void remove();
 
-	public UnitProperties getUnitProperties() {
-		return unitProperties;
-	}
 
 	public UnitState getUnitState() {
 		return unitState;
