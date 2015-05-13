@@ -1,7 +1,12 @@
 package edu.chl.Game.sound;
 
-import java.util.LinkedList;
-
+/**
+ * Contains the necessary methods for
+ * Sound Effect
+ * 
+ * @author Mansoor
+ * @version 1.0 
+ */
 public interface SFXInterface {
 
 	
@@ -9,27 +14,31 @@ public interface SFXInterface {
 	 * Get an instance of Music.
 	 * @return sfx - An instance
 	 */
-	public SFXInterface getSFX();
+	public SFX getSFX();
+	
 	
 	/**
-	 * Get the SFX (Sound Effect) List
-	 * @return - The SFX list of type LinkedList<SFX>
+	 * Prints all Sound Effects in the list with name and path
 	 */
-	LinkedList<SFX> getSFXList();
+	void printSFXList();
+	
+	
 	/**
 	 * Add a sound effect to the list
 	 * @param sfx - Type SFX of 
 	 */
-	void addSFX(SFX sfx);
+	void addSFX(String name, String filePath);
+	
+	
 	/**
 	 * Clear the sound effect list
 	 */
 	void clearSFXList();
+
+	
 	/**
 	 * Remove a sound effect from the list
 	 * @param sfx - Type SFX 
 	 */
 	void removeSFX(SFX sfx);
-	
-	void setFileName(String fileName);
 }

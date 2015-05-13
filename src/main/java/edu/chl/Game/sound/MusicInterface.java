@@ -1,30 +1,38 @@
 package edu.chl.Game.sound;
 
-import java.util.LinkedList;
-
-
+/**
+ * 
+ * @author Mansoor
+ * @version 1.0
+ */
 public interface MusicInterface {
 
 	/**
 	 * Get an instance of Music.
 	 * @return music - An instance
 	 */
-	MusicInterface getMusic();
+	Music getMusic();
+
 	/**
-	 * Get the Music List.
-	 * @return - Returns the Music List of type LinkedList<Music>
+	 * Prints all Music in the list with name and path
 	 */
-	LinkedList<Music> getMusicList();
+	void printMusicList();
+
+	
 	/**
 	 * Add music to the music list
-	 * @param music - Add music of the type Music.
+	 * @param filePath - Add music of the type Music.
 	 */
-	void addMusic(Music music);
+	void addMusic(String name, String filePath);
+	
+	
 	/**
 	 * Remove a music from the music list.
 	 * @param music - Remove music of the type Music
 	 */
 	void removeMusic(Music music);
+	
+	
 	/**
 	 * Clear the music list
 	 */

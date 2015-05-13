@@ -1,16 +1,20 @@
 package edu.chl.Game.model.gameobject.entity;
 
+import edu.chl.Game.sound.SFX;	
+
 public class GravitationalProperties {
 	private UnitProperties unitProperties;
 	private EntityProperties entityProperties;
 	private EntityState entityState;
-        private Entity en;
-	
+    private Entity en;
+	private SFX sfx;
+    
 	public GravitationalProperties(Entity en){
 		this.unitProperties = en.getUnitProperties();
 		this.entityProperties = en.getEntityProperties();
 		this.entityState = en.getEntityState();
 		this.en = en;
+		sfx = new SFX();
 	}
 	
 	public void jumpingMechanics(){
@@ -19,6 +23,8 @@ public class GravitationalProperties {
 		}
 		
 		if (entityState.isJumping()) {
+			sfx.isJumping();
+			sfx.printSFXList();
 			entityState.setContactWithGround(false);
 			entityProperties.setGravity(entityProperties.getGravity() - 1.0);			
 			en.setVelY(((int) -entityProperties.getGravity()));				
