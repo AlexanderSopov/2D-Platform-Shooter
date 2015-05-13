@@ -1,9 +1,13 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package edu.chl.Game.model.gameobject;
+
+import java.awt.Graphics;
 
 /**
  *
@@ -13,30 +17,43 @@ public class CaracterDecorator  implements Character  {
     
     //All items should implement itemdecorator
     
-    protected Character outfit;
+    protected Character character;
     
-    public CaracterDecorator(Character outfit){
-        this.outfit = outfit;
+    public CaracterDecorator(Character character){
+        this.character = character;
+    }
+    
+       @Override
+    public void render(Graphics g) {
+        this.character.render(g);
+    }
+
+    @Override
+    public void update() {
+        this.character.update();
     }
     
     @Override
     public void eqipeItem(Item item) {
-        this.outfit.eqipeItem(item);
+        this.character.eqipeItem(item);
     }
 
     @Override
     public void discardItem(Item item) {
-        this.outfit.discardItem(item);
+        this.character.discardItem(item);
     }
 
     @Override
-    public double getTotalHealth() {
-        return this.outfit.getTotalHealth();
+    public double getHealth() {
+        return this.character.getHealth();
     }
 
     @Override
-    public double getTotalArmor() {
-        return this.outfit.getTotalArmor();
+    public double getArmor() {
+        return this.character.getArmor();
     }
-    
+
+ 
+
+
 }

@@ -13,13 +13,17 @@ import java.awt.Graphics;
  * @author Rasmus
  */
 public interface Character{
+   
+   public void render(Graphics g);
+   
+   public void update();
     
    public void eqipeItem(Item item);
 
    public void discardItem(Item item);
     
-   public double getTotalHealth();
+   public double getHealth();
    
-   public double getTotalArmor();
+   public double getArmor();
     
 }
