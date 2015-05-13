@@ -34,7 +34,7 @@ public class RefreshTimer extends Observable implements Runnable {
 	private int frameRate=1;
 	private int second=1;
 	
-	public RefreshTimer(){
+	public RefreshTimer() throws Exception{
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);

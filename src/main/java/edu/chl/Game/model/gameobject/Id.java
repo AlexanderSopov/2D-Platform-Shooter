@@ -5,5 +5,6 @@ public enum Id {
         wall,
         monster,
         cursor,
-        bullet;
+        bullet,
+        gun;
 }

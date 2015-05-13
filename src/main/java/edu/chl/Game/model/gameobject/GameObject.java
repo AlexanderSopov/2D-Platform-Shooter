@@ -11,7 +11,7 @@ import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.physics.CalculateBounds;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
-public abstract class GameObject implements Observer {
+public abstract class GameObject implements Observer, GameInterface {
 	public static RefreshTimer gt = Main.game;
 	private UnitState unitState;
 	private CalculateBounds calculateBounds;

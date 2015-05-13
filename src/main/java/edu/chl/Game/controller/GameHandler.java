@@ -3,6 +3,7 @@ package edu.chl.Game.controller;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -14,9 +15,13 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
+import edu.chl.Game.model.gameobject.entity.items.Gun;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
+import edu.chl.Game.sound.Music;
+import edu.chl.Game.sound.Sound;
+import edu.chl.Game.sound.SFX;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
@@ -31,6 +36,8 @@ public class GameHandler {
 	private SpriteSheet sheetPlayer;
 	private SpriteSheet sheetMonster;
 	private SpriteSheet sheetTexture;
+	private SpriteSheet sheetGun;
+	
 	private BufferedImage mapImage;
 	private SpriteSheet sheetEnemyUnit0;
 	private SpriteSheet sheetDerangedBeast;
@@ -48,16 +55,20 @@ public class GameHandler {
         
         private RefreshTimer rfr;
 
+
 	public GameHandler(RefreshTimer rfr,Thread thread, Frame frame) {
+
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
                 this.rfr = rfr;
                 this.ref = 0;
 		createSheet();
+
 		//frameValues = new FrameValues(6, 3);
 		//this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
 		//this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
+
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
 		frame.addMouseListener(new MouseInput(c));
@@ -89,6 +100,8 @@ public class GameHandler {
 		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
 		
 		sheetRoaringBrute = new SpriteSheet("/SH_RB.png");
+		
+		sheetGun = new SpriteSheet("/SH_Gun.png");
 	}
 
 	public void createMap() {
@@ -130,6 +143,15 @@ public class GameHandler {
 				
 				
 				
+                                
+				
+				
+				else if(red == 125 && green == 0 && blue == 0) {
+					
+					System.out.println("guns");
+					addEntity(new Gun(x*64, y*64, 30, 19, true, Id.gun, this));
+				}
+
 			}
 
 			for (Entity e : getEntityList()) {
@@ -215,7 +237,10 @@ public class GameHandler {
 	public SpriteSheet getSheetDerangedBeast() {
 		return sheetDerangedBeast;
 	}
-
+	
+	public SpriteSheet getSheetGun() {
+		return this.sheetGun;
+	}
 	public Player getPlayer() {
 		return player;
 	}
