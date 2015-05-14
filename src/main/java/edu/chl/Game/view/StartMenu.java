@@ -77,19 +77,19 @@ public class StartMenu{
 	}
 	
 	public void setCredit(){
-		JLabel nameLabel1 = new JLabel("Name1");
+		JLabel nameLabel1 = new JLabel("Martin Tran");
 		nameLabel1.setAlignmentX(container.CENTER_ALIGNMENT);
 		nameLabel1.setFont(new Font("arial", Font.BOLD, 50));
 		nameLabel1.setForeground(Color.WHITE);
 		container.add(nameLabel1);
 		
-		JLabel nameLabel2 = new JLabel("Name2");
+		JLabel nameLabel2 = new JLabel("Rasmus Andersson");
 		nameLabel2.setAlignmentX(container.CENTER_ALIGNMENT);
 		nameLabel2.setFont(new Font("arial", Font.BOLD, 50));
 		nameLabel2.setForeground(Color.WHITE);
 		container.add(nameLabel2);
 		
-		JLabel nameLabel3 = new JLabel("Name3");
+		JLabel nameLabel3 = new JLabel("Oliver Tunberg");
 		nameLabel3.setAlignmentX(container.CENTER_ALIGNMENT);
 		nameLabel3.setFont(new Font("arial", Font.BOLD, 50));
 		nameLabel3.setForeground(Color.WHITE);
