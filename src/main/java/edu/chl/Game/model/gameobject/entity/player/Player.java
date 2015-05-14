@@ -107,7 +107,7 @@ public class Player extends Entity implements Character{
 			}
 		}
 		
-		//displayScore(g);
+		runScoreDisplay(g);
 
 	}
 

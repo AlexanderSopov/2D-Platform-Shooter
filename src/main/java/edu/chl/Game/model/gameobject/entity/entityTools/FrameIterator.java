@@ -5,7 +5,6 @@ import edu.chl.Game.model.gameobject.entity.enemy.*;
 public class FrameIterator {
 	
 	private Entity en;
-	
 	private int frame;
 	private int frameDelay;
 	private int frameDelayLimit;
