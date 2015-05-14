@@ -34,8 +34,6 @@ public abstract class EnemyUnit extends Entity {
 	private AI aI;
 	private double attackDamage;
 	private boolean isAttacking = false;
-	//private FrameIterator frameIterator_moving;
-	//private FrameIterator frameIterator_attack;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -52,7 +50,7 @@ public abstract class EnemyUnit extends Entity {
 	@Override
 	public void render(Graphics g) {
 		ur.renderGraphics(this, g);
-		checkIfHurt(g);
+		runScoreDisplay(g);
 	}
 
 	@Override
@@ -67,22 +65,8 @@ public abstract class EnemyUnit extends Entity {
 		if (isAttacking) {
 			iterateAttack();
 		}
-		if (isRecievingDamage()) {
-			iterateTakingDamage();
-			processDamageTaking();
-		}
 		exerciseAI();
 		aI.attack();
-	}
-	
-	public void processDamageTaking(){
-		if (!getFrameIterator_takeDamage().isActive()) {
-			setRecievingDamage(false);
-		}
-	}
-	
-	public void iterateTakingDamage() {
-		getFrameIterator_takeDamage().updateFrameCounter();
 	}
 
 	public void iterateMoving() {

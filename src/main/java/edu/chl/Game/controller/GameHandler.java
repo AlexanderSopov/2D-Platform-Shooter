@@ -36,9 +36,7 @@ public class GameHandler {
 	private SpriteSheet sheetDerangedBeast;
 	private SpriteSheet sheetDerangedBeast_AttackAnimation;
 	private SpriteSheet sheetPlayer_RecieveDamage;
-
 	private SpriteSheet sheetRoaringBrute;
-	//private FrameValues frameValues;
 	private boolean changeHasHappened;
         
         private int ref;
@@ -55,9 +53,6 @@ public class GameHandler {
                 this.rfr = rfr;
                 this.ref = 0;
 		createSheet();
-		//frameValues = new FrameValues(6, 3);
-		//this.op_db = new OpponentUnitProperties(10.0, 60, 6, 64, 64);
-		//this.op_rb = new OpponentUnitProperties(25.0, 120, 16, 120, 115);
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
 		frame.addMouseListener(new MouseInput(c));

@@ -100,7 +100,7 @@ public class Player extends Entity {
 			}
 		}
 		
-		//displayScore(g);
+		runScoreDisplay(g);
 
 	}
 
