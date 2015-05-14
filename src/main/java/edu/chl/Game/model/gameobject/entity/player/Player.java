@@ -13,9 +13,9 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.Sprite;
-import edu.chl.Game.model.gameobject.Character;
+import edu.chl.Game.model.gameobject.entity.items.Character;
 import edu.chl.Game.model.gameobject.Item;
-import edu.chl.Game.model.gameobject.ItemMap;
+import edu.chl.Game.model.gameobject.entity.items.ItemMap;
 
 public class Player extends Entity implements Character{
 

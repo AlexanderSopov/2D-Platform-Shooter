@@ -5,21 +5,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.chl.Game.model.gameobject;
+package edu.chl.Game.model.gameobject.entity.items;
 
+import edu.chl.Game.model.gameobject.Item;
+import edu.chl.Game.model.gameobject.entity.Entity;
 import java.awt.Graphics;
 
 /**
  *
  * @author Rasmus
  */
-public class CaracterDecorator  implements Character  {
+public class CharacterDecorator implements Character  {
     
     //All items should implement itemdecorator
     
     protected Character character;
     
-    public CaracterDecorator(Character character){
+    /**
+     *
+     * @param character
+     */
+    public CharacterDecorator(Character character){
+        
         this.character = character;
     }
     
