@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.chl.Game.model.gameobject;
+package edu.chl.Game.model.gameobject.entity.items;
 
+import edu.chl.Game.model.gameobject.Item;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

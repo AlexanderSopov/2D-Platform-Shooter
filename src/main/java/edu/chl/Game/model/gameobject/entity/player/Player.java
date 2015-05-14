@@ -12,24 +12,31 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.Sprite;
-import edu.chl.Game.view.graphics.SpriteSheet;
+import edu.chl.Game.model.gameobject.entity.items.Character;
+import edu.chl.Game.model.gameobject.Item;
+import edu.chl.Game.model.gameobject.entity.items.ItemMap;
 
-public class Player extends Entity {
+public class Player extends Entity implements Character{
 
 	private Sprite player[] = new Sprite[40];
 	private Sprite recieveDamage[] = new Sprite[10];
 	private ContactWithEnemy contactWithEnemy;
 	private GravitationalProperties gravitationalProperties;
+
 	private FrameIterator frameIterator_moving;
 	private FrameIterator frameIterator_takeDamage;
 	
-	
-	
+
+	//private FrameCounter frameCounter;
+	private boolean isRecievingDamage;
+    private ItemMap itemMap;
+
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
-
+                
+                itemMap = new ItemMap();
 
 		// facing right
 
@@ -142,5 +149,28 @@ public class Player extends Entity {
 		}
 		setHealthPoints(getHealthPoints() - damage);
 	}
+
+        
+    // this is a part of Inventory system, will soon be refactorated :)
+  
+    @Override
+    public void eqipeItem(Item item) {
+        this.itemMap.put("Item.getName()", item);
+    }
+
+    @Override
+    public void discardItem(Item item) {
+        this.itemMap.remove("Item.getName()");
+    }
+
+    @Override
+    public double getHealth() {
+       return this.getHealthPoints();
+    }
+
+    @Override
+    public double getArmor() {
+        return 0;
+    }
 
 }
