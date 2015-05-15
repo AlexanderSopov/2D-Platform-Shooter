@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.EntityState;
 
 
@@ -27,9 +28,14 @@ public class SFX extends Sound implements SFXInterface {
 	private SFX sfx;
 	
 	private EntityState entityState;
+	private Entity entity;
 	
 	public SFX() {
 		addSFX("jump", "Jump.mp3");
+	}
+	public SFX(Entity entity) {
+		this.entity = entity;
+		this.entityState = entity.getEntityState();
 	}
 	
 	public SFX getSFX() {
@@ -103,12 +109,15 @@ public class SFX extends Sound implements SFXInterface {
 	 */
 	public void isJumping() throws NullPointerException {
 		
-		// "jump" key does not exist.
-		try {
-			getSFXHashMap().get("jump").play();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			e.getMessage();
+		if(entityState.isJumping()) {
+			
+			System.out.println("jumping");
+			try {
+				getSFXHashMap().get("jump").play();
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				e.getMessage();
+			}
 		}
 	}
 	

@@ -12,6 +12,7 @@ import edu.chl.Game.model.gameobject.entity.GravitationalProperties;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
+import edu.chl.Game.sound.SFX;
 import edu.chl.Game.view.graphics.Sprite;
 
 public class Player extends Entity {
@@ -24,11 +25,12 @@ public class Player extends Entity {
 	private boolean isRecievingDamage;
 	private ProjectileDetection pd;
 	private boolean pdInit;
+	private SFX sfx;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
-
+		sfx = new SFX();
 		getRenderClass().setFrameAmount(20);
 		getRenderClass1().setFrameAmount(5);
 
@@ -112,6 +114,7 @@ public class Player extends Entity {
 		getCollisionDetection().checkForCollision();
 		contactWithEnemy.checkForContact();
 		gravitationalProperties.jumpingMechanics();
+		sfx.isJumping();
 		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
 			iterateThroughFrames();

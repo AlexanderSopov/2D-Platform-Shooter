@@ -23,8 +23,6 @@ public class GravitationalProperties {
 		}
 		
 		if (entityState.isJumping()) {
-			sfx.isJumping();
-			sfx.printSFXList();
 			entityState.setContactWithGround(false);
 			entityProperties.setGravity(entityProperties.getGravity() - 1.0);			
 			en.setVelY(((int) -entityProperties.getGravity()));				
