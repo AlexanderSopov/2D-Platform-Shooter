@@ -20,7 +20,7 @@ public class EnemyVsPlayer extends CollisionStrategy {
 	}
 
 	@Override
-	protected void specialTrick(GotHitOnThe sideGotHit) {
+	protected void specialTrick(GotHitOnThe side) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -71,17 +71,42 @@ public abstract class CollisionStrategy {
 		return Math.abs(go2.getCenterY() - go1.getCenterY());
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void solveCollision() {
-		GotHitOnThe sideGotHit;
+		GotHitOnThe side = whichSideGotHit();
+		correctPosition(side);
 		
-		// TODO:
-		if(true)
-			sideGotHit = GotHitOnThe.Top;
-		System.out.println("Got hiiit mothafacka!");
-		// Ending of TODO
-		
-		specialTrick(sideGotHit);
+		System.out.println("Got hiiit on the " + side + ", mothafacka!");
+		specialTrick(side);
 	}
+
+	private GotHitOnThe whichSideGotHit() {
+		if(collidedFromTop())
+			return GotHitOnThe.Bottom;
+		if(collidedFromBottom())
+			return GotHitOnThe.Top;
+		if(collidedFromLeft())
+			return GotHitOnThe.Right;
+		else
+			return GotHitOnThe.Left;
+	}
+
+	private void correctPosition(GotHitOnThe side) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
 
 
 
