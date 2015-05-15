@@ -55,7 +55,7 @@ public class RoaringBrute extends EnemyUnit {
 	@Override
 	public void initiateProperties() {
 		setAttackDamage(25.0);
-		setAttackTimer(new AttackTimer(40));
+		setAttackTimer(new AttackTimer(50));
 		setFrameIterator_moving(new FrameIterator(this, 3, 8));
 		setFrameIterator_attack(new FrameIterator(this, 2, 10));
 		this.setHealthPoints(50);
