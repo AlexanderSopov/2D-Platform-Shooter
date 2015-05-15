@@ -7,8 +7,8 @@ import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
-import edu.chl.Game.model.physics.CollisionDetection;
 import edu.chl.Game.model.physics.Gravity;
+import edu.chl.Game.model.physics.collisions.CollisionSolver;
 import edu.chl.Game.view.graphics.EntityRender;
 
 public abstract class Entity extends GameObject {
@@ -17,7 +17,6 @@ public abstract class Entity extends GameObject {
 	private EntityState entityState;
 	private EntityRender renderClass;
 	private EntityRender renderClass1;
-	private CollisionDetection collisionDetection;
 	private FrameIterator frameIterator;
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id,
@@ -61,7 +60,7 @@ public abstract class Entity extends GameObject {
     	addGravity();
     	toggleAnimate();
     	updateCoordinates();
-    	new CollisionDetection(this, getNearbyGameObjects());
+    	CollisionSolver.solveCollisions(this, getNearbyGameObjects());
     }
     
     private LinkedList<GameObject> getNearbyGameObjects() {

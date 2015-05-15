@@ -26,6 +26,13 @@ public class PhysicalProperties {
 		return position;
 	}
 	
+	protected Vector2D getCenter(){
+		return position.addWith(new Vector2D(
+				width/2,
+				height/2
+				));
+	}
+	
 	protected int getX() {
 		return (int)position.getX();
 	}

@@ -4,11 +4,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import edu.chl.Game.controller.GameHandler;
+import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 
 
-public abstract class Item extends Entity{
+public abstract class Item extends GameObject{
 	
 	private final String NAME;
 	private String info;

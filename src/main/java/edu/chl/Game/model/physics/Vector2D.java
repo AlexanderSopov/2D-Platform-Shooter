@@ -60,6 +60,9 @@ public class Vector2D{
 	public Vector2D addWith(Vector2D v){
 		return new Vector2D(x+v.getX(), y+v.getY());
 	}
+	public Vector2D addWith(int x, int y){
+		return addWith(new Vector2D(x, y));
+	}
 	
 	public Vector2D subtractWith(Vector2D p){
 		return new Vector2D(x-p.getX(), y-p.getY());
