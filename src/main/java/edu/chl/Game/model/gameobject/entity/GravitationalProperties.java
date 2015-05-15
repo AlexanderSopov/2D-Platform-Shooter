@@ -7,7 +7,6 @@ public class GravitationalProperties {
         private Entity en;
 	
 	public GravitationalProperties(Entity en){
-		this.unitProperties = en.getUnitProperties();
 		this.entityProperties = en.getEntityProperties();
 		this.entityState = en.getEntityState();
 		this.en = en;
