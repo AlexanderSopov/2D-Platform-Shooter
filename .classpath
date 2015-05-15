@@ -27,5 +27,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="H:/Skolprojekt/Project-TDA367/Libs/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="H:/Skolprojekt/Project-TDA367/Libs/mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="H:/Skolprojekt/Project-TDA367/Libs/tritonus_share.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

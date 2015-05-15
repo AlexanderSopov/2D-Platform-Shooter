@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.LinkedList;
 
 import edu.chl.Game.controller.GameHandler;
-import edu.chl.Game.handler.*;
 import edu.chl.Game.model.gameobject.*;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.player.Bullet;
