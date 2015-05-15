@@ -2,6 +2,7 @@ package edu.chl.Game.model.physics.collisions;
 
 import edu.chl.Game.model.gameobject.entity.items.Item;
 import edu.chl.Game.model.gameobject.entity.player.Player;
+import edu.chl.Game.model.physics.collisions.CollisionStrategy.GotHitOnThe;
 
 /*
  * Author: Alexander Sopov
@@ -15,7 +16,7 @@ public class PlayerVsItem extends CollisionStrategy {
 	}
 
 	@Override
-	protected void specialTrick() {
+	protected void specialTrick(GotHitOnThe sideGotHit) {
 		// TODO Auto-generated method stub
 		
 	}

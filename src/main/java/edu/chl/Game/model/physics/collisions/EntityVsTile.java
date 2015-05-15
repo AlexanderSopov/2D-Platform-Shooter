@@ -7,6 +7,7 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 /*
  * Author: Alexander Sopov
  */
+import edu.chl.Game.model.physics.collisions.CollisionStrategy.GotHitOnThe;
 
 public class EntityVsTile extends CollisionStrategy {
 
@@ -16,7 +17,7 @@ public class EntityVsTile extends CollisionStrategy {
 	}
 
 	@Override
-	protected void specialTrick() {
+	protected void specialTrick(GotHitOnThe sideGotHit) {
 		// TODO Auto-generated method stub
 		
 	}

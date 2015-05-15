@@ -22,7 +22,7 @@ public class CollisionSolver {
 		if(en instanceof Player)
 			for(GameObject go : list)
 				solveCollision((Player)en, go);
-		else
+		else if (en instanceof EnemyUnit)
 			for(GameObject go : list)
 				solveCollision((EnemyUnit)en, go);
 	}
@@ -54,14 +54,16 @@ public class CollisionSolver {
 	// Check type of GameObject
 	
 	private static void solveCollision(EnemyUnit en, GameObject go){
-		if (go instanceof Tile)
+		if (go instanceof Tile){
 			strategy = new EntityVsTile(en, (Tile)go);
-		else if (go instanceof Item)
-			;								//Do nothing, enemies don't pick up items
-		else if (go instanceof EnemyUnit)
-			strategy = new EnemyVsPlayer(en, (EnemyUnit)go);
-
-		strategy.solve();
+			strategy.solve();
+		}else if (go instanceof Player){
+			strategy = new EnemyVsPlayer(en, (Player)go);
+			strategy.solve();
+		}
+		else
+			;//Do nothing, enemies don't pick up items
+		
 	}
 
 

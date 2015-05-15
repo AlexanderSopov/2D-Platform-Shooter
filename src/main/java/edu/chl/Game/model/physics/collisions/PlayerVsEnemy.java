@@ -2,6 +2,7 @@ package edu.chl.Game.model.physics.collisions;
 
 import edu.chl.Game.model.gameobject.entity.enemy.EnemyUnit;
 import edu.chl.Game.model.gameobject.entity.player.Player;
+import edu.chl.Game.model.physics.collisions.CollisionStrategy.GotHitOnThe;
 
 public class PlayerVsEnemy extends CollisionStrategy {
 
@@ -10,7 +11,7 @@ public class PlayerVsEnemy extends CollisionStrategy {
 	}
 
 	@Override
-	protected void specialTrick() {
+	protected void specialTrick(GotHitOnThe sideGotHit) {
 		// TODO Auto-generated method stub
 		
 	}

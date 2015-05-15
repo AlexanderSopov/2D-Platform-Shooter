@@ -20,7 +20,7 @@ public abstract class CollisionStrategy {
 	}
 	
 	
-	protected abstract void specialTrick();
+	protected abstract void specialTrick(GotHitOnThe sideGotHit);
 	
 	
 	
@@ -43,26 +43,28 @@ public abstract class CollisionStrategy {
 
 
 	private boolean intersectOnX() {
-			return distanceOnX() > sumOfWidths();
+			return distanceOnX() < sumOfHalfWidths();
 	}
 	
 	private int distanceOnX() {
 		return Math.abs(go2.getCenterX() - go1.getCenterX());
 	}
 	
-	private int sumOfWidths() {
-		return go1.getWidth() + go2.getWidth();
+	private int sumOfHalfWidths() {
+		return (go1.getWidth() + go2.getWidth())
+				/2;
 	}
 	
 	
 
 	
 	private boolean intersectOnY() {
-		return distanceOnY() > sumOfHeights();
+		return distanceOnY() < sumOfHalfHeights();
 	}
 
-	private int sumOfHeights() {
-		return go1.getHeight() + go2.getHeight();
+	private int sumOfHalfHeights() {
+		return (go1.getHeight() + go2.getHeight())
+				/2;
 	}
 
 	private int distanceOnY() {
@@ -71,8 +73,14 @@ public abstract class CollisionStrategy {
 
 	private void solveCollision() {
 		GotHitOnThe sideGotHit;
+		
+		// TODO:
+		if(true)
+			sideGotHit = GotHitOnThe.Top;
 		System.out.println("Got hiiit mothafacka!");
-		specialTrick();
+		// Ending of TODO
+		
+		specialTrick(sideGotHit);
 	}
 
 
