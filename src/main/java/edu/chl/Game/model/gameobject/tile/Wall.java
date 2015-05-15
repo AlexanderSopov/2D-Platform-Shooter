@@ -47,4 +47,16 @@ public class Wall extends Tile implements Observer {
 			System.out.println("oops!");
 		}
 	}
+
+	@Override
+	public void initiateSpriteSheets() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initiateSprite() {
+		// TODO Auto-generated method stub
+		
+	}
 }

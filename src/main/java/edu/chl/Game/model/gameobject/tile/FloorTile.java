@@ -46,6 +46,18 @@ public class FloorTile extends Tile implements Observer {
 	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
+
+	@Override
+	public void initiateSpriteSheets() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initiateSprite() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

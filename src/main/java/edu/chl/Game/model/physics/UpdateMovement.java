@@ -17,10 +17,16 @@ public class UpdateMovement {
 		this.unitState = en.getUnitState();
 	}
 
-	public void updateCoordinates() {
+	public void updateCoordinates_player() {
 		en.setX(en.getX() + en.getVelX());
 		en.setY(en.getY() + en.getVelY());
 	}
+	
+	public void updateCoordinates_enemy() {
+		en.setX(en.getX() + en.getVelX());
+		en.setY(en.getY() + 1);
+	}
+
 
 	public void toggleAnimate() {
 		if (en.getVelX() != 0) {

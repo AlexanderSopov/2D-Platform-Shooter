@@ -28,6 +28,7 @@ public abstract class EnemyUnit extends Entity {
 	private LoadingSprites load;
 	private UnitGraphicsRender ur;
 
+	private GravitationalProperties gravitationalProperties;
 	private int altWidth;
 	private int altHeight;
 	private AttackTimer attackTimer;
@@ -44,6 +45,7 @@ public abstract class EnemyUnit extends Entity {
 		this.ur = new UnitGraphicsRender();
 		this.initiateUnit();
 		this.aI = new AI(this, attackTimer);
+		this.gravitationalProperties = new GravitationalProperties(this);
 
 	}
 
@@ -55,10 +57,11 @@ public abstract class EnemyUnit extends Entity {
 
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
+		getUpdateMovement().updateCoordinates_enemy();
 		getUpdateMovement().toggleAnimate();
 		getUpdateMovement().updateFacing();
 		getCollisionDetection().checkForCollision();
+		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}

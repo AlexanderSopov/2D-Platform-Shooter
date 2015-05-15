@@ -16,6 +16,7 @@ import edu.chl.Game.model.gameobject.entity.enemy.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
+import edu.chl.Game.model.gameobject.tile.TileA;
 import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
@@ -104,14 +105,13 @@ public class GameHandler {
 				int red = (pixel >> 16) & 0xff;
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
-
 				
 				//	( black )
 				if (red == 0 && green == 0 && blue == 0) {
-					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this));
+					addTile(new TileA(x*64, y*64, true, Id.wall, this));
 				}
                                 
-                                //	( blue )
+                //	( blue )
 				else if (red == 0 && green == 0 && blue == 255) {
 					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
 				}
@@ -121,6 +121,12 @@ public class GameHandler {
 					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
 							Id.monster, this));
 				}
+				
+				//	( yellow )
+				if (red == 255 && green == 255 && blue == 0) {
+					addTile(new TileC(x*64, y*64, true, Id.wall, this));
+				}
+                  
 				
 				
 				

@@ -106,7 +106,7 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
+		getUpdateMovement().updateCoordinates_player();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
 		contactWithEnemy.checkForContact();
