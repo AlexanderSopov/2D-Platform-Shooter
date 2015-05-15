@@ -1,8 +1,8 @@
 package edu.chl.Game.controller;
 
-import edu.chl.Game.handler.State;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.State;
 import edu.chl.Game.view.WorldMapView;
 
 import java.awt.Cursor;

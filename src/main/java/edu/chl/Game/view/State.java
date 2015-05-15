@@ -1,4 +1,4 @@
-package edu.chl.Game.handler;
+package edu.chl.Game.view;
 
 public enum State {
 	MENU,

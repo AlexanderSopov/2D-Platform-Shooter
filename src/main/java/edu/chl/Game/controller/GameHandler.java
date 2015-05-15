@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-import edu.chl.Game.handler.Camera;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
@@ -15,6 +14,7 @@ import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.sound.Music;
 import edu.chl.Game.sound.Sound;
 import edu.chl.Game.sound.SFX;
+import edu.chl.Game.view.Camera;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.graphics.SpriteSheet;
 

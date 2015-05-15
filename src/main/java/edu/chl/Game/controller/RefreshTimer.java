@@ -4,10 +4,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Observable;
 
-import edu.chl.Game.handler.State;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.State;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
 
