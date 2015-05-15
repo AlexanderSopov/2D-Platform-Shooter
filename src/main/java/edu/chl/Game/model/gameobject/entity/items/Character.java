@@ -19,10 +19,6 @@ public interface Character{
    
    public void update();
     
-   public void eqipeItem(Item item);
-
-   public void discardItem(Item item);
-    
    public double getHealth();
    
    public double getArmor();

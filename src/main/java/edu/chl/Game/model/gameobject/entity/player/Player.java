@@ -29,7 +29,7 @@ public class Player extends Entity implements Character{
 
 	//private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
-    private ItemMap itemMap;
+        private ItemMap itemMap;
 
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
@@ -153,12 +153,12 @@ public class Player extends Entity implements Character{
         
     // this is a part of Inventory system, will soon be refactorated :)
   
-    @Override
+    
     public void eqipeItem(Item item) {
         this.itemMap.put("Item.getName()", item);
     }
 
-    @Override
+    
     public void discardItem(Item item) {
         this.itemMap.remove("Item.getName()");
     }

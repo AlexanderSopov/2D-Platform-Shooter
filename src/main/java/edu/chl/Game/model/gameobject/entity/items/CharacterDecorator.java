@@ -7,6 +7,7 @@
  */
 package edu.chl.Game.model.gameobject.entity.items;
 
+import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Item;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import java.awt.Graphics;
@@ -15,7 +16,7 @@ import java.awt.Graphics;
  *
  * @author Rasmus
  */
-public class CharacterDecorator implements Character  {
+public class CharacterDecorator  implements Character  {
     
     //All items should implement itemdecorator
     
@@ -25,6 +26,8 @@ public class CharacterDecorator implements Character  {
      *
      * @param character
      */
+ 
+    
     public CharacterDecorator(Character character){
         
         this.character = character;
@@ -40,6 +43,7 @@ public class CharacterDecorator implements Character  {
         this.character.update();
     }
     
+    /*
     @Override
     public void eqipeItem(Item item) {
         this.character.eqipeItem(item);
@@ -48,7 +52,7 @@ public class CharacterDecorator implements Character  {
     @Override
     public void discardItem(Item item) {
         this.character.discardItem(item);
-    }
+    }*/
 
     @Override
     public double getHealth() {
