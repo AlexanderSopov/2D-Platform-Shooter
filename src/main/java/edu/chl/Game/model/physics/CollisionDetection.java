@@ -84,7 +84,7 @@ public class CollisionDetection {
 	public void checkCollideWithRightWall(Tile t) {
 		if (calculateBounds.getBoundsRight().intersects(t.getBounds())) {
 			en.setVelX(0);
-			en.setX((t.getX() - t.getWidth()));
+			en.setX((t.getX() - en.getWidth()));
 		}
 	}
 

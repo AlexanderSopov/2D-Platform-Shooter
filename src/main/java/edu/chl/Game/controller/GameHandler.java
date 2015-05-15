@@ -105,27 +105,44 @@ public class GameHandler {
 				int red = (pixel >> 16) & 0xff;
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
+                                
+                //	( blue )
+				if (red == 0 && green == 0 && blue == 255) {
+					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
+				}
+				
+				//	( green )
+				if (red == 0 && green == 255 && blue == 0) {
+					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
+							Id.monster, this));
+				}
 				
 				//	( black )
 				if (red == 0 && green == 0 && blue == 0) {
 					addTile(new TileA(x*64, y*64, true, Id.wall, this));
 				}
-                                
-                //	( blue )
-				else if (red == 0 && green == 0 && blue == 255) {
-					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
+				
+				//	( teal )
+				if (red == 0 && green == 255 && blue == 255) {
+					addTile(new TileB(x*64, y*64, true, Id.wall, this));
 				}
 				
-				//	( green )
-				else if (red == 0 && green == 255 && blue == 0) {
-					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
-							Id.monster, this));
+				//	( pink )
+				if (red == 255 && green == 0 && blue == 255) {
+					addTile(new TileC(x*64, y*64, true, Id.wall, this));
 				}
 				
 				//	( yellow )
 				if (red == 255 && green == 255 && blue == 0) {
-					addTile(new TileC(x*64, y*64, true, Id.wall, this));
+					addTile(new TileD(x*64, y*64, true, Id.wall, this));
 				}
+				
+				//	( brown )
+				if (red == 125 && green == 125 && blue == 0) {
+					addTile(new TileE(x*64, y*64, true, Id.wall, this));
+				}
+				
+
                   
 				
 				

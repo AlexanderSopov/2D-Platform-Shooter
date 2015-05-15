@@ -40,7 +40,6 @@ public abstract class EnemyUnit extends Entity {
 			GameHandler handler) {
 
 		super(x, y, width, height, solid, id, handler);
-
 		this.load = new LoadingSprites();
 		this.ur = new UnitGraphicsRender();
 		this.initiateUnit();
@@ -65,13 +64,25 @@ public abstract class EnemyUnit extends Entity {
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}
+		exerciseAI();
 		if (isAttacking) {
 			iterateAttack();
 		}
-		exerciseAI();
+	}
+
+	public void exerciseAI() {
+		aI.exerciseBehaviour();
 		aI.attack();
 	}
 
+	public boolean isAttacking() {
+		return isAttacking;
+	}
+
+	public void setAttacking(boolean b) {
+		isAttacking = b;
+	}
+	
 	public void iterateMoving() {
 		getFrameIterator_moving().updateFrameCounter();
 	}
@@ -83,17 +94,6 @@ public abstract class EnemyUnit extends Entity {
 		}
 	}
 
-	public void exerciseAI() {
-		aI.exerciseBehaviour();
-	}
-
-	public boolean isAttacking() {
-		return isAttacking;
-	}
-
-	public void setAttacking(boolean b) {
-		isAttacking = b;
-	}
 	
 	// Getters And Setters
 	

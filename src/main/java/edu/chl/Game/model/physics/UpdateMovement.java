@@ -24,7 +24,7 @@ public class UpdateMovement {
 	
 	public void updateCoordinates_enemy() {
 		en.setX(en.getX() + en.getVelX());
-		en.setY(en.getY() + 1);
+		en.setY(en.getY() + 5);
 	}
 
 

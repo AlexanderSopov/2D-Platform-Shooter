@@ -3,13 +3,14 @@ package edu.chl.Game.model.gameobject;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.physics.CalculateBounds;
 import edu.chl.Game.view.graphics.SpriteSheet;
+import edu.chl.Game.model.gameobject.entity.player.*;
+import edu.chl.Game.model.gameobject.entity.entityTools.*;
 
 public abstract class GameObject implements Observer {
 	public static RefreshTimer gt = Main.game;
@@ -22,6 +23,7 @@ public abstract class GameObject implements Observer {
 	private GameHandler handler;
 	private Id id;
 	private boolean solid;
+	private WeaponProperties wp;
 
 	public GameObject(int x, int y, int width, int height, boolean solid,
 			Id id, GameHandler handler) {
@@ -126,5 +128,18 @@ public abstract class GameObject implements Observer {
 	public void setVelY(int vely) {
 		this.velY = vely;
 	}
-
+	
+	public void setWeaponProperties(Entity en, FrameIterator fi){
+		this.wp = new WeaponProperties(en, fi);
+	}
+	
+	public WeaponProperties getWeaponProperties(){
+		return wp;
+	}
+	
+	public void iterateCooldown(){
+		wp.updateCooldown();
+	}
+	
+	
 }

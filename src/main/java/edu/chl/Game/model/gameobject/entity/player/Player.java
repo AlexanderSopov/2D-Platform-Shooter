@@ -53,6 +53,7 @@ public class Player extends Entity {
 		this.frameIterator_takeDamage = new FrameIterator(this, 3, 5);
 		this.contactWithEnemy = new ContactWithEnemy(this);
 		this.gravitationalProperties = new GravitationalProperties(this);
+		this.setWeaponProperties(this, new FrameIterator(this, 1, 20));
                 
                
 	}
@@ -112,6 +113,12 @@ public class Player extends Entity {
 		contactWithEnemy.checkForContact();
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
+		
+		
+		iterateCooldown();
+		System.out.println(getWeaponProperties().getFrameIterator().getFrame());
+		
+		
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}

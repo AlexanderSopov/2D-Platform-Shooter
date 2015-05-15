@@ -10,6 +10,9 @@ RoaringBrute
 Tiles
 	Botanical Adacemy 
 		64x64	= t00	
-		320x64	= t01	
+		320x64	= t01
+		1600x64 = t02
+		384x384 = t03
+		64x384  = t04
 
 	
