@@ -1,44 +1,47 @@
 package edu.chl.Game.model.physics;
 
+/*
+ * Author: Alexander Sopov
+ */
 
 public class Vector2D{
 
-	private double x, y;
+	private int x, y;
 
 	
-	public Vector2D(double d, double e) {
+	public Vector2D(int x, int y) {
 		this.x=x;
 		this.y=y;
 	}
 
 
-	public double getX() {
+	public int getX() {
 		return x;
 	}
 
-	public double getY() {
+	public int getY() {
 		return y;
 	}
 	
 
-	public void setVector(double x, double y) {
+	public void setVector(int x, int y) {
 		this.x=x;
 		this.y=y;
 	}
 
-	public void setX(double x){
-		x=x;
+	public void setX(int x){
+		this.x=x;
 	}
 	
-	public void setY(double y){
-		y=y;
+	public void setY(int y){
+		this.y=y;
 	}
 	
 	
 	
 	//Vector Algebra
 	
-	public Vector2D scale(double s){
+	public Vector2D scale(int s){
 		return new Vector2D(x*s, y*s);
 	}
 	
@@ -66,14 +69,16 @@ public class Vector2D{
 		return new Vector2D(-x,-y);
 	}
 	
-	public String toString(){
-		return "x = " + x + ". y = " + y;
-	}
 	
-	public Vector2D makeUnitVector(){
-		double length = length();
-		return new Vector2D(x/length, y/length);
-	}
+	/*
+	 * Reserved for Vectors of type double,
+	 *
+	 *	public Vector2D makeUnitVector(){
+	 *		double length = length();
+	 *		return new Vector2D(x/length, y/length);
+	 *	}
+	 *
+	 */
 	
 	
 }

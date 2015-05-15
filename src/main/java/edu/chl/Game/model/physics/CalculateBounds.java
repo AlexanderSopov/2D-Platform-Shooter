@@ -1,16 +1,13 @@
 package edu.chl.Game.model.physics;
 
 import edu.chl.Game.model.gameobject.GameObject;
-import edu.chl.Game.model.gameobject.entity.UnitProperties;
 
 import java.awt.Rectangle;
 
 public class CalculateBounds {
-	private UnitProperties unitProperties;
         private GameObject go;
 
 	public CalculateBounds(GameObject go) {
-		this.unitProperties = go.getUnitProperties();
                 this.go = go;
 	}
 
@@ -30,7 +27,7 @@ public class CalculateBounds {
 
 	public Rectangle getBoundsLeft() {
 		return new Rectangle(go.getX(), go.getY() + 10,
-				5, unitProperties.getHeight() - 20);
+				5, go.getHeight() - 20);
 	}
 
 	public Rectangle getBoundsRight() {

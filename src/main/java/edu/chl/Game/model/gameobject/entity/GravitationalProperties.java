@@ -1,7 +1,6 @@
 package edu.chl.Game.model.gameobject.entity;
 
 public class GravitationalProperties {
-	private UnitProperties unitProperties;
 	private EntityProperties entityProperties;
 	private EntityState entityState;
         private Entity en;

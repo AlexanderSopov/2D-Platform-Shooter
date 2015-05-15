@@ -9,7 +9,6 @@ import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.physics.CalculateBounds;
-import edu.chl.Game.model.physics.PhysicalProperties;
 import edu.chl.Game.model.physics.Vector2D;
 
 /*
@@ -30,7 +29,10 @@ public abstract class GameObject implements Observer, GameInterface {
 			Id id, GameHandler handler) {
 		
 		physicalProperties = new PhysicalProperties(
-                		 new Vector2D(x,y), new Vector2D(0,0), width, height);
+                		 new Vector2D(x,y), //Position
+                		 new Vector2D(0,0), //Velocity
+                		 width, height);	//Size
+		
 		this.id = id;
 		this.solid = solid;
 		this.handler = handler;
@@ -84,7 +86,18 @@ public abstract class GameObject implements Observer, GameInterface {
 	public void setY(int y) {
 		physicalProperties.setY(y);
 	}
-
+	
+	public void setPosition(int x, int y){
+		setPosition(new Vector2D(x,y));
+	}
+	
+	public void setPosition(Vector2D v){
+		physicalProperties.setPosition(v);
+	}
+	
+	public Vector2D getPosition(){
+		return physicalProperties.getPosition();
+	}
 	public int getWidth() {
 		return physicalProperties.getWidth();
 	}
@@ -93,7 +106,7 @@ public abstract class GameObject implements Observer, GameInterface {
 		return physicalProperties.getHeight();
 	}
         
-        public double getHealthPoints(){
+    public double getHealthPoints(){
 		return healthPoints;
 	}
 	
@@ -115,6 +128,17 @@ public abstract class GameObject implements Observer, GameInterface {
 	
 	public void setVelY(int vely){
 		physicalProperties.setVelY(vely);
+	}
+	
+	public Vector2D getVelocity(){
+		return physicalProperties.getVelocity();
+	}
+	
+	public void setVelocity(int x, int y){
+		setVelocity(new Vector2D(x,y));
+	}
+	public void setVelocity(Vector2D v){
+		physicalProperties.setVelocity(v);
 	}
 
 }

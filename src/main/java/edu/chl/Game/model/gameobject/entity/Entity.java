@@ -60,9 +60,26 @@ public abstract class Entity extends GameObject {
 	public FrameIterator getFrameIterator() {
 		return frameIterator;
 	}
-        
         public UpdateMovement getUpdateMovement() {
 		return this.updateMovement;
 	}
+    
+        
+    @Override
+    public void update(){
+    	toggleAnimate();
+    	updateCoordinates();
+    }
+    
+    private void toggleAnimate() {
+    	if (getVelX() != 0) {
+    		getUnitState().setAnimate(true);
+    	} else {
+    		getUnitState().setAnimate(false);
+    	}
 
+    }
+	private void updateCoordinates() {
+		setPosition(getPosition().addWith(getVelocity()));
+	}
 }

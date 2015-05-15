@@ -1,7 +1,7 @@
 package edu.chl.Game.model.gameobject;
 
 public enum Id {
-	player,
+		player,
         wall,
         monster,
         cursor,

@@ -34,8 +34,8 @@ public class Gun extends Items {
 	
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();		
-		getUnitProperties().setVelX(2);
+		super.update();
+		setVelX(2);
 		getCollisionDetection().checkForCollision();
 		getEntityProperties().setGravity(1.0);
 		gravitationalProperties.fallingMechanics();
@@ -47,13 +47,13 @@ public class Gun extends Items {
 		
 		switch(getDirection()) {
 			case 0:
-				getUnitProperties().setVelX(0);
+				setVelX(0);
 				break;
 			case 1:
-				getUnitProperties().setVelX(-2);
+				setVelX(-2);
 				break;
 			case 2:
-				getUnitProperties().setVelX(2);
+				setVelX(2);
 				break;
 		}
 	}
