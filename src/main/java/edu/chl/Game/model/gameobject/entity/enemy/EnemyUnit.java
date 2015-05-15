@@ -96,7 +96,6 @@ public class EnemyUnit extends Entity {
 	@Override
 	public void update() {
 		super.update();
-		getCollisionDetection().checkForCollision();
 		if (getUnitState().isAnimate()) {
 			frameIteration();
 		}

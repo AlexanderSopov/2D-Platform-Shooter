@@ -1,6 +1,7 @@
 package edu.chl.Game.model.gameobject.entity;
 
 import java.awt.Rectangle;
+import java.util.LinkedList;
 
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
@@ -27,7 +28,6 @@ public abstract class Entity extends GameObject {
 		renderClass1 = new EntityRender();
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
-		collisionDetection = new CollisionDetection(this);
 
 	}
 
@@ -37,10 +37,6 @@ public abstract class Entity extends GameObject {
 
 	public EntityState getEntityState() {
 		return entityState;
-	}
-
-	public CollisionDetection getCollisionDetection() {
-		return collisionDetection;
 	}
 
 	public void remove() {
@@ -65,9 +61,17 @@ public abstract class Entity extends GameObject {
     	addGravity();
     	toggleAnimate();
     	updateCoordinates();
+    	new CollisionDetection(this, getNearbyGameObjects());
     }
     
-    private void addGravity(){
+    private LinkedList<GameObject> getNearbyGameObjects() {
+    	LinkedList<GameObject> list = new LinkedList<GameObject>();
+    	list.addAll(getHandler().getEntityList());
+    	list.addAll(getHandler().getTileList());
+		return list;
+	}
+
+	private void addGravity(){
     	setVelocity(getVelocity().addWith(Gravity.GRAVITY));
     }
     

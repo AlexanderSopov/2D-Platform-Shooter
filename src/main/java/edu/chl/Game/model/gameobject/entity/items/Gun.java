@@ -36,7 +36,6 @@ public class Gun extends Items {
 	public void update() {
 		super.update();
 		setVelX(2);
-		getCollisionDetection().checkForCollision();
 		getEntityProperties().setGravity(1.0);
 		gravitationalProperties.fallingMechanics();
 	}

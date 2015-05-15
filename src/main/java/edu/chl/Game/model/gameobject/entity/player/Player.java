@@ -104,7 +104,6 @@ public class Player extends Entity {
 	@Override
 	public void update() {
 		super.update();
-		getCollisionDetection().checkForCollision();
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
