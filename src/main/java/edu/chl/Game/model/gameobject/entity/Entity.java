@@ -7,6 +7,7 @@ import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.physics.CollisionDetection;
+import edu.chl.Game.model.physics.Gravity;
 import edu.chl.Game.view.graphics.EntityRender;
 
 public abstract class Entity extends GameObject {
@@ -61,8 +62,13 @@ public abstract class Entity extends GameObject {
         
     @Override
     public void update(){
+    	addGravity();
     	toggleAnimate();
     	updateCoordinates();
+    }
+    
+    private void addGravity(){
+    	setVelocity(getVelocity().addWith(Gravity.GRAVITY));
     }
     
     private void toggleAnimate() {
