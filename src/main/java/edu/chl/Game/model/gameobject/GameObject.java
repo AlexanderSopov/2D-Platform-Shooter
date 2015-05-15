@@ -82,6 +82,14 @@ public abstract class GameObject implements Observer, GameInterface {
 	public Vector2D getCenter(){
 		return physicalProperties.getCenter();
 	}
+	
+	public int getCenterX(){
+		return getCenter().getX();
+	}
+	
+	public int getCenterY(){
+		return getCenter().getY();
+	}
 
 	public void setX(int x) {
 		physicalProperties.setX(x);

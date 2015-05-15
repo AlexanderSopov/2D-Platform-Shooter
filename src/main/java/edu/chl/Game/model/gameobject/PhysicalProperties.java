@@ -27,10 +27,10 @@ public class PhysicalProperties {
 	}
 	
 	protected Vector2D getCenter(){
-		return position.addWith(new Vector2D(
+		return position.addWith(
 				width/2,
 				height/2
-				));
+				);
 	}
 	
 	protected int getX() {

@@ -57,7 +57,7 @@ public class CollisionSolver {
 		if (go instanceof Tile)
 			strategy = new EntityVsTile(en, (Tile)go);
 		else if (go instanceof Item)
-			break;								//Do nothing, enemies don't pick up items
+			;								//Do nothing, enemies don't pick up items
 		else if (go instanceof EnemyUnit)
 			strategy = new EnemyVsPlayer(en, (EnemyUnit)go);
 
