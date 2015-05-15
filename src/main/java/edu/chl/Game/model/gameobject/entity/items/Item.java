@@ -1,19 +1,19 @@
-package edu.chl.Game.model.gameobject;
+package edu.chl.Game.model.gameobject.entity.items;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import edu.chl.Game.controller.GameHandler;
+import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.entity.Entity;
 
 
-public abstract class Item extends GameObject{
+public abstract class Item extends Entity{
 	
 	private final String NAME;
 	private String info;
 	private BufferedImage buffImage;//y
 	
-	//Temporary
-	private int x,y, width,height; 
 	
 	Item(int x, int y, int width, int height, Id id, GameHandler handeler,String name, String info, BufferedImage buffImage){
 		super(x,y,width,height,true ,id ,handeler);

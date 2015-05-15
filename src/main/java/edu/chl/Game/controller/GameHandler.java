@@ -94,17 +94,7 @@ public class GameHandler {
 		}
 	}
 
-	public void update() {
-		for (Entity e : getEntityList()) {
-			e.update();
-		}
 
-		for (Tile t : getTileList()) {
-			t.update();
-		}
-
-
-	}
 
 	public void createSheet() {
 		

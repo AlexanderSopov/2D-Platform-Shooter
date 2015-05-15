@@ -10,7 +10,6 @@ import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.FrameCounter;
 import edu.chl.Game.model.gameobject.entity.GravitationalProperties;
 import edu.chl.Game.model.gameobject.tile.Tile;
-import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.Sprite;
 
@@ -18,7 +17,6 @@ public class Player extends Entity {
 
 	private Sprite player[] = new Sprite[40];
 	private Sprite recieveDamage[] = new Sprite[10];
-	private ContactWithEnemy contactWithEnemy;
 	private GravitationalProperties gravitationalProperties;
 	private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
@@ -53,8 +51,6 @@ public class Player extends Entity {
 		}
 
 		this.frameCounter = new FrameCounter(3, 5);
-		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
-				getCalculateBounds());
 		this.gravitationalProperties = new GravitationalProperties(this);
 	}
 
@@ -107,10 +103,8 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
-		getUpdateMovement().toggleAnimate();
+		super.update();
 		getCollisionDetection().checkForCollision();
-		contactWithEnemy.checkForContact();
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
@@ -180,12 +174,12 @@ public class Player extends Entity {
 	}
 
 	public void recieveDamage(double damage) {
-		System.out.println(getUnitProperties().getHealthPoints());
+		System.out.println(getHealthPoints());
 		if (!isRecievingDamage) {
 			isRecievingDamage = true;
 		}
-		getUnitProperties().setHealthPoints(
-				getUnitProperties().getHealthPoints() - damage);
+		setHealthPoints(
+				getHealthPoints() - damage);
 	}
 
 }

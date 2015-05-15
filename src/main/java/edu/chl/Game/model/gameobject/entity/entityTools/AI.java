@@ -10,18 +10,15 @@ import edu.chl.Game.controller.GameHandler;
 public class AI {
 	
 	private GameHandler handler;
-	private UnitProperties uP;
 	private int playerXCoordinate;
 	private AttackTimer attackTimer;
 	private OpponentUnitProperties op;
-
 	private EntityState es;
-	
     private Entity en;
 
-	public AI(Entity en,AttackTimer attackTimer, OpponentUnitProperties op){
-                this.en = en;
-		this.uP = en.getUnitProperties();
+	public AI(Entity en, AttackTimer attackTimer, OpponentUnitProperties op){
+        
+		this.en = en;
 		this.handler = en.getHandler();
 		this.attackTimer = attackTimer;
 		this.op = op;
@@ -37,16 +34,16 @@ public class AI {
 
 		}
 		
-		if( (handler.getPlayer().getX()-50) < uP.getX() && uP.getX() < (handler.getPlayer().getX()+50) ){
-			uP.setVelX(0);
+		if( (handler.getPlayer().getX()-50) < en.getX() && en.getX() < (handler.getPlayer().getX()+50) ){
+			en.setVelX(0);
 		}
 		updateFacingDirection();
 	}
 	
 	public void updateFacingDirection(){
-		if(uP.getVelX() < 0){
+		if(en.getVelX() < 0){
 			es.setFacingDirection(FacingDirection.FacingLeft);
-		} else if(0 < uP.getVelX()) {
+		} else if(0 < en.getVelX()) {
 			es.setFacingDirection(FacingDirection.FacingRight);
 		}
 	}
