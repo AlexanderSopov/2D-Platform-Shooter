@@ -31,7 +31,6 @@ public abstract class EnemyUnit extends Entity {
 	private GravitationalProperties gravitationalProperties;
 	private int altWidth;
 	private int altHeight;
-	private AttackTimer attackTimer;
 	private AI aI;
 	private double attackDamage;
 	private boolean isAttacking = false;
@@ -43,7 +42,7 @@ public abstract class EnemyUnit extends Entity {
 		this.load = new LoadingSprites();
 		this.ur = new UnitGraphicsRender();
 		this.initiateUnit();
-		this.aI = new AI(this, attackTimer);
+		this.aI = new AI(this);
 		this.gravitationalProperties = new GravitationalProperties(this);
 
 	}
@@ -72,7 +71,6 @@ public abstract class EnemyUnit extends Entity {
 
 	public void exerciseAI() {
 		aI.exerciseBehaviour();
-		aI.attack();
 	}
 
 	public boolean isAttacking() {
@@ -148,14 +146,6 @@ public abstract class EnemyUnit extends Entity {
 
 	public void setAttackDamage(double attackDamage) {
 		this.attackDamage = attackDamage;
-	}
-
-	public AttackTimer getAttackTimer() {
-		return attackTimer;
-	}
-
-	public void setAttackTimer(AttackTimer attackTimer) {
-		this.attackTimer = attackTimer;
 	}
 
 	public int getAltWidth(){

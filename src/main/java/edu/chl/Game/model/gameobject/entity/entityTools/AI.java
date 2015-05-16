@@ -12,26 +12,29 @@ public class AI {
 
 	private GameHandler handler;
 	private int playerXCoordinate;
-	private AttackTimer attackTimer;
+	private Cooldown cd;
 	private EntityState es;
 	private EnemyUnit eu;
 	private UnitAttraction unitAttraction;
 
-	public AI(EnemyUnit eu, AttackTimer attackTimer) {
+	public AI(EnemyUnit eu) {
 		this.eu = eu;
 		this.handler = eu.getHandler();
-		this.attackTimer = attackTimer;
 		this.es = eu.getEntityState();
 		unitAttraction = new UnitAttraction(400);
+		this.cd = new Cooldown();
 	}
 
 	public void exerciseBehaviour() {
 		searchPremesis();
+		attack();
+		cd.updateCooldown();
 	}
 
 	public void searchPremesis() {
 		if (!unitAttraction.targetIsFound()) {
-			unitAttraction.searchAttractionArea(eu.getX(), handler.getPlayer().getX());
+			unitAttraction.searchAttractionArea(eu.getX(), handler.getPlayer()
+					.getX());
 		}
 		unitIsAttracted();
 	}
@@ -74,24 +77,30 @@ public class AI {
 		playerXCoordinate = handler.getPlayer().getX();
 	}
 
+	public boolean withinAttackRange() {
+		if (playerXCoordinate <= eu.getX()) {
+			return ((eu.getX() - playerXCoordinate) <= 100);
+		} else {
+			return ((playerXCoordinate - eu.getX()) <= 100);
+		}
+	}
+
 	public void attack() {
-		attackTimer.updateAttackTimer();
-		if (attackTimer.isReadyToAttack()) {
-			if (playerXCoordinate <= eu.getX()) {
-				if ((eu.getX() - playerXCoordinate) <= 100) {
-					dealDamage();
-				}
-			} else {
-				if ((playerXCoordinate - eu.getX()) <= 100) {
-					dealDamage();
-				}
+		if (withinAttackRange()) {
+			if (cd.attackIsReady()) {
+				dealDamage();
 			}
+			activateCooldown();
 		}
 	}
 
 	public void dealDamage() {
 		eu.setAttacking(true);
 		handler.getPlayer().takeDamage((eu.getAttackDamage()));
+	}
+
+	public void activateCooldown() {
+		cd.activateCooldown();
 	}
 
 }

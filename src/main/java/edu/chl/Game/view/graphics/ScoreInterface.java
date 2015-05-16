@@ -18,7 +18,7 @@ public class ScoreInterface {
 	
 	public ScoreInterface(Entity en, double value) {
 		this.en = en;
-		this.fi = new FrameIterator(en, 3, 40);
+		this.fi = new FrameIterator(3, 40);
 		this.value = value;
 		this.display_y = en.getY() - 30;
 		this.f = new Font("serif", Font.BOLD, 25);

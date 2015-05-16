@@ -28,16 +28,9 @@ public class GameHandler {
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private Player player;
 	
-	private SpriteSheet sheetTile;
 	private SpriteSheet sheetPlayer;
-	private SpriteSheet sheetMonster;
-	private SpriteSheet sheetTexture;
 	private BufferedImage mapImage;
-	private SpriteSheet sheetEnemyUnit0;
-	private SpriteSheet sheetDerangedBeast;
-	private SpriteSheet sheetDerangedBeast_AttackAnimation;
 	private SpriteSheet sheetPlayer_RecieveDamage;
-	private SpriteSheet sheetRoaringBrute;
 	private boolean changeHasHappened;
         
         private int ref;
@@ -70,21 +63,9 @@ public class GameHandler {
 		
 	}
 
-
-
 	public void createSheet() {
-		
-		sheetTile = new SpriteSheet("/floorTile.png");
-
 		sheetPlayer = new SpriteSheet("/SH_Player.png");
-		
-		sheetDerangedBeast = new SpriteSheet("/SpriteSheet_DerangedBeast.png");
-
-		sheetDerangedBeast_AttackAnimation = new SpriteSheet("/db_aa.png");
-
 		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
-		
-		sheetRoaringBrute = new SpriteSheet("/SH_RB.png");
 	}
 
 	public void createMap() {
@@ -163,7 +144,7 @@ public class GameHandler {
 		}
 		
 		
-
+		System.out.println("hej");
 	}
         
         public void resetRef(){
@@ -218,37 +199,34 @@ public class GameHandler {
 		return sheetPlayer;
 	}
 
-	public SpriteSheet getSheetMonster() {
-		return sheetMonster;
-	}
+	//public SpriteSheet getSheetMonster() {
+	//	return sheetMonster;
+	//}
 
-	public SpriteSheet getSheetTile() {
-		return sheetTile;
-	}
+	//public SpriteSheet getSheetTile() {
+	//	return sheetTile;
+	//}
 
-	public SpriteSheet getSheetEnemyUnitGrid0() {
-		return sheetEnemyUnit0;
-	}
+	//public SpriteSheet getSheetEnemyUnitGrid0() {
+	//	return sheetEnemyUnit0;
+	//}
 
-	public SpriteSheet getSheetDerangedBeast() {
-		return sheetDerangedBeast;
-	}
+	//public SpriteSheet getSheetDerangedBeast() {
+	///	return sheetDerangedBeast;
+	//}
 
 	public Player getPlayer() {
 		return player;
 	}
 
-	public SpriteSheet getSheetDerangedBeast_AttackAnimation() {
-		return sheetDerangedBeast_AttackAnimation;
-	}
+	//public SpriteSheet getSheetDerangedBeast_AttackAnimation() {
+	//	return sheetDerangedBeast_AttackAnimation;
+	//}
 
 	public SpriteSheet getSheetPlayer_RecieveDamage() {
 		return sheetPlayer_RecieveDamage;
 	}
-	
-	public SpriteSheet getSheetRoaringBrute() {
-		return sheetRoaringBrute;
-	}
+
 	
 	public GameCursor getGameCursor(){
 		return c;

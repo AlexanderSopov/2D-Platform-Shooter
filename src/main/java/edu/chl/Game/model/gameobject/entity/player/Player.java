@@ -49,11 +49,11 @@ public class Player extends Entity {
 					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
 		}
 		
-		this.frameIterator_moving = new FrameIterator(this, 2, 20);
-		this.frameIterator_takeDamage = new FrameIterator(this, 3, 5);
+		this.frameIterator_moving = new FrameIterator(2, 20);
+		this.frameIterator_takeDamage = new FrameIterator(3, 5);
 		this.contactWithEnemy = new ContactWithEnemy(this);
 		this.gravitationalProperties = new GravitationalProperties(this);
-		this.setWeaponProperties(this, new FrameIterator(this, 1, 20));
+		this.setWeaponProperties(this, new FrameIterator(1, 20));
                 
                
 	}
@@ -107,6 +107,7 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
+		
 		getUpdateMovement().updateCoordinates_player();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
@@ -116,7 +117,6 @@ public class Player extends Entity {
 		
 		
 		iterateCooldown();
-		System.out.println(getWeaponProperties().getFrameIterator().getFrame());
 		
 		
 		if (getUnitState().isAnimate()) {

@@ -25,9 +25,9 @@ public abstract class Entity extends GameObject {
 	private FrameIterator frameIterator_moving;
 	private FrameIterator frameIterator_attack;
 	private ScoreProcess scoreProcess;
+	private HealthBar healthBar;
 
-	public Entity(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler) {
+	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
 		renderClass = new EntityRender();
@@ -37,6 +37,7 @@ public abstract class Entity extends GameObject {
 		entityProperties = new EntityProperties();
 		collisionDetection = new CollisionDetection(this);
 		scoreProcess = new ScoreProcess();
+		this.healthBar = new HealthBar(this);
 
 	}
 	
