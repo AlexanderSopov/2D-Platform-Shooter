@@ -18,6 +18,8 @@ public abstract class Entity extends GameObject {
 	private EntityRender renderClass;
 	private EntityRender renderClass1;
 	private FrameIterator frameIterator;
+	private boolean isBumpingGround;
+	private boolean isTryingToJump;
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -27,6 +29,8 @@ public abstract class Entity extends GameObject {
 		renderClass1 = new EntityRender();
 		entityState = new EntityState(FacingDirection.FacingRight);
 		entityProperties = new EntityProperties();
+		isBumpingGround(false);
+		isTryingToJump(false);
 
 	}
 
@@ -59,11 +63,21 @@ public abstract class Entity extends GameObject {
     public void update(){
     	addGravity();
     	toggleAnimate();
+    	jump();
     	updateCoordinates();
     	CollisionSolver.solveCollisions(this, getNearbyGameObjects());
     }
     
-    private LinkedList<GameObject> getNearbyGameObjects() {
+    private void jump() {
+		if(isTryingToJump)
+			if(isBumpingGround){
+				setVelY(getVelY() -5);
+				if(getVelY() < -21)
+					isBumpingGround(false);
+			}
+	}
+
+	private LinkedList<GameObject> getNearbyGameObjects() {
     	LinkedList<GameObject> list = new LinkedList<GameObject>();
     	list.addAll(getHandler().getEntityList());
     	list.addAll(getHandler().getTileList());
@@ -83,6 +97,18 @@ public abstract class Entity extends GameObject {
 
     }
 	private void updateCoordinates() {
-		setPosition(getPosition().addWith(getVelocity()));
+		if(Math.abs(getVelY())>1)
+			setPosition(getPosition().addWith(getVelocity()));
+		else
+			setX(getX()+getVelX());
+	}
+
+	public void isBumpingGround(boolean b) {
+		isBumpingGround = b;
+	}
+
+	public void isTryingToJump(boolean b) {
+		isTryingToJump = b;
+		
 	}
 }

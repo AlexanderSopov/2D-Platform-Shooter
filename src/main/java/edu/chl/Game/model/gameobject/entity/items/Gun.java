@@ -5,7 +5,6 @@ import java.util.Random;
 
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.model.gameobject.entity.GravitationalProperties;
 import edu.chl.Game.view.graphics.Sprite;
 
 /**
@@ -15,7 +14,6 @@ public class Gun extends Items {
 	
 	private Random rand;
 	private Sprite guns;
-	private GravitationalProperties gravitationalProperties;
 	private int direction;
 	
 	public Gun(int x, int y, int width, int height, boolean solid, Id id,
@@ -23,7 +21,6 @@ public class Gun extends Items {
 		super(x, y, width, height, solid, id, handler);
 		
 		guns = new Sprite(handler.getSheetGun(), 0, 0, 30, 19);
-		gravitationalProperties =  new GravitationalProperties(this);
 		rand = new Random();
 		setDirection(rand.nextInt(2));
 	}
@@ -37,7 +34,6 @@ public class Gun extends Items {
 		super.update();
 		setVelX(2);
 		getEntityProperties().setGravity(1.0);
-		gravitationalProperties.fallingMechanics();
 	}
 	/**
 	 * Set a random direction for the object

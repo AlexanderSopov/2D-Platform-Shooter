@@ -31,5 +31,4 @@ public abstract class Tile extends GameObject {
 	public TileState getTileState(){
 		return this.tileState;
 	}
-
 }

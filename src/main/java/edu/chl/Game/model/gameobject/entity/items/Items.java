@@ -19,7 +19,6 @@ public abstract class Items extends Entity {
 	public Items(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
-		
 	}
 	
 	public void addItems(Items i) {

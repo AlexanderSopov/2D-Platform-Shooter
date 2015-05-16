@@ -5,15 +5,15 @@ import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.physics.collisions.CollisionStrategy.GotHitOnThe;
 
 public class PlayerVsEnemy extends CollisionStrategy {
-
+	private Player p;
 	public PlayerVsEnemy(Player p, EnemyUnit go) {
 		super(p, go);
+		this.p=p;
 	}
 
 	@Override
 	protected void specialTrick(GotHitOnThe sideGotHit) {
-		// TODO Auto-generated method stub
-		
+		if(sideGotHit == GotHitOnThe.Bottom)
+			p.isBumpingGround(true);
 	}
-
 }

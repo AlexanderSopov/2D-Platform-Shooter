@@ -1,5 +1,7 @@
 package edu.chl.Game.model.physics.collisions;
 
+import java.awt.Rectangle;
+
 import edu.chl.Game.model.gameobject.GameObject;
 /*
  * Author: Alexander Sopov
@@ -33,7 +35,7 @@ public abstract class CollisionStrategy {
 
 	
 	
-	private boolean areColliding() {
+	protected boolean areColliding() {
 		if(intersectOnX())
 			if(intersectOnY())
 				return true;
@@ -85,24 +87,51 @@ public abstract class CollisionStrategy {
 		GotHitOnThe side = whichSideGotHit();
 		correctPosition(side);
 		
-		System.out.println("Got hiiit on the " + side + ", mothafacka!");
+		//System.out.println("Got hiiit on the " + side + ", mothafacka!");
+	
 		specialTrick(side);
 	}
 
+	
 	private GotHitOnThe whichSideGotHit() {
-		if(collidedFromTop())
+		Rectangle entity = BoundingBoxes.getBounds(go1);
+		if(collidedOnBottom(entity))
 			return GotHitOnThe.Bottom;
-		if(collidedFromBottom())
+		if(collidedOnTop(entity))
 			return GotHitOnThe.Top;
-		if(collidedFromLeft())
+		if(collidedOnRight(entity))
 			return GotHitOnThe.Right;
 		else
 			return GotHitOnThe.Left;
 	}
 
-	private void correctPosition(GotHitOnThe side) {
-		// TODO Auto-generated method stub
+	private boolean collidedOnRight(Rectangle entity) {
+		return entity.intersects(BoundingBoxes.getBoundsLeft(go2));
+	}
+
+
+	private boolean collidedOnTop(Rectangle entity) {
+		return entity.intersects(BoundingBoxes.getBoundsBottom(go2));
+	}
+
+
+	private boolean collidedOnBottom(Rectangle entity) {
 		
+		return entity.intersects(BoundingBoxes.getBoundsTop(go2));
+	}
+
+
+	private void correctPosition(GotHitOnThe side) {
+		if (side == GotHitOnThe.Bottom){
+			go1.setY(go2.getY()-go1.getHeight());
+			go1.setVelY(-1);
+		}else if (side == GotHitOnThe.Top)
+			go1.setY(go2.getY()+go2.getHeight());
+		else if (side == GotHitOnThe.Right)
+			go1.setX(go2.getX()-go1.getWidth());
+		else if (side == GotHitOnThe.Left)
+			go1.setX(go2.getX()+go2.getWidth());
+
 	}
 
 

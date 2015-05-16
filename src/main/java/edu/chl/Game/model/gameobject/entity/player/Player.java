@@ -8,7 +8,6 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.FrameCounter;
-import edu.chl.Game.model.gameobject.entity.GravitationalProperties;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.Sprite;
@@ -17,7 +16,6 @@ public class Player extends Entity {
 
 	private Sprite player[] = new Sprite[40];
 	private Sprite recieveDamage[] = new Sprite[10];
-	private GravitationalProperties gravitationalProperties;
 	private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
 	private ProjectileDetection pd;
@@ -51,7 +49,6 @@ public class Player extends Entity {
 		}
 
 		this.frameCounter = new FrameCounter(3, 5);
-		this.gravitationalProperties = new GravitationalProperties(this);
 	}
 
 	public void initiateProjectileDetection() {
@@ -104,8 +101,10 @@ public class Player extends Entity {
 	@Override
 	public void update() {
 		super.update();
-		gravitationalProperties.jumpingMechanics();
-		gravitationalProperties.fallingMechanics();
+
+		//gravitationalProperties.jumpingMechanics();
+		//gravitationalProperties.fallingMechanics();
+
 		if (getUnitState().isAnimate()) {
 			iterateThroughFrames();
 		}

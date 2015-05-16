@@ -33,10 +33,7 @@ public class KeyInput implements KeyListener {
 					switch (key) {
 					case KeyEvent.VK_W:
 					case 32:
-						if (!en.getEntityState().isJumping()) {
-							en.getEntityState().setJumping(true);
-							en.getEntityProperties().setGravity(5.0);
-						}
+						en.isTryingToJump(true);
 						break;
 					case KeyEvent.VK_A:
 						en.setVelX(-5);
@@ -64,8 +61,18 @@ public class KeyInput implements KeyListener {
 		if (RefreshTimer.state == State.GAME) {
 			for (Entity en : handler.getEntityList()) {
 				if (en.getUnitState().getId() == Id.player) {
-					en.setVelY(0);
-					en.setVelX(0);
+					switch (e.getKeyCode()) {
+					case KeyEvent.VK_W:
+					case 32:
+						en.isTryingToJump(false);
+						break;
+					case KeyEvent.VK_A:
+						en.setVelX(0);
+						break;
+					case KeyEvent.VK_D:
+						en.setVelX(0);
+						break;
+					}
 				}
 			}
 		}

@@ -8,8 +8,8 @@ import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.entity.*;
-import edu.chl.Game.model.physics.CalculateBounds;
 import edu.chl.Game.model.physics.Vector2D;
+import edu.chl.Game.model.physics.collisions.BoundingBoxes;
 
 /*
  * Author: Alexander Sopov, Oliver Tunberg, Rasmus Andersson
@@ -18,12 +18,12 @@ import edu.chl.Game.model.physics.Vector2D;
 public abstract class GameObject implements Observer, GameInterface {
 	public static RefreshTimer gt = Main.game;
 	private UnitState unitState;
-	private CalculateBounds calculateBounds;
 	private PhysicalProperties physicalProperties;
 	private double healthPoints;
 	private GameHandler handler;
 	private Id id;
-	private boolean solid; 
+	private boolean solid;
+	
 
 	public GameObject(int x, int y, int width, int height, boolean solid,
 			Id id, GameHandler handler) {
@@ -37,7 +37,6 @@ public abstract class GameObject implements Observer, GameInterface {
 		this.solid = solid;
 		this.handler = handler;
 		this.unitState = new UnitState(id, solid);
-		this.calculateBounds = new CalculateBounds(this);
 	}
 
 	public void update(Observable o, Object arg) {
@@ -55,17 +54,14 @@ public abstract class GameObject implements Observer, GameInterface {
 	public abstract void update();
 
 	public abstract void remove();
+	
 
 
 	public UnitState getUnitState() {
 		return unitState;
 	}
 
-	
 
-	public CalculateBounds getCalculateBounds() {
-		return calculateBounds;
-	}
         
         public GameHandler getHandler(){
             return this.handler;
