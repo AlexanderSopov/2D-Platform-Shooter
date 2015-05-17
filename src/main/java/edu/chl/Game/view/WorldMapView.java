@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
+import edu.chl.Game.view.graphics.MovingCharacter;
+
 /**
  * Temporary class for the map
  * @author Martin Tran
@@ -25,9 +27,10 @@ public class WorldMapView {
 	public Rectangle character = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
 	
 	private Font fnt;
+	private MovingCharacter movingChar;
 	
-	public WorldMapView(){
-		
+	public WorldMapView(MovingCharacter movingChar){
+		this.movingChar = movingChar;
 	}
 	
 	public void render(Graphics g){
@@ -60,6 +63,7 @@ public class WorldMapView {
 		drawArrow(g2, level3, level4, "UpToDown");
 		drawArrow(g2, level4, level5, "DownToUp");
 		
+		movingChar.renderAnimate(g, (int)level1.getCenterX()-15, (int)level1.getCenterY()-15, 32, 32);
 	}
 	
 	private void drawRect(Graphics2D g, Rectangle r, String Name, String type){
