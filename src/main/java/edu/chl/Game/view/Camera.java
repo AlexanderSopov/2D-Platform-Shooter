@@ -13,11 +13,12 @@ public class Camera {
 	
 	public void update(Entity player) {
 		pl = player;
-		setX(pl.getX() + Frame.getWidth()/2);
+		setX(Frame.WIDTH  / 2 		- player.getX());
+		setY(Frame.HEIGHT / 2 + 100 - player.getY());
 		
 		moveArea = new Rectangle(x+200, y+200, 600, 400);
-		if (playerOutOfBounds())
-			correct();*/
+		//if (playerOutOfBounds())
+			//correct();
 	}
 	
 	private boolean playerOutOfBounds() {
