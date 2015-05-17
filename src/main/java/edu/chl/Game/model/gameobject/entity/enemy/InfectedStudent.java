@@ -22,14 +22,36 @@ public class InfectedStudent extends EnemyUnit {
 
 	@Override
 	public void initiateUnit() {
+		initiateUnitTitle();
 		initiateUnitMeasurement();
 		initiateSpriteSheets();
 		initiateSpriteArrays();
 		setAlternativeMeasurement();
 		initiateProperties();
 		loadSprites();
+	}	
+	
+	@Override
+	public void initiateUnitTitle() {
+		setUnitTitle("Infected Student");
 	}
 	
+	@Override
+	public void initiateUnitMeasurement() {
+		getUnitMeasurement().setNumberOfSprites_move(24);
+		getUnitMeasurement().setNumberOfSprites_attack(32);
+		getUnitMeasurement().setStrikeFrame(2);
+		getUnitMeasurement().setAltWidth(96);
+		getUnitMeasurement().setAltHeight(90);
+		getUnitMeasurement().setDelay_move(3);
+		getUnitMeasurement().setLimit_move(12);
+		getUnitMeasurement().setDelay_attack(1);
+		getUnitMeasurement().setLimit_attack(16);
+		getUnitMeasurement().setStrikeFrame(8);
+		setAltWidth(100);
+		setAltHeight(100);
+	}
+
 	@Override
 	public void initiateSpriteSheets() {
 		setSheetMovingAnimation(new SpriteSheet("/is00.png"));
@@ -52,25 +74,12 @@ public class InfectedStudent extends EnemyUnit {
 	public void loadSprites() {
 		int valueA = getUnitMeasurement().getNumberOfSprite_move();
 		int valueB = getUnitMeasurement().getNumberOfSprite_attack();
-		int valueC = getUnitMeasurement().getAltWidth();
-		int valueD = getUnitMeasurement().getAltHeight();
+		int valueC = getAltWidth();
+		int valueD = getAltHeight();
 		setArrayMovingAnimation( getLoad().loadSprites(getSheetMovingAnimation(), getArrayMovingAnimation(), valueA, getWidth(), getHeight()) );
 		setArrayAttackAnimation( getLoad().loadSprites(getSheetAttackAnimation(), getArrayAttackAnimation(), valueB, valueC, valueD) );
 	}
 	
-	@Override
-	public void initiateUnitMeasurement() {
-		getUnitMeasurement().setNumberOfSprites_move(24);
-		getUnitMeasurement().setNumberOfSprites_attack(8);
-		getUnitMeasurement().setStrikeFrame(2);
-		getUnitMeasurement().setAltWidth(96);
-		getUnitMeasurement().setAltHeight(90);
-		getUnitMeasurement().setDelay_move(3);
-		getUnitMeasurement().setLimit_move(12);
-		getUnitMeasurement().setDelay_attack(60);
-		getUnitMeasurement().setLimit_attack(4);
-	}
-
 	@Override
 	public void initiateProperties() {
 		int valueA = getUnitMeasurement().getDelay_move();
@@ -80,9 +89,10 @@ public class InfectedStudent extends EnemyUnit {
 		setFrameIterator_moving(new FrameIterator(valueA, valueB));
 		setFrameIterator_attack(new FrameIterator(valueC, valueD));
 		// healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_ / attackRate:_ /
-		setUnitValues(40, 0, 0, 25, 60);
+		setUnitValues(40, 0, 0, 1, 60);
 
 	}
+
 
 
 

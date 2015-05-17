@@ -10,7 +10,6 @@ public class HealthBar {
 	private Sprite[] arrayHealthBars;
 	private Entity en;
 
-	
 	public HealthBar(Entity en){
 		this.load = new LoadingSprites();
 		arrayHealthBars = new Sprite[10];

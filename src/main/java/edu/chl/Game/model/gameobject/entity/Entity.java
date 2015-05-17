@@ -29,6 +29,7 @@ public abstract class Entity extends GameObject {
 	private HealthBar healthBar;
 	private UnitValues unitValues;
 	private UnitMeasurement um;
+	private String unitTitle;
 
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
@@ -131,6 +132,15 @@ public abstract class Entity extends GameObject {
 	public FrameIterator getFrameIterator_hurting() {
 		return frameIterator_hurt;
 	}
+	public UnitValues getUnitValues(){
+		return unitValues;
+	}
+	public UnitMeasurement getUnitMeasurement(){
+		return um;
+	}
+	public String getUnitTitle(){
+		return unitTitle;
+	}
 	public void setFrameIterator_moving(FrameIterator fi) {
 		this.frameIterator_moving = fi;
 	}
@@ -143,11 +153,8 @@ public abstract class Entity extends GameObject {
 	public void setUnitValues(int maxHp, int maxEp, int arm, int aD, int aR){
 		this.unitValues = new UnitValues(maxHp, maxEp, arm, aD, aR);
 	}
-	public UnitValues getUnitValues(){
-		return unitValues;
+	public void setUnitTitle(String str){
+		this.unitTitle = str;
 	}
-	
-	public UnitMeasurement getUnitMeasurement(){
-		return um;
-	}
+
 }

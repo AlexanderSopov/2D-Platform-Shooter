@@ -66,6 +66,12 @@ public class RoaringBrute extends EnemyUnit {
 		
 	}
 
+	@Override
+	public void initiateUnitTitle() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

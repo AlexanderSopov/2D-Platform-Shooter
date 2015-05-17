@@ -7,7 +7,6 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.FrameIterator;
 import edu.chl.Game.model.gameobject.tile.Tile;
-import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.graphics.LoadingSprites;
 import edu.chl.Game.view.graphics.Sprite;
@@ -21,8 +20,6 @@ public class Player extends Unit {
 	private Sprite[] arrayMovingAnimation;
 	private Sprite[] arrayHurtAnimation;
 	private LoadingSprites load;
-	
-	private ContactWithEnemy contactWithEnemy;
 	private GravitationalProperties gravitationalProperties;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
@@ -31,8 +28,6 @@ public class Player extends Unit {
 		
 		this.load = new LoadingSprites();
 		initiateUnit();
-		
-		this.contactWithEnemy = new ContactWithEnemy(this);
 		this.gravitationalProperties = new GravitationalProperties(this);
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
 		setUnitValues(100, 50, 0, 7, 0);
@@ -88,7 +83,6 @@ public class Player extends Unit {
 		getUpdateMovement().updateCoordinates_player();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
-		contactWithEnemy.checkForContact();
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
 
@@ -135,11 +129,17 @@ public class Player extends Unit {
 	
 	@Override
 	public void initiateUnit() {
+		initiateUnitTitle();
 		initiateUnitMeasurement();
 		initiateSpriteSheets();
 		initiateSpriteArrays();
 		initiateProperties();
 		loadSprites();
+	}
+	
+	@Override
+	public void initiateUnitTitle() {
+		setUnitTitle("Bit");
 	}
 	
 	@Override
@@ -187,6 +187,8 @@ public class Player extends Unit {
 	@Override
 	public void setAlternativeMeasurement() {	
 	}
+
+
 
 
 }

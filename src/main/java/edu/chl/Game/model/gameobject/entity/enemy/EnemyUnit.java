@@ -51,6 +51,7 @@ public abstract class EnemyUnit extends Unit {
 		ur.renderGraphics(this, g);
 		runScoreDisplay(g);
 		displayHealthBar(g);
+		super.render(g);
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public abstract class EnemyUnit extends Unit {
 	}
 	
 	public int getAdjustedX(){	
-		return getX() - 53;
+		return getX() - 50;
 	}
 
 	public SpriteSheet getSheetMovingAnimation() {
