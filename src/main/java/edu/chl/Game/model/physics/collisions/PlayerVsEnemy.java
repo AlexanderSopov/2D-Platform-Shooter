@@ -13,7 +13,15 @@ public class PlayerVsEnemy extends CollisionStrategy {
 
 	@Override
 	protected void specialTrick(GotHitOnThe sideGotHit) {
-		if(sideGotHit == GotHitOnThe.Bottom)
+		if(sideGotHit == GotHitOnThe.Bottom){
 			p.isBumpingGround(true);
+			p.setVelY(-20);
+		}
+	}
+
+	@Override
+	protected void noHit() {
+		// TODO Auto-generated method stub
+		
 	}
 }

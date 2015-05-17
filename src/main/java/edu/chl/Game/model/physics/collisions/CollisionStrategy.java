@@ -23,13 +23,15 @@ public abstract class CollisionStrategy {
 	
 	
 	protected abstract void specialTrick(GotHitOnThe sideGotHit);
-	
+	protected abstract void noHit();
 	
 	
 	
 	public void solve(){
 		if (areColliding())
 			solveCollision();
+		else
+			noHit();
 	}
 
 

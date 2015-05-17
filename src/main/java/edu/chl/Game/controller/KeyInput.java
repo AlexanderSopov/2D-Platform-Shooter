@@ -65,6 +65,7 @@ public class KeyInput implements KeyListener {
 					case KeyEvent.VK_W:
 					case 32:
 						en.isTryingToJump(false);
+						en.isBumpingGround(false);
 						break;
 					case KeyEvent.VK_A:
 						en.setVelX(0);

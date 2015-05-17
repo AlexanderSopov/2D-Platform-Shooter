@@ -23,11 +23,18 @@ public class EnemyVsPlayer extends CollisionStrategy {
 
 	@Override
 	protected void specialTrick(GotHitOnThe side) {
-		/*if(side == GotHitOnThe.Left)
+		if(side == GotHitOnThe.Left)
 			p.setVelocity(-9,-12);
 		if(side == GotHitOnThe.Right)
 			p.setVelocity(9,-12);
-		*/
+	}
+
+
+
+	@Override
+	protected void noHit() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -21,6 +21,10 @@ public class EntityVsTile extends CollisionStrategy {
 		if(sideGotHit == GotHitOnThe.Bottom)
 			en.isBumpingGround(true);
 	}
+	
+	protected void noHit(){
+		//en.isBumpingGround(false);
+	}
 
 
 }

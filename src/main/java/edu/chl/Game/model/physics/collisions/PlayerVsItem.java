@@ -21,4 +21,10 @@ public class PlayerVsItem extends CollisionStrategy {
 		
 	}
 
+	@Override
+	protected void noHit() {
+		// Do nothing
+		
+	}
+
 }
