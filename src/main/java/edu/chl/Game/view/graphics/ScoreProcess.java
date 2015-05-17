@@ -1,9 +1,9 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.view.graphics;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import edu.chl.Game.view.graphics.ScoreInterface;
+import edu.chl.Game.model.gameobject.entity.Entity;
 
 public class ScoreProcess {
 	
@@ -13,7 +13,7 @@ public class ScoreProcess {
 		scoreList = new ArrayList<ScoreInterface>();
 	}
 	
-	public void addScoreInterface(Entity en, double value) {
+	public void addScoreInterface(Entity en, int value) {
 		scoreList.add(new ScoreInterface(en, value));
 	}
 	

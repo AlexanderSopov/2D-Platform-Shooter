@@ -14,9 +14,9 @@ public class ScoreInterface {
 	private FrameIterator fi;
 	private Font f;
 	private int display_y;
-	private double value;
+	private int value;
 	
-	public ScoreInterface(Entity en, double value) {
+	public ScoreInterface(Entity en, int value) {
 		this.en = en;
 		this.fi = new FrameIterator(3, 40);
 		this.value = value;
@@ -55,7 +55,7 @@ public class ScoreInterface {
 	}
 	
 	public void renderScore(Graphics g) {
-		g.drawString(convertDoubleToString(value), en.getX(), display_y);
+		g.drawString(String.valueOf(value), en.getX(), display_y);
 	}
 
 	public void animateDisplay() {

@@ -34,9 +34,9 @@ public class PlayerOutfit implements Character{
     }
 
     
-    @Override
-    public double getTotalHealth() {
-        return player.getHealthPoints();
+    
+   public double getTotalHealth() {
+    	return 0.0;
     }
 
     

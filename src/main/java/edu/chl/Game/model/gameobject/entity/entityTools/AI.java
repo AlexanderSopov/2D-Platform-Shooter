@@ -16,13 +16,16 @@ public class AI {
 	private EntityState es;
 	private EnemyUnit eu;
 	private UnitAttraction unitAttraction;
+	private boolean strikeComplete;
+	private FrameIterator fi;
 
 	public AI(EnemyUnit eu) {
 		this.eu = eu;
 		this.handler = eu.getHandler();
 		this.es = eu.getEntityState();
 		unitAttraction = new UnitAttraction(400);
-		this.cd = new Cooldown();
+		this.fi = new FrameIterator(1, eu.getUnitValues().getAttackRate());
+		this.cd = new Cooldown(fi);
 	}
 
 	public void exerciseBehaviour() {
@@ -52,10 +55,10 @@ public class AI {
 
 	public void followPlayer() {
 		if (handler.getPlayer().getX() < eu.getX()) {
-			eu.setVelX(-1);
+			eu.setVelX(-4);
 			updateFacingDirectionLeft();
 		} else {
-			eu.setVelX(1);
+			eu.setVelX(4);
 			updateFacingDirectionRight();
 		}
 
@@ -86,21 +89,41 @@ public class AI {
 	}
 
 	public void attack() {
+		resetStrike();
 		if (withinAttackRange()) {
 			if (cd.attackIsReady()) {
-				dealDamage();
+				engageAttack();
 			}
 			activateCooldown();
 		}
+		strikeFrameHit();
 	}
-
-	public void dealDamage() {
+	
+	public void engageAttack(){
 		eu.setAttacking(true);
-		handler.getPlayer().takeDamage((eu.getAttackDamage()));
+	}
+	
+	public void strikeFrameHit(){
+		if(eu.getUnitMeasurement().getStrikeFrame() == eu.getFrameIterator_attack().getFrame()){
+			if(!strikeComplete){
+				strikeComplete = true;
+				deliverDamage();
+			}
+		}
+	}
+	
+	public void deliverDamage(){
+		handler.getPlayer().takeDamage(eu.getUnitValues().getAttackDamage());
+	}
+	
+	public void resetStrike(){
+		if(eu.getFrameIterator_attack().getFrame() == 0){
+			strikeComplete = false;
+		}
 	}
 
 	public void activateCooldown() {
 		cd.activateCooldown();
 	}
-
+	
 }

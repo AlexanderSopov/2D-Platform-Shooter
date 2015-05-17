@@ -19,7 +19,7 @@ import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.graphics.*;
 
-public abstract class EnemyUnit extends Entity {
+public abstract class EnemyUnit extends Unit {
 
 	private SpriteSheet sheetMovingAnimation;
 	private SpriteSheet sheetAttackAnimation;
@@ -32,7 +32,6 @@ public abstract class EnemyUnit extends Entity {
 	private int altWidth;
 	private int altHeight;
 	private AI aI;
-	private double attackDamage;
 	private boolean isAttacking = false;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
@@ -51,6 +50,7 @@ public abstract class EnemyUnit extends Entity {
 	public void render(Graphics g) {
 		ur.renderGraphics(this, g);
 		runScoreDisplay(g);
+		displayHealthBar(g);
 	}
 
 	@Override
@@ -67,6 +67,7 @@ public abstract class EnemyUnit extends Entity {
 		if (isAttacking) {
 			iterateAttack();
 		}
+		
 	}
 
 	public void exerciseAI() {
@@ -140,14 +141,6 @@ public abstract class EnemyUnit extends Entity {
 		return load;
 	}
 
-	public double getAttackDamage() {
-		return attackDamage;
-	}
-
-	public void setAttackDamage(double attackDamage) {
-		this.attackDamage = attackDamage;
-	}
-
 	public int getAltWidth(){
 		return altWidth;
 	}
@@ -163,12 +156,5 @@ public abstract class EnemyUnit extends Entity {
 	public void setAltHeight(int altHeight){
 		this.altHeight = altHeight;
 	}
-	
-	public abstract void initiateSpriteSheets();
-	public abstract void initiateSpriteArrays();
-	public abstract void loadSprites();
-	public abstract void initiateProperties();
-	public abstract void initiateUnit();
-	public abstract void setAlternativeMeasurement();
 
 }

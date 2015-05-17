@@ -3,6 +3,7 @@ package edu.chl.Game.model.gameobject;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
+
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
@@ -19,7 +20,6 @@ public abstract class GameObject implements Observer {
 	private int x, y;
 	private int velX, velY;
 	private int width, height;
-	private double healthPoints;
 	private GameHandler handler;
 	private Id id;
 	private boolean solid;
@@ -35,7 +35,6 @@ public abstract class GameObject implements Observer {
 		this.solid = solid;
 		this.handler = handler;
 		this.unitState = new UnitState(id, solid);
-		this.healthPoints = 100.0;
 		this.calculateBounds = new CalculateBounds(this);
 	}
 
@@ -95,23 +94,6 @@ public abstract class GameObject implements Observer {
 		return this.height;
 	}
 
-	public double getHealthPoints() {
-		return healthPoints;
-	}
-
-	public void setHealthPoints(double healthPoints) {
-		this.healthPoints = healthPoints;
-	}
-
-	public void takeDamage(double damage) {
-		System.out.println(getHealthPoints());
-		setHealthPoints(getHealthPoints() - damage);
-		if (getHealthPoints() <= 0.0) {
-			this.remove();
-		}
-
-	}
-
 	public int getVelX() {
 
 		return velX;
@@ -141,5 +123,6 @@ public abstract class GameObject implements Observer {
 		wp.updateCooldown();
 	}
 	
+
 	
 }

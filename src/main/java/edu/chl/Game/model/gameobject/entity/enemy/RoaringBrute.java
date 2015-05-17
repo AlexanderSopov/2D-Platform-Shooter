@@ -54,11 +54,16 @@ public class RoaringBrute extends EnemyUnit {
 
 	@Override
 	public void initiateProperties() {
-		setAttackDamage(25.0);
 		setFrameIterator_moving(new FrameIterator(3, 8));
 		setFrameIterator_attack(new FrameIterator(2, 10));
-		this.setHealthPoints(50);
+		setUnitValues(200, 0, 0, 25, 60);
 
+	}
+
+	@Override
+	public void initiateUnitMeasurement() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

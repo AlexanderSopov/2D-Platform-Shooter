@@ -7,8 +7,8 @@ public class Cooldown {
 	private FrameIterator fi;
 	private boolean readyToAttack;
 
-	public Cooldown() {
-		fi = new FrameIterator(1, 180);
+	public Cooldown(FrameIterator fi) {
+		this.fi = fi;
 		readyToAttack = true;
 	}
 

@@ -1,6 +1,7 @@
 package edu.chl.Game.view.graphics;
 
 import java.awt.Graphics;
+import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
 
@@ -12,17 +13,17 @@ public class UnitGraphicsRender {
 
 	public void chooseRenderStyle(EnemyUnit en, Graphics g) {
 		if (en.isAttacking()) {
-			renderAttacking(en, g);
+			renderAttacking(en, g, (en.getUnitMeasurement().getNumberOfSprite_attack()/2));
 		} else {
 			if (en.getUnitState().isAnimate()) {
-				renderMoving(en, g);
+				renderMoving(en, g, (en.getUnitMeasurement().getNumberOfSprite_move()/2));
 			} else {
-				renderStandingStill(en, g);
+				renderStandingStill(en, g, (en.getUnitMeasurement().getNumberOfSprite_move()/2));
 			}
 		}
 	}
 
-	public void renderMoving(EnemyUnit en, Graphics g) {
+	public void renderMoving(EnemyUnit en, Graphics g, int changeRow) {
 		if (en.getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 			en.getRenderClass().renderAnimateRight(g,
 					en.getArrayMovingAnimation(),
@@ -32,34 +33,34 @@ public class UnitGraphicsRender {
 			en.getRenderClass().renderAnimateLeft(g,
 					en.getArrayMovingAnimation(),
 					en.getFrameIterator_moving().getFrame(), en.getX(),
-					en.getY(), en.getWidth(), en.getHeight(), 8);
+					en.getY(), en.getWidth(), en.getHeight(), changeRow);
 		}
 	}
 
-	public void renderStandingStill(EnemyUnit en, Graphics g) {
+	public void renderStandingStill(EnemyUnit en, Graphics g , int changeRow) {
 		if (en.getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 			en.getRenderClass().renderNotAnimateRight(g,
-					en.getArrayMovingAnimation(), 0, en.getX(), en.getY(),
+					en.getArrayMovingAnimation(), en.getX(), en.getY(),
 					en.getWidth(), en.getHeight());
 		} else if (en.getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 			en.getRenderClass().renderNotAnimateLeft(g,
-					en.getArrayMovingAnimation(), 10, en.getX(), en.getY(),
-					en.getWidth(), en.getHeight(), 8);
+					en.getArrayMovingAnimation(), en.getX(), en.getY(),
+					en.getWidth(), en.getHeight(), changeRow);
 		}
 	}
 
-	public void renderAttacking(EnemyUnit en, Graphics g) {
+	public void renderAttacking(EnemyUnit en, Graphics g, int changeRow) {
 		if (en.getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 			en.getRenderClass().renderAnimateRight(g,
 					en.getArrayAttackAnimation(),
 					en.getFrameIterator_attack().getFrame(), en.getX(),
-					en.getAdjustedY(), en.getAltWidth(), en.getAltHeight());
+					en.getY(), en.getWidth(), en.getHeight());
 
 		} else if (en.getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 			en.getRenderClass().renderAnimateLeft(g,
 					en.getArrayAttackAnimation(),
-					en.getFrameIterator_attack().getFrame(), en.getAdjustedX(),
-					en.getAdjustedY(), en.getAltWidth(), en.getAltHeight(), 10);
+					en.getFrameIterator_attack().getFrame(), en.getX(),
+					en.getY(), en.getWidth(), en.getHeight(), changeRow);
 		}
 	}
 
