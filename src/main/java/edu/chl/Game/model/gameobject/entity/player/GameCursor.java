@@ -34,7 +34,7 @@ public class GameCursor extends Entity {
 		this.en = en;
 		this.counter = 0;
                 
-                p = new Pistol(en.getX(), en.getY(), en.getWidth(),en.getHeight(), false, null, handler, this,en);
+               // p = new Pistol(en.getX(), en.getY(), en.getWidth(),en.getHeight(), false, null, handler, this,en);
                 
 	}
 
@@ -51,22 +51,22 @@ public class GameCursor extends Entity {
 			break;
 
 		}
-                p.render(g);
+                //p.render(g);
 		
 	}
 
 	@Override
 	public void update() {
-
+                if(en != null){
 		setX(MouseInput.getMousePosX() - (-en.getX() + Frame.WIDTH / 2));
 		setY(MouseInput.getMousePosY() - (-en.getY() + Frame.HEIGHT / 2 + 100));
-
-		p.update();
+                }
+		//p.update();
 
 	}
 
 	public void shoot() {
-		p.shoot();
+		//p.shoot();
 	}
 	
 	public Pistol getPistol(){

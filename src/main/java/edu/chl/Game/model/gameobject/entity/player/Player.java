@@ -15,6 +15,7 @@ import edu.chl.Game.view.graphics.Sprite;
 import edu.chl.Game.model.gameobject.entity.items.Character;
 import edu.chl.Game.model.gameobject.Item;
 import edu.chl.Game.model.gameobject.entity.items.ItemMap;
+import edu.chl.Game.model.gameobject.entity.items.P2;
 
 public class Player extends Entity implements Character{
 
@@ -30,6 +31,9 @@ public class Player extends Entity implements Character{
 	//private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
         private ItemMap itemMap;
+        
+        private Pistol p;
+        
 
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
@@ -37,6 +41,8 @@ public class Player extends Entity implements Character{
 		super(x, y, width, height, solid, id, handler);
                 
                 itemMap = new ItemMap();
+                
+                
 
 		// facing right
 
@@ -61,13 +67,17 @@ public class Player extends Entity implements Character{
 		this.contactWithEnemy = new ContactWithEnemy(this);
 		this.gravitationalProperties = new GravitationalProperties(this);
                 
-               
+               System.out.println("PLayer Created");
+                GameCursor c = new GameCursor(this, handler);
+               this.getHandler().addEntity(c); 
+               p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, c,this);
 	}
 
 
 
 	@Override
 	public void render(Graphics g) {
+                System.out.println("PLayer redresd");
 		if (!isRecievingDamage()) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
@@ -108,11 +118,12 @@ public class Player extends Entity implements Character{
 		}
 		
 		runScoreDisplay(g);
-
+                p.render(g);
 	}
 
 	@Override
 	public void update() {
+                System.out.println("PLayer Updated");
 		getUpdateMovement().updateCoordinates();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
@@ -126,7 +137,8 @@ public class Player extends Entity implements Character{
 			iterateTakingDamage();
 			processDamageTaking();
 		}
-
+                
+                p.update();
 	}
 	
 	public void processDamageTaking(){

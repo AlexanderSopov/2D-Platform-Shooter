@@ -11,9 +11,12 @@ import javax.imageio.ImageIO;
 import edu.chl.Game.Main;
 import edu.chl.Game.handler.Camera;
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.Item;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
+import edu.chl.Game.model.gameobject.entity.items.CharacterDecorator;
+import edu.chl.Game.model.gameobject.entity.items.P2;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
@@ -113,7 +116,12 @@ public class GameHandler {
                                 
                                 //	( blue )
 				else if (red == 0 && green == 0 && blue == 255) {
-					addEntity(new Player(x*64, y*64, 62, 62, true, Id.player, this));
+                                         c = new GameCursor(this.player, this);
+					addEntity(c);
+                                        this.player = new Player(x*64, y*64, 62, 62, true, Id.player, this);
+					addEntity(this.player);
+                                       
+                                        
 				}
 				
 				//	( green )
@@ -127,14 +135,14 @@ public class GameHandler {
 				
 			}
 
-			for (Entity e : getEntityList()) {
-				if (e.getId() == Id.player) {
-					c = new GameCursor(e, this);
-					addEntity(c);
-                                        this.player  = (Player)e;
-					break;
-				}
-			}
+			
+				
+					
+                                        
+                                       //preparePlayerWithItems(this.player);
+					
+				
+			
 
 
 		}
@@ -142,6 +150,11 @@ public class GameHandler {
 		
 
 	}
+        
+        public void preparePlayerWithItems(Player player){
+            CharacterDecorator armedPlayer = new P2(player, c);
+            rfr.addObserver(armedPlayer);
+        }
         
         public void resetRef(){
            this.ref = 0;

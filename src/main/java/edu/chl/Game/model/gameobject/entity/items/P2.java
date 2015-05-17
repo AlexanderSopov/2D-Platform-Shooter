@@ -16,46 +16,52 @@ import java.util.LinkedList;
  *
  * @author Rasmus
  */
-public class P2 extends Item{
+public class P2 extends CharacterDecorator{
     
-     private int centerX;
-     private int  centerY;
      private double angle;
      private final GameCursor gc;
-     
-     
-     
+  
    
     
     public P2(Character character, GameCursor gc) {
         super(character);
+       
         this.gc = gc;
+         System.out.println("P2 Created");
     }
+    
 
-    @Override
+
+     @Override
     public void render(Graphics g) {
+        System.out.println("P2 Render");
+        super.render(g);
+        g.setColor(Color.RED);
+        ((Graphics2D)g).rotate(angle, getX(), getY());
         
-        g.setColor(Color.BLUE);
-        ((Graphics2D)g).rotate(angle, centerX, centerY);
-        
-        g.fillRect(centerX, centerY-5, 50, 10); 
-        ((Graphics2D)g).rotate(-angle, centerX, centerY);
-        
+        g.fillRect(getX(), getY()-5, 50, 10); 
+        ((Graphics2D)g).rotate(-angle, getX(), getY());
     }
-
+    
+    
+    @Override
+    public void update(){
+        System.out.println("P2 Update");
+        super.update();
+        setX(getX()+ getVelX());
+        setY(getY() + getVelY());
+        angle = Math.atan2(getY() - gc.getY(), getX() - gc.getX()) - Math.PI ;
+    }
 
         
     public void shoot() {
-	Bullet b = new Bullet( this.centerX, this.centerY , 10, 10, true, Id.bullet, getHandler(), 10, this.angle);
-	getHandler().addEntity(b);
+	Bullet b = new Bullet( getX(), getY(), 10, 10, true, Id.bullet, gc.getHandler(), 10, this.angle);
+	gc.getHandler().addEntity(b);
     }
 
-    @Override
-    public void updateItem() {
-        this.centerX = en.getX() + en.getWidth()/2 + en.getVelX();
-        this.centerY = en.getY() + en.getHeight()/2 + en.getVelY();
-        angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX()) - Math.PI ;
-    }
+
+
+  
     
 }
 

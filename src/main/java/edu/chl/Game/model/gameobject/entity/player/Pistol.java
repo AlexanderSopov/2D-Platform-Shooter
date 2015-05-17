@@ -39,7 +39,7 @@ public class Pistol extends Entity{
         g.setColor(Color.BLUE);
         ((Graphics2D)g).rotate(angle, centerX, centerY);
         
-        g.fillRect(centerX, centerY-5, 50, 10); 
+        g.fillRect(centerX-25, centerY-5, 50, 10); 
         ((Graphics2D)g).rotate(-angle, centerX, centerY);
         
     }
@@ -47,7 +47,7 @@ public class Pistol extends Entity{
     @Override
     public void update() {
         this.centerX = en.getX() + en.getWidth()/2 + en.getVelX();
-        this.centerY = en.getY() + en.getHeight()/2 + en.getVelY();
+        this.centerY = en.getY() + en.getHeight()/2;
         angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX()) - Math.PI ;
         
     }
