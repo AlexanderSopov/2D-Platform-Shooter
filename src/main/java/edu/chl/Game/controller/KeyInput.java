@@ -38,13 +38,11 @@ public class KeyInput implements KeyListener {
 						break;
 					case KeyEvent.VK_A:
 						en.setVelX(-5);
-						
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingLeft);
 						break;
 					case KeyEvent.VK_D:
 						en.setVelX(5);
-						
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingRight);
 						break;

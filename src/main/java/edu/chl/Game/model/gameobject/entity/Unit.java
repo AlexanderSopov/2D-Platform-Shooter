@@ -25,6 +25,7 @@ public abstract class Unit extends Entity {
 	}
 	@Override
 	public void update() {
+		super.update();
 	}
 	
 	public abstract void initiateUnitTitle();

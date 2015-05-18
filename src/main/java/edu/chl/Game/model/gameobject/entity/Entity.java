@@ -172,7 +172,6 @@ public abstract class Entity extends GameObject {
 			setPosition(getPosition().addWith(getVelocity()));
 		else
 			setX(getX()+getVelX());
-
 	}
 	public FrameIterator getFrameIterator_moving() {
 		return frameIterator_moving;
