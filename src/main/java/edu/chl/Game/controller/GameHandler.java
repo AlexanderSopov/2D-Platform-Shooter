@@ -51,15 +51,13 @@ public class GameHandler {
 		this.refreshTimer = refreshTimer;
 		this.frame = frame;
 		camera = new Camera();
-		
+		c = new GameCursor(this.camera, this);
+		addEntity(c);
 
 	}
 	
 	private void init(){
 		
-		c = new GameCursor(this.camera, this);
-		
-		addEntity(c);
 		
 		for (int i = 0; i < entity.size(); i++) {
 			if (entity.get(i).getUnitState().getId() == Id.player) {

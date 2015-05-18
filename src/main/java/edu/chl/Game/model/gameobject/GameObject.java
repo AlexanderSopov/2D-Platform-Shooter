@@ -143,6 +143,7 @@ public abstract class GameObject implements Observer, GameInterface {
 	}
 	
 	public void setVelY(int vely){
+		
 		physicalProperties.setVelY(vely);
 	}
 	
