@@ -6,10 +6,11 @@ import java.util.Observable;
 
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.tile.Tile;
+import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
-import edu.chl.Game.view.State;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
+import edu.chl.Game.view.graphics.MovingCharacter;
 
 /**
  * 
@@ -22,6 +23,8 @@ public class RefreshTimer extends Observable implements Runnable {
 	private Frame frame;
 	private StartMenu startMenu;
 	private WorldMapView mapView;
+	private CharacterSelectionView charSelectionView;
+	private MovingCharacter movingChar;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	private MouseInput mouseInput;
@@ -30,6 +33,8 @@ public class RefreshTimer extends Observable implements Runnable {
 	public static State state = State.GAME;
 	//The selected map/level
 	public static String selectedMap = "level_1";
+	//Array of possible levels
+	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	
 	private double delta = 0.0;
 	private int frameRate=1;
@@ -39,7 +44,10 @@ public class RefreshTimer extends Observable implements Runnable {
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
-		mapView = new WorldMapView();
+		movingChar = new MovingCharacter();
+		mapView = new WorldMapView(movingChar);
+		charSelectionView = new CharacterSelectionView(movingChar);
+		
 		gameHandler = new GameHandler(this, frame);
 		mouseInput = new MouseInput(frame, mapView);
 		
@@ -90,7 +98,7 @@ public class RefreshTimer extends Observable implements Runnable {
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
-		if(state == State.GAME || state == State.MAP){
+		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
 				frame.createBufferStrategy(3);
@@ -117,10 +125,11 @@ public class RefreshTimer extends Observable implements Runnable {
 		
 		if(state == State.GAME){
 			gameHandler.render(g);
-
 			notifyObservers((Object)g);
 		}else if(state == State.MAP){
 			mapView.render(g);
+		}else if(state == State.CHARACTER_SELECTION){
+			charSelectionView.render(g);
 		}
 		
 		b.show();

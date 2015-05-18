@@ -7,7 +7,6 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.items.Inventory;
-import edu.chl.Game.view.State;
 
 public class KeyInput implements KeyListener {
 
