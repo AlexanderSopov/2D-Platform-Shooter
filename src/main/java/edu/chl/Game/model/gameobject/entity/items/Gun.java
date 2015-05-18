@@ -34,7 +34,7 @@ public class Gun extends Items {
 	
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();		
+		//getUpdateMovement().updateCoordinates();		
 		setVelX(2);
 		getCollisionDetection().checkForCollision();
 		getEntityProperties().setGravity(1.0);

@@ -10,6 +10,8 @@ import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.physics.CalculateBounds;
 import edu.chl.Game.view.graphics.SpriteSheet;
+import edu.chl.Game.model.gameobject.entity.player.*;
+import edu.chl.Game.model.gameobject.entity.entityTools.*;
 
 public abstract class GameObject implements Observer, GameInterface {
 	public static RefreshTimer gt = Main.game;
@@ -18,10 +20,10 @@ public abstract class GameObject implements Observer, GameInterface {
 	private int x, y;
 	private int velX, velY;
 	private int width, height;
-	private double healthPoints;
 	private GameHandler handler;
 	private Id id;
 	private boolean solid;
+	private WeaponProperties wp;
 
 	public GameObject(int x, int y, int width, int height, boolean solid,
 			Id id, GameHandler handler) {
@@ -33,7 +35,6 @@ public abstract class GameObject implements Observer, GameInterface {
 		this.solid = solid;
 		this.handler = handler;
 		this.unitState = new UnitState(id, solid);
-		this.healthPoints = 100.0;
 		this.calculateBounds = new CalculateBounds(this);
 	}
 
@@ -93,23 +94,6 @@ public abstract class GameObject implements Observer, GameInterface {
 		return this.height;
 	}
 
-	public double getHealthPoints() {
-		return healthPoints;
-	}
-
-	public void setHealthPoints(double healthPoints) {
-		this.healthPoints = healthPoints;
-	}
-
-	public void takeDamage(double damage) {
-		System.out.println(getHealthPoints());
-		setHealthPoints(getHealthPoints() - damage);
-		if (getHealthPoints() <= 0.0) {
-			this.remove();
-		}
-
-	}
-
 	public int getVelX() {
 
 		return velX;
@@ -126,5 +110,19 @@ public abstract class GameObject implements Observer, GameInterface {
 	public void setVelY(int vely) {
 		this.velY = vely;
 	}
+	
+	public void setWeaponProperties(Entity en, FrameIterator fi){
+		this.wp = new WeaponProperties(en, fi);
+	}
+	
+	public WeaponProperties getWeaponProperties(){
+		return wp;
+	}
+	
+	public void iterateCooldown(){
+		wp.updateCooldown();
+	}
+	
 
+	
 }

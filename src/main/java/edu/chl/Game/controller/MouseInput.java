@@ -181,5 +181,10 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	public static boolean isPressed() {
 		return pressed;
 	}
+	
+	public int getMousePos_X() {
+		return mousePosX;
+	}
+	
 
 }

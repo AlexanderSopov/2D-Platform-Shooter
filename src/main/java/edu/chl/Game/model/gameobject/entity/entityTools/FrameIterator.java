@@ -4,17 +4,15 @@ import edu.chl.Game.model.gameobject.entity.enemy.*;
 
 public class FrameIterator {
 	
-	private Entity en;
 	private int frame;
 	private int frameDelay;
 	private int frameDelayLimit;
 	private int frameLimit;
 	private boolean active;
 	
-	public FrameIterator(Entity en, int frameDelayLimit, int frameLimit){
+	public FrameIterator(int frameDelayLimit, int frameLimit){
 		this.frameDelayLimit = frameDelayLimit;
 		this.frameLimit = frameLimit;
-		this.en = en;
 		this.frame = 0;
 		this.frameDelay = 0;
 	}

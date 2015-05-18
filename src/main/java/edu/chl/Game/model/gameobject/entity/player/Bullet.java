@@ -23,6 +23,7 @@ public class Bullet extends Entity{
     private int rotatedX,rotatedY;
     private int motionX, motionY;
     private ProjectileDetection pd;
+    private int damageValue;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
@@ -37,7 +38,8 @@ public class Bullet extends Entity{
                 this.motionY = getY();
                 rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
                 rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
-                this.pd = new ProjectileDetection(this);
+                this.damageValue = handler.getPlayer().getUnitValues().getAttackDamage();
+                this.pd = new ProjectileDetection(this, handler);
                
     }
 
