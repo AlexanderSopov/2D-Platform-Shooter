@@ -68,9 +68,8 @@ public class Player extends Entity implements Character{
 		this.gravitationalProperties = new GravitationalProperties(this);
                 
                System.out.println("PLayer Created");
-                GameCursor c = new GameCursor(this, handler);
-               this.getHandler().addEntity(c); 
-               p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, c,this);
+
+               p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
 	}
 
 
@@ -123,7 +122,7 @@ public class Player extends Entity implements Character{
 
 	@Override
 	public void update() {
-                System.out.println("PLayer Updated");
+               System.out.println("PLayer Updated");
 		getUpdateMovement().updateCoordinates();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
@@ -161,7 +160,10 @@ public class Player extends Entity implements Character{
 		}
 		setHealthPoints(getHealthPoints() - damage);
 	}
-
+	
+	public void shoot(){
+		p.shoot();
+	}
         
     // this is a part of Inventory system, will soon be refactorated :)
   

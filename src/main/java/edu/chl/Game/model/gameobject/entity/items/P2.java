@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
@@ -20,43 +22,47 @@ public class P2 extends CharacterDecorator{
     
      private double angle;
      private final GameCursor gc;
-  
+     private Entity en;
+     private GameHandler handler;
    
     
-    public P2(Character character, GameCursor gc) {
+    public P2(Character character,Entity en,  GameCursor cursor) {
         super(character);
-       
-        this.gc = gc;
-         System.out.println("P2 Created");
+        this.en = en;
+        this.gc = cursor;
+        System.out.println("P2 Created");
+        
     }
     
 
 
      @Override
     public void render(Graphics g) {
-        System.out.println("P2 Render");
+        
         super.render(g);
         g.setColor(Color.RED);
-        ((Graphics2D)g).rotate(angle, getX(), getY());
+        ((Graphics2D)g).rotate(angle, en.getX(), en.getY());
         
-        g.fillRect(getX(), getY()-5, 50, 10); 
-        ((Graphics2D)g).rotate(-angle, getX(), getY());
+        g.fillRect(en.getX(), en.getY()-5, 50, 10); 
+        ((Graphics2D)g).rotate(-angle, en.getX(), en.getY());
+        System.out.println("P2 Render");
     }
     
     
     @Override
     public void update(){
-        System.out.println("P2 Update");
+        
         super.update();
-        setX(getX()+ getVelX());
-        setY(getY() + getVelY());
-        angle = Math.atan2(getY() - gc.getY(), getX() - gc.getX()) - Math.PI ;
+        //setX(en.getX()+ en.getVelX());
+        //setY(en.getY() + en.getVelY());
+        angle = Math.atan2(en.getY() - gc.getY(), en.getX() - gc.getX()) - Math.PI ;
+        System.out.println("P2 Update");
     }
 
         
     public void shoot() {
-	Bullet b = new Bullet( getX(), getY(), 10, 10, true, Id.bullet, gc.getHandler(), 10, this.angle);
-	gc.getHandler().addEntity(b);
+		Bullet b = new Bullet( en.getX(), en.getY(), 10, 10, true, Id.bullet, gc.getHandler(), 10, this.angle, 50,0);
+		gc.getHandler().addEntity(b);
     }
 
 

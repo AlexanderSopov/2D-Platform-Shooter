@@ -13,6 +13,8 @@ import edu.chl.Game.model.gameobject.entity.Entity;
  */
 public class DamageHandeler {
     
+	//temperary placed
+	
     public double calculateDamage(Entity damagedEntity,double damage){
         return 0.0;
     }

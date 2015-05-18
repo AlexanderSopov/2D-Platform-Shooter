@@ -26,15 +26,15 @@ public class Bullet extends Entity{
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler, int speed, double angle) {
+			GameHandler handler, int speed, double angle, int offX, int offY) {
         super(x, y, width, height, solid, id, handler);
                 
                 this.angle = angle;
 		this.speed = speed;
                 this.centerX = getX() ;
                 this.centerY = getY() ;
-                this.motionX = getX()+50;
-                this.motionY = getY();
+                this.motionX = getX() + offX;
+                this.motionY = getY() + offY;
                 rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
                 rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
                 this.pd = new ProjectileDetection(this);

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
 
@@ -16,11 +17,14 @@ import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.entity.items.CharacterDecorator;
+import edu.chl.Game.model.gameobject.entity.items.CharacterFactory;
 import edu.chl.Game.model.gameobject.entity.items.P2;
+
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.model.gameobject.entity.items.Character;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
 public class GameHandler {
@@ -53,8 +57,9 @@ public class GameHandler {
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
-                this.rfr = rfr;
-                this.ref = 0;
+		
+        this.rfr = rfr;
+        this.ref = 0;
 		createSheet();
 		createMap();
 		frame.addKeyListener(new KeyInput(this));
@@ -87,6 +92,8 @@ public class GameHandler {
 		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
 		
 		sheetRoaringBrute = new SpriteSheet("/SH_RB.png");
+		
+		
 	}
 
 	public void createMap() {
@@ -116,9 +123,9 @@ public class GameHandler {
                                 
                                 //	( blue )
 				else if (red == 0 && green == 0 && blue == 255) {
-                                         c = new GameCursor(this.player, this);
+                    c = new GameCursor(this.camera, this);
 					addEntity(c);
-                                        this.player = new Player(x*64, y*64, 62, 62, true, Id.player, this);
+                    this.player = new Player(x*64, y*64, 62, 62, true, Id.player, this);
 					addEntity(this.player);
                                        
                                         
@@ -130,19 +137,11 @@ public class GameHandler {
 							Id.monster, this));
 				}
 				
-				
-				
-				
+				/* Create a character with Items*/
+	            //Character armedPlayer = CharacterFactory.createCharacter(new P2(this.player,this.player, c));
+	            //rfr.addObserver((Observer) armedPlayer);
+	            
 			}
-
-			
-				
-					
-                                        
-                                       //preparePlayerWithItems(this.player);
-					
-				
-			
 
 
 		}
@@ -151,10 +150,6 @@ public class GameHandler {
 
 	}
         
-        public void preparePlayerWithItems(Player player){
-            CharacterDecorator armedPlayer = new P2(player, c);
-            rfr.addObserver(armedPlayer);
-        }
         
         public void resetRef(){
            this.ref = 0;

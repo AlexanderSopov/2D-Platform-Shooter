@@ -3,6 +3,7 @@ package edu.chl.Game.model.gameobject.entity.player;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import edu.chl.Game.handler.Camera;
 import edu.chl.Game.model.gameobject.*;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.controller.GameHandler;
@@ -15,8 +16,9 @@ import java.util.LinkedList;
 public class GameCursor extends Entity {
 
 	private State state;
-	private Entity en;
+	private Camera cam;
 	private int counter;
+	
         Pistol p;
 
 	
@@ -25,13 +27,13 @@ public class GameCursor extends Entity {
 		AIM, DEFULT, RELODING;
 	}
 
-	public GameCursor(Entity en, GameHandler handler) {
+	public GameCursor(Camera cam, GameHandler handler) {
 
 		super(MouseInfo.getPointerInfo().getLocation().x, MouseInfo
 				.getPointerInfo().getLocation().y, 0, 0, false, Id.cursor,
 				handler);
 		this.state = State.AIM;
-		this.en = en;
+		this.cam = cam;
 		this.counter = 0;
                 
                // p = new Pistol(en.getX(), en.getY(), en.getWidth(),en.getHeight(), false, null, handler, this,en);
@@ -57,9 +59,9 @@ public class GameCursor extends Entity {
 
 	@Override
 	public void update() {
-                if(en != null){
-		setX(MouseInput.getMousePosX() - (-en.getX() + Frame.WIDTH / 2));
-		setY(MouseInput.getMousePosY() - (-en.getY() + Frame.HEIGHT / 2 + 100));
+                if(cam != null){
+		setX(MouseInput.getMousePosX() - cam.getX());
+		setY(MouseInput.getMousePosY() - cam.getY());
                 }
 		//p.update();
 

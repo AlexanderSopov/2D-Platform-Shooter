@@ -7,7 +7,9 @@ package edu.chl.Game.model.gameobject.entity.items;
 
 import edu.chl.Game.model.gameobject.Item;
 import edu.chl.Game.model.gameobject.entity.Entity;
+
 import java.awt.Graphics;
+import java.util.Observer;
 
 /**
  *
