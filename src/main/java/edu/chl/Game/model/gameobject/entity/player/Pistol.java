@@ -36,7 +36,7 @@ public class Pistol extends Entity {
 		super(x, y, width, height, solid, id, handler);
 		this.gc = handler.getGameCursor();
 		try {
-			image = ImageIO.read(getClass().getResource("/weapon.png"));
+			image = ImageIO.read(getClass().getResource("/we00.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
