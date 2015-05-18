@@ -92,11 +92,7 @@ public class GameHandler {
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
 
-				// ( blue )
-				if (red == 0 && green == 0 && blue == 255) {
-					addEntity(new Player(x * 64, y * 64, 62, 62, true,
-							Id.player, this));
-				}
+				
 
 				// ( green )
 				if (red == 0 && green == 255 && blue == 0) {
