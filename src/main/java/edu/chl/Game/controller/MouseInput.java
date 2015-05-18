@@ -72,26 +72,26 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 			int mx = e.getX();
 			int my = e.getY();
 			
-			if(mx > mapView.level1.getX() && mx < mapView.level1.getMaxX() && my > mapView.level1.getY() && my < mapView.level1.getMaxY()){
-				System.out.println("Level 1");
-				RefreshTimer.selectedMap = "level_1";
-				RefreshTimer.state = State.GAME;
-			}else if(mx > mapView.level2.getX() && mx < mapView.level2.getMaxX() && my > mapView.level2.getY() && my < mapView.level2.getMaxY()){
-				System.out.println("Level 2");
-				RefreshTimer.selectedMap = "level_2";
-				RefreshTimer.state = State.GAME;
-			}else if(mx > mapView.level3.getX() && mx < mapView.level3.getMaxX() && my > mapView.level3.getY() && my < mapView.level3.getMaxY()){
-				System.out.println("Level 3");
-				RefreshTimer.selectedMap = "level_3";
-				RefreshTimer.state = State.GAME;
-			}else if(mx > mapView.level4.getX() && mx < mapView.level4.getMaxX() && my > mapView.level4.getY() && my < mapView.level4.getMaxY()){
-				System.out.println("Level 4");
-				RefreshTimer.selectedMap = "level_4";
-				RefreshTimer.state = State.GAME;
-			}else if(mx > mapView.level5.getX() && mx < mapView.level5.getMaxX() && my > mapView.level5.getY() && my < mapView.level5.getMaxY()){
-				System.out.println("Level 5");
-				RefreshTimer.selectedMap = "level_5";
-				RefreshTimer.state = State.GAME;
+			if(mx > mapView.mapLevels[0].getX() && mx < mapView.mapLevels[0].getMaxX() && my > mapView.mapLevels[0].getY() && my < mapView.mapLevels[0].getMaxY()){
+				mapView.setIsMoving();
+				mapView.setPos(0);
+				setLevel(e, 0);
+			}else if(mx > mapView.mapLevels[1].getX() && mx < mapView.mapLevels[1].getMaxX() && my > mapView.mapLevels[1].getY() && my < mapView.mapLevels[1].getMaxY()){
+				mapView.setIsMoving();
+				mapView.setPos(1);
+				setLevel(e, 1);
+			}else if(mx > mapView.mapLevels[2].getX() && mx < mapView.mapLevels[2].getMaxX() && my > mapView.mapLevels[2].getY() && my < mapView.mapLevels[2].getMaxY()){
+				mapView.setIsMoving();
+				mapView.setPos(2);
+				setLevel(e, 2);
+			}else if(mx > mapView.mapLevels[3].getX() && mx < mapView.mapLevels[3].getMaxX() && my > mapView.mapLevels[3].getY() && my < mapView.mapLevels[3].getMaxY()){
+				mapView.setIsMoving();
+				mapView.setPos(3);
+				setLevel(e, 3);
+			}else if(mx > mapView.mapLevels[4].getX() && mx < mapView.mapLevels[4].getMaxX() && my > mapView.mapLevels[4].getY() && my < mapView.mapLevels[4].getMaxY()){
+				mapView.setIsMoving();
+				mapView.setPos(4);
+				setLevel(e, 4);
 			}else if(mx > mapView.shop.getX() && mx < mapView.shop.getMaxX() && my > mapView.shop.getY() && my < mapView.shop.getMaxY()){
 				System.out.println("Shop");
 			}else if(mx > mapView.character.getX() && mx < mapView.character.getMaxX() && my > mapView.character.getY() && my < mapView.character.getMaxY()){
@@ -180,6 +180,15 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private void setLevel(MouseEvent e, int i){
+		if(e.getClickCount() == 2 && !e.isConsumed()){
+			e.consume();
+			System.out.println(RefreshTimer.levels[i]);
+			RefreshTimer.selectedMap = RefreshTimer.levels[i];
+			RefreshTimer.state = State.GAME;
+		}
 	}
 
 	// Getters and Setters
