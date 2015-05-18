@@ -20,7 +20,9 @@ public class Gun extends Items {
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 		
-		guns = new Sprite(handler.getSheetGun(), 0, 0, 30, 19);
+
+		//guns = new Sprite(handler.getSheetGun(), 0, 0, 30, 19);
+
 		rand = new Random();
 		setDirection(rand.nextInt(2));
 	}
@@ -31,8 +33,10 @@ public class Gun extends Items {
 	
 	@Override
 	public void update() {
+
 		super.update();
 		setVelX(2);
+
 		getEntityProperties().setGravity(1.0);
 	}
 	/**

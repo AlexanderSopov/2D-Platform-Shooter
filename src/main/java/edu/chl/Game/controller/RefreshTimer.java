@@ -10,6 +10,7 @@ import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.State;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
+import java.util.Observer;
 
 /**
  * 
@@ -35,10 +36,11 @@ public class RefreshTimer extends Observable implements Runnable {
 	private int frameRate=1;
 	private int second=1;
 	
-	public RefreshTimer() throws Exception{
+	public RefreshTimer(){
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
+
 		mapView = new WorldMapView();
 		gameHandler = new GameHandler(this, frame);
 		mouseInput = new MouseInput(frame, mapView);
@@ -48,6 +50,7 @@ public class RefreshTimer extends Observable implements Runnable {
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
+
 	}
 
 	/**
@@ -93,9 +96,9 @@ public class RefreshTimer extends Observable implements Runnable {
 		if(state == State.GAME || state == State.MAP){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
-				frame.createBufferStrategy(3);
-				return;
-				}
+                            frame.createBufferStrategy(3);
+                            return;
+			}
 			renderGraphics(bs);
 		}else if(state == State.MENU && !startMenu.inMenu()){
 			startMenu.setMenu();
@@ -172,7 +175,11 @@ public class RefreshTimer extends Observable implements Runnable {
 	private boolean isFrame() {
 		return frameRate==60;
 	}
+        
+        
 	
+	
+
 	public void updateObserverList(){
 		deleteObservers();
 		for(Entity e: gameHandler.getEntityList()){
@@ -186,4 +193,5 @@ public class RefreshTimer extends Observable implements Runnable {
 	public MouseInput getMouseInput(){
 		return mouseInput;
 	}
+
 }

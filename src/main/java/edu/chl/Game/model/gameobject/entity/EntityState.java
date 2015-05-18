@@ -10,9 +10,7 @@ public class EntityState {
 	public EntityState(FacingDirection facingDirection){
 		this.facingDirection = facingDirection;
 	}
-	public EntityState() {
-		
-	}
+	
 	public boolean isJumping() {
 		return jumping;
 	}

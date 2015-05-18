@@ -1,51 +1,79 @@
 package edu.chl.Game.model.gameobject.entity.entityTools;
 import edu.chl.Game.model.gameobject.entity.*;
+import edu.chl.Game.model.gameobject.entity.enemy.*;
 
 public class FrameIterator {
 	
-	private EntityProperties ep;
+	private int frame;
+	private int frameDelay;
 	private int frameDelayLimit;
 	private int frameLimit;
+	private boolean active;
 	
-	public FrameIterator(EntityProperties ep, int frameDelayLimit, int frameLimit){
+	public FrameIterator(int frameDelayLimit, int frameLimit){
 		this.frameDelayLimit = frameDelayLimit;
 		this.frameLimit = frameLimit;
-		this.ep = ep;
+		this.frame = 0;
+		this.frameDelay = 0;
 	}
 	
-	public void iterateThroughFrames() {
+	public void updateFrameCounter() {
+		activate();
 		increaseFrameDelay();
+	}
+	
+	public void activate(){
+		if(!active){
+			active = true;
+		}
+	}
+	
+	public void deActivate(){
+		active = false;
 	}
 
 	public void increaseFrameDelay() {
-		ep.setFrameDelay(ep.getFrameDelay() + 1);
+		frameDelay++;
 		checkFrameDelayLimit();
 	}
 
 	public void checkFrameDelayLimit() {
-		if (frameLimit <= ep.getFrameDelay()) {
+		if (frameDelayLimit <= frameDelay) {
 			increaseFrame();
 			setFrameDelayToZero();
 		}
 	}
 
 	public void increaseFrame() {
-		ep.setFrame(ep.getFrame() + 1);
+		frame++;
 		checkFrameLimit();
 	}
 
 	public void checkFrameLimit() {
-		if (frameDelayLimit <= ep.getFrame()) {
+		if (frameLimit <= frame) {
 			setFrameToZero();
 		}
 	}
 
 	public void setFrameDelayToZero() {
-		ep.setFrameDelay(0);
+		frameDelay = 0;
 	}
 
 	public void setFrameToZero() {
-		ep.setFrame(0);
+		frame = 0;
+		deActivate();
 	}
 
+	public boolean isActive(){
+		return active;
+	}
+	
+	public int getFrame(){
+		return frame;
+	}
+	
+	public int getFrameDelay(){
+		return frameDelay;
+	}
+	
 }

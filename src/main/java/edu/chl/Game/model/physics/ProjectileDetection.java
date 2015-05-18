@@ -11,64 +11,32 @@ import edu.chl.Game.model.gameobject.entity.player.Pistol;
 
 public class ProjectileDetection {
 
-	private Pistol pistol;
-	private GameHandler handler;
-	private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();
-	private LinkedList<Entity> entityList = new LinkedList<Entity>();
+	private Bullet bullet;
+	private LinkedList<Entity> entityList;
+ 	private GameHandler handler;
 
-	public ProjectileDetection(GameHandler handler, Pistol pistol) {
-		this.handler = handler;
-		this.pistol = pistol;
-		bulletList = pistol.getBulletList();
-		entityList = handler.getEntityList();
+	public ProjectileDetection(Bullet bullet, GameHandler handler) {
+		this.bullet = bullet;
+		entityList = bullet.getHandler().getEntityList();
+        this.handler = handler;
 	}
-
+/*
 	public void hitTarget() {
-		if (!(bulletList.size() == 0)) {
-			for (int i = 0; i < bulletList.size(); i++) {
-				for (int j = 0; j < entityList.size(); j++) {
-					if (entityList.get(j).getUnitState().getId() == Id.monster) {
-						if (getBulletArea(i).intersects(getUnitArea(j))) {
-							System.out.println("Hit!");
-							removeBullet(i);
-							removeUnit(j);
-						}
-					}
+        int damageValue = handler.getPlayer().getUnitValues().getAttackDamage();
+		for (Entity en : this.entityList) {
+			if (en.getId() == Id.monster) {
+				if (checkIfHit(bullet, en)) {
+					en.takeDamage(damageValue);
+					bullet.remove();
+					break;
 				}
 			}
 		}
-		
 	}
+/*
+	public boolean checkIfHit(Entity e1, Entity e2) {
+		return e1.getCalculateBounds().getBounds()
+				.intersects(e2.getCalculateBounds().getBounds());
+	}*/
 
-	public Rectangle getBulletArea(int i) {
-		int x = (bulletList.get(i).getX() - (bulletList.get(i).getWidth() / 2) + 50);
-		int y = (bulletList.get(i).getY() - (bulletList.get(i).getHeight() / 2));
-		int w = bulletList.get(i).getWidth();
-		int h = bulletList.get(i).getHeight();
-		//System.out.println("bullet: " + " x: " + x + " y: " + y + " w: " + w + " h: " + h);
-		return new Rectangle(x, y, w, h);
-	}
-
-	public Rectangle getUnitArea(int i) {
-		int x = entityList.get(i).getX();
-		int y = entityList.get(i).getY();
-		int w = entityList.get(i).getWidth();
-		int h = entityList.get(i).getHeight();
-		//System.out.println("monster: " + " x: " + x + " y: " + y + " w: " + w + " h: " + h);
-		return new Rectangle(x, y, w, h);
-	}
-	
-	public void removeBullet(int i){
-		bulletList.remove(i);
-	}
-	
-	public void removeUnit(int j){
-		handler.removeUnit(j);
-		notifyChange();
-	}
-	
-	public void notifyChange(){
-		handler.unitChanges(true);
-	}
-	
 }
