@@ -3,17 +3,19 @@ package edu.chl.Game.controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
-
 import javax.imageio.ImageIO;
-
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
-import edu.chl.Game.model.gameobject.entity.enemy.DerangedBeast;
+import edu.chl.Game.model.gameobject.entity.enemy.InfectedStudent;
 import edu.chl.Game.model.gameobject.entity.enemy.RoaringBrute;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
-import edu.chl.Game.model.gameobject.tile.FloorTile;
 import edu.chl.Game.model.gameobject.tile.Tile;
+import edu.chl.Game.model.gameobject.tile.TileA;
+import edu.chl.Game.model.gameobject.tile.TileB;
+import edu.chl.Game.model.gameobject.tile.TileC;
+import edu.chl.Game.model.gameobject.tile.TileD;
+import edu.chl.Game.model.gameobject.tile.TileE;
 
 /**
  * 
@@ -43,34 +45,43 @@ public class MapFactory {
 				int blue = (pixel) & 0xff;
 
 				
-				//	( black )
+				// ( green )
+				if (red == 0 && green == 255 && blue == 0) {
+					entityList.add(new InfectedStudent(x * 64, y * 60, 97, 90, true,
+							Id.monster, handler));
+				}
+
+				// ( black )
 				if (red == 0 && green == 0 && blue == 0) {
-					tileList.add(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, handler));
+					tileList.add(new TileA(x * 64, y * 64, true, Id.wall, handler));
 				}
-				
-				//	( green )
-				else if (red == 0 && green == 255 && blue == 0) {
-					entityList.add(new RoaringBrute(x * 64, y * 64, 120, 115, true,
-							Id.monster, handler, handler.getOp_rb(), handler.getFrameValues(), handler.getSheetRoaringBrute()));
+
+				// ( teal )
+				if (red == 0 && green == 255 && blue == 255) {
+					tileList.add(new TileB(x * 64, y * 64, true, Id.wall, handler));
 				}
-				
-				//	( blue )
+                                
+                //	( blue )
 				else if (red == 0 && green == 0 && blue == 255) {
+					
 					entityList.add(new Player(x*64, y*64, 62, 62, true, Id.player, handler));
+				}                    
+                                        
+				// ( pink )
+				if (red == 255 && green == 0 && blue == 255) {
+					tileList.add(new TileC(x * 64, y * 64, true, Id.wall, handler));
+
 				}
-				
-				
-				//	( red )
-				else if (red == 255 && green == 0 && blue == 0) {
-					entityList.add(new DerangedBeast(x * 64, y * 64, 64, 64, true,
-							Id.monster, handler, handler.getOp_db(), handler.getFrameValues(), handler.getSheetDerangedBeast()));
+
+				// ( yellow )
+				if (red == 255 && green == 255 && blue == 0) {
+					
+					tileList.add(new TileD(x * 64, y * 64, true, Id.wall, handler));
 				}
-				
-				//	( ??? )
-				else if (red == 022 && green == 0 && blue == 255) {
-					System.out.println("<check_4>");
-					entityList.add(new RoaringBrute(x * 120, y * 115, 120, 115, true,
-							Id.monster, handler, handler.getOp_rb(), handler.getFrameValues(), handler.getSheetRoaringBrute()));
+
+				// ( brown )
+				if (red == 125 && green == 125 && blue == 0) {
+					tileList.add(new TileE(x * 64, y * 64, true, Id.wall, handler));
 				}
 			}
 		}

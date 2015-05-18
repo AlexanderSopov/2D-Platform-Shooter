@@ -1,0 +1,18 @@
+Player
+	moving 		= 
+	takeDamage 	=
+	
+RoaringBrute
+	moving		= b00	
+	takeDamage	= 
+	attacking	= b03
+
+Tiles
+	Botanical Adacemy 
+		64x64	= t00	
+		320x64	= t01
+		1600x64 = t02
+		384x384 = t03
+		64x384  = t04
+
+	

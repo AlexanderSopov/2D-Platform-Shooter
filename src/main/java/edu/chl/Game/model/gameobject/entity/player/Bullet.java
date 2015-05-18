@@ -3,6 +3,7 @@ package edu.chl.Game.model.gameobject.entity.player;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.physics.ProjectileDetection;
 import edu.chl.Game.view.Frame;
 
 import java.awt.Color;
@@ -21,22 +22,24 @@ public class Bullet extends Entity{
     private double angle;
     private int rotatedX,rotatedY;
     private int motionX, motionY;
+    private ProjectileDetection pd;
+    private int damageValue;
     
 
     public Bullet(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler,int targetPosX, int targetPosY, int speed, double angle) {
+			GameHandler handler, int speed, double angle, int offX, int offY) {
         super(x, y, width, height, solid, id, handler);
                 
                 this.angle = angle;
-                
-		this.setTargetPosX(targetPosX);
-		this.setTargetPosY(targetPosY);
-                
 		this.speed = speed;
                 this.centerX = getX() ;
                 this.centerY = getY() ;
-                this.motionX = getX()+50;
-                this.motionY = getY();
+                this.motionX = getX() + offX;
+                this.motionY = getY() + offY;
+                rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
+                rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
+                this.damageValue = handler.getPlayer().getUnitValues().getAttackDamage();
+                this.pd = new ProjectileDetection(this, handler);
                
     }
 
@@ -50,29 +53,17 @@ public class Bullet extends Entity{
 
     @Override
     public void update() {
+    	super.update();
         this.motionX = this.motionX + this.speed;
        rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
        rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
         
 	setX((int) rotatedX);
         setY((int)rotatedY);
+        
+       // pd.hitTarget();
     }
     
-    	public int getTargetPosX() {
-		return targetPosX;
-	}
-
-	private void setTargetPosX(int targetPosX) {
-		this.targetPosX = targetPosX;
-	}
-
-	public int getTargetPosY() {
-		return targetPosY;
-	}
-
-	private void setTargetPosY(int targetPosY) {
-		this.targetPosY = targetPosY;
-	}
 
 	public int getSpeed() {
 		return speed;

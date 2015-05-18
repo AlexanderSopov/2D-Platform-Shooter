@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import edu.chl.Game.model.gameobject.entity.EntityState;
+import edu.chl.Game.model.gameobject.entity.*;
 
 
 /**
@@ -29,6 +29,7 @@ public class SFX extends Sound implements SFXInterface {
 	private EntityState entityState;
 	
 	public SFX() {
+
 		addSFX("jump", "Jump.mp3");
 	}
 	
@@ -42,6 +43,7 @@ public class SFX extends Sound implements SFXInterface {
 	 */
 	public Map<String, Sound> getSFXHashMap() {
 		return sfxHashMap;
+
 	}
 	
 	

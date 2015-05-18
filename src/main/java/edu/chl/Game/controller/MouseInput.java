@@ -19,6 +19,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
+	private boolean shoot = false;
 	
 	private Frame frame;
 	private WorldMapView mapView;
@@ -31,7 +32,6 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	
 	public void setCursor(GameCursor c){
 		//Put all the pre-load content here
-
 		this.c = c;
 		// Transparent 16 x 16 pixel cursor image.
 		BufferedImage cursorImg = new BufferedImage(16, 16,
@@ -64,9 +64,8 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		
 		if(RefreshTimer.state == State.GAME) {
-			c.shoot();
-			if (c != null) {
-				c.shoot();
+			if(c != null){
+				c.getHandler().getPlayer().shoot();;
 			}
 		}else if(RefreshTimer.state == State.MAP){
 			int mx = e.getX();
@@ -229,5 +228,10 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	public static boolean isPressed() {
 		return pressed;
 	}
+	
+	public int getMousePos_X() {
+		return mousePosX;
+	}
+	
 
 }

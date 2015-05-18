@@ -1,9 +1,11 @@
 package edu.chl.Game.model.gameobject;
-
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
-
+import edu.chl.Game.model.physics.CalculateBounds;
+import edu.chl.Game.view.graphics.SpriteSheet;
+import edu.chl.Game.model.gameobject.entity.player.*;
+import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
@@ -15,6 +17,9 @@ import edu.chl.Game.model.physics.collisions.BoundingBoxes;
  * Author: Alexander Sopov, Oliver Tunberg, Rasmus Andersson
  */
 
+
+
+
 public abstract class GameObject implements Observer, GameInterface {
 	public static RefreshTimer gt = Main.game;
 	private UnitState unitState;
@@ -23,6 +28,7 @@ public abstract class GameObject implements Observer, GameInterface {
 	private GameHandler handler;
 	private Id id;
 	private boolean solid;
+	private WeaponProperties wp;
 	
 
 	public GameObject(int x, int y, int width, int height, boolean solid,
@@ -33,6 +39,7 @@ public abstract class GameObject implements Observer, GameInterface {
                 		 new Vector2D(0,0), //Velocity
                 		 width, height);	//Size
 		
+
 		this.id = id;
 		this.solid = solid;
 		this.handler = handler;
@@ -48,24 +55,27 @@ public abstract class GameObject implements Observer, GameInterface {
 			System.out.println("Something's wrong with GameObjects Update!");
 		}
 	}
-	
+
 	public abstract void render(Graphics g);
 
 	public abstract void update();
 
 	public abstract void remove();
 	
-
-
 	public UnitState getUnitState() {
 		return unitState;
 	}
 
 
-        
-        public GameHandler getHandler(){
-            return this.handler;
-        }
+
+	public GameHandler getHandler() {
+		return this.handler;
+	}
+
+	public Id getId() {
+		return this.id;
+	}
+
 
 	public int getX() {
 		return physicalProperties.getX();
@@ -113,14 +123,12 @@ public abstract class GameObject implements Observer, GameInterface {
 	public int getHeight() {
 		return physicalProperties.getHeight();
 	}
+
         
     public double getHealthPoints(){
 		return healthPoints;
-	}
-	
-	public void setHealthPoints(double healthPoints){
-		this.healthPoints = healthPoints;
-	}
+    }
+
         
     public int getVelX(){
 		return physicalProperties.getVelX();
@@ -135,6 +143,7 @@ public abstract class GameObject implements Observer, GameInterface {
 	}
 	
 	public void setVelY(int vely){
+		
 		physicalProperties.setVelY(vely);
 	}
 	
@@ -148,5 +157,19 @@ public abstract class GameObject implements Observer, GameInterface {
 	public void setVelocity(Vector2D v){
 		physicalProperties.setVelocity(v);
 	}
+	
+	public void setWeaponProperties(Entity en, FrameIterator fi){
+		this.wp = new WeaponProperties(en, fi);
+	}
+	
+	public WeaponProperties getWeaponProperties(){
+		return wp;
+	}
+	
+	public void iterateCooldown(){
+		wp.updateCooldown();
+	}
+	
 
+	
 }
