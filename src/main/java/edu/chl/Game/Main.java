@@ -2,10 +2,6 @@ package edu.chl.Game;
 
 
 import javax.swing.SwingUtilities;	
-import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.model.gameobject.entity.Entity;
-import edu.chl.Game.model.gameobject.entity.player.Player;
-import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.sound.Music;
 import edu.chl.Game.controller.RefreshTimer;
 
@@ -24,8 +20,8 @@ public final class Main {
 		SwingUtilities.invokeLater(() -> {
 					try {
 						game = new RefreshTimer();
-						//music = new Music();
-						//music.playIntro();
+						music = new Music();
+						music.playIntro();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
