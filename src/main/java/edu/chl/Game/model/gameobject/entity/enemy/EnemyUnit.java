@@ -98,14 +98,20 @@ public abstract class EnemyUnit extends Unit {
 	// Getters And Setters
 	
 	public int getAdjustedY(){
-		int hightAdd = (altHeight - getHeight());		
-		return getY() - hightAdd;
+		int change = (altHeight - getHeight());		
+		return getY() - change;
 	}
 	
-	public int getAdjustedX(){	
-		return getX() - 50;
+	public int getAdjustedX_right(){
+		int offset = getUnitMeasurement().getOffsetRight();
+		return getX() - offset;
 	}
 
+	public int getAdjustedX_left(){
+		int offset = getUnitMeasurement().getOffsetLeft();
+		return getX() - offset;
+	}
+	
 	public SpriteSheet getSheetMovingAnimation() {
 		return sheetMovingAnimation;
 	}

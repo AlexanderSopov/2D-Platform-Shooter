@@ -53,14 +53,14 @@ public class UnitGraphicsRender {
 		if (en.getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
 			en.getRenderClass().renderAnimateRight(g,
 					en.getArrayAttackAnimation(),
-					en.getFrameIterator_attack().getFrame(), en.getX(),
+					en.getFrameIterator_attack().getFrame(), en.getAdjustedX_right(),
 					en.getAdjustedY(), en.getAltWidth(), en.getAltHeight());
 
 		} else if (en.getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 			en.getRenderClass().renderAnimateLeft(g,
 					en.getArrayAttackAnimation(),
-					en.getFrameIterator_attack().getFrame(), en.getX()-10,
-					en.getY()-10, en.getAltWidth(), en.getAltHeight(), changeRow);
+					en.getFrameIterator_attack().getFrame(), en.getAdjustedX_left(),
+					en.getAdjustedY(), en.getAltWidth(), en.getAltHeight(), changeRow);
 		}
 	}
 

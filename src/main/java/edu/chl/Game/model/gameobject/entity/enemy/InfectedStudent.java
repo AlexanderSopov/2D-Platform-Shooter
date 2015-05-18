@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.print.attribute.SetOfIntegerSyntax;
+
 import edu.chl.Game.Main;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.controller.RefreshTimer;
@@ -48,8 +50,11 @@ public class InfectedStudent extends EnemyUnit {
 		getUnitMeasurement().setDelay_attack(1);
 		getUnitMeasurement().setLimit_attack(16);
 		getUnitMeasurement().setStrikeFrame(8);
+		getUnitMeasurement().setOffsetRight(-5);
+		getUnitMeasurement().setOffsetLeft(10);
 		setAltWidth(100);
 		setAltHeight(100);
+		
 	}
 
 	@Override

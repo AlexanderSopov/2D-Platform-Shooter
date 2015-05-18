@@ -7,6 +7,8 @@ public class UnitMeasurement {
 	private int numberOfSprites_hurt;
 	
 	private int strikeFrame;
+	private int offsetRight;
+	private int offsetLeft;
 	
 	private int altWidth;
 	private int altHeight;
@@ -19,6 +21,8 @@ public class UnitMeasurement {
 	
 	private int delay_hurt;
 	private int limit_hurt;
+	
+	
 	
 	public int getNumberOfSprite_move(){
 		return numberOfSprites_move;
@@ -34,6 +38,14 @@ public class UnitMeasurement {
 	
 	public int getStrikeFrame(){
 		return strikeFrame;
+	}
+	
+	public int getOffsetRight(){
+		return offsetRight;
+	}
+	
+	public int getOffsetLeft(){
+		return offsetLeft;
 	}
 	
 	public int getAltWidth(){
@@ -80,6 +92,13 @@ public class UnitMeasurement {
 		this.strikeFrame = value;
 	}
 	
+	public void setOffsetRight(int value){
+		this.offsetRight = value;
+	}
+	
+	public void setOffsetLeft(int value){
+		this.offsetLeft = value;
+	}
 	public void setNumberOfSprites_hurt(int value){
 		this.numberOfSprites_hurt = value;
 	}
