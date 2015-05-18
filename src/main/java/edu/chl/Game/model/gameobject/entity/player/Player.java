@@ -42,7 +42,7 @@ public class Player extends Unit {
 
 	@Override
 	public void render(Graphics g) {
-                System.out.println("" + this.getX());
+                
 		if (!isRecievingDamage()) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {

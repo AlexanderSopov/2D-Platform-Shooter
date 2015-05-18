@@ -53,6 +53,7 @@ public class Bullet extends Entity{
 
     @Override
     public void update() {
+    	super.update();
         this.motionX = this.motionX + this.speed;
        rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
        rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);

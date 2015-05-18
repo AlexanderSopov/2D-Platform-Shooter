@@ -65,6 +65,7 @@ public class GameHandler {
 			}
 		}
 		
+		
 		for (Entity e: getEntityList())
 			refreshTimer.addObserver(e);
 		for (Tile t: getTileList())
@@ -104,25 +105,27 @@ public class GameHandler {
 	public void addEntity(Entity e) {
 
 		entity.add(e);
-		
+		refreshTimer.addObserver(e);
 
 	}
 
 	public void removeEntity(Entity e) {
 
-		
+		refreshTimer.deleteObserver(e);
 		entity.remove(e);
+		
 
 	}
 
 	public void addTile(Tile t) {
 
 		tile.add(t);
-
+		refreshTimer.addObserver(t);
 	}
 
 	public void removeTile(Tile t) {
-
+		
+		refreshTimer.deleteObserver(t);
 		tile.remove(t);
 
 	}

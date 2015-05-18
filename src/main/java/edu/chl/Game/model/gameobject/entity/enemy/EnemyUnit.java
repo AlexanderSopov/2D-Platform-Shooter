@@ -39,6 +39,7 @@ public abstract class EnemyUnit extends Unit {
 
 	@Override
 	public void render(Graphics g) {
+		super.render(g);
 		ur.renderGraphics(this, g);
 		runScoreDisplay(g);
 		displayHealthBar(g);
@@ -47,6 +48,7 @@ public abstract class EnemyUnit extends Unit {
 
 	@Override
 	public void update() {
+		super.update();
 		//getUpdateMovement().updateCoordinates_enemy();
 		//getUpdateMovement().toggleAnimate();
 		//getUpdateMovement().updateFacing();

@@ -47,7 +47,7 @@ public class MapFactory {
 				
 				// ( green )
 				if (red == 0 && green == 255 && blue == 0) {
-					entityList.add(new InfectedStudent(x * 64, y * 64, 97, 90, true,
+					entityList.add(new InfectedStudent(x * 64, y * 60, 97, 90, true,
 							Id.monster, handler));
 				}
 
