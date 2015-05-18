@@ -36,14 +36,16 @@ public class CollisionSolver {
 	//Check type of GameObject
 	
 	private static void solveCollision(Player p, GameObject go){
-		if (go instanceof Tile)
+		if (go instanceof Tile){
 			strategy = new EntityVsTile(p, (Tile)go);
-		else if (go instanceof Item)
+			strategy.solve();
+		}else if (go instanceof Item){
 			strategy = new PlayerVsItem(p, (Item)go);
-		else if (go instanceof EnemyUnit)
+			strategy.solve();
+		}else if (go instanceof EnemyUnit){
 			strategy = new PlayerVsEnemy(p, (EnemyUnit)go);
-		
-		strategy.solve();
+			strategy.solve();
+		}
 	}
 	
 	
