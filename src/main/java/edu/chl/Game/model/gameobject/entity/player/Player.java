@@ -1,134 +1,114 @@
 package edu.chl.Game.model.gameobject.entity.player;
-
 import java.awt.Graphics;
 import java.util.LinkedList;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.model.gameobject.entity.Entity;
-import edu.chl.Game.model.gameobject.entity.FacingDirection;
-import edu.chl.Game.model.gameobject.entity.GravitationalProperties;
+import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.FrameIterator;
 import edu.chl.Game.model.gameobject.tile.Tile;
-import edu.chl.Game.model.physics.ContactWithEnemy;
 import edu.chl.Game.model.physics.ProjectileDetection;
-import edu.chl.Game.view.graphics.Sprite;
+import edu.chl.Game.view.graphics.LoadingSprites;
+import edu.chl.Game.view.graphics.*;
 import edu.chl.Game.model.gameobject.entity.items.Character;
 import edu.chl.Game.model.gameobject.Item;
 import edu.chl.Game.model.gameobject.entity.items.ItemMap;
 import edu.chl.Game.model.gameobject.entity.items.P2;
 
-public class Player extends Entity implements Character{
 
-	private Sprite player[] = new Sprite[40];
-	private Sprite recieveDamage[] = new Sprite[10];
-	private ContactWithEnemy contactWithEnemy;
+//>>>>>>> UnitDev
+
+public class Player extends Unit {
+
+	private SpriteSheet sheetMovingAnimation;
+	private SpriteSheet sheetHurtingAnimation;
+	private Sprite[] arrayMovingAnimation;
+	private Sprite[] arrayHurtAnimation;
+	private LoadingSprites load;
 	private GravitationalProperties gravitationalProperties;
 
-	private FrameIterator frameIterator_moving;
-	private FrameIterator frameIterator_takeDamage;
 	
-
-	//private FrameCounter frameCounter;
 	private boolean isRecievingDamage;
         private ItemMap itemMap;
         
         private Pistol p;
         
 
-
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
+               
+        itemMap = new ItemMap();
                 
-                itemMap = new ItemMap();
-                
-                
 
-		// facing right
+		this.load = new LoadingSprites();
+		initiateUnit();
+		this.gravitationalProperties = new GravitationalProperties(this);              
+               
 
-		for (int i = 0; i < 20; i++) {
-			// facing right
-                        player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
-                        // facing left
-                        player[i + 20] = new Sprite(handler.getSheetPlayer(), i, 1, 62, 62);
-		}
+        p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
 
-		
+		this.setWeaponProperties(this, new FrameIterator(1, 20));
+		setUnitValues(100, 50, 0, 7, 0);
 
-		for (int i = 0; i < 5; i++) {
-			recieveDamage[i] = new Sprite(
-					handler.getSheetPlayer_RecieveDamage(), i, 0, 62, 62);
-                        recieveDamage[i + 5] = new Sprite(
-					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
-		}
-		
-		this.frameIterator_moving = new FrameIterator(this, 2, 20);
-		this.frameIterator_takeDamage = new FrameIterator(this, 3, 5);
-		this.contactWithEnemy = new ContactWithEnemy(this);
-		this.gravitationalProperties = new GravitationalProperties(this);
-                
-               System.out.println("PLayer Created");
 
-               p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
 	}
-
-
 
 	@Override
 	public void render(Graphics g) {
-                System.out.println("PLayer redresd");
+                
 		if (!isRecievingDamage()) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-					getRenderClass().renderAnimateRight(g, player,
-							frameIterator_moving.getFrame(), getX(), getY(),
+					getRenderClass().renderAnimateRight(g, arrayMovingAnimation,
+							getFrameIterator_moving().getFrame(), getX(), getY(),
 							getHeight(), getWidth());
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderAnimateLeft(g, player,
-							frameIterator_moving.getFrame(), getX(), getY(),
+					getRenderClass().renderAnimateLeft(g, arrayMovingAnimation,
+							getFrameIterator_moving().getFrame(), getX(), getY(),
 							getHeight(), getWidth(), 20);
 				}
 			}
 
 			else if (!getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-					getRenderClass().renderNotAnimateRight(g, player,
-							frameIterator_moving.getFrame(), getX(), getY(),
+					getRenderClass().renderNotAnimateRight(g,arrayMovingAnimation, getX(), getY(),
 							getHeight(), getWidth());
 				}
 
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderNotAnimateLeft(g, player,
-							frameIterator_moving.getFrame(), getX(), getY(),
-							getHeight(), getWidth(), 20);
+					getRenderClass().renderNotAnimateLeft(g, arrayMovingAnimation, getX(), getY(),
+							getHeight(), getWidth(), (getUnitMeasurement().getNumberOfSprite_move()/2));
 				}
 			}
 		} else {
 
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-				getRenderClass1().renderAnimateRight(g, recieveDamage,
-						frameIterator_takeDamage.getFrame(), getX(), getY(), getWidth(),
-						getHeight());
+				getRenderClass1().renderAnimateRight(g, arrayHurtAnimation,
+						getFrameIterator_hurting().getFrame(), getX(), getY(),
+						getWidth(), getHeight());
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-				getRenderClass1().renderAnimateLeft(g, recieveDamage,
-						frameIterator_takeDamage.getFrame(), getX(), getY(), getWidth(),
-						getHeight(), 4);
+				getRenderClass1().renderAnimateLeft(g, arrayHurtAnimation,
+						getFrameIterator_hurting().getFrame(), getX(), getY(),
+						getWidth(), getHeight(), (getUnitMeasurement().getNumberOfSprite_hurt()/2));
 			}
 		}
-		
+
 		runScoreDisplay(g);
                 p.render(g);
 	}
 
 	@Override
 	public void update() {
-               System.out.println("PLayer Updated");
-		getUpdateMovement().updateCoordinates();
+
+
+		getUpdateMovement().updateCoordinates_player();
 		getUpdateMovement().toggleAnimate();
 		getCollisionDetection().checkForCollision();
-		contactWithEnemy.checkForContact();
 		gravitationalProperties.jumpingMechanics();
 		gravitationalProperties.fallingMechanics();
+
+		iterateCooldown();
+
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}
@@ -139,26 +119,30 @@ public class Player extends Entity implements Character{
                 
                 p.update();
 	}
-	
-	public void processDamageTaking(){
-		if (!frameIterator_takeDamage.isActive()) {
+
+	public void processDamageTaking() {
+		if (!getFrameIterator_hurting().isActive()) {
 			setRecievingDamage(false);
 		}
 	}
 
 	public void iterateMoving() {
-		frameIterator_moving.updateFrameCounter();
+		getFrameIterator_moving().updateFrameCounter();
 	}
-	
+
 	public void iterateTakingDamage() {
-		frameIterator_takeDamage.updateFrameCounter();
+		getFrameIterator_hurting().updateFrameCounter();
 	}
-	
-	public void recieveDamage(double damage) {
+
+	public void recieveDamage(int value) {
 		if (!isRecievingDamage()) {
 			setRecievingDamage(true);
 		}
-		setHealthPoints(getHealthPoints() - damage);
+		getUnitValues().setHealthPoints(calculateNewHealthPoints(value));
+	}
+	
+	public int calculateNewHealthPoints(int value){
+		return getUnitValues().getHealthPoints() - value;
 	}
 	
 	public void shoot(){
@@ -167,24 +151,89 @@ public class Player extends Entity implements Character{
         
     // this is a part of Inventory system, will soon be refactorated :)
   
-    
+
     public void eqipeItem(Item item) {
         this.itemMap.put("Item.getName()", item);
     }
 
-    
     public void discardItem(Item item) {
         this.itemMap.remove("Item.getName()");
     }
 
-    @Override
     public double getHealth() {
-       return this.getHealthPoints();
+       return getUnitValues().getHealthPoints();
     }
 
-    @Override
+
     public double getArmor() {
         return 0;
     }
+
+	
+	
+	
+	@Override
+	public void initiateUnit() {
+		initiateUnitTitle();
+		initiateUnitMeasurement();
+		initiateSpriteSheets();
+		initiateSpriteArrays();
+		initiateProperties();
+		loadSprites();
+	}
+	
+	@Override
+	public void initiateUnitTitle() {
+		setUnitTitle("Bit");
+	}
+	
+	@Override
+	public void initiateUnitMeasurement() {
+		getUnitMeasurement().setNumberOfSprites_move(40);
+		getUnitMeasurement().setNumberOfSprites_hurt(8);
+		getUnitMeasurement().setDelay_move(2);
+		getUnitMeasurement().setLimit_move(20);
+		getUnitMeasurement().setDelay_hurt(2);
+		getUnitMeasurement().setLimit_hurt(4);
+	}
+	
+	@Override
+	public void initiateSpriteSheets() {
+		this.sheetMovingAnimation = new SpriteSheet("/p00.png");
+		this.sheetHurtingAnimation = new SpriteSheet("/p01.png");
+	}
+
+	@Override
+	public void initiateSpriteArrays() {
+		int valueA = getUnitMeasurement().getNumberOfSprite_move();
+		int valueB = getUnitMeasurement().getNumberOfSprite_hurt();
+		this.arrayMovingAnimation = new Sprite[valueA];
+		this.arrayHurtAnimation = new Sprite[valueB];
+	}
+
+	@Override
+	public void initiateProperties() {
+		int valueA = getUnitMeasurement().getDelay_move();
+		int valueB = getUnitMeasurement().getLimit_move();
+		int valueC = getUnitMeasurement().getDelay_hurt();
+		int valueD = getUnitMeasurement().getLimit_hurt();
+		setFrameIterator_moving(new FrameIterator(valueA, valueB));
+		setFrameIterator_hurt(new FrameIterator(valueC, valueD));
+		// healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_ / attackRate:_ /
+		setUnitValues(100, 100, 0, 7, 0);
+	}
+	
+	@Override
+	public void loadSprites() {	
+		this.arrayMovingAnimation = load.loadSprites(sheetMovingAnimation, arrayMovingAnimation, getUnitMeasurement().getNumberOfSprite_move(), getWidth(), getHeight());
+		this.arrayHurtAnimation = load.loadSprites(sheetHurtingAnimation, arrayHurtAnimation, getUnitMeasurement().getNumberOfSprite_hurt(), getWidth(), getHeight());
+	}
+
+	@Override
+	public void setAlternativeMeasurement() {	
+	}
+
+
+
 
 }

@@ -24,10 +24,15 @@ public abstract class Entity extends GameObject {
 
 	private FrameIterator frameIterator_moving;
 	private FrameIterator frameIterator_attack;
+	private FrameIterator frameIterator_hurt;
 	private ScoreProcess scoreProcess;
+	private HealthBar healthBar;
+	private UnitValues unitValues;
+	private UnitMeasurement um;
+	private String unitTitle;
 
-	public Entity(int x, int y, int width, int height, boolean solid, Id id,
-			GameHandler handler) {
+
+	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
 
 		renderClass = new EntityRender();
@@ -37,6 +42,8 @@ public abstract class Entity extends GameObject {
 		entityProperties = new EntityProperties();
 		collisionDetection = new CollisionDetection(this);
 		scoreProcess = new ScoreProcess();
+		this.healthBar = new HealthBar(this);
+		this.um = new UnitMeasurement();
 
 	}
 	
@@ -52,20 +59,20 @@ public abstract class Entity extends GameObject {
 		scoreProcess.updateScoreDispay(g);
 	}
 	
-	public void addScoreInterface(double value){
+	public void addScoreInterface(int value){
 		scoreProcess.addScoreInterface(this, value);
 	}
 	
 	// --- Damage System ---
 	
-	public void takeDamage(double value) {
-		setHealthPoints(getHealthPoints() - value);
+	public void takeDamage(int value) {
+		unitValues.setHealthPoints((unitValues.getHealthPoints() - value));
 		checkIfDead();
 		addScoreInterface(value);
 	}
 	
 	public void checkIfDead(){
-		if (getHealthPoints() <= 0.0) {
+		if (unitValues.getHealthPoints() <= 0) {
 			die();
 		}
 	}
@@ -77,6 +84,13 @@ public abstract class Entity extends GameObject {
 	@Override
 	public void remove() {
 		getHandler().removeEntity(this);
+	}
+	
+	
+	// --- HUD ---
+	
+	public void displayHealthBar(Graphics g){
+		healthBar.displayHealthBar(g);
 	}
 	
 	
@@ -115,10 +129,32 @@ public abstract class Entity extends GameObject {
 	public FrameIterator getFrameIterator_attack() {
 		return frameIterator_attack;
 	}
+	public FrameIterator getFrameIterator_hurting() {
+		return frameIterator_hurt;
+	}
+	public UnitValues getUnitValues(){
+		return unitValues;
+	}
+	public UnitMeasurement getUnitMeasurement(){
+		return um;
+	}
+	public String getUnitTitle(){
+		return unitTitle;
+	}
 	public void setFrameIterator_moving(FrameIterator fi) {
 		this.frameIterator_moving = fi;
 	}
 	public void setFrameIterator_attack(FrameIterator fi) {
 		this.frameIterator_attack = fi;
 	}
+	public void setFrameIterator_hurt(FrameIterator fi) {
+		this.frameIterator_attack = fi;
+	}
+	public void setUnitValues(int maxHp, int maxEp, int arm, int aD, int aR){
+		this.unitValues = new UnitValues(maxHp, maxEp, arm, aD, aR);
+	}
+	public void setUnitTitle(String str){
+		this.unitTitle = str;
+	}
+
 }

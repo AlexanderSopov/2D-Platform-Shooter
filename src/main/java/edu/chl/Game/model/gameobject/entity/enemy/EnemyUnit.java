@@ -19,7 +19,7 @@ import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.graphics.*;
 
-public abstract class EnemyUnit extends Entity {
+public abstract class EnemyUnit extends Unit {
 
 	private SpriteSheet sheetMovingAnimation;
 	private SpriteSheet sheetAttackAnimation;
@@ -28,22 +28,21 @@ public abstract class EnemyUnit extends Entity {
 	private LoadingSprites load;
 	private UnitGraphicsRender ur;
 
+	private GravitationalProperties gravitationalProperties;
 	private int altWidth;
 	private int altHeight;
-	private AttackTimer attackTimer;
 	private AI aI;
-	private double attackDamage;
 	private boolean isAttacking = false;
 
 	public EnemyUnit(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 
 		super(x, y, width, height, solid, id, handler);
-
 		this.load = new LoadingSprites();
 		this.ur = new UnitGraphicsRender();
 		this.initiateUnit();
-		this.aI = new AI(this, attackTimer);
+		this.aI = new AI(this);
+		this.gravitationalProperties = new GravitationalProperties(this);
 
 	}
 
@@ -51,33 +50,25 @@ public abstract class EnemyUnit extends Entity {
 	public void render(Graphics g) {
 		ur.renderGraphics(this, g);
 		runScoreDisplay(g);
+		displayHealthBar(g);
+		super.render(g);
 	}
 
 	@Override
 	public void update() {
-		getUpdateMovement().updateCoordinates();
+		getUpdateMovement().updateCoordinates_enemy();
 		getUpdateMovement().toggleAnimate();
 		getUpdateMovement().updateFacing();
 		getCollisionDetection().checkForCollision();
+		gravitationalProperties.fallingMechanics();
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}
+		exerciseAI();
 		if (isAttacking) {
 			iterateAttack();
 		}
-		exerciseAI();
-		aI.attack();
-	}
-
-	public void iterateMoving() {
-		getFrameIterator_moving().updateFrameCounter();
-	}
-
-	public void iterateAttack() {
-		getFrameIterator_attack().updateFrameCounter();
-		if(!getFrameIterator_attack().isActive()){
-			isAttacking = false;
-		}
+		
 	}
 
 	public void exerciseAI() {
@@ -92,17 +83,35 @@ public abstract class EnemyUnit extends Entity {
 		isAttacking = b;
 	}
 	
+	public void iterateMoving() {
+		getFrameIterator_moving().updateFrameCounter();
+	}
+
+	public void iterateAttack() {
+		getFrameIterator_attack().updateFrameCounter();
+		if(!getFrameIterator_attack().isActive()){
+			isAttacking = false;
+		}
+	}
+
+	
 	// Getters And Setters
 	
 	public int getAdjustedY(){
-		int hightAdd = (altHeight - getHeight());		
-		return getY() - hightAdd;
+		int change = (altHeight - getHeight());		
+		return getY() - change;
 	}
 	
-	public int getAdjustedX(){	
-		return getX() - 53;
+	public int getAdjustedX_right(){
+		int offset = getUnitMeasurement().getOffsetRight();
+		return getX() - offset;
 	}
 
+	public int getAdjustedX_left(){
+		int offset = getUnitMeasurement().getOffsetLeft();
+		return getX() - offset;
+	}
+	
 	public SpriteSheet getSheetMovingAnimation() {
 		return sheetMovingAnimation;
 	}
@@ -139,22 +148,6 @@ public abstract class EnemyUnit extends Entity {
 		return load;
 	}
 
-	public double getAttackDamage() {
-		return attackDamage;
-	}
-
-	public void setAttackDamage(double attackDamage) {
-		this.attackDamage = attackDamage;
-	}
-
-	public AttackTimer getAttackTimer() {
-		return attackTimer;
-	}
-
-	public void setAttackTimer(AttackTimer attackTimer) {
-		this.attackTimer = attackTimer;
-	}
-
 	public int getAltWidth(){
 		return altWidth;
 	}
@@ -170,12 +163,5 @@ public abstract class EnemyUnit extends Entity {
 	public void setAltHeight(int altHeight){
 		this.altHeight = altHeight;
 	}
-	
-	public abstract void initiateSpriteSheets();
-	public abstract void initiateSpriteArrays();
-	public abstract void loadSprites();
-	public abstract void initiateProperties();
-	public abstract void initiateUnit();
-	public abstract void setAlternativeMeasurement();
 
 }

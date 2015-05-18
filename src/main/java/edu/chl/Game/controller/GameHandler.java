@@ -22,6 +22,7 @@ import edu.chl.Game.model.gameobject.entity.items.P2;
 
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
+import edu.chl.Game.model.gameobject.tile.TileA;
 import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.model.gameobject.entity.items.Character;
@@ -33,39 +34,33 @@ public class GameHandler {
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private Player player;
-	
-	private SpriteSheet sheetTile;
-	private SpriteSheet sheetPlayer;
-	private SpriteSheet sheetMonster;
-	private SpriteSheet sheetTexture;
-	private BufferedImage mapImage;
-	private SpriteSheet sheetEnemyUnit0;
-	private SpriteSheet sheetDerangedBeast;
-	private SpriteSheet sheetDerangedBeast_AttackAnimation;
-	private SpriteSheet sheetPlayer_RecieveDamage;
-	private SpriteSheet sheetRoaringBrute;
-	private boolean changeHasHappened;
-        
-        private int ref;
 
+	private BufferedImage mapImage;
+	private boolean changeHasHappened;
+	private int ref;
 	private Camera camera;
 	private GameCursor c;
-        
-        private RefreshTimer rfr;
+	private RefreshTimer rfr;
+	private MouseInput mi;
 
-	public GameHandler(RefreshTimer rfr,Thread thread, Frame frame) {
+	public GameHandler(RefreshTimer rfr, Thread thread, Frame frame) {
 		this.thread = thread;
 		this.frame = frame;
 		camera = new Camera();
+
 		
         this.rfr = rfr;
         this.ref = 0;
-		createSheet();
+        c = new GameCursor(this.camera, this);
+		addEntity(c);
 		createMap();
+		this.mi = new MouseInput(c);
 		frame.addKeyListener(new KeyInput(this));
-		frame.addMouseListener(new MouseInput(c));
-		frame.addMouseMotionListener(new MouseInput(c));
+		frame.addMouseListener(mi);
+		frame.addMouseMotionListener(mi);
 		
+		 
+
 	}
 
 	public void render(Graphics g) {
@@ -74,32 +69,14 @@ public class GameHandler {
 		g.translate(camera.getX(), camera.getY());
 
 		camera.update(getPlayer());
-		
+
 	}
 
 
-
-	public void createSheet() {
-		
-		sheetTile = new SpriteSheet("/floorTile.png");
-
-		sheetPlayer = new SpriteSheet("/SH_Player.png");
-		
-		sheetDerangedBeast = new SpriteSheet("/SpriteSheet_DerangedBeast.png");
-
-		sheetDerangedBeast_AttackAnimation = new SpriteSheet("/db_aa.png");
-
-		sheetPlayer_RecieveDamage = new SpriteSheet("/SH_RD_Player.png");
-		
-		sheetRoaringBrute = new SpriteSheet("/SH_RB.png");
-		
-		
-	}
 
 	public void createMap() {
 		try {
-			mapImage = ImageIO.read(getClass().getResource(
-					"/level_1.png"));
+			mapImage = ImageIO.read(getClass().getResource("/level_1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -115,128 +92,118 @@ public class GameHandler {
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
 
-				
-				//	( black )
+				// ( blue )
+				if (red == 0 && green == 0 && blue == 255) {
+					addEntity(new Player(x * 64, y * 64, 62, 62, true,
+							Id.player, this));
+				}
+
+				// ( green )
+				if (red == 0 && green == 255 && blue == 0) {
+					addEntity(new InfectedStudent(x * 64, y * 64, 97, 90, true,
+							Id.monster, this));
+				}
+
+				// ( black )
 				if (red == 0 && green == 0 && blue == 0) {
-					addTile(new FloorTile(x*64, y*64, 64, 64, true, Id.wall, this));
+					addTile(new TileA(x * 64, y * 64, true, Id.wall, this));
+				}
+
+				// ( teal )
+				if (red == 0 && green == 255 && blue == 255) {
+					addTile(new TileB(x * 64, y * 64, true, Id.wall, this));
 				}
                                 
                                 //	( blue )
 				else if (red == 0 && green == 0 && blue == 255) {
-                    c = new GameCursor(this.camera, this);
-					addEntity(c);
+					
                     this.player = new Player(x*64, y*64, 62, 62, true, Id.player, this);
 					addEntity(this.player);
-                                       
+				}                    
                                         
+				// ( pink )
+				if (red == 255 && green == 0 && blue == 255) {
+					addTile(new TileC(x * 64, y * 64, true, Id.wall, this));
+
 				}
-				
-				//	( green )
-				else if (red == 0 && green == 255 && blue == 0) {
-					addEntity(new RoaringBrute(x * 64, y * 64, 120, 115, true,
-							Id.monster, this));
+
+				// ( yellow )
+				if (red == 255 && green == 255 && blue == 0) {
+					addTile(new TileD(x * 64, y * 64, true, Id.wall, this));
 				}
+
+				// ( brown )
+				if (red == 125 && green == 125 && blue == 0) {
+					addTile(new TileE(x * 64, y * 64, true, Id.wall, this));
+				}
+
 				
 				/* Create a character with Items*/
 	            //Character armedPlayer = CharacterFactory.createCharacter(new P2(this.player,this.player, c));
 	            //rfr.addObserver((Observer) armedPlayer);
 	            
+
+
 			}
 
+			}
 
 		}
-		
-		
+	
 
-	}
-        
-        
-        public void resetRef(){
-           this.ref = 0;
-        }
-        
-        public int getRef(){
-            return ref;
-        }
+
 
 	public Camera getCamera() {
 		return camera;
 	}
 
-	public  LinkedList<Entity> getEntityList() {
+	public LinkedList<Entity> getEntityList() {
 		return entity;
 	}
 
-	public  void addEntity(Entity e) {
-      
-            entity.add(e);
-            rfr.addObserver(e);    
-               
+	public void addEntity(Entity e) {
+
+		entity.add(e);
+		rfr.addObserver(e);
+
 	}
 
-	public  void removeEntity(Entity e) {
+	public void removeEntity(Entity e) {
 
 		rfr.deleteObserver(e);
-                entity.remove(e);
-              
+		entity.remove(e);
+
 	}
 
 	public void addTile(Tile t) {
-            
+
 		tile.add(t);
-                rfr.addObserver(t);
-                
+		rfr.addObserver(t);
+
 	}
 
 	public void removeTile(Tile t) {
-            
+
 		tile.remove(t);
-                rfr.deleteObserver(t);
-                
+		rfr.deleteObserver(t);
+
 	}
 
-	public  LinkedList<Tile> getTileList() {
+	public LinkedList<Tile> getTileList() {
 		return tile;
-	}
-
-	public SpriteSheet getSheetPlayer() {
-		return sheetPlayer;
-	}
-
-	public SpriteSheet getSheetMonster() {
-		return sheetMonster;
-	}
-
-	public SpriteSheet getSheetTile() {
-		return sheetTile;
-	}
-
-	public SpriteSheet getSheetEnemyUnitGrid0() {
-		return sheetEnemyUnit0;
-	}
-
-	public SpriteSheet getSheetDerangedBeast() {
-		return sheetDerangedBeast;
 	}
 
 	public Player getPlayer() {
 		return player;
 	}
 
-	public SpriteSheet getSheetDerangedBeast_AttackAnimation() {
-		return sheetDerangedBeast_AttackAnimation;
-	}
-
-	public SpriteSheet getSheetPlayer_RecieveDamage() {
-		return sheetPlayer_RecieveDamage;
+	public GameCursor getGameCursor() {
+		
+		return this.c;
 	}
 	
-	public SpriteSheet getSheetRoaringBrute() {
-		return sheetRoaringBrute;
-	}
-	
-	public GameCursor getGameCursor(){
-		return c;
+	public MouseInput getMouseInput(){
+		return mi;
 	}
 
 }
