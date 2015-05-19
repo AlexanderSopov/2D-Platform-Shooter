@@ -1,9 +1,7 @@
 package edu.chl.Game.model.gameobject.entity;
 
-import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
