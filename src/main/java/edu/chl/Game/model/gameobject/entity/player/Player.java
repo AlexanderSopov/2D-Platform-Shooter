@@ -9,15 +9,11 @@ import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.FrameIterator;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ProjectileDetection;
-<<<<<<< HEAD
 import edu.chl.Game.view.graphics.LoadingSprites;
 import edu.chl.Game.view.graphics.*;
 import edu.chl.Game.model.gameobject.entity.items.*;
-
-=======
 import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.graphics.Sprite;
->>>>>>> sound
 
 public class Player extends Unit {
 
@@ -34,7 +30,6 @@ public class Player extends Unit {
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
-<<<<<<< HEAD
                
         itemMap = new ItemMap();
 		this.load = new LoadingSprites();
@@ -43,36 +38,7 @@ public class Player extends Unit {
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
 		setUnitValues(100, 50, 0, 7, 0);
 
-=======
-		getRenderClass().setFrameAmount(20);
-		getRenderClass1().setFrameAmount(5);
 
-		// facing right
-		for (int i = 0; i < 20; i++) {
-			player[i] = new Sprite(handler.getSheetPlayer(), i, 0, 62, 62);
-		}
-
-		// facing left
-		for (int i = 0; i < 20; i++) {
-			player[i + 20] = new Sprite(handler.getSheetPlayer(), i, 1, 62, 62);
-		}
-
-		for (int i = 0; i < 5; i++) {
-			recieveDamage[i] = new Sprite(
-					handler.getSheetPlayer_RecieveDamage(), i, 0, 62, 62);
-		}
-
-		for (int i = 0; i < 5; i++) {
-			recieveDamage[i + 5] = new Sprite(
-					handler.getSheetPlayer_RecieveDamage(), i, 1, 62, 62);
-		}
-
-		this.frameCounter = new FrameCounter(3, 5);
-		this.contactWithEnemy = new ContactWithEnemy(getUnitProperties(),
-				getCalculateBounds());
-		this.gravitationalProperties = new GravitationalProperties(this);
-	}
->>>>>>> sound
 
 	}
 

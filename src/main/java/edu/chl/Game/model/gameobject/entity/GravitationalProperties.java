@@ -3,13 +3,13 @@ package edu.chl.Game.model.gameobject.entity;
 
 
 public class GravitationalProperties {
-	private UnitProperties unitProperties;
+	//private UnitProperties unitProperties;
 	private EntityProperties entityProperties;
 	private EntityState entityState;
     private Entity en;
     
 	public GravitationalProperties(Entity en){
-		this.unitProperties = en.getUnitProperties();
+		//this.unitProperties = en.getUnitProperties();
 		this.entityProperties = en.getEntityProperties();
 		this.entityState = en.getEntityState();
 		this.en = en;

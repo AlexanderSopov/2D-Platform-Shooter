@@ -1,18 +1,15 @@
 package edu.chl.Game;
 
 
-<<<<<<< HEAD
 import javax.swing.SwingUtilities;	
-import edu.chl.Game.sound.Music;
-=======
+//import edu.chl.Game.sound.Music;
 import javax.swing.SwingUtilities;		
-
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.sound.Music;
->>>>>>> sound
+
 import edu.chl.Game.controller.RefreshTimer;
 
 /*
