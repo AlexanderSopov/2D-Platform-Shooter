@@ -86,6 +86,8 @@ public class RefreshTimer extends Observable implements Runnable {
 		}
 	}
 	
+
+	
 	@Override
 	public void run() {
 		frame.requestFocus();

@@ -62,15 +62,14 @@ public class AI {
 
 	public void followPlayer() {
 		if (handler.getPlayer().getX() < eu.getX()) {
-			eu.setVelX(-4);
+			eu.setVelX(-1);
 			updateFacingDirectionLeft();
 		} else {
-			eu.setVelX(4);
+			eu.setVelX(1);
 			updateFacingDirectionRight();
 		}
 
-		if ((handler.getPlayer().getX() - 100) < eu.getX()
-				&& eu.getX() < (handler.getPlayer().getX() + 100)) {
+		if ((handler.getPlayer().getX() - 250) < eu.getX() && eu.getX() < (handler.getPlayer().getX() + 100)) {
 			eu.setVelX(0);
 		}
 	}
@@ -91,7 +90,7 @@ public class AI {
 		if (playerXCoordinate <= eu.getX()) {
 			return ((eu.getX() - playerXCoordinate) <= 100);
 		} else {
-			return ((playerXCoordinate - eu.getX()) <= 100);
+			return ((playerXCoordinate - eu.getX()) <= 300);
 		}
 	}
 

@@ -70,16 +70,22 @@ public class Pistol extends Entity {
 
 	}
 
-	public void fire() {
-		Bullet b = new Bullet(this.centerX, this.centerY, 10, 10, true, Id.bullet, getHandler(), 10, this.angle, image.getWidth() / 6, 0);
-		getHandler().addEntity(b);
-	}
+
 
 	public void shoot() {
 		if (en.getWeaponProperties().readyToFire()) {
 			fire();
-			en.getWeaponProperties().activateCooldown();
+		en.getWeaponProperties().activateCooldown();
 		}
 	}
+
+
+		private void fire(){
+			Bullet b = new Bullet(this.centerX, this.centerY, 10, 10, true, Id.bullet, getHandler(), 10, this.angle, (image.getWidth() / 6)+30,0);
+			getHandler().addEntity(b);
+		}
+		
+		
+
 
 }
