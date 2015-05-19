@@ -21,12 +21,18 @@ import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.TileA;
 import edu.chl.Game.model.gameobject.tile.*;
+<<<<<<< HEAD
 
 import edu.chl.Game.sound.Music;
 import edu.chl.Game.sound.Sound;
 import edu.chl.Game.sound.SFX;
 import edu.chl.Game.view.Camera;
 
+=======
+import edu.chl.Game.model.sound.Music;
+import edu.chl.Game.model.sound.SFX;
+import edu.chl.Game.model.sound.Sound;
+>>>>>>> sound
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.model.gameobject.entity.items.Character;
 import edu.chl.Game.view.graphics.SpriteSheet;
