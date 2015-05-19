@@ -41,23 +41,21 @@ public class Pistol extends Entity {
 			e.printStackTrace();
 		}
 
-		System.out.println(height);
-
 		this.en = en;
 
 	}
 
 	@Override
 	public void render(Graphics g) {
-		if(gc != null){
-		g.setColor(Color.BLUE);
-		((Graphics2D) g).rotate(angle, en.getX() + en.getWidth() / 2, en.getY()
-				+ en.getHeight() / 2);
-		g.drawImage(image, this.centerX - image.getWidth() / 12, this.centerY
-				- image.getHeight() / 6 + 5, image.getWidth() / 3,
-				image.getHeight() / 3, null);
-		((Graphics2D) g).rotate(-angle, en.getX() + en.getWidth() / 2,
-				en.getY() + en.getHeight() / 2);
+		if (gc != null) {
+			g.setColor(Color.BLUE);
+			((Graphics2D) g).rotate(angle, en.getX() + en.getWidth() / 2,
+					en.getY() + en.getHeight() / 2);
+			g.drawImage(image, this.centerX - image.getWidth() / 12,
+					this.centerY - image.getHeight() / 6 + 5,
+					image.getWidth() / 3, image.getHeight() / 3, null);
+			((Graphics2D) g).rotate(-angle, en.getX() + en.getWidth() / 2,
+					en.getY() + en.getHeight() / 2);
 		}
 	}
 
@@ -65,26 +63,29 @@ public class Pistol extends Entity {
 	public void update() {
 		this.centerX = en.getX() + en.getWidth() / 2;
 		this.centerY = en.getY() + en.getHeight() / 2;
-		if(gc != null){
-			angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX()) - Math.PI;
+		if (gc != null) {
+			angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX())
+					- Math.PI;
 		}
 
 	}
 
-	public void fire() {
-		
-	}
+
 
 	public void shoot() {
-		
-		Bullet b = new Bullet(this.centerX, this.centerY, 10, 10, true,
-				Id.bullet, getHandler(), 10, this.angle, (image.getWidth() / 6)+30,
-				0);
-		getHandler().addEntity(b);
-		//if (en.getWeaponProperties().readyToFire()) {
-			//fire();
-			//en.getWeaponProperties().activateCooldown();
-		//}
+		if (en.getWeaponProperties().readyToFire()) {
+			fire();
+		en.getWeaponProperties().activateCooldown();
+		}
 	}
+
+
+		private void fire(){
+			Bullet b = new Bullet(this.centerX, this.centerY, 10, 10, true, Id.bullet, getHandler(), 10, this.angle, (image.getWidth() / 6)+30,0);
+			getHandler().addEntity(b);
+		}
+		
+		
+
 
 }
