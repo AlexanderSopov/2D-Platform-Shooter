@@ -91,6 +91,10 @@ public class GameHandler {
 			}
 		}
 	}
+	
+	public void restart(){
+		//init();
+	}
 
 
 

@@ -45,6 +45,9 @@ public class KeyInput implements KeyListener {
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingRight);
 						break;
+					case KeyEvent.VK_R:
+						handler.restart();
+						break;
 
 					}
 				}
