@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
+import edu.chl.Game.model.gameobject.entity.enemy.InfectedStudent;
+import edu.chl.Game.model.gameobject.entity.items.Item;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.Tile;
@@ -25,7 +27,7 @@ import edu.chl.Game.model.gameobject.tile.TileE;
 public class MapFactory {
 	public static BufferedImage mapImage;
 	
-	public static void createMap(GameHandler handler, GameCursor c, LinkedList<Entity> entityList, LinkedList<Tile> tileList) {
+	public static void createMap(GameHandler handler, GameCursor c, LinkedList<Entity> entityList, LinkedList<Tile> tileList, LinkedList<Item> itemList) {
 		try {
 			mapImage = ImageIO.read(handler.getClass().getResource(selectMap()));
 		} catch (IOException e1) {
@@ -78,7 +80,7 @@ public class MapFactory {
 					tileList.add(new TileB(x * 64, y * 64, true, Id.wall, handler));
 				}
                                 
-                
+
                                         
 				// ( pink )
 				if (red == 255 && green == 0 && blue == 255) {

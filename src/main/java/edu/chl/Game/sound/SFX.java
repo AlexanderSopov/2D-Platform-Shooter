@@ -6,6 +6,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import edu.chl.Game.model.gameobject.entity.*;
+import edu.chl.Game.model.sound.SFXInterface;
+import edu.chl.Game.model.sound.Sound;
 
 
 /**
@@ -92,7 +94,7 @@ public class SFX extends Sound implements SFXInterface {
 		getSFXHashMap().clear();
 	}
 	
-	@Override
+	
 	public void removeSFX(SFX sfx) {
 		// TODO Auto-generated method stub
 		

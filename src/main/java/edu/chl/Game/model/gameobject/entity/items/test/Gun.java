@@ -1,16 +1,18 @@
-package edu.chl.Game.model.gameobject.entity.items;
+package edu.chl.Game.model.gameobject.entity.items.test;
 
 import java.awt.Graphics;
 import java.util.Random;
 
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
+import edu.chl.Game.model.gameobject.entity.items.Item;
+
 import edu.chl.Game.view.graphics.Sprite;
 
 /**
  * Visible Guns on the map that can be used by the Player.
  */
-public class Gun extends Items {
+public class Gun extends Item {
 	
 	private Random rand;
 	private Sprite guns;
@@ -18,7 +20,7 @@ public class Gun extends Items {
 	
 	public Gun(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
-		super(x, y, width, height, solid, id, handler);
+		super(x, y, width, height, id, handler);
 		
 
 		//guns = new Sprite(handler.getSheetGun(), 0, 0, 30, 19);
@@ -34,10 +36,10 @@ public class Gun extends Items {
 	@Override
 	public void update() {
 
-		super.update();
+		
 		setVelX(2);
 
-		getEntityProperties().setGravity(1.0);
+		
 	}
 	/**
 	 * Set a random direction for the object
@@ -80,5 +82,40 @@ public class Gun extends Items {
 	 */
 	public int getDirection() {
 		return this.direction;
+	}
+	@Override
+	public String getInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void effect() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public double getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getArmor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		
 	}
 }

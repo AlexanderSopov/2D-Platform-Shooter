@@ -154,6 +154,7 @@ public abstract class Entity extends GameObject {
     	LinkedList<GameObject> list = new LinkedList<GameObject>();
     	list.addAll(getHandler().getEntityList());
     	list.addAll(getHandler().getTileList());
+    	list.addAll(getHandler().getItemList());
 		return list;
 	}
 

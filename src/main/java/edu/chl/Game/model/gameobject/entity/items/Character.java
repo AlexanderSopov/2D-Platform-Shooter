@@ -24,5 +24,7 @@ public interface Character{
    public double getHealth();
    
    public double getArmor();
+   
+   public abstract void effect();
     
 }
