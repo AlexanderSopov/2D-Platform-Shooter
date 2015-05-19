@@ -90,6 +90,7 @@ public class MapFactory {
 	private static String selectMap(){
 		switch(RefreshTimer.selectedMap){
 			case "level_1":
+				System.out.println("hej");
 				return "/mapLevel/level_1.png";
 			case "level_2":
 				return "/mapLevel/level_2.png";

@@ -11,32 +11,34 @@ import edu.chl.Game.model.gameobject.entity.player.Pistol;
 
 public class ProjectileDetection {
 
-	private Bullet bullet;
 	private LinkedList<Entity> entityList;
- 	private GameHandler handler;
+	private GameHandler handler;
 
-	public ProjectileDetection(Bullet bullet, GameHandler handler) {
-		this.bullet = bullet;
-		entityList = bullet.getHandler().getEntityList();
-        this.handler = handler;
+	public ProjectileDetection(GameHandler handler) {
+		entityList = handler.getEntityList();
+		this.handler = handler;
 	}
-/*
+
 	public void hitTarget() {
-        int damageValue = handler.getPlayer().getUnitValues().getAttackDamage();
-		for (Entity en : this.entityList) {
-			if (en.getId() == Id.monster) {
-				if (checkIfHit(bullet, en)) {
-					en.takeDamage(damageValue);
-					bullet.remove();
-					break;
+		int damageValue = handler.getPlayer().getUnitValues().getAttackDamage();
+		for (Entity bullet : this.entityList) {
+			if (bullet.getId() == Id.bullet) {
+				for (Entity enemy : this.entityList) {
+					if (bullet.getId() == Id.monster) {
+						if (checkIfHit(bullet, enemy)) {
+							bullet.remove();
+							enemy.takeDamage(damageValue);
+							break;
+						}
+					}
 				}
 			}
 		}
 	}
-/*
+
 	public boolean checkIfHit(Entity e1, Entity e2) {
-		return e1.getCalculateBounds().getBounds()
-				.intersects(e2.getCalculateBounds().getBounds());
-	}*/
+		System.out.println("hit");
+		return e1.getCalcBounds().getBounds().intersects(e2.getCalcBounds().getBounds());
+	}
 
 }

@@ -20,8 +20,8 @@ public final class Main {
 		SwingUtilities.invokeLater(() -> {
 					try {
 						game = new RefreshTimer();
-						music = new Music();
-						music.playIntro();
+						//music = new Music();
+						//music.playIntro();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -28,6 +28,7 @@ public class AI {
 	}
 
 	public void exerciseBehaviour() {
+
 		searchPremesis();
 		attack();
 		cd.updateCooldown();
@@ -37,27 +38,19 @@ public class AI {
 		if (!unitAttraction.targetIsFound()) {
 			unitAttraction.searchAttractionArea(eu.getX(), handler.getPlayer().getX());
 		}
-
-		
-		if( (handler.getPlayer().getX()-50) < eu.getX() && eu.getX() < (handler.getPlayer().getX()+50) ){
-			eu.setVelX(0);
-
 		unitIsAttracted();
-		}
 	}
 
 	public void unitIsAttracted() {
 		if (unitAttraction.targetIsFound()) {
 			react();
-
 		}
 	}
 
-	
-	public void updateFacingDirection(){
-		if(eu.getVelX() < 0){
+	public void updateFacingDirection() {
+		if (eu.getVelX() < 0) {
 			es.setFacingDirection(FacingDirection.FacingLeft);
-		} else if(0 < eu.getVelX()) {
+		} else if (0 < eu.getVelX()) {
 			es.setFacingDirection(FacingDirection.FacingRight);
 		}
 	}
@@ -91,7 +84,7 @@ public class AI {
 	}
 
 	public void findPlayer() {
-		playerXCoordinate = handler.getPlayer().getX();
+		this.playerXCoordinate = eu.getHandler().getPlayer().getX();
 	}
 
 	public boolean withinAttackRange() {
@@ -112,26 +105,27 @@ public class AI {
 		}
 		strikeFrameHit();
 	}
-	
-	public void engageAttack(){
+
+	public void engageAttack() {
 		eu.setAttacking(true);
 	}
-	
-	public void strikeFrameHit(){
-		if(eu.getUnitMeasurement().getStrikeFrame() == eu.getFrameIterator_attack().getFrame()){
-			if(!strikeComplete){
+
+	public void strikeFrameHit() {
+		if (eu.getUnitMeasurement().getStrikeFrame() == eu
+				.getFrameIterator_attack().getFrame()) {
+			if (!strikeComplete) {
 				strikeComplete = true;
 				deliverDamage();
 			}
 		}
 	}
-	
-	public void deliverDamage(){
+
+	public void deliverDamage() {
 		handler.getPlayer().takeDamage(eu.getUnitValues().getAttackDamage());
 	}
-	
-	public void resetStrike(){
-		if(eu.getFrameIterator_attack().getFrame() == 0){
+
+	public void resetStrike() {
+		if (eu.getFrameIterator_attack().getFrame() == 0) {
 			strikeComplete = false;
 		}
 	}
@@ -139,5 +133,5 @@ public class AI {
 	public void activateCooldown() {
 		cd.activateCooldown();
 	}
-	
+
 }

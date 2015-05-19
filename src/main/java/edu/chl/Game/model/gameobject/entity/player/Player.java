@@ -24,6 +24,7 @@ public class Player extends Unit {
 	private boolean isRecievingDamage;
     private ItemMap itemMap;
     private Pistol p;
+    private ProjectileDetection pd;
         
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
@@ -36,7 +37,7 @@ public class Player extends Unit {
         p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
 		setUnitValues(100, 50, 0, 7, 0);
-
+		this.pd = new ProjectileDetection(handler);
 
 	}
 
@@ -95,9 +96,16 @@ public class Player extends Unit {
 			iterateTakingDamage();
 			processDamageTaking();
 		}
-
-           
           p.update();
+          
+          pd.hitTarget();
+          
+          for(int i=0; i<getHandler().getEntityList().size(); i++){
+        	  if(getHandler().getEntityList().get(i).getId()==Id.bullet){
+        		 System.out.println(getHandler().getEntityList().get(i).getX()); 
+        	  }
+          }
+          
 	}
 
 	public void processDamageTaking() {
