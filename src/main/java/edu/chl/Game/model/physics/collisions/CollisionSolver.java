@@ -31,7 +31,7 @@ public class CollisionSolver {
 				solveCollision((Bullet)en, go);
 	}
 	
-	
+
 	
 	/*
 	 * Player Vs XXX
@@ -77,14 +77,14 @@ public class CollisionSolver {
 	 * Projectile Vs XXX
 	 */
 	
-	// Check type of GameObject
+	// Check type of GameObject 
 	
 	private static void solveCollision(Bullet bu, GameObject go){
 		if (go instanceof EnemyUnit){
 			strategy = new ProjectileVsEnemy(bu, (EnemyUnit)go);
 			strategy.solve();
 		}else
-			;//Do nothing, enemies don't pick up items
+			;
 		
 	}
 

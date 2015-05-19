@@ -6,8 +6,7 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
-import edu.chl.Game.model.gameobject.entity.enemy.InfectedStudent;
-import edu.chl.Game.model.gameobject.entity.enemy.RoaringBrute;
+import edu.chl.Game.model.gameobject.entity.enemy.*;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.Tile;
@@ -45,11 +44,29 @@ public class MapFactory {
 				int blue = (pixel) & 0xff;
 
 				
+				/*
+				 *		Units
+				 */
+				
+                //	( blue )
+				if (red == 0 && green == 0 && blue == 255) {
+					
+					entityList.add(new Player(x*64, y*64, 62, 62, true, Id.player, handler));
+				}    
 				// ( green )
 				if (red == 0 && green == 255 && blue == 0) {
 					entityList.add(new InfectedStudent(x * 64, y * 60, 97, 90, true,
 							Id.monster, handler));
 				}
+				// ( purple )
+				if (red == 150 && green == 0 && blue == 150) {
+					entityList.add(new OvergrownMonstrocity(x * 64, y * 60, 200, 200, true,
+							Id.monster, handler));
+				}
+				
+				/*
+				 *		Tiles 
+				 */
 
 				// ( black )
 				if (red == 0 && green == 0 && blue == 0) {
@@ -61,11 +78,7 @@ public class MapFactory {
 					tileList.add(new TileB(x * 64, y * 64, true, Id.wall, handler));
 				}
                                 
-                //	( blue )
-				else if (red == 0 && green == 0 && blue == 255) {
-					
-					entityList.add(new Player(x*64, y*64, 62, 62, true, Id.player, handler));
-				}                    
+                
                                         
 				// ( pink )
 				if (red == 255 && green == 0 && blue == 255) {
@@ -83,6 +96,13 @@ public class MapFactory {
 				if (red == 125 && green == 125 && blue == 0) {
 					tileList.add(new TileE(x * 64, y * 64, true, Id.wall, handler));
 				}
+				
+
+				
+
+				
+	
+				
 			}
 		}
 	}

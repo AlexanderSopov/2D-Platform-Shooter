@@ -11,6 +11,7 @@ import edu.chl.Game.model.physics.collisions.CollisionSolver;
 import edu.chl.Game.view.graphics.EntityRender;
 import edu.chl.Game.model.physics.CollisionDetection;
 import edu.chl.Game.view.graphics.*;
+import edu.chl.Game.model.physics.*;
 
 
 public abstract class Entity extends GameObject {
@@ -22,9 +23,7 @@ public abstract class Entity extends GameObject {
 	private FrameIterator frameIterator;
 	private boolean isBumpingGround;
 	private boolean isTryingToJump;
-
 	private boolean isRecievingDamage;
-
 	private FrameIterator frameIterator_moving;
 	private FrameIterator frameIterator_attack;
 	private FrameIterator frameIterator_hurt;
@@ -33,6 +32,7 @@ public abstract class Entity extends GameObject {
 	private UnitValues unitValues;
 	private UnitMeasurement um;
 	private String unitTitle;
+	private CalculateBounds calcBounds;
 
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
@@ -47,6 +47,7 @@ public abstract class Entity extends GameObject {
 		scoreProcess = new ScoreProcess();
 		this.healthBar = new HealthBar(this);
 		this.um = new UnitMeasurement();
+		this.calcBounds = new CalculateBounds(this);
 
 	}
 	
@@ -125,6 +126,9 @@ public abstract class Entity extends GameObject {
 
 	public FrameIterator getFrameIterator() {
 		return frameIterator;
+	}
+	public CalculateBounds getCalcBounds(){
+		return calcBounds;
 	}
     
         

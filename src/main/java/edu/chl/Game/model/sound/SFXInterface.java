@@ -1,4 +1,4 @@
-package edu.chl.Game.sound;
+package edu.chl.Game.model.sound;
 
 /**
  * Contains the necessary methods for
@@ -9,36 +9,39 @@ package edu.chl.Game.sound;
  */
 public interface SFXInterface {
 
+	//static SFXInterface sfx;
 	
 	/**
 	 * Get an instance of Music.
 	 * @return sfx - An instance
 	 */
-	public SFX getSFX();
+/*	public static SFX getSFX() {
+		return sfx;
+	}*/
 	
 	
 	/**
 	 * Prints all Sound Effects in the list with name and path
 	 */
-	void printSFXList();
+	static void printSFXList() {}
 	
 	
 	/**
 	 * Add a sound effect to the list
 	 * @param sfx - Type SFX of 
 	 */
-	void addSFX(String name, String filePath);
+	static void addSFX(String name, String filePath) {}
 	
 	
 	/**
 	 * Clear the sound effect list
 	 */
-	void clearSFXList();
+	static void clearSFXList() {}
 
 	
 	/**
 	 * Remove a sound effect from the list
 	 * @param sfx - Type SFX 
 	 */
-	void removeSFX(SFX sfx);
+	static void removeSFX(SFX sfx) {}
 }
