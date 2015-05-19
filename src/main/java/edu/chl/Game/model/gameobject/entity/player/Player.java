@@ -22,7 +22,7 @@ public class Player extends Unit {
 	private Sprite[] arrayHurtAnimation;
 	private LoadingSprites load;
 	private boolean isRecievingDamage;
-    private ItemMap itemMap;
+	private Inventory inventory; 
     private Pistol p;
         
 
@@ -30,13 +30,14 @@ public class Player extends Unit {
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
                
-        itemMap = new ItemMap();
+        
 		this.load = new LoadingSprites();
 		initiateUnit();      
         p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
 		setUnitValues(100, 50, 0, 7, 0);
-
+		
+		this.inventory = new Inventory(new PlayerOutfit(this));
 
 	}
 
@@ -129,16 +130,7 @@ public class Player extends Unit {
 		p.shoot();
 	}
         
-    // this is a part of Inventory system, will soon be refactorated :) PP.P:P:PP::PppppP:pP
-  
 
-    public void eqipeItem(Item item) {
-        this.itemMap.put("Item.getName()", item);
-    }
-
-    public void discardItem(Item item) {
-        this.itemMap.remove("Item.getName()");
-    }
 
     public double getHealth() {
        return getUnitValues().getHealthPoints();
@@ -149,9 +141,7 @@ public class Player extends Unit {
         return 0;
     }
 
-	
-	
-	
+
 	@Override
 	public void initiateUnit() {
 		initiateUnitTitle();
@@ -215,6 +205,15 @@ public class Player extends Unit {
 	public void setAlternativeMeasurement() {	
 
 	}
+
+	/**
+	 * @return the inventory
+	 */
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+
 
 
 

@@ -2,31 +2,25 @@ package edu.chl.Game.controller;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import java.util.LinkedList;
 import java.util.Observer;
 
 import edu.chl.Game.model.gameobject.Id;
-
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.entity.items.CharacterDecorator;
 import edu.chl.Game.model.gameobject.entity.items.CharacterFactory;
+import edu.chl.Game.model.gameobject.entity.items.Item;
 import edu.chl.Game.model.gameobject.entity.items.P2;
-
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
-import edu.chl.Game.model.gameobject.tile.TileA;
 import edu.chl.Game.model.gameobject.tile.*;
-
 import edu.chl.Game.sound.Music;
 import edu.chl.Game.sound.Sound;
 import edu.chl.Game.sound.SFX;
 import edu.chl.Game.view.Camera;
-
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.model.gameobject.entity.items.Character;
 import edu.chl.Game.view.graphics.SpriteSheet;
@@ -36,6 +30,7 @@ public class GameHandler {
 	private Frame frame;
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
+	private LinkedList<Item> item = new LinkedList<Item>();
 	private Player player;
 
 	private BufferedImage mapImage;
@@ -53,6 +48,8 @@ public class GameHandler {
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
 		addEntity(c);
+		
+		
 
 	}
 	
@@ -70,6 +67,8 @@ public class GameHandler {
 			refreshTimer.addObserver(e);
 		for (Tile t: getTileList())
 			refreshTimer.addObserver(t);
+		for (Item it: getItemList())
+			refreshTimer.addObserver(it);
 		
 		refreshTimer.getMouseInput().setCursor(c);
 
@@ -77,7 +76,7 @@ public class GameHandler {
 
 	public void render(Graphics g) {
 		if(MapFactory.mapImage == null){
-			MapFactory.createMap(this, c, entity, tile);
+			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
 		g.setColor(new Color(135, 206, 235));
@@ -93,7 +92,14 @@ public class GameHandler {
 	}
 	
 	public void restart(){
-		//init();
+		refreshTimer.deleteObservers();
+		item = new LinkedList<Item>();
+		entity = new LinkedList<Entity>();
+		tile = new LinkedList<Tile>();
+		c = new GameCursor(this.camera, this);
+		addEntity(c);
+		MapFactory.mapImage = null;
+		init();
 	}
 
 
@@ -133,9 +139,26 @@ public class GameHandler {
 		tile.remove(t);
 
 	}
+	
+	public void addItem(Item it) {
+
+		item.add(it);
+		refreshTimer.addObserver(it);
+	}
+
+	public void removeItem(Item it) {
+		
+		refreshTimer.deleteObserver(it);
+		item.remove(it);
+
+	}
 
 	public LinkedList<Tile> getTileList() {
 		return tile;
+	}
+	
+	public LinkedList<Item> getItemList() {
+		return item;
 	}
 
 	public Player getPlayer() {

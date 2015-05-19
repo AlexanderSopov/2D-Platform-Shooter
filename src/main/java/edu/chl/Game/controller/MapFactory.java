@@ -3,11 +3,15 @@ package edu.chl.Game.controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
+
 import javax.imageio.ImageIO;
+
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.enemy.InfectedStudent;
 import edu.chl.Game.model.gameobject.entity.enemy.RoaringBrute;
+import edu.chl.Game.model.gameobject.entity.items.Item;
+import edu.chl.Game.model.gameobject.entity.items.W1;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.Tile;
@@ -26,7 +30,7 @@ import edu.chl.Game.model.gameobject.tile.TileE;
 public class MapFactory {
 	public static BufferedImage mapImage;
 	
-	public static void createMap(GameHandler handler, GameCursor c, LinkedList<Entity> entityList, LinkedList<Tile> tileList) {
+	public static void createMap(GameHandler handler, GameCursor c, LinkedList<Entity> entityList, LinkedList<Tile> tileList, LinkedList<Item> itemList) {
 		try {
 			mapImage = ImageIO.read(handler.getClass().getResource(selectMap()));
 		} catch (IOException e1) {
@@ -65,6 +69,7 @@ public class MapFactory {
 				else if (red == 0 && green == 0 && blue == 255) {
 					
 					entityList.add(new Player(x*64, y*64, 62, 62, true, Id.player, handler));
+					
 				}                    
                                         
 				// ( pink )

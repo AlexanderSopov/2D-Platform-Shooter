@@ -85,6 +85,16 @@ public class CharacterDecorator implements Character, Observer{
                     System.out.println("oops!");
             }
     }
+
+
+
+
+
+	@Override
+	public void effect() {
+		// TODO Auto-generated method stub
+		
+	}
    
 
 
