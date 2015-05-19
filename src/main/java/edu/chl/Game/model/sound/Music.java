@@ -18,7 +18,7 @@ import javax.sound.sampled.FloatControl;
  * @author Mansoor
  * @version 1.0
  */
-public class Music extends Sound implements MusicInterface {
+public final class Music extends Sound implements MusicInterface {
 	
 	private static Map<String, Sound> musicHashMap = new HashMap<String, Sound>();
 	
@@ -42,20 +42,12 @@ public class Music extends Sound implements MusicInterface {
 //		volumeMusicController = (FloatControl)getClip().
 //				getControl(FloatControl.Type.MASTER_GAIN);
 		sound = new Sound();
-//		addMusic("w1m1", "w1m1.mp3");
+
 	}
 	
 //	public static FloatControl getVolMusicControl() {
 //		return volumeMusicController;
 //	}
-	
-	/**
-	 * Add all music to the music list 
-	 * to be accessed and played.
-	 */
-	public static void addToAccessMusic() {
-		addMusic("w1m1", "w1m1.mp3");
-	}
 	
 	/**
 	 * 
@@ -64,12 +56,16 @@ public class Music extends Sound implements MusicInterface {
 	private static Map<String, Sound> getMusic() {
 		return musicHashMap;
 	}
-
+	
+	public static void addToAccessMusic() {
+		addMusic("w1m1", "w1m1.mp3");
+	}
+	
 	/**
 	 * Print the Music List
 	 * which have all the music.
 	 */
-	public void printMusicList() {
+	public static void printMusicList() {
 		Set<Entry<String, Sound>> hashSet = getMusic().entrySet();
 		
 		if(hashSet.size() > 0) {
@@ -88,7 +84,7 @@ public class Music extends Sound implements MusicInterface {
 	 * @param name - Enter keyword for the music.
 	 * @param filePath - Name of the music. For example Music2.mp3
 	 */
-	private static void addMusic(String name, String filePath) {
+	public static void addMusic(String name, String filePath) {
 		getMusic().put(name, new Sound("/Music/" + filePath));
 	}
 	
@@ -96,14 +92,14 @@ public class Music extends Sound implements MusicInterface {
 	 * Remove a music from the music list
 	 * @param music 
 	 */
-	public void removeMusic(Music music) {
+	public static void removeMusic(Music music) {
 		getMusic().remove(music);
 	}
 
 	/**
 	 * Clear the music list
 	 */
-	public void clearMusicList() {
+	public static void clearMusicList() {
 		getMusic().clear();
 	}
 	

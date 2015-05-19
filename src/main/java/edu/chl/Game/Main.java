@@ -23,7 +23,7 @@ public final class Main {
 		SwingUtilities.invokeLater(() -> {
 					try {
 						game = new RefreshTimer();
-						Music.addMusicToAccess();
+						Music.addToAccessMusic();
 						Music.playWorldOneMapOne();
 						
 					} catch (Exception e) {
