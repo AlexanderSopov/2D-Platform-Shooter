@@ -5,23 +5,23 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame{
 	
 	public final static int WIDTH = 1000;
 	public final static int HEIGHT = 600;
+	public final static String title = "Ghost Town";
 	
 	public Frame(){
-        super("Ghost Town");
+        super(title + " 2.1");
         
         final GridLayout layout = new GridLayout(0, 3);
         setLayout(layout);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setResizable(false);
+        setResizable(false);        
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
 	}
-	
 }

@@ -6,11 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="src" path="assets"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -27,5 +23,15 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="Resources"/>
+	<classpathentry kind="lib" path="src/main/resources"/>
+	<classpathentry exported="true" kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/gdx.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/tween-engine-api.jar"/>
+	<classpathentry kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/gdx-backend-lwjgl.jar"/>
+	<classpathentry kind="lib" path="/Users/Marre/Documents/Projekt/Project-TDA367/libs/gdx-natives.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

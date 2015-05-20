@@ -8,22 +8,19 @@ import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.GameGDX;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
-
 import edu.chl.Game.view.graphics.MovingCharacter;
-import java.util.Observer;
-
 
 /**
  * 
  * @author Mansoor, Alexander
  * @version 1.0
  */
-public class RefreshTimer extends Observable implements Runnable {
+public class RefreshTimer extends Observable implements Runnable{
 
 	private Thread thread;
-	private Frame frame;
 	private StartMenu startMenu;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
@@ -32,27 +29,29 @@ public class RefreshTimer extends Observable implements Runnable {
 	private boolean running = false;
 	private MouseInput mouseInput;
 	
+	// Swing frame
+	private Frame frame;
+	
 	//The state of the game
-	public static State state = State.GAME;
-	//The selected map/level
-	public static String selectedMap = "level_1";
+	public static State state = State.MainMenu;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
+	//The selected map/level
+	public static String selectedMap = levels[0];
 	
 	private double delta = 0.0;
 	private int frameRate=1;
 	private int second=1;
+	private boolean inMenu = false;
 	
 	public RefreshTimer(){
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
-
+		
 		movingChar = new MovingCharacter();
 		mapView = new WorldMapView(movingChar);
 		charSelectionView = new CharacterSelectionView(movingChar);
-		
-
 
 		gameHandler = new GameHandler(this, frame);
 		mouseInput = new MouseInput(frame, mapView);
@@ -62,7 +61,6 @@ public class RefreshTimer extends Observable implements Runnable {
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
-
 	}
 
 	/**
@@ -86,8 +84,6 @@ public class RefreshTimer extends Observable implements Runnable {
 		}
 	}
 	
-
-	
 	@Override
 	public void run() {
 		frame.requestFocus();
@@ -110,8 +106,8 @@ public class RefreshTimer extends Observable implements Runnable {
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
-                            frame.createBufferStrategy(3);
-                            return;
+				frame.createBufferStrategy(3);
+                return;
 			}
 			renderGraphics(bs);
 		}else if(state == State.MENU && !startMenu.inMenu()){
@@ -120,6 +116,13 @@ public class RefreshTimer extends Observable implements Runnable {
 			startMenu.setOption();
 		}else if(state == State.CREDIT && !startMenu.inCredit()){
 			startMenu.setCredit();
+		}else if(state == State.MainMenu){
+			if(!inMenu){
+				inMenu = true;
+				new GameGDX(frame);
+			}else{
+				//setScreen(mainMenu);
+			}
 		}
 		frame.setVisible(true);
 	}
@@ -146,7 +149,6 @@ public class RefreshTimer extends Observable implements Runnable {
 
 	}
 	
-
 	private void timer(){
 		long timeSnap1 = System.nanoTime();
 		double nanosec = 1000000000.0;
@@ -191,10 +193,6 @@ public class RefreshTimer extends Observable implements Runnable {
 		return frameRate==60;
 	}
         
-        
-	
-	
-
 	public void updateObserverList(){
 		deleteObservers();
 		for(Entity e: gameHandler.getEntityList()){
@@ -208,5 +206,4 @@ public class RefreshTimer extends Observable implements Runnable {
 	public MouseInput getMouseInput(){
 		return mouseInput;
 	}
-
 }
