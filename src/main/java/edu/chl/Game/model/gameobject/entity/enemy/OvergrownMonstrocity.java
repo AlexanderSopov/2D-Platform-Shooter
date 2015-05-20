@@ -93,7 +93,7 @@ public class OvergrownMonstrocity extends EnemyUnit {
 		setFrameIterator_moving(new FrameIterator(valueA, valueB));
 		setFrameIterator_attack(new FrameIterator(valueC, valueD));
 		// healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_ / attackRate:_ /
-		setUnitValues(400, 0, 0, 16, 120);
+		setUnitValues(400, 0, 0, 1, 60);
 
 	}
 

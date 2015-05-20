@@ -35,7 +35,7 @@ public class StartMenu{
 	
 	public StartMenu(Frame frame){
 		this.frame = frame;
-		inMenu = false;
+		inMenu = true;
 		container = frame.getContentPane();
 		
 		frame.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
