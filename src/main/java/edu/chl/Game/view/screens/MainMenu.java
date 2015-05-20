@@ -35,77 +35,25 @@ import edu.chl.Game.view.screens.tween.ActorAccessor;
  * @author Martin Tran
  *
  */
-public class MainMenu implements Screen {
-	
-	private Stage stage;
-	private Skin skin;
-	private Table table;
-	private TweenManager tweenManager;
-
-	@Override
-	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-	}
-
-	@Override
-	public void hide() {
-		dispose();
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render(float delta) {
-		//Clear the screen with the given color, in this case Black
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		stage.act(delta);
-		stage.draw();
-		
-		tweenManager.update(delta);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		//stage.getViewport().update(width, height, false);
-		//table.invalidateHierarchy();
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
+public class MainMenu extends AbstractMenuScreen {
 
 	@Override
 	public void show() {
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		
-		skin = new Skin(Gdx.files.internal("ui/menuSkin.json"), new TextureAtlas("ui/atlas.pack"));
-		
-		table = new Table(skin);
-		table.setFillParent(true);
+		super.show();
 		
 		//Set the title
 		Label title = new Label(Frame.title, skin, "big");
 		title.setFontScale(2);
 		
 		//Creating StartButton
-		TextButton buttonStart = new TextButton("Play", skin, "big");
+		TextButton buttonStart = new TextButton("Play", skin);
 		buttonStart.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				//Animation: Moves up & fading
 				Timeline.createParallel().beginParallel()
 				.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
-				.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() -50)
+				.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() +50)
 						.setCallback(new TweenCallback(){
 							@Override
 							public void onEvent(int type, BaseTween<?> source) {
@@ -127,15 +75,15 @@ public class MainMenu implements Screen {
 				stage.addAction(sequence(moveTo(0, stage.getHeight() -50, .5f), run(new Runnable(){
 					@Override
 					public void run() {
-						((Game) Gdx.app.getApplicationListener()).setScreen(new IntroSplash());
+						((Game) Gdx.app.getApplicationListener()).setScreen(new OptionView());
 					}	
 				})));
 			}
 		});
-		buttonOption.pad(15);
+		buttonOption.pad(10);
 		
 		//ExitButton
-		TextButton buttonExit = new TextButton("Exit", skin, "big");
+		TextButton buttonExit = new TextButton("Exit", skin);
 		buttonExit.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -156,9 +104,9 @@ public class MainMenu implements Screen {
 		
 		//Add and organizes the objects
 		table.add(title).spaceBottom(50).row();
-		table.add(buttonStart).spaceBottom(15).row();
-		table.add(buttonOption).spaceBottom(15).row();
-		table.add(buttonExit);
+		table.add(buttonStart).width(180).spaceBottom(15).row();
+		table.add(buttonOption).width(180).spaceBottom(15).row();
+		table.add(buttonExit).width(180);
 		
 		stage.addActor(table);
 		
