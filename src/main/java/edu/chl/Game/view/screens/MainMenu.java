@@ -1,4 +1,4 @@
-package edu.chl.Game.view;
+package edu.chl.Game.view.screens;
 
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
@@ -16,7 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import edu.chl.Game.view.graphics.ActorAccessor;
+import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.screens.tween.ActorAccessor;
 
 
 public class MainMenu implements Screen {
@@ -25,16 +26,6 @@ public class MainMenu implements Screen {
 	private Skin skin;
 	private Table table;
 	private TweenManager tweenManager;
-	
-	
-	/**public MainMenu(Frame frame, GameGDX game){
-		this.game = game;
-		inMainMenu = false;
-	}
-	
-	public void setMainMenu(){
-		game.setScreen(this);
-	}**/
 
 	@Override
 	public void dispose() {
@@ -96,7 +87,7 @@ public class MainMenu implements Screen {
 		buttonStart.addListener(new ClickListener());
 		buttonStart.pad(15);
 		
-		TextButton buttonOption = new TextButton("Option", skin, "big");
+		TextButton buttonOption = new TextButton("Options", skin);
 		buttonOption.addListener(new ClickListener());
 		buttonOption.pad(15);
 		

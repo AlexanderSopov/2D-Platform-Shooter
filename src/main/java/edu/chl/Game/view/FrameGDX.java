@@ -7,33 +7,33 @@ import javax.swing.SwingUtilities;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.backends.lwjgl.LwjglCanvas;
 
-public class GameGDX extends Game {
+import edu.chl.Game.view.screens.IntroSplash;
+import edu.chl.Game.view.screens.MainMenu;
+
+public class FrameGDX extends Game {
 	
 	private Frame frame;
-	private GameGDX game;
 	private LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	
-	public GameGDX(Frame frame){
+	public FrameGDX(Frame frame){
 		this.frame = frame;
 		cfg.title = Frame.title + "frame 2";
 		cfg.vSyncEnabled = true;
 		cfg.useGL30 = true;
 		cfg.width = Frame.WIDTH;
 		cfg.height = Frame.HEIGHT;
-		game = this;
-		setFrame();
+	
+		setFrame(this);
 	}
 	
 	@Override
 	public void create() {
-		setScreen(new MainMenu());
+		setScreen(new IntroSplash());
 	}
 
-	private void setFrame(){
+	private void setFrame(FrameGDX game){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {

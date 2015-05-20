@@ -8,8 +8,6 @@
 *.war
 *.ear
 *.py
-.classpath
-.project
 
 .DS_Store
 gitinspector-0.3.2/

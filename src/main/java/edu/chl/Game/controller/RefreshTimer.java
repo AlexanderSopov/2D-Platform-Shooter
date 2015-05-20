@@ -8,7 +8,7 @@ import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
-import edu.chl.Game.view.GameGDX;
+import edu.chl.Game.view.FrameGDX;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
 import edu.chl.Game.view.graphics.MovingCharacter;
@@ -119,7 +119,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		}else if(state == State.MainMenu){
 			if(!inMenu){
 				inMenu = true;
-				new GameGDX(frame);
+				new FrameGDX(frame);
 			}else{
 				//setScreen(mainMenu);
 			}
