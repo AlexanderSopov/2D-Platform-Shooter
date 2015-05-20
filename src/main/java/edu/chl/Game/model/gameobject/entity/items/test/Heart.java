@@ -78,4 +78,16 @@ public class Heart extends Item {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void equippedRender(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void equippedUpdate() {
+		// TODO Auto-generated method stub
+		
+	}
 }

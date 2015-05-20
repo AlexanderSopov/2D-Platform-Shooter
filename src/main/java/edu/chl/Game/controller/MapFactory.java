@@ -67,6 +67,7 @@ public class MapFactory {
 				if (red == 150 && green == 0 && blue == 150) {
 					entityList.add(new OvergrownMonstrocity(x * 64, y * 60, 200, 200, true,
 							Id.monster, handler));
+					
 				}
 				
 				/*
@@ -101,9 +102,17 @@ public class MapFactory {
 					tileList.add(new TileE(x * 64, y * 64, true, Id.wall, handler));
 				}
 				
-
+				
+				/*
+				 *		Items
+				 */
 				
 
+				// ( purple )
+				if (red == 150 && green == 0 && blue == 150) {
+					
+					itemList.add(new W1((x-5) * 64,  (y+1) * 60, 64,64,null,handler));
+				}
 				
 	
 				

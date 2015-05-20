@@ -60,17 +60,31 @@ public abstract class Item extends GameObject implements Character{
 	@Override
 	public  void render(Graphics g){
 		
-		if(getBufferedImage() != null){
+		
 			//System.out.println("State:"+ this.state);
 			if(this.state == State.wating){
 				g.setColor(Color.ORANGE);
 				g.fillRect(getX(), getY(), 64, 64);
 			}else if(this.state == State.equipped){
-				g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
+				//g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
+				equippedRender(g);
 			}
 			
+		
+		
+		
+	}
+	
+	@Override
+	public  void update(){
+		if(this.state == State.equipped){
+			
+			equippedUpdate();
 		}
 	}
+	
+	public abstract void equippedRender(Graphics g);
+	public abstract void equippedUpdate();
 	
 	public void switchState(State state){
 		this.state  = state;
@@ -85,13 +99,17 @@ public abstract class Item extends GameObject implements Character{
 		}
 	}
 	
-	@Override
-	public abstract void update();
+
+
 	
 	@Override
 	public abstract void effect();
 	
 	public abstract Type getType();
+	
+	public State getState(){
+		return this.state;
+	}
 	
 	@Override
 	public abstract double getHealth();

@@ -26,6 +26,7 @@ public class Player extends Unit {
 	private Inventory inventory; 
     private Pistol p;
     private ProjectileDetection pd;
+    private PlayerOutfit outfit;
         
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
@@ -35,12 +36,12 @@ public class Player extends Unit {
         
 		this.load = new LoadingSprites();
 		initiateUnit();      
-        p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
+        //p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
 		setUnitValues(100, 50, 0, 7, 0);
 
-		
-		this.inventory = new Inventory(new PlayerOutfit(this));
+		this.outfit = new PlayerOutfit(this);
+		this.inventory = new Inventory(outfit);
 
 
 	}
@@ -86,7 +87,8 @@ public class Player extends Unit {
 		}
 
 		runScoreDisplay(g);
-                p.render(g);
+                //p.render(g);
+		this.outfit.render(g);
 	}
 
 	@Override
@@ -100,7 +102,7 @@ public class Player extends Unit {
 			iterateTakingDamage();
 			processDamageTaking();
 		}
-          p.update();
+          //p.update();
           
           
           
@@ -109,6 +111,8 @@ public class Player extends Unit {
         		 System.out.println(getHandler().getEntityList().get(i).getX()); 
         	  }
           }
+          
+          this.outfit.update();
           
 	}
 
@@ -138,7 +142,8 @@ public class Player extends Unit {
 	}
 	
 	public void shoot(){
-		p.shoot();
+		this.outfit.effect();
+		//p.shoot();
 	}
         
 

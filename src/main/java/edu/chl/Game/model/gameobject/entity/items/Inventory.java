@@ -18,10 +18,11 @@ public class Inventory {
 	}
 	
 	 public void addItem(Item item) {
+		 
 		 item.switchState(State.inventory);
 	      this.itemMap.put(item.getNAME(), item);
 	      item.remove();
-	      //systemWriteAll(this.itemMap);
+	      
 	 }
 	 
 	 public void addDelete(Item item) {
@@ -31,9 +32,19 @@ public class Inventory {
     public void eqipeItem(Item item) {
         this.playerOutfit.eqipeItem(item);
     }
+    
+    public void eqipeItem(String str) {
+    	Item item =this.itemMap.get(str);
+        this.playerOutfit.eqipeItem(item);
+    }
 
     public void discardItem(Item item) {
        this.playerOutfit.discardItem(item);
+    }
+    
+    public void discardItem(String str) {
+    	Item item =this.itemMap.get(str);
+        this.playerOutfit.discardItem(item);
     }
     
     public Item getItem(String name){
@@ -52,6 +63,25 @@ public class Inventory {
     		System.out.println("Item in inventory:" + pair.getKey());
     		itr.remove();
     	 }
+    	
+    }
+    
+    public boolean isItemequipped(String str){
+    	
+    	return !this.playerOutfit.isItemequipped(getItem(str));
+    	
+    }
+    
+    public boolean isItemExsisting(String str){
+    	Iterator itr = this.itemMap.entrySet().iterator();
+    	 while(itr.hasNext()){
+    		Map.Entry pair = (Map.Entry)itr.next();
+    		
+    		if(pair.getKey().equals( str )){
+    			return true;
+    		}
+    	 }
+    	 return false;
     	
     }
 }

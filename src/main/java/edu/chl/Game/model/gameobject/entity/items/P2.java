@@ -56,7 +56,7 @@ public class P2 extends CharacterDecorator{
         //setX(en.getX()+ en.getVelX());
         //setY(en.getY() + en.getVelY());
         angle = Math.atan2(en.getY() - gc.getY(), en.getX() - gc.getX()) - Math.PI ;
-        System.out.println("P2 Update");
+        //System.out.println("P2 Update");
     }
 
         

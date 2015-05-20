@@ -25,6 +25,6 @@ public interface Character{
    
    public double getArmor();
    
-   public abstract void effect();
+   public void effect();
     
 }
