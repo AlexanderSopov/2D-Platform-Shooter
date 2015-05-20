@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.SpriteAccessor;
 
 public class IntroSplash implements Screen {

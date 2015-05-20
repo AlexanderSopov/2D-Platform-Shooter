@@ -1,14 +1,20 @@
 package edu.chl.Game.view.screens;
 
+import edu.chl.Game.controller.State;
+
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
 
@@ -82,17 +92,58 @@ public class MainMenu implements Screen {
 		Label title = new Label(Frame.title, skin, "big");
 		title.setFontScale(2);
 		
-		//Creating buttons
+		//Creating StartButton
 		TextButton buttonStart = new TextButton("Play", skin, "big");
-		buttonStart.addListener(new ClickListener());
+		buttonStart.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				Timeline.createParallel().beginParallel()
+				.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
+				.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() -50)
+						.setCallback(new TweenCallback(){
+							@Override
+							public void onEvent(int type, BaseTween<?> source) {
+								RefreshTimer.state = State.MAP;
+								((Game) Gdx.app.getApplicationListener()).dispose();
+							}
+						}))
+					.end().start(tweenManager);
+			}
+		});
 		buttonStart.pad(15);
 		
+		//OptionButton
 		TextButton buttonOption = new TextButton("Options", skin);
-		buttonOption.addListener(new ClickListener());
+		buttonOption.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				stage.addAction(sequence(moveTo(0, stage.getHeight() -50, .5f), run(new Runnable(){
+					@Override
+					public void run() {
+						((Game) Gdx.app.getApplicationListener()).setScreen(new IntroSplash());
+					}	
+				})));
+			}
+		});
 		buttonOption.pad(15);
 		
+		//ExitButton
 		TextButton buttonExit = new TextButton("Exit", skin, "big");
-		buttonExit.addListener(new ClickListener());
+		buttonExit.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				Timeline.createParallel().beginParallel()
+					.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
+					.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() +50)
+							.setCallback(new TweenCallback(){
+								@Override
+								public void onEvent(int type, BaseTween<?> source) {
+									Gdx.app.exit();
+								}
+							}))
+						.end().start(tweenManager);
+			}
+		});
 		buttonExit.pad(15);
 		
 		//Add and organizes the objects

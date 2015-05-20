@@ -6,6 +6,7 @@ import java.awt.Container;
 import javax.swing.SwingUtilities;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -15,6 +16,8 @@ import edu.chl.Game.view.screens.MainMenu;
 public class FrameGDX extends Game {
 	
 	private Frame frame;
+	private Container container;
+	private LwjglAWTCanvas canvas;
 	private LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	
 	public FrameGDX(Frame frame){
@@ -37,13 +40,24 @@ public class FrameGDX extends Game {
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
-				Container container = frame.getContentPane();
+				container = frame.getContentPane();
 				container.setLayout(new BorderLayout());
 				
-				LwjglAWTCanvas canvas = new LwjglAWTCanvas(game);
+				canvas = new LwjglAWTCanvas(game);
 				container.add(canvas.getCanvas(), BorderLayout.CENTER);
 			}
 			
 		});
 	}
+	
+	public void dispose(){
+		SwingUtilities.invokeLater(new Runnable(){
+			@Override
+			public void run() {
+				container.remove(canvas.getCanvas());
+			}
+			
+		});
+	}
+
 }
