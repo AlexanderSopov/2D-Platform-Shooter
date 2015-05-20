@@ -15,6 +15,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import edu.chl.Game.view.screens.tween.SpriteAccessor;
 
+/**
+ * LibGDX
+ * Splash animation at Intro
+ * @author Martin Tran
+ *
+ */
 public class IntroSplash implements Screen {
 	
 	private SpriteBatch batch;

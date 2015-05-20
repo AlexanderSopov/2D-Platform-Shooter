@@ -4,6 +4,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
+/**
+ * A standard Actor acessor
+ * @author Martin Tran
+ *
+ */
 public class ActorAccessor implements TweenAccessor<Actor> {
 	
 	public static final int Y = 0, RGB = 1, ALPHA = 2;

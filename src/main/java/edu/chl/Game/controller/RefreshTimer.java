@@ -10,7 +10,6 @@ import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
 import edu.chl.Game.view.WorldMapView;
-import edu.chl.Game.view.StartMenu;
 import edu.chl.Game.view.graphics.MovingCharacter;
 
 /**
@@ -21,7 +20,6 @@ import edu.chl.Game.view.graphics.MovingCharacter;
 public class RefreshTimer extends Observable implements Runnable{
 
 	private Thread thread;
-	private StartMenu startMenu;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
 	private MovingCharacter movingChar;
@@ -33,7 +31,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MainMenu;
+	public static State state = State.GAME;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
@@ -47,7 +45,6 @@ public class RefreshTimer extends Observable implements Runnable{
 	public RefreshTimer(){
 		thread = new Thread(this);
 		frame = new Frame();
-		startMenu = new StartMenu(frame);
 		
 		movingChar = new MovingCharacter();
 		mapView = new WorldMapView(movingChar);
@@ -103,6 +100,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
+		
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
@@ -110,13 +108,7 @@ public class RefreshTimer extends Observable implements Runnable{
                 return;
 			}
 			renderGraphics(bs);
-		}else if(state == State.MENU && !startMenu.inMenu()){
-			startMenu.setMenu();
-		}else if(state == State.OPTION && !startMenu.inOption()){
-			startMenu.setOption();
-		}else if(state == State.CREDIT && !startMenu.inCredit()){
-			startMenu.setCredit();
-		}else if(state == State.MainMenu){
+		}else if(state == State.MAIN_MENU){
 			if(!inMenu){
 				inMenu = true;
 				new FrameGDX(frame);

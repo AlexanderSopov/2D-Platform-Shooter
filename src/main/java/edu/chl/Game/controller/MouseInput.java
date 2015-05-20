@@ -97,44 +97,6 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 				System.out.println("Character");
 			}
 		}
-		
-		
-		if(e.getSource() instanceof JButton){
-			String button = ((JButton) e.getSource()).getText();
-			if(RefreshTimer.state == State.MENU){
-				switch(button){
-					case "Start":
-						RefreshTimer.state = State.GAME;
-						RefreshTimer.selectedMap = "level_1";
-						break;
-					case "New":
-						RefreshTimer.state = State.MAP;
-						break;
-					case "Option":
-						RefreshTimer.state = State.OPTION;
-						break;
-					case "Credit":
-						RefreshTimer.state = State.CREDIT;
-						break;
-					case "Exit":
-						System.exit(0);
-						break;
-					default:
-						break;
-				}
-			}else if(RefreshTimer.state == State.OPTION){
-				switch(button){
-				case "Back":
-					RefreshTimer.state = State.MENU;
-					break;
-				default:
-					break;
-				}
-			}
-			
-			frame.getContentPane().removeAll();
-		}
-
 	}
 
 	@Override

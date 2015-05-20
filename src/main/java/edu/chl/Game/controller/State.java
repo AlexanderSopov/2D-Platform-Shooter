@@ -1,11 +1,8 @@
 package edu.chl.Game.controller;
 
 public enum State {
-	MENU,
-	MainMenu,
+	MAIN_MENU,
 	GAME,
-	OPTION,
-	CREDIT,
 	MAP,
 	CHARACTER_SELECTION;
 }

@@ -1,5 +1,6 @@
 package edu.chl.Game.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -14,8 +15,7 @@ public class Frame extends JFrame{
 	public Frame(){
         super(title + " 2.1");
         
-        final GridLayout layout = new GridLayout(0, 3);
-        setLayout(layout);
+        setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));

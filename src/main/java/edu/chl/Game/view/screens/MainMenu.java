@@ -29,7 +29,12 @@ import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
 
-
+/**
+ * LibGDX
+ * Main menu for the game
+ * @author Martin Tran
+ *
+ */
 public class MainMenu implements Screen {
 	
 	private Stage stage;
@@ -97,6 +102,7 @@ public class MainMenu implements Screen {
 		buttonStart.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
+				//Animation: Moves up & fading
 				Timeline.createParallel().beginParallel()
 				.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
 				.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() -50)
@@ -117,6 +123,7 @@ public class MainMenu implements Screen {
 		buttonOption.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
+				//Animation: Moves up
 				stage.addAction(sequence(moveTo(0, stage.getHeight() -50, .5f), run(new Runnable(){
 					@Override
 					public void run() {
@@ -132,6 +139,7 @@ public class MainMenu implements Screen {
 		buttonExit.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
+				//Animation: Move down & fading
 				Timeline.createParallel().beginParallel()
 					.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
 					.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() +50)
