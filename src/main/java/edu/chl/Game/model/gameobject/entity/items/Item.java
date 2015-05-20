@@ -1,5 +1,6 @@
 package edu.chl.Game.model.gameobject.entity.items;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -60,13 +61,21 @@ public abstract class Item extends GameObject implements Character{
 	public  void render(Graphics g){
 		
 		if(getBufferedImage() != null){
+			//System.out.println("State:"+ this.state);
+			if(this.state == State.wating){
+				g.setColor(Color.ORANGE);
+				g.fillRect(getX(), getY(), 64, 64);
+			}else if(this.state == State.equipped){
+				g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
+			}
 			
-			g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
 		}
 	}
 	
 	public void switchState(State state){
 		this.state  = state;
+		//System.out.println("State:"+ this.state);
+		
 		if(this.state == State.equipped){
 			
 		}else if(this.state == State.inventory){
@@ -96,7 +105,14 @@ public abstract class Item extends GameObject implements Character{
 	 */
 	public String getNAME(){
 		
-		return this.getClass().getName();
+		return this.getClass().getSimpleName();
+	}
+	
+	@Override
+	public void remove() {
+		
+		getHandler().removeItem(this);
+		
 	}
 	
 }

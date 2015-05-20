@@ -2,10 +2,12 @@ package edu.chl.Game.model.gameobject.entity;
 
 import java.util.LinkedList;
 import java.awt.Graphics;
+
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
+import edu.chl.Game.model.gameobject.entity.items.W1;
 import edu.chl.Game.model.physics.Gravity;
 import edu.chl.Game.model.physics.collisions.CollisionSolver;
 import edu.chl.Game.view.graphics.EntityRender;
@@ -77,7 +79,9 @@ public abstract class Entity extends GameObject {
 	
 	public void checkIfDead(){
 		if (unitValues.getHealthPoints() <= 0) {
+			getHandler().addItem(new W1(getX(), getY()+ getHeight() - 64, 64,64,null, getHandler()));
 			die();
+			
 		}
 	}
 	

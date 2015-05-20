@@ -31,7 +31,7 @@ public class Bullet extends Entity{
         super(x, y, width, height, solid, id, handler);
                 
                 this.angle = angle;
-		this.speed = speed;
+                this.speed = speed;
                 this.centerX = getX() ;
                 this.centerY = getY() ;
                 this.motionX = getX() + offX;

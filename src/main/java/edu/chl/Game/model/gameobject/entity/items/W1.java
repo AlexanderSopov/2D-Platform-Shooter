@@ -50,11 +50,7 @@ public class W1 extends Item{
 		return Type.WEAPON;
 	}
 
-	@Override
-	public void remove() {
-		
-		
-	}
+
 
 	@Override
 	public String getPath() {

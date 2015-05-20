@@ -3,12 +3,14 @@ package edu.chl.Game.controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
+
 import javax.imageio.ImageIO;
+
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.enemy.*;
-import edu.chl.Game.model.gameobject.entity.enemy.InfectedStudent;
 import edu.chl.Game.model.gameobject.entity.items.Item;
+import edu.chl.Game.model.gameobject.entity.items.W1;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.Tile;
@@ -54,6 +56,7 @@ public class MapFactory {
 				if (red == 0 && green == 0 && blue == 255) {
 					
 					entityList.add(new Player(x*64, y*64, 62, 62, true, Id.player, handler));
+					
 				}    
 				// ( green )
 				if (red == 0 && green == 255 && blue == 0) {
@@ -80,7 +83,6 @@ public class MapFactory {
 					tileList.add(new TileB(x * 64, y * 64, true, Id.wall, handler));
 				}
                                 
-
                                         
 				// ( pink )
 				if (red == 255 && green == 0 && blue == 255) {

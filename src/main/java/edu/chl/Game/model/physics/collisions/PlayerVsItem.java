@@ -25,7 +25,9 @@ public class PlayerVsItem extends CollisionStrategy {
 	@Override
 	protected void specialTrick(GotHitOnThe sideGotHit) {
 		
+		//it.switchState(State.inventory);
 		p.getInventory().addItem(it);
+		it.remove();
 		
 	}
 
