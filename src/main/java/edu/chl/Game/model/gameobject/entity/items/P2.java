@@ -18,7 +18,7 @@ import java.util.Observer;
  *
  * @author Rasmus
  */
-public class P2 extends CharacterDecorator{
+public class P2 {
     
      private double angle;
      private final GameCursor gc;
@@ -27,7 +27,7 @@ public class P2 extends CharacterDecorator{
    
     
     public P2(Character character,Entity en,  GameCursor cursor) {
-        super(character);
+        
         this.en = en;
         this.gc = cursor;
         System.out.println("P2 Created");
@@ -36,10 +36,10 @@ public class P2 extends CharacterDecorator{
     
 
 
-     @Override
+  
     public void render(Graphics g) {
         
-        super.render(g);
+      
         g.setColor(Color.RED);
         ((Graphics2D)g).rotate(angle, en.getX(), en.getY());
         
@@ -49,10 +49,10 @@ public class P2 extends CharacterDecorator{
     }
     
     
-    @Override
+    
     public void update(){
         
-        super.update();
+       
         //setX(en.getX()+ en.getVelX());
         //setY(en.getY() + en.getVelY());
         angle = Math.atan2(en.getY() - gc.getY(), en.getX() - gc.getX()) - Math.PI ;
