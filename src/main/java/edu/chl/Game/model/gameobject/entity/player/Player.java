@@ -142,7 +142,6 @@ public class Player extends Unit {
 	}
         
 
-
     public double getHealth() {
        return getUnitValues().getHealthPoints();
     }
