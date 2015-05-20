@@ -116,7 +116,7 @@ public class MainMenu implements Screen {
 					.end().start(tweenManager);
 			}
 		});
-		buttonStart.pad(15);
+		buttonStart.pad(10);
 		
 		//OptionButton
 		TextButton buttonOption = new TextButton("Options", skin);
@@ -152,7 +152,7 @@ public class MainMenu implements Screen {
 						.end().start(tweenManager);
 			}
 		});
-		buttonExit.pad(15);
+		buttonExit.pad(10);
 		
 		//Add and organizes the objects
 		table.add(title).spaceBottom(50).row();
