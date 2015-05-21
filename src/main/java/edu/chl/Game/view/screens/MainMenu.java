@@ -90,7 +90,7 @@ public class MainMenu extends AbstractMenuScreen {
 				//Animation: Move down & fading
 				Timeline.createParallel().beginParallel()
 					.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
-					.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() +50)
+					.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() -50)
 							.setCallback(new TweenCallback(){
 								@Override
 								public void onEvent(int type, BaseTween<?> source) {
