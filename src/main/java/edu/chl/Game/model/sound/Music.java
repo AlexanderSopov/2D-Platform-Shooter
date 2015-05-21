@@ -1,5 +1,6 @@
 package edu.chl.Game.model.sound;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,6 +9,8 @@ import java.util.Set;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+import edu.chl.Game.handler.State;
+import edu.chl.Game.controller.*;
 
 /**
  * Music for the Game.
@@ -22,32 +25,27 @@ public final class Music extends Sound implements MusicInterface {
 	
 	private static Map<String, Sound> musicHashMap = new HashMap<String, Sound>();
 	
-	private Sound sound;
+	private Sound sound = new Sound();
 	
 	/**
 	 * Volume Controller
 	 */
-//	private static FloatControl volumeMusicController;
+	private FloatControl volumeMusicController;
 	/**
 	 * Volume set at 5
 	 */
-	private static float volumeMusic = 5;
+	private float volumeMusic = 5;
 	
 	public Music() {
 		
-		/**
-		 * Volume Controller 
-		 * Problem at .VOLUME
-		 */
-//		volumeMusicController = (FloatControl)getClip().
-//				getControl(FloatControl.Type.MASTER_GAIN);
-		sound = new Sound();
+
+		
 
 	}
 	
-//	public static FloatControl getVolMusicControl() {
-//		return volumeMusicController;
-//	}
+	public FloatControl getVolMusicControl() {
+		return volumeMusicController;
+	}
 	
 	/**
 	 * 
@@ -57,8 +55,23 @@ public final class Music extends Sound implements MusicInterface {
 		return musicHashMap;
 	}
 	
+	public void vol() {
+		
+		/**
+		 * Volume Controller 
+		 * Problem at .VOLUME
+//		 */
+//		volumeMusicController = (FloatControl)Sound.getClip().
+//				getControl(FloatControl.Type.MASTER_GAIN);
+	}
+	
 	public static void addToAccessMusic() {
 		addMusic("w1m1", "w1m1.mp3");
+		addMusic("menu", "menu.mp3");
+		addMusic("music", "music.mp3");
+		addMusic("music2", "music2.mp3");
+		addMusic("musicdrums", "musicdrums.mp3");
+		addMusic("musicdrums2", "musicdrums2.mp3");
 	}
 	
 	/**
@@ -84,8 +97,8 @@ public final class Music extends Sound implements MusicInterface {
 	 * @param name - Enter keyword for the music.
 	 * @param filePath - Name of the music. For example Music2.mp3
 	 */
-	public static void addMusic(String name, String filePath) {
-		getMusic().put(name, new Sound("/Music/" + filePath));
+	private static void addMusic(String name, String filePath) {
+		getMusic().put(name, new Sound(("/Music/" + filePath)));
 	}
 	
 	/**
@@ -104,24 +117,27 @@ public final class Music extends Sound implements MusicInterface {
 	}
 	
 	
-//	/**
-//	 * Increase music volume with 2.
-//	 */
-//	public static void volumeMusicIncrease() {
-//		getVolMusicControl().setValue(getCurrentMusicVolume() + 2);
-//	}
-//	/**
-//	 * Decrease music volume with 2.
-//	 */
-//	public static void volumeMusicDecrease() {
-//		getVolMusicControl().setValue(getCurrentMusicVolume() - 2);
-//	}
+	/**
+	 * Increase music volume with 2.
+	 */
+	public void volumeMusicIncrease() {
+		getVolMusicControl().setValue(getCurrentMusicVolume() + 2);
+	}
+	/**
+	 * Decrease music volume with 2.
+	 */
+	public void volumeMusicDecrease() {
+		getVolMusicControl().setValue(getCurrentMusicVolume() - 2);
+	}
 	
+	public void setCurrentMusicVolume(float f) {
+		getVolMusicControl().setValue(f);
+	}
 	/**
 	 * Get the current volume of Music.
 	 * @return volumeMusic - Current Volume Set
 	 */
-	private static float getCurrentMusicVolume() {
+	private float getCurrentMusicVolume() {
 		return volumeMusic;
 	}
 	
@@ -129,24 +145,18 @@ public final class Music extends Sound implements MusicInterface {
 	
 	
 	
-	public void playMenu() {
-			
+	public static void playMenu() {
+		getMusic().get("menu").loop();
 	}
-	public void stopMenu() {
-		
+	public static void stopMenu() {
+		getMusic().get("menu").stop();
 	}
 	
 	/**
-	 * Music for W O R L D - O N E 
+	 * Play music suited for World One Map One
 	 */
 	public static void playWorldOneMapOne() {
-		try {
-//			sound.getGlobalVolControl().setValue(10);
-			getMusic().get("w1m1").play();
-		} catch (NullPointerException e) {
-			System.out.println("Problem @ World 1 Map 1");
-			e.printStackTrace();
-		}
+		getMusic().get("music2").loop();
 	}
 	public void stopWorldOneMapOne() {
 		
@@ -245,17 +255,3 @@ public final class Music extends Sound implements MusicInterface {
 		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
