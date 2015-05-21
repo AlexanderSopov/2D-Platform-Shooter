@@ -12,20 +12,47 @@ import javax.sound.sampled.*;
 public class Sound {
 	
 	
+	/**
+	 * Init clip
+	 * @see Clip
+	 */
 	private Clip clip;
 	
-	/**
-	 * Global Volume Controller
-	 */
-	//private FloatControl globalVolControl;
 	
-	private int globalVol = 5;
+	/**
+	 * Global Volume 
+	 */
+	private float globalVol = 0;
+	
+	
+	/**
+	 * Storage for Sound Format
+	 */
 	private AudioFormat soundFormat;
+	
+	
+	/**
+	 * Storage for Sound Decode
+	 */
 	private AudioFormat soundDecode;
+	
+	
+	/**
+	 * Storage for Sound Result
+	 */
 	private AudioInputStream soundResult;
+	
+	
+	/**
+	 * Storage for Sound Input
+	 */
 	private AudioInputStream soundInput;
 	
-	private static FloatControl volControl;
+	
+	/**
+	 * Sound Volume Controller
+	 */
+	private FloatControl volControl;
 	
 	public Sound(String path) {
 		setSoundInput(path);
@@ -66,7 +93,7 @@ public class Sound {
 				e.printStackTrace();
 			}
 		} else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Please enter valid path");
 		}
 	}
 	
@@ -291,7 +318,7 @@ public class Sound {
 	 * Get the current global volume
 	 * @return globalVol - An integer that returns the current volume.
 	 */
-	public int getGlobalVol() {
+	public float getGlobalVol() {
 		return globalVol;
 	}
 	
