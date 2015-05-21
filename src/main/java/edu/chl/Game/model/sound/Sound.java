@@ -39,9 +39,15 @@ public class Sound {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Use for init instance of sound
+	 */
 	public Sound() {
 		
 	}
+	
+	
 	/**
 	 * Set sound input. If the path valid then we get to access
 	 * to the actual mp3 file properties such as channels, sample rate etc. 
@@ -64,6 +70,7 @@ public class Sound {
 		}
 	}
 	
+	
 	/**
 	 * Get Sound Input
 	 * @return soundInput - Type AudioInputStream
@@ -71,6 +78,8 @@ public class Sound {
 	private AudioInputStream getSoundInput() {
 		return this.soundInput;
 	}
+	
+	
 	/**
 	 * Set the sound format
 	 * @param af
@@ -86,6 +95,7 @@ public class Sound {
 	private AudioFormat getSoundFormat() {
 		return this.soundFormat;
 	}
+
 	
 	/**
 	 * Initialize Sound
@@ -111,6 +121,7 @@ public class Sound {
 		return answer;
 	}
 
+	
 	/**
 	 * Initialize Sound Decoding<p>
 	 * To understand below code then read the constructor below.
@@ -131,6 +142,7 @@ public class Sound {
 			));
 	}
 	
+	
 	/**
 	 * Set the decoded version of the original sound<p>
 	 * @see #setSoundInput(String) 
@@ -142,6 +154,7 @@ public class Sound {
 	private void setSoundDecode(AudioFormat ai) {
 		this.soundDecode = ai;
 	}
+	
 	
 	/**
 	 * Get the decoded sound.
@@ -159,6 +172,7 @@ public class Sound {
 				getSoundDecode(), getSoundInput());
 	}
 	
+	
 	/**
 	 * Get the sound result 
 	 * @return soundResult - Type AudioInputStream
@@ -166,6 +180,7 @@ public class Sound {
 	private AudioInputStream getSoundResult() {
 		return this.soundResult;
 	}
+	
 	
 	/**
 	 * Initialize Clip 
@@ -182,6 +197,7 @@ public class Sound {
 		}
 	}
 	
+	
 	/**
 	 * Get the Clip
 	 * @return clip
@@ -189,6 +205,7 @@ public class Sound {
 	public Clip getClip() {
 		return this.clip;
 	}
+	
 	
 	/**
 	 * Play the Sound
@@ -209,6 +226,7 @@ public class Sound {
 			clip.stop();
 	}
 	
+	
 	/**
 	 * Close the sound
 	 */
@@ -216,6 +234,7 @@ public class Sound {
 		stop();
 		clip.close();
 	}
+	
 	
 	/**
 	 * Loop the Sound
@@ -233,6 +252,7 @@ public class Sound {
 		return volControl;
 	}
 	
+	
 	/**
 	 * Decrease Global Volume with 2
 	 */
@@ -240,6 +260,7 @@ public class Sound {
 		System.out.println("SOUND");
 		getVolControl().setValue(getVolControl().getValue() - 2);
 	}
+	
 	
 	/**
 	 * Increase Global Volume with 2
@@ -250,6 +271,7 @@ public class Sound {
 			getVolControl().setValue(getVolControl().getValue() + 2);
 		}
 	}
+	
 	
 	/**
 	 * Check the Volume value. If the value meets the requirements - true otherwise false
@@ -264,6 +286,7 @@ public class Sound {
 		return value;
 	}
 	
+	
 	/**
 	 * Get the current global volume
 	 * @return globalVol - An integer that returns the current volume.
@@ -271,6 +294,7 @@ public class Sound {
 	public int getGlobalVol() {
 		return globalVol;
 	}
+	
 	
 	/**
 	 * Set Global Volume<p>
