@@ -36,7 +36,7 @@ public class Player extends Unit {
         
 		this.load = new LoadingSprites();
 		initiateUnit();      
-        //p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
+
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
 		setUnitValues(100, 50, 0, 7, 0);
 
@@ -87,7 +87,7 @@ public class Player extends Unit {
 		}
 
 		runScoreDisplay(g);
-                //p.render(g);
+              
 		this.outfit.render(g);
 	}
 
@@ -95,24 +95,19 @@ public class Player extends Unit {
 	public void update() {
 		super.update();
 		iterateCooldown();
+		
+		this.outfit.update();
+		
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}
+		
 		if (isRecievingDamage()) {
 			iterateTakingDamage();
 			processDamageTaking();
 		}
-          //p.update();
+
           
-          
-          
-          for(int i=0; i<getHandler().getEntityList().size(); i++){
-        	  if(getHandler().getEntityList().get(i).getId()==Id.bullet){
-        		 System.out.println(getHandler().getEntityList().get(i).getX()); 
-        	  }
-          }
-          
-          this.outfit.update();
           
 	}
 
