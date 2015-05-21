@@ -39,7 +39,7 @@ public class GameHandler {
 		this.frame = frame;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
-		addEntity(c);
+		//addEntity(c);
 		
 		
 
@@ -62,7 +62,7 @@ public class GameHandler {
 		for (Item it: getItemList())
 			refreshTimer.addObserver(it);
 		
-		refreshTimer.getMouseInput().setCursor(c);
+		//refreshTimer.getMouseInput().setCursor(c);
 
 	}
 
@@ -81,6 +81,9 @@ public class GameHandler {
 				camera.update(e);
 			}
 		}
+		
+		
+		
 	}
 	
 	public void restart(){

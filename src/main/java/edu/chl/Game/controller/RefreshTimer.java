@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Observable;
 
 import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.gameobject.entity.player.GameCursor.CursorState;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
@@ -51,13 +52,15 @@ public class RefreshTimer extends Observable implements Runnable{
 		charSelectionView = new CharacterSelectionView(movingChar);
 
 		gameHandler = new GameHandler(this, frame);
-		mouseInput = new MouseInput(frame, mapView);
-		
-		start();
+		mouseInput = new MenuMouseInput(this ,mapView, gameHandler);
 		
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
+		
+		start();
+		
+		
 	}
 
 	/**
@@ -136,6 +139,9 @@ public class RefreshTimer extends Observable implements Runnable{
 			charSelectionView.render(g);
 		}
 		
+		gameHandler.getGameCursor().update();
+		gameHandler.getGameCursor().render(g);
+		
 		b.show();
 		g.dispose();
 
@@ -197,5 +203,19 @@ public class RefreshTimer extends Observable implements Runnable{
 	
 	public MouseInput getMouseInput(){
 		return mouseInput;
+	}
+	
+	public  void changeGameState(State newState){
+		state = newState;
+		if(state == State.GAME){
+			frame.removeMouseListener(mouseInput);
+			frame.removeMouseMotionListener(mouseInput);
+			mouseInput = new MouseInput( gameHandler);
+			frame.addMouseListener(mouseInput);
+			frame.addMouseMotionListener(mouseInput);
+			gameHandler.getGameCursor().changeState(CursorState.AIM);
+		}else{
+			gameHandler.getGameCursor().changeState(CursorState.DEFULT);
+		}
 	}
 }
