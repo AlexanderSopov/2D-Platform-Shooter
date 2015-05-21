@@ -1,19 +1,22 @@
 package edu.chl.Game.model.gameobject.entity.player;
+
+import java.awt.Frame;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.LinkedList;
+
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.model.gameobject.entity.Entity;
-import edu.chl.Game.model.gameobject.entity.FacingDirection;
+import edu.chl.Game.view.graphics.HUD.*;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.FrameIterator;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ProjectileDetection;
-import edu.chl.Game.view.graphics.LoadingSprites;
 import edu.chl.Game.view.graphics.*;
 import edu.chl.Game.model.gameobject.entity.items.*;
 import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.graphics.Sprite;
+import edu.chl.Game.view.graphics.window.*;
 
 public class Player extends Unit {
 
@@ -22,54 +25,65 @@ public class Player extends Unit {
 	private Sprite[] arrayMovingAnimation;
 	private Sprite[] arrayHurtAnimation;
 	private LoadingSprites load;
-	private boolean isRecievingDamage;
-	private Inventory inventory; 
-    private Pistol p;
-    private ProjectileDetection pd;
-        
+	private PlayerLevel level;
+	private Inventory inventory;
+	private Pistol p;
+	private StatusBar bar;
+	private ArrayList<Talent> talentList;
+
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
 		super(x, y, width, height, solid, id, handler);
-               
-        
+
 		this.load = new LoadingSprites();
-		initiateUnit();      
-        p = new Pistol(getX(), getY(), getWidth(),getHeight(), false, null, handler, handler.getGameCursor(),this);
+		this.level = new PlayerLevel();
+		initiateUnit();
+		p = new Pistol(getX(), getY(), getWidth(), getHeight(), false, null,
+				handler, handler.getGameCursor(), this);
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
-		setUnitValues(100, 50, 0, 7, 0);
 
-		
 		this.inventory = new Inventory(new PlayerOutfit(this));
-
+		this.bar = new StatusBar(this);
+		talentList = new ArrayList<Talent>();
 
 	}
 
 	@Override
 	public void render(Graphics g) {
-                
+
 		if (!isRecievingDamage()) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-					getRenderClass().renderAnimateRight(g, arrayMovingAnimation,
-							getFrameIterator_moving().getFrame(), getX(), getY(),
-							getHeight(), getWidth());
+					getRenderClass().renderAnimateRight(g,
+							arrayMovingAnimation,
+							getFrameIterator_moving().getFrame(), getX(),
+							getY(), getHeight(), getWidth());
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 					getRenderClass().renderAnimateLeft(g, arrayMovingAnimation,
-							getFrameIterator_moving().getFrame(), getX(), getY(),
-							getHeight(), getWidth(), 20);
+							getFrameIterator_moving().getFrame(), getX(),
+							getY(), getHeight(), getWidth(), 20);
 				}
 			}
 
 			else if (!getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-					getRenderClass().renderNotAnimateRight(g,arrayMovingAnimation, getX(), getY(),
-							getHeight(), getWidth());
+					getRenderClass().renderNotAnimateRight(g,
+							arrayMovingAnimation, getX(), getY(), getHeight(),
+							getWidth());
 				}
 
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderNotAnimateLeft(g, arrayMovingAnimation, getX(), getY(),
-							getHeight(), getWidth(), (getUnitMeasurement().getNumberOfSprite_move()/2));
+					getRenderClass()
+							.renderNotAnimateLeft(
+									g,
+									arrayMovingAnimation,
+									getX(),
+									getY(),
+									getHeight(),
+									getWidth(),
+									(getUnitMeasurement()
+											.getNumberOfSprite_move() / 2));
 				}
 			}
 		} else {
@@ -81,12 +95,15 @@ public class Player extends Unit {
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 				getRenderClass1().renderAnimateLeft(g, arrayHurtAnimation,
 						getFrameIterator_hurting().getFrame(), getX(), getY(),
-						getWidth(), getHeight(), (getUnitMeasurement().getNumberOfSprite_hurt()/2));
+						getWidth(), getHeight(),
+						(getUnitMeasurement().getNumberOfSprite_hurt() / 2));
 			}
 		}
 
 		runScoreDisplay(g);
-                p.render(g);
+		p.render(g);
+		
+		
 	}
 
 	@Override
@@ -100,16 +117,7 @@ public class Player extends Unit {
 			iterateTakingDamage();
 			processDamageTaking();
 		}
-          p.update();
-          
-          
-          
-          for(int i=0; i<getHandler().getEntityList().size(); i++){
-        	  if(getHandler().getEntityList().get(i).getId()==Id.bullet){
-        		 System.out.println(getHandler().getEntityList().get(i).getX()); 
-        	  }
-          }
-          
+		p.update();
 	}
 
 	public void processDamageTaking() {
@@ -132,26 +140,22 @@ public class Player extends Unit {
 		}
 		getUnitValues().setHealthPoints(calculateNewHealthPoints(value));
 	}
-	
-	public int calculateNewHealthPoints(int value){
+
+	public int calculateNewHealthPoints(int value) {
 		return getUnitValues().getHealthPoints() - value;
 	}
-	
-	public void shoot(){
+
+	public void shoot() {
 		p.shoot();
 	}
-        
 
+	public double getHealth() {
+		return getUnitValues().getHealthPoints();
+	}
 
-    public double getHealth() {
-       return getUnitValues().getHealthPoints();
-    }
-
-
-    public double getArmor() {
-        return 0;
-    }
-
+	public double getArmor() {
+		return 0;
+	}
 
 	@Override
 	public void initiateUnit() {
@@ -162,12 +166,12 @@ public class Player extends Unit {
 		initiateProperties();
 		loadSprites();
 	}
-	
+
 	@Override
 	public void initiateUnitTitle() {
 		setUnitTitle("Bit");
 	}
-	
+
 	@Override
 	public void initiateUnitMeasurement() {
 		getUnitMeasurement().setNumberOfSprites_move(40);
@@ -177,7 +181,7 @@ public class Player extends Unit {
 		getUnitMeasurement().setDelay_hurt(2);
 		getUnitMeasurement().setLimit_hurt(4);
 	}
-	
+
 	@Override
 	public void initiateSpriteSheets() {
 		this.sheetMovingAnimation = new SpriteSheet("/p00.png");
@@ -200,22 +204,23 @@ public class Player extends Unit {
 		int valueD = getUnitMeasurement().getLimit_hurt();
 		setFrameIterator_moving(new FrameIterator(valueA, valueB));
 		setFrameIterator_hurt(new FrameIterator(valueC, valueD));
-		// healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_ / attackRate:_ /
-		setUnitValues(100, 100, 0, 7, 0);
+		// level: _ / healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_
+		// / attackRate:_ /
+		setUnitValues(0, 200, 100, 0, 7, 0);
 	}
-	
-	@Override
-	public void loadSprites() {	
-		this.arrayMovingAnimation = load.loadSprites(sheetMovingAnimation, arrayMovingAnimation, getUnitMeasurement().getNumberOfSprite_move(), getWidth(), getHeight());
-		this.arrayHurtAnimation = load.loadSprites(sheetHurtingAnimation, arrayHurtAnimation, getUnitMeasurement().getNumberOfSprite_hurt(), getWidth(), getHeight());
-	}
-
-
 
 	@Override
-	public void setAlternativeMeasurement() {	
-
+	public void loadSprites() {
+		this.arrayMovingAnimation = load.loadSprites(sheetMovingAnimation,
+				arrayMovingAnimation, getUnitMeasurement()
+						.getNumberOfSprite_move(), getWidth(), getHeight());
+		this.arrayHurtAnimation = load.loadSprites(sheetHurtingAnimation,
+				arrayHurtAnimation, getUnitMeasurement()
+						.getNumberOfSprite_hurt(), getWidth(), getHeight());
 	}
+
+	@Override
+	public void setAlternativeMeasurement() {}
 
 	/**
 	 * @return the inventory
@@ -224,9 +229,34 @@ public class Player extends Unit {
 		return inventory;
 	}
 
-
-
-
-
+	public void gainExperience(int value) {
+		level.gainExperience(value);
+		addScoreInterface(value, ScoreType.experience);
+	}
+	
+	public void addTalent(Talent tal){
+		talentList.add(tal);	
+	}
+	
+	private void gainTalent(Talent tal){
+		switch (tal.getType()) {
+		
+		case activation:
+			gainBonus(tal);
+		break;
+		
+		}
+	}
+	
+	private void gainBonus(Talent tal){
+		//getUnitValues().setAttackDamage();
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

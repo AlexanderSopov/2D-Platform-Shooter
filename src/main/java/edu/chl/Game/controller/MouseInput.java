@@ -26,6 +26,8 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private Cursor blankCursor;//hide 
     private GameCursor c;
     
+    private GameHandler handler;
+    
     public MouseInput(Frame frame){
     	this.frame = frame;
     }
@@ -65,7 +67,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 		
 		if(RefreshTimer.state == State.GAME) {
 			if(c != null){
-				c.getHandler().getPlayer().shoot();;
+				c.getHandler().getPlayer().shoot();
 			}
 		}else if(RefreshTimer.state == State.MAP){
 			int mx = e.getX();
@@ -135,6 +137,8 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 			frame.getContentPane().removeAll();
 		}
 
+		handler.getMenuWindow().pressButton(e.getX(), e.getY());
+		
 	}
 
 	@Override
@@ -231,6 +235,10 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	
 	public int getMousePos_X() {
 		return mousePosX;
+	}
+	
+	public void setHandler(GameHandler handler){
+		this.handler = handler;
 	}
 	
 

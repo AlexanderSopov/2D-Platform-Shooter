@@ -25,20 +25,19 @@ public class ProjectileDetection {
 			if (bullet.getId() == Id.bullet) {
 				for (Entity enemy : this.entityList) {
 					if (bullet.getId() == Id.monster) {
-						if (checkIfHit(bullet, enemy)) {
-							bullet.remove();
-							enemy.takeDamage(damageValue);
-							break;
+						//if (checkIfHit(bullet, enemy)) {
+						////	enemy.takeDamage(damageValue);
+						//	break;
 						}
 					}
 				}
 			}
 		}
-	}
+	
 
-	public boolean checkIfHit(Entity e1, Entity e2) {
+	public void checkIfHit(Entity e1, Entity e2) {
 		System.out.println("hit");
-		return e1.getCalcBounds().getBounds().intersects(e2.getCalcBounds().getBounds());
+		//return e1.getCalcBounds().getBounds().intersects(e2.getCalcBounds().getBounds());
 	}
 
 }

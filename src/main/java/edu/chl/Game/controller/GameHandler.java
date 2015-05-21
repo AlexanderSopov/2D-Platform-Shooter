@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+
+import javax.swing.JPanel;
+
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.items.Item;
@@ -15,6 +18,7 @@ import edu.chl.Game.model.gameobject.tile.*;
 import edu.chl.Game.view.Camera;
 //import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.graphics.window.MenuWindow;
 
 
 public class GameHandler {
@@ -30,18 +34,19 @@ public class GameHandler {
 	private int ref;
 	private Camera camera;
 	private GameCursor c;
-	private MouseInput mi;
+	
+	private MouseInput mi;		//new
+	private MenuWindow menu;	//new
 
 
 
-	public GameHandler(RefreshTimer refreshTimer, Frame frame) {
+	public GameHandler(RefreshTimer refreshTimer, Frame frame, MouseInput mi) {
 		this.refreshTimer = refreshTimer;
 		this.frame = frame;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
 		addEntity(c);
-		
-		
+		this.mi = mi;
 
 	}
 	
@@ -63,10 +68,13 @@ public class GameHandler {
 			refreshTimer.addObserver(it);
 		
 		refreshTimer.getMouseInput().setCursor(c);
+		
+		this.menu = new MenuWindow(this, mi); 		//new
 
 	}
 
 	public void render(Graphics g) {
+		
 		if(MapFactory.mapImage == null){
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
@@ -81,7 +89,14 @@ public class GameHandler {
 				camera.update(e);
 			}
 		}
+
 	}
+	
+	public MenuWindow getMenuWindow(){
+		return menu;
+	}
+	
+
 	
 	public void restart(){
 		refreshTimer.deleteObservers();
@@ -163,6 +178,10 @@ public class GameHandler {
 	
 	public MouseInput getMouseInput(){
 		return mi;
+	}
+	
+	public void toggleMenu(){
+		menu.toggleMenu();
 	}
 
 }

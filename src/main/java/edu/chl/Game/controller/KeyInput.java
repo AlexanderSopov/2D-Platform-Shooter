@@ -48,6 +48,10 @@ public class KeyInput implements KeyListener {
 					case KeyEvent.VK_R:
 						handler.restart();
 						break;
+						
+					case KeyEvent.VK_T:
+						handler.toggleMenu();
+						break;
 
 					}
 				}

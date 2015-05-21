@@ -2,15 +2,18 @@ package edu.chl.Game.model.gameobject.entity;
 
 import java.util.LinkedList;
 import java.awt.Graphics;
+
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
+import edu.chl.Game.model.gameobject.entity.player.*;
 import edu.chl.Game.model.physics.Gravity;
 import edu.chl.Game.model.physics.collisions.CollisionSolver;
 import edu.chl.Game.view.graphics.EntityRender;
 import edu.chl.Game.model.physics.CollisionDetection;
 import edu.chl.Game.view.graphics.*;
+import edu.chl.Game.view.graphics.window.MenuWindow;
 import edu.chl.Game.model.physics.*;
 
 
@@ -32,7 +35,6 @@ public abstract class Entity extends GameObject {
 	private UnitValues unitValues;
 	private UnitMeasurement um;
 	private String unitTitle;
-	private CalculateBounds calcBounds;
 
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
@@ -47,7 +49,8 @@ public abstract class Entity extends GameObject {
 		scoreProcess = new ScoreProcess();
 		this.healthBar = new HealthBar(this);
 		this.um = new UnitMeasurement();
-		this.calcBounds = new CalculateBounds(this);
+
+
 
 	}
 	
@@ -63,8 +66,8 @@ public abstract class Entity extends GameObject {
 		scoreProcess.updateScoreDispay(g);
 	}
 	
-	public void addScoreInterface(int value){
-		scoreProcess.addScoreInterface(this, value);
+	public void addScoreInterface(int value, ScoreType type){
+		scoreProcess.addScoreInterface(this, value, type);
 	}
 	
 	// --- Damage System ---
@@ -72,7 +75,7 @@ public abstract class Entity extends GameObject {
 	public void takeDamage(int value) {
 		unitValues.setHealthPoints((unitValues.getHealthPoints() - value));
 		checkIfDead();
-		addScoreInterface(value);
+		addScoreInterface(value, ScoreType.damage);
 	}
 	
 	public void checkIfDead(){
@@ -82,7 +85,27 @@ public abstract class Entity extends GameObject {
 	}
 	
 	public void die(){
+		if(isEnemy()){
+			reward();
+		}
 		this.remove();
+	}
+	
+	private boolean isEnemy(){
+		return getId()==Id.monster;
+	}
+	
+	private void reward(){
+		int experienceReward = calculateExperience();
+		getPlayer().gainExperience(experienceReward);
+	}
+	
+	private Player getPlayer(){
+		return getHandler().getPlayer();
+	}
+	
+	private int calculateExperience(){
+		return getUnitValues().getLevel() * 10;
 	}
 	
 	@Override
@@ -127,9 +150,7 @@ public abstract class Entity extends GameObject {
 	public FrameIterator getFrameIterator() {
 		return frameIterator;
 	}
-	public CalculateBounds getCalcBounds(){
-		return calcBounds;
-	}
+
     
         
     @Override
@@ -203,8 +224,8 @@ public abstract class Entity extends GameObject {
 	public void setFrameIterator_hurt(FrameIterator fi) {
 		this.frameIterator_attack = fi;
 	}
-	public void setUnitValues(int maxHp, int maxEp, int arm, int aD, int aR){
-		this.unitValues = new UnitValues(maxHp, maxEp, arm, aD, aR);
+	public void setUnitValues(int level, int maxHp, int maxEp, int arm, int aD, int aR){
+		this.unitValues = new UnitValues(level, maxHp, maxEp, arm, aD, aR);
 	}
 	public void setUnitTitle(String str){
 		this.unitTitle = str;
@@ -218,4 +239,6 @@ public abstract class Entity extends GameObject {
 		isTryingToJump = b;
 		
 	}
+	
+
 }

@@ -1,6 +1,5 @@
 package edu.chl.Game.view.graphics;
 import edu.chl.Game.model.gameobject.entity.*;
-
 import java.awt.Graphics;
 
 public class HealthBar {

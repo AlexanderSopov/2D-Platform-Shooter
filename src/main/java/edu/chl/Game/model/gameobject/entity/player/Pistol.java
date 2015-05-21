@@ -86,6 +86,11 @@ public class Pistol extends Entity {
 		}
 		
 		
+		public Entity getEntity(){
+			return en;
+		}
+		
+		
 
 
 }

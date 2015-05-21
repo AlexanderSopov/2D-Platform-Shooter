@@ -3,17 +3,15 @@ package edu.chl.Game.controller;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Observable;
-
+import edu.chl.Game.view.graphics.window.*;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.StartMenu;
-
 import edu.chl.Game.view.graphics.MovingCharacter;
 import java.util.Observer;
-
 
 /**
  * 
@@ -31,19 +29,21 @@ public class RefreshTimer extends Observable implements Runnable {
 	private GameHandler gameHandler;
 	private boolean running = false;
 	private MouseInput mouseInput;
-	
-	//The state of the game
+
+
+	// The state of the game
 	public static State state = State.GAME;
-	//The selected map/level
+	// The selected map/level
 	public static String selectedMap = "level_1";
-	//Array of possible levels
-	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
-	
+	// Array of possible levels
+	public static String[] levels = { "level_1", "level_2", "level_3",
+			"level_4", "level_5" };
+
 	private double delta = 0.0;
-	private int frameRate=1;
-	private int second=1;
-	
-	public RefreshTimer(){
+	private int frameRate = 1;
+	private int second = 1;
+
+	public RefreshTimer() {
 		thread = new Thread(this);
 		frame = new Frame();
 		startMenu = new StartMenu(frame);
@@ -51,32 +51,33 @@ public class RefreshTimer extends Observable implements Runnable {
 		movingChar = new MovingCharacter();
 		mapView = new WorldMapView(movingChar);
 		charSelectionView = new CharacterSelectionView(movingChar);
-		
 
+		mouseInput = new MouseInput(frame, mapView);			// new
+		gameHandler = new GameHandler(this, frame, mouseInput); // new
+		mouseInput.setHandler(gameHandler); 					// new
 
-		gameHandler = new GameHandler(this, frame);
-		mouseInput = new MouseInput(frame, mapView);
-		
 		start();
-		
+
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
+		
+
 
 	}
 
 	/**
 	 * 
 	 */
-	public synchronized void start(){
-		if(running)
+	public synchronized void start() {
+		if (running)
 			return;
 		running = true;
 		thread.start();
 	}
-	
-	public synchronized void interrupt(){
-		if(running){
+
+	public synchronized void interrupt() {
+		if (running) {
 			running = false;
 			try {
 				thread.join();
@@ -85,127 +86,127 @@ public class RefreshTimer extends Observable implements Runnable {
 			}
 		}
 	}
-	
 
-	
 	@Override
 	public void run() {
 		frame.requestFocus();
 		timer();
 	}
-	
+
 	/**
 	 * Update Timer, create a Buffer and update the handler.
 	 */
-	public void update(){
-			setChanged();
-			render();
-			printTimer();
+	public void update() {
+		setChanged();
+		render();
+		printTimer();
 	}
 
 	/**
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
-	public void render(){
-		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
+	public void render() {
+		if (state == State.GAME || state == State.MAP
+				|| state == State.CHARACTER_SELECTION) {
 			BufferStrategy bs = frame.getBufferStrategy();
-			if(bs == null){
-                            frame.createBufferStrategy(3);
-                            return;
+			if (bs == null) {
+				frame.createBufferStrategy(3);
+				return;
 			}
 			renderGraphics(bs);
-		}else if(state == State.MENU && !startMenu.inMenu()){
+		} else if (state == State.MENU && !startMenu.inMenu()) {
 			startMenu.setMenu();
-		}else if(state == State.OPTION && !startMenu.inOption()){
+		} else if (state == State.OPTION && !startMenu.inOption()) {
 			startMenu.setOption();
-		}else if(state == State.CREDIT && !startMenu.inCredit()){
+		} else if (state == State.CREDIT && !startMenu.inCredit()) {
 			startMenu.setCredit();
 		}
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * Rendering the Graphics to the screen.
-	 * @param b - BufferStrategy to access the methods in BufferStrategy class.
+	 * 
+	 * @param b
+	 *            - BufferStrategy to access the methods in BufferStrategy
+	 *            class.
 	 */
 	public void renderGraphics(BufferStrategy b) {
 		Graphics g = b.getDrawGraphics();
 		frame.requestFocus();
-		
-		if(state == State.GAME){
+
+		if (state == State.GAME) {
 			gameHandler.render(g);
-			notifyObservers((Object)g);
-		}else if(state == State.MAP){
+			notifyObservers((Object) g);
+		} else if (state == State.MAP) {
 			mapView.render(g);
-		}else if(state == State.CHARACTER_SELECTION){
+		} else if (state == State.CHARACTER_SELECTION) {
 			charSelectionView.render(g);
 		}
 		
+		gameHandler.getMenuWindow().displayWindow(g);	//new
+
 		b.show();
 		g.dispose();
 
 	}
-	
 
-	private void timer(){
+	private void timer() {
 		long timeSnap1 = System.nanoTime();
 		double nanosec = 1000000000.0;
 		long timeSnap2 = System.nanoTime();
-		delta = (timeSnap2 - timeSnap1)*60/nanosec;
-		while(running){
+		delta = (timeSnap2 - timeSnap1) * 60 / nanosec;
+		while (running) {
 			timeSnap1 = timeSnap2;
 			timeSnap2 = System.nanoTime();
-			delta += (timeSnap2 - timeSnap1 )*60/nanosec;
+			delta += (timeSnap2 - timeSnap1) * 60 / nanosec;
 			timeToUpdate(delta);
 		}
-		interrupt();	
+		interrupt();
 	}
-	
+
 	/**
 	 * 
 	 * @param d
 	 */
-	private void timeToUpdate(double d){
-		if(d>1){
-			delta=delta-1;
+	private void timeToUpdate(double d) {
+		if (d > 1) {
+			delta = delta - 1;
 			update();
 		}
 	}
-	
+
 	/**
 	 * Printing frames per second.
 	 */
-	private void printTimer(){
+	private void printTimer() {
 		frameRate++;
-		if(isFrame()){
+		if (isFrame()) {
 			second++;
-			frameRate=1;
+			frameRate = 1;
 		}
 	}
-	
+
 	/**
 	 * Checking if Frame is equal to 60.
+	 * 
 	 * @return Frame - If frame is not 60 then return false otherwise true.
 	 */
 	private boolean isFrame() {
-		return frameRate==60;
+		return frameRate == 60;
 	}
-        
-        
-	
-	
 
-	public void updateObserverList(){
+	public void updateObserverList() {
 		deleteObservers();
-		for(Entity e: gameHandler.getEntityList()){
+		for (Entity e : gameHandler.getEntityList()) {
 			addObserver(e);
 		}
-		for (Tile t: gameHandler.getTileList()){
+		for (Tile t : gameHandler.getTileList()) {
 			addObserver(t);
 		}
 	}
-	
-	public MouseInput getMouseInput(){
+
+	public MouseInput getMouseInput() {
 		return mouseInput;
 	}
 
