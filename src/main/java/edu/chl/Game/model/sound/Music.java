@@ -72,6 +72,7 @@ public final class Music extends Sound implements MusicInterface {
 		addMusic("music2", "music2.mp3");
 		addMusic("musicdrums", "musicdrums.mp3");
 		addMusic("musicdrums2", "musicdrums2.mp3");
+		addMusic("gamemusic", "gameMusic.mp3");
 	}
 	
 	/**
@@ -156,7 +157,7 @@ public final class Music extends Sound implements MusicInterface {
 	 * Play music suited for World One Map One
 	 */
 	public static void playWorldOneMapOne() {
-		getMusic().get("music2").loop();
+		getMusic().get("gamemusic").loop();
 	}
 	public void stopWorldOneMapOne() {
 		
