@@ -1,5 +1,6 @@
 package edu.chl.Game.model.sound;
 
+import java.io.File;
 import java.util.HashMap;				
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,18 +27,18 @@ import javax.sound.sampled.FloatControl;
 public final class SFX extends Sound implements SFXInterface {
 
 	private static Map<String, Sound> sfxHashMap = new HashMap<String, Sound>();
-	private static SFX sfx;
+	private SFX sfx;
 
 	
 	/**
 	 * Volume Controller
 	 */
-	private static FloatControl volSFXControl;
+	private FloatControl volSFXControl;
 	
 	/**
 	 * Volume set at 5.
 	 */
-	private static float volumeSFX = 5;
+	private static float volSFX = 0;
 	
 	private SFX() {
 		
@@ -47,15 +48,20 @@ public final class SFX extends Sound implements SFXInterface {
 		 */
 		volSFXControl = (FloatControl)getClip().getControl(FloatControl.Type.MASTER_GAIN);
 		
-		addSFX("jump", "jump.mp3");
+		
 	}
 
+	private static void addToAccessSFX() {
+		addSFX("monster", "monster.mp3");
+		addSFX("shot", "shot.mp3");	
+	}
+	
 //	private SFX(Entity entity) {
 //		this.entity = entity;
 //		this.entityState = entity.getEntityState();
 //	}
 	
-	public static FloatControl getVolSFXControl() {
+	private FloatControl getVolSFXControl() {
 		return volSFXControl;
 	}
 	
@@ -63,7 +69,7 @@ public final class SFX extends Sound implements SFXInterface {
 	 * Get the SFX (Sound Effect) HashMap
 	 * @return the SFX HashMap
 	 */
-	private static Map<String, Sound> getSFXHashMap() {
+	private static Map<String, Sound> getSFX() {
 		return sfxHashMap;
 	}
 	
@@ -73,7 +79,7 @@ public final class SFX extends Sound implements SFXInterface {
 	 * @param name - Give the sound effect a name. Name is then used to find it.
 	 * @param filePath - The path to the sound effect.
 	 */
-	public static void addSFX(String name, String filePath) {
+	private static void addSFX(String name, String filePath) {
 		sfxHashMap.put(name, new Sound("/SFX/" + filePath));
 	}
 	
@@ -81,7 +87,7 @@ public final class SFX extends Sound implements SFXInterface {
 	/**
 	 * Prints all Sound Effects in the list with name and path
 	 */
-	public static void printSFXList() {
+	 private void printSFXList() {
 		Set<Entry<String, Sound>> hashSet = sfxHashMap.entrySet();
 		
 		// BELOW CODE IS NOT GORGEOUS !
@@ -101,16 +107,16 @@ public final class SFX extends Sound implements SFXInterface {
 	 * @param soundFile - Enter the name of the file you need.
 	 * @return Returns the need.
 	 */
-	public static Sound getSoundFile(String soundFile) {
-		return getSFXHashMap().get(soundFile);
+	private Sound getSoundFile(String soundFile) {
+		return getSFX().get(soundFile);
 	}
 	
 	
 	/**
 	 * Clearing the Sound Effect list
 	 */
-	public static void clearSFXList() {
-		getSFXHashMap().clear();
+	private static void clearSFXList() {
+		getSFX().clear();
 	}
 	
 	
@@ -118,20 +124,20 @@ public final class SFX extends Sound implements SFXInterface {
 	 * Remove a Sound Effect from the list SFX list.
 	 * @param sfx
 	 */
-	public static void removeSFX(SFX sfx) {
-		getSFXHashMap().remove(sfx);
+	private static void removeSFX(SFX sfx) {
+		getSFX().remove(sfx);
 	}
 	
 	/**
 	 * Increase music volume with 2.
 	 */
-	public static void volumeSFXIncrease() {
+	public void volumeSFXIncrease() {
 		getVolSFXControl().setValue(getCurrentSFXVolume() + 2);
 	}
 	/**
 	 * Decrease music volume with 2.
 	 */
-	public static void volumeSFXDecrease() {
+	public void volumeSFXDecrease() {
 		getVolSFXControl().setValue(getCurrentSFXVolume() - 2);
 	}
 	
@@ -140,22 +146,22 @@ public final class SFX extends Sound implements SFXInterface {
 	 * @return volumeSFX - Current Volume Set
 	 */
 	private static float getCurrentSFXVolume() {
-		return volumeSFX;
+		return volSFX;
 	}
 	
 	
 	/**
 	 * Player Jumping Sound
 	 */
-	public static void playPlayerJumping() {
-		getSFXHashMap().get("jump").play();
+	private static void playPlayerJumping() {
+		getSFX().get("jump").play();
 	}
 	
-	public static void stopPlayerJumping() {
-		getSFXHashMap().get("jump").stop();
+	private static void stopPlayerJumping() {
+		getSFX().get("jump").stop();
 	}
 	
-	public static void playMonsterJumping() {
+	private static void playMonsterJumping() {
 		
 		
 	}
@@ -163,33 +169,34 @@ public final class SFX extends Sound implements SFXInterface {
 	/**
 	 * Player is hitting wall
 	 */
-	public static void playIsHittingWall() {
+	private static void playIsHittingWall() {
 		
 		
 	}
 	
 	
-	public static void playPlayerDead() {
+	private static void playPlayerDead() {
 		
 		
 	}
 	
-	public static void playMonsterDead() {
+	private static void playMonsterDead() {
 		
 		
 	}
 	
 	/**
-	 * Player is hitting Monster
+	 * Player is hitting Monster. This method plays the sound of it.
 	 */
-	public static void playMonster() {
-		
-		
+	public static void playerHitMonster() {
+		getSFX().get("monster").play();
 	}
 	
-	
-	public static void playPistolShot() {
-		
-		
+	/**
+	 * The default gun which the player have from the beginning.
+	 * This method plays the sound of it.
+	 */
+	public static void defaultGunShot() {
+		getSFX().get("shoot").play();
 	}
 }	

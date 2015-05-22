@@ -3,7 +3,9 @@ package edu.chl.Game.controller;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
 import java.util.LinkedList;
+
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.items.Item;
@@ -11,6 +13,9 @@ import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.tile.*;
 //import edu.chl.Game.sound.Music;
+import edu.chl.Game.view.Camera;
+//import edu.chl.Game.model.sound.SFX;
+import edu.chl.Game.view.Frame;
 //import edu.chl.Game.sound.Sound;
 import edu.chl.Game.view.Camera;
 //import edu.chl.Game.model.sound.SFX;
@@ -39,7 +44,7 @@ public class GameHandler {
 		this.frame = frame;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
-		addEntity(c);
+		//addEntity(c);
 		
 		
 
@@ -62,7 +67,7 @@ public class GameHandler {
 		for (Item it: getItemList())
 			refreshTimer.addObserver(it);
 		
-		refreshTimer.getMouseInput().setCursor(c);
+		//refreshTimer.getMouseInput().setCursor(c);
 
 	}
 
@@ -81,6 +86,9 @@ public class GameHandler {
 				camera.update(e);
 			}
 		}
+		
+		
+		
 	}
 	
 	public void restart(){
