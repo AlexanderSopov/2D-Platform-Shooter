@@ -1,7 +1,6 @@
 package edu.chl.Game.view.screens;
 
 import edu.chl.Game.controller.State;
-
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
@@ -30,10 +29,15 @@ import edu.chl.Game.view.screens.tween.ActorAccessor;
  *
  */
 public class MainMenu extends AbstractMenuScreen {
-
+	
+	private Animator charAnimation;
+	
 	@Override
 	public void show() {
 		super.show();
+		
+		//Set up Sprite animation for the character
+		charAnimation = new Animator();
 		
 		//Set the title
 		Label title = new Label(Frame.title, skin);
@@ -110,13 +114,13 @@ public class MainMenu extends AbstractMenuScreen {
 		
 		//Title color animation
 		Timeline.createSequence().beginSequence()
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,0,1))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,0))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,0))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,0))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,1))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,1))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,1))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,0,1))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,0))
+			.push(Tween.to(title,  ActorAccessor.RGB, 1f).target(1,0,0))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,0))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,1))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,1))
+			.push(Tween.to(title,  ActorAccessor.RGB, 1f).target(1,1,1))
 			.end().repeat(Tween.INFINITY, 0).start(tweenManager);
 		
 		//Title and buttons fade-in
@@ -136,4 +140,10 @@ public class MainMenu extends AbstractMenuScreen {
 		
 		tweenManager.update(Gdx.graphics.getDeltaTime());
 	}
+	
+	@Override
+	public void render(float delta){
+		super.render(delta);
+		charAnimation.renderAnimation();
+	}	
 }

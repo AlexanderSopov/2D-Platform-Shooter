@@ -31,8 +31,8 @@ public class WorldMapView {
 	private int velY = 0;
 	private boolean isMoving;
 	
-	public WorldMapView(MovingCharacter movingChar){
-		this.movingChar = movingChar;
+	public WorldMapView(){
+		movingChar = new MovingCharacter();;
 		isMoving = false;
 		
 		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 130, 60);
@@ -59,19 +59,21 @@ public class WorldMapView {
 		fnt = new Font("arial", Font.BOLD, 20);
 		g.setFont(fnt);
 		
+		//Draws the rects and arrows that connects the rects
 		drawRect(g2, mapLevels[0], "Level 1", "Stage");
 		drawRect(g2, mapLevels[1], "Level 2", "Stage");
 		drawRect(g2, mapLevels[2], "Level 3", "Stage");
 		drawRect(g2, mapLevels[3], "Level 4", "Stage");
 		drawRect(g2, mapLevels[4], "Level 5", "Stage");
 		drawRect(g2, shop, "Shop", "Button");
-		drawRect(g2, character, "Char", "Button");
+		drawRect(g2, character, "Char", "Button");	
 		
 		drawArrow(g2, mapLevels[0], mapLevels[1], "DownToUp");
 		drawArrow(g2, mapLevels[1], mapLevels[2], "SideToSide");
 		drawArrow(g2, mapLevels[2], mapLevels[3], "UpToDown");
 		drawArrow(g2, mapLevels[3], mapLevels[4], "DownToUp");
 		
+		//Render och moves the character
 		if(isMoving){
 			moveCharacter(g);
 		}else if(!isMoving){
@@ -82,7 +84,7 @@ public class WorldMapView {
 			}
 			movingChar.renderAnimate(g, (int)mapLevels[pos].getCenterX()-15, (int)mapLevels[pos].getCenterY()-15, 32, 32);
 		}
-	}
+	}//end render
 	
 	private void drawRect(Graphics2D g, Rectangle r, String Name, String type){
 		if(type.equals("Stage")){
