@@ -48,6 +48,18 @@ public class KeyInput implements KeyListener {
 					case KeyEvent.VK_R:
 						handler.restart();
 						break;
+					case KeyEvent.VK_E:
+						
+						if(handler.getPlayer().getInventory().isItemExsisting("W1")){
+							
+							if(handler.getPlayer().getInventory().isItemequipped("W1")){
+								handler.getPlayer().getInventory().eqipeItem("W1");
+							}else{
+								handler.getPlayer().getInventory().discardItem("W1");
+							}
+							
+						}
+						break;
 
 					}
 				}

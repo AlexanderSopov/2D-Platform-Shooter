@@ -1,6 +1,7 @@
 package edu.chl.Game.model.physics.collisions;
 
 import edu.chl.Game.model.gameobject.entity.items.Item;
+import edu.chl.Game.model.gameobject.entity.items.Item.State;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.physics.collisions.CollisionStrategy.GotHitOnThe;
 
@@ -10,14 +11,27 @@ import edu.chl.Game.model.physics.collisions.CollisionStrategy.GotHitOnThe;
 
 
 public class PlayerVsItem extends CollisionStrategy {
+	
+	private Player p;
+	private Item it;
 
-	public PlayerVsItem(Player p, Item go) {
-		super(p, go);
+	public PlayerVsItem(Player p, Item it) {
+		super(p, it);
+		this.p = p;
+		this.it = it;
+		
 	}
 
 	@Override
 	protected void specialTrick(GotHitOnThe sideGotHit) {
-		// TODO Auto-generated method stub
+		
+		
+			p.getInventory().addItem(it);
+			
+			if(p.getInventory().isItemequipped(it.getNAME())){
+				p.getInventory().eqipeItem(it.getNAME());
+			}
+		
 		
 	}
 

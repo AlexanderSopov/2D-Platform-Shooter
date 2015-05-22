@@ -16,7 +16,7 @@ public class WeaponProperties {
 	}
 
 	public void updateCooldown() {
-		checkMovement();
+		//checkMovement();
 		if (!readyToFire) {
 			weaponCooldown.updateFrameCounter();
 		}
