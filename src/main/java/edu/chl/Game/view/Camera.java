@@ -31,43 +31,48 @@ public class Camera {
 	
 	
 	private void correctMoveArea() {
-		if(outOfBoundsX())
-			correctX();
-		
-		if(outOfBoundsY())
-			correctY();
+		correctXDependingOnSide();
+		correctYDependingOnSide();
 	}
 
-	
-	private boolean outOfBoundsX() {
-		return plMax.getX() < maMax.getX() || maMin.getX() < plMin.getX();
-	}
-
-	private void correctX(){
-		if (plMax.getX() < maMax.getX()){
+	private void correctXDependingOnSide(){
+		if (outOfBoundsLeft()){
 			maMax.setX(plMax.getX());
 			maMin.setX(maMax.getX()+600);
-		}else{
+		}else if (outOfBoundsRight()){
 			maMin.setX(plMin.getX());
 			maMax.setX(maMin.getX()-600);
 		}
 	}
+
+
+	private boolean outOfBoundsLeft() {
+		return plMax.getX() < maMax.getX();
+	}
 	
-	private boolean outOfBoundsY() {
-		return plMax.getY() < maMax.getY() || maMin.getY() < plMin.getY();
+	private boolean outOfBoundsRight(){
+		return maMin.getX() < plMin.getX();
 	}
 
-	private void correctY(){
-		if (plMax.getY() < maMax.getY()){
+
+	private void correctYDependingOnSide(){
+		if (outOfBoundsTop()){
 			maMax.setY(plMax.getY());
 			maMin.setY(maMax.getY()+400);
-		}else{
+		}else if (outOfBoundsBottom()){
 			maMin.setY(plMin.getY());
 			maMax.setY(maMin.getY()-400);
 		}
 	}
 
-
+	private boolean outOfBoundsTop(){
+		return plMax.getY() < maMax.getY();
+	}
+	
+	private boolean outOfBoundsBottom(){
+		return maMin.getY() < plMin.getY();
+	}
+	
 	public int getX() {
 		return origo.getX();
 	}
