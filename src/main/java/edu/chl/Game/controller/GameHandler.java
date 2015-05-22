@@ -4,33 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import java.util.LinkedList;
-import java.util.Observer;
 
 import edu.chl.Game.model.gameobject.Id;
 
 import edu.chl.Game.model.gameobject.entity.*;
-import edu.chl.Game.model.gameobject.entity.entityTools.*;
-import edu.chl.Game.model.gameobject.entity.items.CharacterDecorator;
-import edu.chl.Game.model.gameobject.entity.items.CharacterFactory;
-import edu.chl.Game.model.gameobject.entity.items.P2;
 
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
-import edu.chl.Game.model.gameobject.tile.TileA;
 import edu.chl.Game.model.gameobject.tile.*;
 //import edu.chl.Game.sound.Music;
-//import edu.chl.Game.sound.Sound;
-import edu.chl.Game.sound.SFX;
 import edu.chl.Game.view.Camera;
-import edu.chl.Game.model.sound.Music;
 //import edu.chl.Game.model.sound.SFX;
-import edu.chl.Game.model.sound.Sound;
 import edu.chl.Game.view.Frame;
-import edu.chl.Game.model.gameobject.entity.items.Character;
-import edu.chl.Game.view.graphics.SpriteSheet;
 
 public class GameHandler {
 	private RefreshTimer refreshTimer;
