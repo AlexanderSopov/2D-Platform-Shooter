@@ -5,10 +5,10 @@ import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.physics.Vector2D;
 
 public class Camera {
-
+	private static final int width = 400, height = 350;
 	Vector2D origo = new Vector2D();
 	Vector2D maMax = new Vector2D();
-	Vector2D maMin = new Vector2D(400,300);
+	Vector2D maMin = new Vector2D(width,height);
 	Vector2D plMax;
 	Vector2D plMin;
 	
@@ -16,7 +16,6 @@ public class Camera {
 	public void update(Entity player) {
 		plMax = player.getPosition();
 		plMin = plMax.addWith(player.getWidth(), player.getHeight());
-		// printStatus(); // activate when troubleshooting!
 		correctMoveArea();
 		setOrigo();
 	}
@@ -24,7 +23,9 @@ public class Camera {
 
 
 	private void setOrigo() {
-		origo = maMax.addWith(-200, -100);
+		int x = (Frame.WIDTH - width)/2;
+		int y = (Frame.HEIGHT - height)/2;
+		origo = maMax.addWith(-x, -100);
 		origo = origo.returnNegative();
 	}
 
@@ -38,10 +39,10 @@ public class Camera {
 	private void correctXDependingOnSide(){
 		if (outOfBoundsLeft()){
 			maMax.setX(plMax.getX());
-			maMin.setX(maMax.getX()+600);
+			maMin.setX(maMax.getX()+width);
 		}else if (outOfBoundsRight()){
 			maMin.setX(plMin.getX());
-			maMax.setX(maMin.getX()-600);
+			maMax.setX(maMin.getX()-width);
 		}
 	}
 
@@ -58,10 +59,10 @@ public class Camera {
 	private void correctYDependingOnSide(){
 		if (outOfBoundsTop()){
 			maMax.setY(plMax.getY());
-			maMin.setY(maMax.getY()+400);
+			maMin.setY(maMax.getY()+height);
 		}else if (outOfBoundsBottom()){
 			maMin.setY(plMin.getY());
-			maMax.setY(maMin.getY()-400);
+			maMax.setY(maMin.getY()-height);
 		}
 	}
 
@@ -89,57 +90,5 @@ public class Camera {
 		origo.setY(y);
 	}
 
-	/*
-	private void printStatus() {
-		System.out.println("Player position: "
-				+ "\nx = " + pl.getX()
-				+ "\ny = " + pl.getY()
-				+ "\nMove area: "
-				+ "\nx = " + moveArea.x
-				+ "\ny = " + moveArea.y);
-	}
-	
 
-	private int halfWidths() {
-		return (int)(moveArea.getWidth()+pl.getWidth())/2;
-	}
-
-	private int halfHeights() {
-		return (int) ( moveArea.getHeight()+pl.getHeight() ) /2;
-	}
-	
-
-	private int getCenterX(){
-		return (int)(moveArea.getX() + moveArea.getWidth()/2 );
-	}
-	
-	private int getCenterY(){
-		return (int)(moveArea.getY() + moveArea.getHeight()/2 );
-	}
-	
-		
-	private int distanceOnY() {
-		return  pl.getCenterY()-getCenterY();
-	}
-
-	private int distanceOnX() {
-		return pl.getCenterX()-getCenterX();
-	}
-	
-		private void correctX(int dDistance) {
-		if(distanceOnX() < 0)
-			moveArea.x =- dDistance;
-		else
-			moveArea.x =+ dDistance;
-	}
-
-
-	private void correctY(int dDistance) {
-		System.out.println("dDistance on y = " + dDistance);
-		if(distanceOnY() < 0)
-			moveArea.y =- dDistance;
-		else
-			moveArea.y =+ dDistance;
-	}
-	*/
 }
