@@ -66,6 +66,27 @@ public class MainMenu extends AbstractMenuScreen {
 		});
 		buttonStart.pad(10);
 		
+		//Creating Multiplayer
+		TextButton buttonMultiplayer = new TextButton("Multiplayer", skin);
+		buttonStart.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				//Animation: Moves up & fading
+				Timeline.createParallel().beginParallel()
+				.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
+				.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() +50)
+						.setCallback(new TweenCallback(){
+							@Override
+							public void onEvent(int type, BaseTween<?> source) {
+								RefreshTimer.state = State.MAP;
+								((Game) Gdx.app.getApplicationListener()).dispose();
+							}
+						}))
+					.end().start(tweenManager);
+			}
+		});
+		buttonStart.pad(10);
+		
 		//OptionButton
 		TextButton buttonOption = new TextButton("Options", skin);
 		buttonOption.addListener(new ClickListener(){
@@ -105,6 +126,7 @@ public class MainMenu extends AbstractMenuScreen {
 		//Add and organizes the objects
 		table.add(title).spaceBottom(50).row();
 		table.add(buttonStart).width(180).spaceBottom(15).row();
+		table.add(buttonMultiplayer).width(180).spaceBottom(15).row();
 		table.add(buttonOption).width(180).spaceBottom(15).row();
 		table.add(buttonExit).width(180);
 		
