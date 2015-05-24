@@ -44,9 +44,9 @@ public class MenuMouseInput extends MouseInput{
 				mapView.setIsMoving();
 				mapView.setPos(4);
 				setLevel(e, 4);
-			}else if(mx > mapView.shop.getX() && mx < mapView.shop.getMaxX() && my > mapView.shop.getY() && my < mapView.shop.getMaxY()){
+			}else if(mx > mapView.shopButton.getX() && mx < mapView.shopButton.getMaxX() && my > mapView.shopButton.getY() && my < mapView.shopButton.getMaxY()){
 				System.out.println("Shop");
-			}else if(mx > mapView.character.getX() && mx < mapView.character.getMaxX() && my > mapView.character.getY() && my < mapView.character.getMaxY()){
+			}else if(mx > mapView.characterButton.getX() && mx < mapView.characterButton.getMaxX() && my > mapView.characterButton.getY() && my < mapView.characterButton.getMaxY()){
 				System.out.println("Character");
 			}
 		}

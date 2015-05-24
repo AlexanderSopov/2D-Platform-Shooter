@@ -41,7 +41,7 @@ public class WorldMapAnimator {
 	}
 	
 	public void renderBuilding(Graphics g, int x, int y, int width, int height, int type){
-		delay(100, 2);
+		delay(250, 2);
 		
 		g.drawImage(buildings[frame+type*2][0].getBufferedImage(), x, y, width, height, null);
 	}

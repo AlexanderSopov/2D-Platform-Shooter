@@ -24,11 +24,13 @@ public class WorldMapView {
 	public Rectangle[] mapLevels = new Rectangle[5];
 	
 	//Shop and Character Overview buttons
-	public Rectangle shop = new Rectangle(Frame.WIDTH - 100, Frame.HEIGHT-60, 70, 50);
-	public Rectangle character = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
+	public Rectangle shopButton = new Rectangle(Frame.WIDTH - 100, Frame.HEIGHT-60, 70, 50);
+	public Rectangle characterButton = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
 	
 	private Font fnt;
 	private Image background;
+	private Image shopButtonImg;
+	private Image charButtonImg;
 	private WorldMapAnimator movingChar;
 	private WorldMapAnimator buildings;
 	private int pos = 0;
@@ -44,6 +46,8 @@ public class WorldMapView {
 		
 		try {
 			background = ImageIO.read(getClass().getResource("/worldMap/background.jpg"));
+			shopButtonImg = ImageIO.read(getClass().getResource("/worldMap/shopButton.png"));
+			charButtonImg = ImageIO.read(getClass().getResource("/worldMap/charButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,19 +71,24 @@ public class WorldMapView {
 		g.setColor(Color.white);
 		g.drawString("WorldMap", Frame.WIDTH/3 + 50, Frame.HEIGHT/7);
 		
+		//Set the image buttons
+		g.drawImage(shopButtonImg, shopButton.x, shopButton.y, shopButton.width, shopButton.height, null);
+		g.drawImage(charButtonImg, characterButton.x, characterButton.y, characterButton.width, characterButton.height, null);
+		g2.draw(shopButton);
+		g2.draw(characterButton);
+		
 		//Set the rectangles
 		fnt = new Font("arial", Font.BOLD, 20);
 		g.setFont(fnt);
 		
-		//Draws the rects and arrows that connects the rects
-		drawObjects(g2, mapLevels[0], "Level 1", "Stage", 0);
-		drawObjects(g2, mapLevels[1], "Level 2", "Stage", 1);
-		drawObjects(g2, mapLevels[2], "Level 3", "Stage", 2);
-		drawObjects(g2, mapLevels[3], "Level 4", "Stage", 3);
-		drawObjects(g2, mapLevels[4], "Level 5", "Stage", 0);
-		drawObjects(g2, shop, "Shop", "Button", 0);
-		drawObjects(g2, character, "Char", "Button", 0);	
+		//Draws buildings and thier label
+		drawBuilding(g2, mapLevels[0], "Level 1", 0);
+		drawBuilding(g2, mapLevels[1], "Level 2", 1);
+		drawBuilding(g2, mapLevels[2], "Level 3", 2);
+		drawBuilding(g2, mapLevels[3], "Level 4", 3);
+		drawBuilding(g2, mapLevels[4], "Level 5", 0);	
 		
+		//Draws a line that connects the buildings
 		drawArrow(g2, mapLevels[0], mapLevels[1], "DownToUp");
 		drawArrow(g2, mapLevels[1], mapLevels[2], "SideToSide");
 		drawArrow(g2, mapLevels[2], mapLevels[3], "UpToDown");
@@ -98,24 +107,19 @@ public class WorldMapView {
 		}
 	}//end render
 	
-	private void drawObjects(Graphics2D g, Rectangle r, String Name, String obj, int type){
-		if(obj.equals("Stage")){
-			g.draw(r);
-			g.drawString(Name, r.x, r.y);
-			buildings.renderBuilding(g, r.x, r.y, r.width, r.height, type);
-		}else if(obj.equals("Button")){
-			g.draw(r);
-			g.drawString(Name, r.x+10, r.y+30);
-		}
+	private void drawBuilding(Graphics2D g2, Rectangle r, String Name, int type){
+			g2.draw(r);
+			g2.drawString(Name, r.x, r.y);
+			buildings.renderBuilding(g2, r.x, r.y, r.width, r.height, type);
 	}
 	
-    private void drawArrow(Graphics2D g, Rectangle r1, Rectangle r2, String type) {
+    private void drawArrow(Graphics2D g2, Rectangle r1, Rectangle r2, String type) {
     	if(type.equals("DownToUp")){
-    		g.drawLine(r1.x+r1.width/2, r1.y+r1.height, r2.x+r2.width/2, r2.y);
+    		g2.drawLine(r1.x+r1.width/2, r1.y+r1.height, r2.x+r2.width/2, r2.y);
     	}else if(type.equals("UpToDown")){
-    		g.drawLine(r1.x+r1.width/2, r1.y, r2.x+r2.width/2, r2.y+r2.height);
+    		g2.drawLine(r1.x+r1.width/2, r1.y, r2.x+r2.width/2, r2.y+r2.height);
     	}else if(type.equals("SideToSide")){
-    		g.drawLine(r1.x+r1.width, r1.y+r1.height/2, r2.x, r2.y+r2.height/2);
+    		g2.drawLine(r1.x+r1.width, r1.y+r1.height/2, r2.x, r2.y+r2.height/2);
     	}
     }
     
