@@ -1,7 +1,6 @@
 package edu.chl.Game.view.screens;
 
 import edu.chl.Game.controller.State;
-
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
@@ -10,15 +9,9 @@ import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -36,13 +29,18 @@ import edu.chl.Game.view.screens.tween.ActorAccessor;
  *
  */
 public class MainMenu extends AbstractMenuScreen {
-
+	
+	private Animator charAnimation;
+	
 	@Override
 	public void show() {
 		super.show();
 		
+		//Set up Sprite animation for the character
+		charAnimation = new Animator();
+		
 		//Set the title
-		Label title = new Label(Frame.title, skin, "big");
+		Label title = new Label(Frame.title, skin);
 		title.setFontScale(2);
 		
 		//Creating StartButton
@@ -103,10 +101,10 @@ public class MainMenu extends AbstractMenuScreen {
 		buttonExit.pad(10);
 		
 		//Add and organizes the objects
-		table.add(title).spaceBottom(50).row();
-		table.add(buttonStart).width(180).spaceBottom(15).row();
-		table.add(buttonOption).width(180).spaceBottom(15).row();
-		table.add(buttonExit).width(180);
+		table.add(title).padRight(Frame.WIDTH/3).padTop(-Frame.HEIGHT/6).spaceBottom(50).row();
+		table.add(buttonStart).padRight(Frame.WIDTH/3).width(180).spaceBottom(15).row();
+		table.add(buttonOption).padRight(Frame.WIDTH/3).width(180).spaceBottom(15).row();
+		table.add(buttonExit).padRight(Frame.WIDTH/3).width(180);
 		
 		stage.addActor(table);
 		
@@ -116,13 +114,13 @@ public class MainMenu extends AbstractMenuScreen {
 		
 		//Title color animation
 		Timeline.createSequence().beginSequence()
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,0,1))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,0))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,0))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,0))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,1))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,1))
-			.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,1))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,0,1))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,0))
+			.push(Tween.to(title,  ActorAccessor.RGB, 1f).target(1,0,0))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,0))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,1))
+			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,1))
+			.push(Tween.to(title,  ActorAccessor.RGB, 1f).target(1,1,1))
 			.end().repeat(Tween.INFINITY, 0).start(tweenManager);
 		
 		//Title and buttons fade-in
@@ -142,4 +140,10 @@ public class MainMenu extends AbstractMenuScreen {
 		
 		tweenManager.update(Gdx.graphics.getDeltaTime());
 	}
+	
+	@Override
+	public void render(float delta){
+		super.render(delta);
+		charAnimation.renderAnimation();
+	}	
 }

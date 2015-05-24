@@ -76,10 +76,12 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		if(RefreshTimer.state == State.MAIN_MENU){
+			e.getComponent().setCursor(Cursor.getDefaultCursor());
+		}else{
 			e.getComponent().setCursor(blankCursor);
 			onCanvas = true;
-		
+		}
 	}
 
 	@Override

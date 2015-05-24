@@ -1,76 +1,94 @@
 package edu.chl.Game.view;
 
-import java.awt.Rectangle;
 
 import edu.chl.Game.model.gameobject.entity.Entity;
+import edu.chl.Game.model.physics.Vector2D;
 
 public class Camera {
-
-	private int x = 0, y=0;
-	Rectangle moveArea;
-	Entity pl;
+	private static final int width = 400, height = 350;
+	Vector2D origo = new Vector2D();
+	Vector2D maMax = new Vector2D();
+	Vector2D maMin = new Vector2D(width,height);
+	Vector2D plMax;
+	Vector2D plMin;
 	
 	
 	public void update(Entity player) {
-		pl = player;
-		setX(Frame.WIDTH  / 2 		- player.getX());
-		setY(Frame.HEIGHT / 2 + 100 - player.getY());
-		
-		moveArea = new Rectangle(x+200, y+200, 600, 400);
-		//if (playerOutOfBounds())
-			//correct();
-	}
-	
-	private boolean playerOutOfBounds() {
-		return !moveArea.intersects(new Rectangle(
-				pl.getX(), pl.getY(), pl.getWidth(), pl. getHeight()));
-	}
-	
-	private void correct() {
-		x = correctX();
-		y = correctY();
+		plMax = player.getPosition();
+		plMin = plMax.addWith(player.getWidth(), player.getHeight());
+		correctMoveArea();
+		setOrigo();
 	}
 	
 
 
-	private int correctX() {
-		return pl.getCenterX()-getCenterX() + halfWidths();
+	private void setOrigo() {
+		int x = (Frame.WIDTH - width)/2;
+		int y = (Frame.HEIGHT - height)/2;
+		origo = maMax.addWith(-x, -100);
+		origo = origo.returnNegative();
 	}
 
-	private int halfWidths() {
-		return (int)(moveArea.getWidth()+pl.getWidth())/2;
+	
+	
+	private void correctMoveArea() {
+		correctXDependingOnSide();
+		correctYDependingOnSide();
 	}
 
-	private int correctY() {
-		return pl.getCenterY()-getCenterY() + halfHeights();
+	private void correctXDependingOnSide(){
+		if (outOfBoundsLeft()){
+			maMax.setX(plMax.getX());
+			maMin.setX(maMax.getX()+width);
+		}else if (outOfBoundsRight()){
+			maMin.setX(plMin.getX());
+			maMax.setX(maMin.getX()-width);
+		}
 	}
 
-	private int halfHeights() {
-		return (int)(moveArea.getHeight()+pl.getHeight())/2;
-	}
 
-	private int getCenterX(){
-		return (int)(moveArea.getX() + moveArea.getWidth()/2);
+	private boolean outOfBoundsLeft() {
+		return plMax.getX() < maMax.getX();
 	}
 	
-	private int getCenterY(){
-		return (int)(moveArea.getY() + moveArea.getHeight()/2);
+	private boolean outOfBoundsRight(){
+		return maMin.getX() < plMin.getX();
+	}
+
+
+	private void correctYDependingOnSide(){
+		if (outOfBoundsTop()){
+			maMax.setY(plMax.getY());
+			maMin.setY(maMax.getY()+height);
+		}else if (outOfBoundsBottom()){
+			maMin.setY(plMin.getY());
+			maMax.setY(maMin.getY()-height);
+		}
+	}
+
+	private boolean outOfBoundsTop(){
+		return plMax.getY() < maMax.getY();
+	}
+	
+	private boolean outOfBoundsBottom(){
+		return maMin.getY() < plMin.getY();
 	}
 	
 	public int getX() {
-		return x;
+		return origo.getX();
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		origo.setX(x);
 	}
 
 	public int getY() {
-		return y;
+		return origo.getY();
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		origo.setY(y);
 	}
+
 
 }

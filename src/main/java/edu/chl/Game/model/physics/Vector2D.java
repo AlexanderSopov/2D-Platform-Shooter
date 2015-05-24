@@ -15,6 +15,12 @@ public class Vector2D{
 	}
 
 
+	public Vector2D() {
+		x=0;
+		y=0;
+	}
+
+
 	public int getX() {
 		return x;
 	}
