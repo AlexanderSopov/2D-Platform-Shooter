@@ -11,7 +11,7 @@ import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
 import edu.chl.Game.view.WorldMapView;
-import edu.chl.Game.view.graphics.MovingCharacter;
+import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Thread thread;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
-	private MovingCharacter movingChar;
+	private WorldMapAnimator movingChar;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	private MouseInput mouseInput;
@@ -32,7 +32,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.GAME;
+	public static State state = State.MAP;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level

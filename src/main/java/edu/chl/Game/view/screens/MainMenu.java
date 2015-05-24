@@ -22,7 +22,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
-import edu.chl.Game.view.screens.tween.SpriteAccessor;
 import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
 
 /**

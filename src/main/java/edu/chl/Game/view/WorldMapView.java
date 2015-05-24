@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.IOException;
 
-import edu.chl.Game.view.graphics.MovingCharacter;
+import javax.imageio.ImageIO;
+
+import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
  * Temporary class for the map
@@ -24,7 +28,9 @@ public class WorldMapView {
 	public Rectangle character = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
 	
 	private Font fnt;
-	private MovingCharacter movingChar;
+	private Image background;
+	private WorldMapAnimator movingChar;
+	private WorldMapAnimator buildings;
 	private int pos = 0;
 	private int prevPos = 0;
 	private int velX = 0;
@@ -32,22 +38,28 @@ public class WorldMapView {
 	private boolean isMoving;
 	
 	public WorldMapView(){
-		movingChar = new MovingCharacter();;
+		movingChar = new WorldMapAnimator("character");
+		buildings = new WorldMapAnimator("buildings");
 		isMoving = false;
 		
-		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 100, 60);
-		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 100, 60);
-		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, 100, 60);
-		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, 100, 60);
-		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, 100, 60);
+		try {
+			background = ImageIO.read(getClass().getResource("/worldMap/background.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 70, 60);
+		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 70, 60);
+		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, 70, 60);
+		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, 70, 60);
+		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, 70, 60);
 	}
 	
 	public void render(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		
 		//Set background
-		g.setColor(new Color(135, 206, 235));
-		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
+		g.drawImage(background, 0, 0, Frame.WIDTH, Frame.HEIGHT, null);
 		
 		//Set title;
 		fnt = new Font("arial", Font.BOLD, 50);
@@ -60,13 +72,13 @@ public class WorldMapView {
 		g.setFont(fnt);
 		
 		//Draws the rects and arrows that connects the rects
-		drawRect(g2, mapLevels[0], "Level 1", "Stage");
-		drawRect(g2, mapLevels[1], "Level 2", "Stage");
-		drawRect(g2, mapLevels[2], "Level 3", "Stage");
-		drawRect(g2, mapLevels[3], "Level 4", "Stage");
-		drawRect(g2, mapLevels[4], "Level 5", "Stage");
-		drawRect(g2, shop, "Shop", "Button");
-		drawRect(g2, character, "Char", "Button");	
+		drawObjects(g2, mapLevels[0], "Level 1", "Stage", 0);
+		drawObjects(g2, mapLevels[1], "Level 2", "Stage", 1);
+		drawObjects(g2, mapLevels[2], "Level 3", "Stage", 2);
+		drawObjects(g2, mapLevels[3], "Level 4", "Stage", 3);
+		drawObjects(g2, mapLevels[4], "Level 5", "Stage", 0);
+		drawObjects(g2, shop, "Shop", "Button", 0);
+		drawObjects(g2, character, "Char", "Button", 0);	
 		
 		drawArrow(g2, mapLevels[0], mapLevels[1], "DownToUp");
 		drawArrow(g2, mapLevels[1], mapLevels[2], "SideToSide");
@@ -82,20 +94,19 @@ public class WorldMapView {
 			}else{
 				pos = prevPos;
 			}
-			movingChar.renderAnimate(g, (int)mapLevels[pos].getCenterX()-15, (int)mapLevels[pos].getCenterY()-15, 32, 32);
+			movingChar.renderCharacter(g, (int)mapLevels[pos].getCenterX()-15, (int)mapLevels[pos].getCenterY(), 32, 32);
 		}
 	}//end render
 	
-	private void drawRect(Graphics2D g, Rectangle r, String Name, String type){
-		if(type.equals("Stage")){
+	private void drawObjects(Graphics2D g, Rectangle r, String Name, String obj, int type){
+		if(obj.equals("Stage")){
 			g.draw(r);
-			g.drawString(Name, r.x + 15, r.y+35);
-		}else if(type.equals("Button")){
+			g.drawString(Name, r.x, r.y);
+			buildings.renderBuilding(g, r.x, r.y, r.width, r.height, type);
+		}else if(obj.equals("Button")){
 			g.draw(r);
 			g.drawString(Name, r.x+10, r.y+30);
 		}
-		
-		//g.drawImage(movingChar.getCharacter(), r.x, r.y, r.width, r.height, null);
 	}
 	
     private void drawArrow(Graphics2D g, Rectangle r1, Rectangle r2, String type) {
@@ -113,13 +124,13 @@ public class WorldMapView {
 		int tempY = 0;
     	if((pos - prevPos) == 1){
 			tempX = (int)mapLevels[prevPos].getCenterX()-15 + velX;
-			tempY = (int)mapLevels[prevPos].getCenterY()-15 + velY;
+			tempY = (int)mapLevels[prevPos].getCenterY() + velY;
 			
-	    	if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()-15){
+	    	if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()){
 	    		//Moves from left to right, top to bot
 	    		velX+= (mapLevels[pos].getCenterX() - mapLevels[prevPos].getCenterX())/40;
 	    		velY+= (mapLevels[pos].getCenterY() - mapLevels[prevPos].getCenterY())/40;
-	    	}else if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()-15){
+	    	}else if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()){
 	    		//Moves from left to right, bot to top
 	    		velX+= (mapLevels[pos].getCenterX() - mapLevels[prevPos].getCenterX())/40;
 	    		velY-= (mapLevels[prevPos].getCenterY() - mapLevels[pos].getCenterY())/40;
@@ -127,17 +138,17 @@ public class WorldMapView {
 	    		velX = 0;
 	    		velY = 0;
 	    	}
-	    	movingChar.renderAnimate(g, tempX, tempY, 32, 32);
+	    	movingChar.renderCharacter(g, tempX, tempY, 32, 32);
 	    	
     	}else if(pos - prevPos == -1){
     		tempX = (int)mapLevels[prevPos].getCenterX()-15 + velX;
-			tempY = (int)mapLevels[prevPos].getCenterY()-15 + velY;
+			tempY = (int)mapLevels[prevPos].getCenterY() + velY;
 			
-	    	if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()-15){
+	    	if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()){
 	    		//Moves from right to left, top to bot
 	    		velX-= (mapLevels[prevPos].getCenterX() - mapLevels[pos].getCenterX())/40;
 	    		velY-= (mapLevels[prevPos].getCenterY() - mapLevels[pos].getCenterY())/40;
-	    	}else if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()-15){
+	    	}else if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()){
 	    		//Moves from right to left, bot to top
 	    		velX-= (mapLevels[prevPos].getCenterX() - mapLevels[pos].getCenterX())/40;
 	    		velY+= (mapLevels[pos].getCenterY() - mapLevels[prevPos].getCenterY())/40;
@@ -145,7 +156,7 @@ public class WorldMapView {
 	    		velX = 0;
 	    		velY = 0;
 	    	}
-	    	movingChar.renderAnimate(g, tempX-10, tempY, 32, 32);
+	    	movingChar.renderCharacter(g, tempX-10, tempY, 32, 32);
     	}
 		
 		if(velX == 0 && velY == 0){
