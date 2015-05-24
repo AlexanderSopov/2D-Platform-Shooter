@@ -10,7 +10,7 @@ import edu.chl.Game.view.Frame;
 
 /**
  * Animatior for LibGDX screens
- * @author Marre
+ * @author Martin Tran
  *
  */
 public class Animator {

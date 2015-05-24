@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
+/**
+ * A standard SpriteBatch Accessor
+ * @author Martin Tran
+ *
+ */
 public class SpriteBatchAccessor implements TweenAccessor<SpriteBatch> {
 
 	public static final int ALPHA = 0;

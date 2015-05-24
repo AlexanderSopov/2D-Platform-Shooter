@@ -1,6 +1,7 @@
 package edu.chl.Game.view.graphics;
 
 import java.awt.Graphics;
+import java.awt.Image;
 
 /**
  * 
@@ -33,5 +34,9 @@ public class MovingCharacter {
 		
 		//Draw the current Image
 		g.drawImage(character[frame].getBufferedImage(), x, y, width, height, null);
+	}
+	
+	public Image getCharacter(){
+		return character[frame].getBufferedImage();
 	}
 }

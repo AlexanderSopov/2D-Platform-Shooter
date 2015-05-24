@@ -35,11 +35,11 @@ public class WorldMapView {
 		movingChar = new MovingCharacter();;
 		isMoving = false;
 		
-		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 130, 60);
-		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 130, 60);
-		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, 130, 60);
-		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, 130, 60);
-		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, 130, 60);
+		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 100, 60);
+		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 100, 60);
+		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, 100, 60);
+		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, 100, 60);
+		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, 100, 60);
 	}
 	
 	public void render(Graphics g){
@@ -89,11 +89,13 @@ public class WorldMapView {
 	private void drawRect(Graphics2D g, Rectangle r, String Name, String type){
 		if(type.equals("Stage")){
 			g.draw(r);
-			g.drawString(Name, r.x +30, r.y+35);
+			g.drawString(Name, r.x + 15, r.y+35);
 		}else if(type.equals("Button")){
 			g.draw(r);
 			g.drawString(Name, r.x+10, r.y+30);
 		}
+		
+		//g.drawImage(movingChar.getCharacter(), r.x, r.y, r.width, r.height, null);
 	}
 	
     private void drawArrow(Graphics2D g, Rectangle r1, Rectangle r2, String type) {
