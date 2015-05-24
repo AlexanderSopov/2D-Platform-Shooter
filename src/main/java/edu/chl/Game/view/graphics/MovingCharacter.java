@@ -34,5 +34,4 @@ public class MovingCharacter {
 		//Draw the current Image
 		g.drawImage(character[frame].getBufferedImage(), x, y, width, height, null);
 	}
-	
 }

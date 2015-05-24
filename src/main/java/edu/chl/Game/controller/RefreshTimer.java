@@ -47,8 +47,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		thread = new Thread(this);
 		frame = new Frame();
 		
-		movingChar = new MovingCharacter();
-		mapView = new WorldMapView(movingChar);
+		mapView = new WorldMapView();
 		charSelectionView = new CharacterSelectionView(movingChar);
 
 		gameHandler = new GameHandler(this, frame);

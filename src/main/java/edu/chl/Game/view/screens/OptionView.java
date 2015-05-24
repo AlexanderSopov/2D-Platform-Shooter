@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
 
 
@@ -30,7 +31,7 @@ public class OptionView extends AbstractMenuScreen {
 		super.show();
 		
 		//Set Title
-		Label title = new Label("Options", skin, "big");
+		Label title = new Label("Options", skin);
 		title.setFontScale(2);
 		
 		//GraphicButton
@@ -59,7 +60,7 @@ public class OptionView extends AbstractMenuScreen {
 		});;
 		buttonBack.pad(10);
 	
-		table.add(title).spaceBottom(50).row();
+		table.add(title).padTop(-Frame.HEIGHT/6).spaceBottom(50).row();
 		table.add(buttonGraphic).width(180).spaceBottom(15).row();
 		table.add(buttonSound).width(180).spaceBottom(15).row();
 		table.add(buttonBack).width(180);
