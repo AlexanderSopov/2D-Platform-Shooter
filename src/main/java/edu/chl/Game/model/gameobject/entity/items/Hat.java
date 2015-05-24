@@ -20,16 +20,22 @@ public class Hat extends Item{
 	private BufferedImage image;
 	private Entity en;
 	private Camera cam;
+	private int scale;
+	private int offX,offY;
 
 	public Hat(int x, int y, int width, int height, Id id, GameHandler handeler) {
 		super(x, y, width, height, id, handeler);
 		try {
 			image = ImageIO.read(getClass().getResource("/hat0.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.en = handeler.getPlayer();
 		this.cam = handeler.getCamera();
+		this.scale = 5;
+		this.offX = -100/this.scale;
+		this.offY = -125/ this.scale;
 	}
 
 	@Override
@@ -49,10 +55,13 @@ public class Hat extends Item{
 		
 		
 		g.setColor(Color.BLUE);
+		
 		if(en.getEntityState().getFacingDirection() == FacingDirection.FacingRight){
-			g.drawImage(image, getX()- image.getWidth()/20 -3, getY()-image.getHeight()/10 -5 , image.getWidth()/5, image.getHeight()/5, null);
+			//g.fillRect(getX() + offX, getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale);
+			g.drawImage(image, getX()+ offX, getY() + offY , image.getWidth()/this.scale, image.getHeight()/this.scale, null);
 		}else{
-			g.drawImage(getFlippedImage(image), getX(), getY()-image.getHeight()/10 -5 , image.getWidth()/5, image.getHeight()/5, null);
+			//g.fillRect(getX() +2, getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale);
+			g.drawImage(getFlippedImage(image), getX() , getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale, null);
 		}
 	}
 

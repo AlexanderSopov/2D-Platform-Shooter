@@ -44,6 +44,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private boolean inMenu = false;
 	
 	public RefreshTimer(){
+		
 		thread = new Thread(this);
 		frame = new Frame();
 		
@@ -57,7 +58,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
-		
+		this.changeGameState(State.GAME);
 		start();
 		
 		
