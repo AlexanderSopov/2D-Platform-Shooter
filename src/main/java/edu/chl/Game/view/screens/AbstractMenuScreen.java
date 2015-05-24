@@ -42,8 +42,6 @@ public abstract class AbstractMenuScreen implements Screen {
 		
 		stage.act(delta);
 		stage.draw();
-		
-		tweenManager.update(delta);
 	}
 
 	@Override

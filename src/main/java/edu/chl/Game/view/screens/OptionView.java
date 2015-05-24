@@ -77,4 +77,10 @@ public class OptionView extends AbstractMenuScreen {
 		
 		tweenManager.update(Gdx.graphics.getDeltaTime());
 	}
+	
+	@Override
+	public void render(float delta){
+		super.render(delta);
+		tweenManager.update(delta);
+	}
 }
