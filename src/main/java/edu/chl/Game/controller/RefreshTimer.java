@@ -32,7 +32,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MAP;
+	public static State state = State.GAME;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
@@ -57,7 +57,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
-		this.changeGameState(State.GAME);
+		this.changeGameState(state);
 		start();
 		
 		
