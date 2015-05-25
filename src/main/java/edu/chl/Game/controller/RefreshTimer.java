@@ -12,7 +12,7 @@ import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.view.graphics.MovingCharacter;
-
+import edu.chl.Game.model.sound.*;
 /**
  * 
  * @author Mansoor, Alexander
@@ -44,7 +44,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private boolean inMenu = false;
 	
 	public RefreshTimer(){
-		
+		Music.addToAccessMusic();
 		thread = new Thread(this);
 		frame = new Frame();
 		
@@ -106,6 +106,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
 			BufferStrategy bs = frame.getBufferStrategy();
+			Music.playWorldOneMapOne();
 			if(bs == null){
 				frame.createBufferStrategy(3);
                 return;
@@ -113,6 +114,7 @@ public class RefreshTimer extends Observable implements Runnable{
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
 			if(!inMenu){
+				Music.playMenu();
 				inMenu = true;
 				new FrameGDX(frame);
 			}else{

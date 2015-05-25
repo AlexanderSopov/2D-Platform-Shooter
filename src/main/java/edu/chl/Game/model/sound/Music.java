@@ -158,8 +158,8 @@ public final class Music extends Sound implements MusicInterface {
 	public static void playWorldOneMapOne() {
 		getMusic().get("gamemusic").loop();
 	}
-	public void stopWorldOneMapOne() {
-		
+	public static void stopWorldOneMapOne() {
+		getMusic().get("gamemusic").stop();
 	}
 	public void playWorldOneMapTwo() {
 		
