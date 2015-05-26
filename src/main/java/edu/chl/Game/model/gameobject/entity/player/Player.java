@@ -1,17 +1,15 @@
 package edu.chl.Game.model.gameobject.entity.player;
 import java.awt.Graphics;
 import java.util.LinkedList;
+
 import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.Id;
-import edu.chl.Game.model.gameobject.entity.Entity;
-import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.entityTools.FrameIterator;
 import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.model.physics.ProjectileDetection;
-import edu.chl.Game.view.graphics.LoadingSprites;
 import edu.chl.Game.view.graphics.*;
-import edu.chl.Game.model.gameobject.entity.items.*;
+import edu.chl.Game.model.gameobject.item.*;
 import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.graphics.Sprite;
 
@@ -89,6 +87,7 @@ public class Player extends Unit {
 		runScoreDisplay(g);
               
 		this.outfit.render(g);
+		this.inventory.render(g, this);
 	}
 
 	@Override

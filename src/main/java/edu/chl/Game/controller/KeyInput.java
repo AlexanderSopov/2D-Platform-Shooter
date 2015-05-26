@@ -6,8 +6,7 @@ import java.awt.event.KeyListener;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
-
-import edu.chl.Game.model.gameobject.entity.items.Inventory;
+import edu.chl.Game.model.gameobject.item.Inventory;
 
 
 public class KeyInput implements KeyListener {
@@ -33,34 +32,36 @@ public class KeyInput implements KeyListener {
 					switch (key) {
 					case KeyEvent.VK_W:
 					case 32:
+						//This will call the player to jump
 						en.isTryingToJump(true);
 						break;
 					case KeyEvent.VK_A:
+						//Velocity negative and facing in the left direction
 						en.setVelX(-5);
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingLeft);
 						break;
 					case KeyEvent.VK_D:
+						//Velocity positive and facing in the right direction
 						en.setVelX(5);
 						en.getEntityState().setFacingDirection(
 								FacingDirection.FacingRight);
 						break;
+					case KeyEvent.VK_1 :
+					case KeyEvent.VK_2 :
+					case KeyEvent.VK_3 :
+					case KeyEvent.VK_4 :
+					case KeyEvent.VK_5 :
+					case KeyEvent.VK_6 :
+					case KeyEvent.VK_7 :
+					case KeyEvent.VK_8 :
+					case KeyEvent.VK_9 :
+						
+						handler.getPlayer().getInventory().eqipeItem((char)key);
+					break;
 					case KeyEvent.VK_R:
 						handler.restart();
 						break;
-					case KeyEvent.VK_E:
-						
-						if(handler.getPlayer().getInventory().isItemExsisting("W1")){
-							
-							if(handler.getPlayer().getInventory().isItemequipped("W1")){
-								handler.getPlayer().getInventory().eqipeItem("W1");
-							}else{
-								handler.getPlayer().getInventory().discardItem("W1");
-							}
-							
-						}
-						break;
-
 					}
 				}
 			}

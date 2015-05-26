@@ -11,10 +11,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-import edu.chl.Game.model.gameobject.entity.items.Character;
-import edu.chl.Game.model.gameobject.entity.items.Item;
-import edu.chl.Game.model.gameobject.entity.items.Item.State;
-import edu.chl.Game.model.gameobject.entity.items.Item.Type;
+import edu.chl.Game.model.gameobject.item.Character;
+import edu.chl.Game.model.gameobject.item.Item;
+import edu.chl.Game.model.gameobject.item.Item.State;
+import edu.chl.Game.model.gameobject.item.Item.Type;
 
 
 
@@ -44,9 +44,12 @@ public class PlayerOutfit implements Character{
 
    
     public synchronized void eqipeItem(Item item) {
-    	
-    	this.equippedItems.add(item);
-    	item.switchState(State.equipped);
+    	if(!isItemequipped(item)){
+	    	this.equippedItems.add(item);
+	    	item.switchState(State.equipped);
+    	}else{
+    		this.discardItem(item);
+    	}
     }
 
     
@@ -95,6 +98,8 @@ public class PlayerOutfit implements Character{
     		item.render(g);
     	
     	}
+    	
+    	
 	}
 
 
@@ -141,5 +146,15 @@ public class PlayerOutfit implements Character{
     	 }
     	 return false;
 	 }
+
+
+	public LinkedList<Item> getEquippedItems() {
+		return equippedItems;
+	}
+
+
+	public void setEquippedItems(LinkedList<Item> equippedItems) {
+		this.equippedItems = equippedItems;
+	}
 
 }

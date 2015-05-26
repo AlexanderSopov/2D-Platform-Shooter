@@ -4,11 +4,13 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class Writer {
+
 	
-	public Writer (String fileName, String message){
-		
+	
+	public static void writeToFile(String fileName, String message){
 		FileWriter fileWriter;
 		try {
 			fileWriter = new FileWriter(fileName,true);
@@ -28,7 +30,6 @@ public class Writer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 }

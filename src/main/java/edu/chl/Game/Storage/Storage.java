@@ -1,9 +1,14 @@
 package edu.chl.Game.Storage;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public interface Storage {
 	
-	public void save();
+	public void save(List list);
 	
-	public void load();
+	public LinkedList load();
+	
+	public Object getObject(String str);
 	
 }
