@@ -22,22 +22,31 @@ public class Animator {
 	private TextureRegion currentFrame;
 	
 	private int rows, cols, collumWidth, collumHeight;
-	float stateTime;
+	float frameSpeed, stateTime;
 	
-	public Animator(SpriteBatch spriteBatch){	
-		//Spritesheet got 1 row and 20 cols
-		rows = 1;
-		cols = 20;
-		//One collom is 62x62 in the spriteSheet
-		collumWidth = 62;
-		collumHeight = 62;
-		
-		setSprite();
+	public Animator(SpriteBatch spriteBatch){			
 		this.spriteBatch = spriteBatch;
 	}
 	
-	public void setSprite(){
-		spriteSheet = new Texture(Gdx.files.internal("img/SH_Player.png"));
+	public void setSprite(String type){
+		if(type.equals("character")){
+			//Spritesheet 62x62: 1 row and 20 cols
+			spriteSheet = new Texture(Gdx.files.internal("img/SH_Player.png"));
+			collumWidth = 62;
+			collumHeight = 62;
+			rows = 1;
+			cols = 20;
+			frameSpeed = 0.050f;
+		}else if(type.equals("option")){
+			//Spritesheet 62x62: 1 row and 20 cols
+			spriteSheet = new Texture(Gdx.files.internal("img/cogwheel.png"));
+			collumWidth = 200;
+			collumHeight = 200;
+			rows = 1;
+			cols = 10;
+			frameSpeed = 0.2f;
+		}
+		
 		TextureRegion[][] tmp = TextureRegion.split(spriteSheet, collumWidth, collumHeight);
 		spriteFrames = new TextureRegion[rows*cols];
 		int index = 0;
@@ -47,7 +56,7 @@ public class Animator {
 			}
 		}
 		
-		animation = new Animation(0.050f, spriteFrames);
+		animation = new Animation(frameSpeed, spriteFrames);
 	}
 	
 	//Draws sprite animation

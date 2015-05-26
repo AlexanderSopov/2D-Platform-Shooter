@@ -25,7 +25,7 @@ public final class Main {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
 					try {
-						Store.saveToFile();
+						//Store.saveToFile();
 						game = new RefreshTimer();
 						//Music.addToAccessMusic();
 						//Music.playWorldOneMapOne();
