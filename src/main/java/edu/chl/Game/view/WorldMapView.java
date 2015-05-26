@@ -35,6 +35,7 @@ public class WorldMapView {
 	public Rectangle characterButton = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
 	public Rectangle menuUI = new Rectangle(Frame.WIDTH/2 - MENU_SIZE/2, Frame.HEIGHT/2 - MENU_SIZE/2, MENU_SIZE, MENU_SIZE);
 	public Rectangle menuCloseButton = new Rectangle(menuUI.x, menuUI.y, 20, 20);
+	public Rectangle menuGrid = new Rectangle(menuUI.width/6, menuUI.width/6);
 	
 	private Font fntBig;
 	private Font fntSmall;
@@ -185,20 +186,58 @@ public class WorldMapView {
     }
     
     private void renderShopMenu(Graphics g, Graphics2D g2){
-    	//Draws shopmenu window
-    	g.setColor(Color.BLACK);
-    	g2.fill(menuUI);
-    	g.setColor(Color.RED);
-    	g2.fill(menuCloseButton);
+    	renderMenuUI(g, g2, "Shop");
     	
-    	//Draws title
-    	g.setFont(fntBig);
-		g.setColor(Color.white);
-		g.drawString("Shop", Frame.WIDTH/2 - 50, Frame.HEIGHT/2 - MENU_SIZE/2 + 50);
+    	//Draws gridpane
+    	int centerX = (int)menuUI.getCenterX();
+    	int maxX = (int)menuUI.getMaxX();
+    	int maxY = (int)menuUI.getMaxY();
+    	int startY = menuUI.y + menuUI.height/5;
+    	g2.drawLine(centerX, startY, centerX, maxY);
+    	g2.drawLine(menuUI.x, startY, maxX, startY);
+    	
+    	// 6*4
+    	for(int i = 0; i < 6; i++){
+    		for(int k = 0; k < 4; k++){
+    			g2.drawRect(menuUI.x +(menuGrid.width*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
+    		}
+    	}
+    	
+		//display cash
+		g.setFont(fntSmall);
+		g.drawString("Cash: 1005$", maxX - 2*menuGrid.width, maxY - menuGrid.height/3);
     }
     
     private void renderCharMenu(Graphics g, Graphics2D g2){
-    	//Draws charmenu window
+    	renderMenuUI(g, g2, "Character");
+    	
+    	//Draws gridpane
+    	int maxX = (int)menuUI.getMaxX();
+    	int maxY = (int)menuUI.getMaxY();
+    	int startY = menuUI.y + menuUI.height/5;
+    	g2.drawLine(menuUI.x, startY, maxX, startY);
+    	g2.drawRect(menuUI.x + menuGrid.width, startY, 4*menuGrid.width, 4*menuGrid.height);
+    	
+    	// 2*4
+    	for(int i = 0; i < 2; i++){
+    		for(int k = 0; k < 4; k++){
+    			g2.drawRect(menuUI.x +((menuUI.width - menuGrid.width)*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
+    		}
+    	}
+    	
+    	//draws the character inside the big middle grid
+    	movingChar.renderCharacter(g, menuUI.x + 2*menuGrid.width, startY + menuGrid.height, 2*menuGrid.width, 2*menuGrid.height);
+    	
+    	//charactar stats
+    	g.setFont(fntSmall);
+    	g.drawString("HP: 100/100", menuUI.x + menuGrid.width, maxY - menuGrid.height/2);
+    	g.drawString("STR: 100", menuUI.x + menuGrid.width, maxY - menuGrid.height/4);
+    	g.drawString("Lvl: 5", (int)menuUI.getCenterX() + menuGrid.width, maxY - menuGrid.height/2);
+    	g.drawString("XP: 7/100", (int)menuUI.getCenterX() + menuGrid.width, maxY - menuGrid.height/4);
+    }
+    
+    private void renderMenuUI(Graphics g,Graphics2D g2, String title){
+    	//Draws window
     	g.setColor(Color.BLACK);
     	g2.fill(menuUI);
     	g.setColor(Color.RED);
@@ -207,7 +246,7 @@ public class WorldMapView {
     	//Draws title
     	g.setFont(fntBig);
 		g.setColor(Color.white);
-		g.drawString("Character", Frame.WIDTH/2 - 110, Frame.HEIGHT/2 - MENU_SIZE/2 + 50); 	
+		g.drawString(title, Frame.WIDTH/2 - title.length() * 13, Frame.HEIGHT/2 - MENU_SIZE/2 + 50); 
     }
     
     public void setPos(int i){
@@ -223,5 +262,9 @@ public class WorldMapView {
     
     public void setIsMoving(){
     	isMoving = true;
+    }
+    
+    public boolean ifMoving(){
+    	return isMoving;
     }
 }

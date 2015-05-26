@@ -19,7 +19,7 @@ public class MenuMouseInput extends MouseInput{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-			if(RefreshTimer.state == State.MAP){		
+			if(RefreshTimer.state == State.MAP && !mapView.ifMoving()){		
 				if(ifClicked(mapView.mapLevels[0], e)){
 					mapView.setIsMoving();
 					mapView.setPos(0);
