@@ -8,8 +8,9 @@ import javax.swing.JFrame;
 
 public class Frame extends JFrame{
 	
-	public final static int WIDTH = 1000;
-	public final static int HEIGHT = 600;
+	public static int scale = 0;
+	public final static int WIDTH = 1000 + scale;
+	public final static int HEIGHT = 600 + scale;
 	public final static String title = "Ghost Town";
 	
 	public Frame(){

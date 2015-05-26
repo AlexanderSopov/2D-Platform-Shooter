@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -29,9 +30,13 @@ import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
  */
 public class OptionView extends AbstractMenuScreen {
 	
+	private Table tableGraphics;
+	private Table tableSound;
+	
 	@Override
 	public void show() {
 		super.show();
+		showSubmenu();
 		
 		//Set Title
 		Label title = new Label("Options", skin);
@@ -45,7 +50,8 @@ public class OptionView extends AbstractMenuScreen {
 		buttonGraphic.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				System.out.println("Graphics");
+				tableSound.setVisible(false);
+				tableGraphics.setVisible(true);
 			}
 		});
 		buttonGraphic.pad(10);
@@ -55,7 +61,8 @@ public class OptionView extends AbstractMenuScreen {
 		buttonSound.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				System.out.println("Sound");
+				tableGraphics.setVisible(false);
+				tableSound.setVisible(true);
 			}
 		});
 		buttonSound.pad(10);
@@ -99,10 +106,70 @@ public class OptionView extends AbstractMenuScreen {
 		tweenManager.update(Gdx.graphics.getDeltaTime());
 	}
 	
+	private void showSubmenu(){
+		tableGraphics = new Table(skin);
+		tableGraphics.setFillParent(true);
+		tableSound = new Table(skin);
+		tableSound.setFillParent(true);
+		
+		//Buttons for submenu Graphics
+		TextButton buttonLowGraphic = new TextButton("Low", skin);
+		buttonLowGraphic.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				System.out.println("Low Graphics");
+				resize(1000, 600);
+			}
+		});
+		buttonLowGraphic.pad(10);
+		
+		TextButton buttonHighGraphic = new TextButton("High", skin);
+		buttonHighGraphic.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				System.out.println("High Graphics");
+				resize(1100, 700);
+			}
+		});
+		buttonHighGraphic.pad(10);
+		
+		//Buttons for submenu Sound	
+		TextButton buttonSoundOn = new TextButton("On", skin);
+		buttonSoundOn.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				System.out.println("Sound: on");
+			}
+		});
+		buttonSoundOn.pad(10);
+		
+		TextButton buttonSoundOff = new TextButton("Off", skin);
+		buttonSoundOff.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				System.out.println("Sound: off");
+			}
+		});
+		buttonSoundOff.pad(10);
+		
+		// Adds buttons to the tables & stages
+		tableGraphics.add(buttonLowGraphic).padLeft(480).width(120);
+		tableGraphics.add(buttonHighGraphic).width(120);
+		tableSound.add(buttonSoundOn).padLeft(480).width(100);
+		tableSound.add(buttonSoundOff).width(100);
+		
+		stage.addActor(tableGraphics);
+		stage.addActor(tableSound);
+		tableGraphics.setVisible(false);
+		tableSound.setVisible(false);
+	}
+	
 	@Override
 	public void render(float delta){
 		super.render(delta);
-		animation.renderAnimation();
+		if(!tableSound.isVisible() && !tableGraphics.isVisible()){
+			animation.renderAnimation();
+		}
 		tweenManager.update(delta);
 	}
 }
