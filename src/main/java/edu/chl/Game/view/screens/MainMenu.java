@@ -41,7 +41,7 @@ public class MainMenu extends AbstractMenuScreen {
 		title.setFontScale(2);
 		
 		//Set up sprite character
-		animation.setSprite("character");
+		animation.setSprite("img/SH_Player.png", 62, 62, 1, 20, 0.050f);
 		
 		//Creating StartButton
 		TextButton buttonStart = new TextButton("Play", skin);

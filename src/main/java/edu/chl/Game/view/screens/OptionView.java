@@ -31,7 +31,10 @@ import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
 public class OptionView extends AbstractMenuScreen {
 	
 	private Table tableGraphics;
-	private Table tableSound;
+	private Boolean soundState = true;
+	
+	private Animator animationGraphics;
+	private SpriteBatch spriteBatchGraphics;
 	
 	@Override
 	public void show() {
@@ -42,27 +45,37 @@ public class OptionView extends AbstractMenuScreen {
 		Label title = new Label("Options", skin);
 		title.setFontScale(2);
 		
-		//Set up Sprite cogwheel
-		animation.setSprite("option");
+		//Set up Sprite cogwheel. Spritesheet 62x62: 1 row and 20 cols
+		animation.setSprite("img/cogwheel.png", 200, 200, 1, 10, 0.2f);
+		
+		//Sprite & animations for submenu Graphics. Spritesheet 225x182: 1 row and 3 cols
+		spriteBatchGraphics = new SpriteBatch();
+		animationGraphics = new Animator(spriteBatchGraphics);
+		animationGraphics.setSprite("img/GraphicSpriteSheet.png", 225, 182, 1, 3, 2f);
 		
 		//GraphicButton
 		TextButton buttonGraphic = new TextButton("Graphic", skin);
 		buttonGraphic.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				tableSound.setVisible(false);
 				tableGraphics.setVisible(true);
 			}
 		});
 		buttonGraphic.pad(10);
 		
 		//SoundButton
-		TextButton buttonSound = new TextButton("Sound", skin);
+		TextButton buttonSound = new TextButton("Sound:On", skin);
 		buttonSound.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				tableGraphics.setVisible(false);
-				tableSound.setVisible(true);
+				if(soundState){
+					buttonSound.setText("Sound:Off");
+					soundState = false;
+				}else{
+					buttonSound.setText("Sound:On");
+					soundState = true;
+				}
 			}
 		});
 		buttonSound.pad(10);
@@ -75,6 +88,7 @@ public class OptionView extends AbstractMenuScreen {
 				//Animation: Moves up
 				Timeline.createParallel().beginParallel()
 				.push(Tween.to(spriteBatch, SpriteBatchAccessor.ALPHA, .50f).target(0))
+				.push(Tween.to(spriteBatchGraphics, SpriteBatchAccessor.ALPHA, .50f).target(0))
 				.end().start(tweenManager);
 				stage.addAction(sequence(moveTo(0, stage.getHeight() -50, .5f), run(new Runnable(){
 					@Override
@@ -88,9 +102,9 @@ public class OptionView extends AbstractMenuScreen {
 		
 		//Add and organizes the objects
 		table.add(title).padRight(Frame.WIDTH/3).padTop(-Frame.HEIGHT/6).spaceBottom(50).row();
-		table.add(buttonGraphic).padRight(Frame.WIDTH/3).width(180).spaceBottom(15).row();
-		table.add(buttonSound).padRight(Frame.WIDTH/3).width(180).spaceBottom(15).row();
-		table.add(buttonBack).padRight(Frame.WIDTH/3).width(180);
+		table.add(buttonGraphic).padRight(Frame.WIDTH/3).width(200).spaceBottom(15).row();
+		table.add(buttonSound).padRight(Frame.WIDTH/3).width(200).spaceBottom(15).row();
+		table.add(buttonBack).padRight(Frame.WIDTH/3).width(200);
 		
 		stage.addActor(table);
 		
@@ -109,8 +123,6 @@ public class OptionView extends AbstractMenuScreen {
 	private void showSubmenu(){
 		tableGraphics = new Table(skin);
 		tableGraphics.setFillParent(true);
-		tableSound = new Table(skin);
-		tableSound.setFillParent(true);
 		
 		//Buttons for submenu Graphics
 		TextButton buttonLowGraphic = new TextButton("Low", skin);
@@ -133,42 +145,22 @@ public class OptionView extends AbstractMenuScreen {
 		});
 		buttonHighGraphic.pad(10);
 		
-		//Buttons for submenu Sound	
-		TextButton buttonSoundOn = new TextButton("On", skin);
-		buttonSoundOn.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y){
-				System.out.println("Sound: on");
-			}
-		});
-		buttonSoundOn.pad(10);
-		
-		TextButton buttonSoundOff = new TextButton("Off", skin);
-		buttonSoundOff.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y){
-				System.out.println("Sound: off");
-			}
-		});
-		buttonSoundOff.pad(10);
 		
 		// Adds buttons to the tables & stages
-		tableGraphics.add(buttonLowGraphic).padLeft(480).width(120);
-		tableGraphics.add(buttonHighGraphic).width(120);
-		tableSound.add(buttonSoundOn).padLeft(480).width(100);
-		tableSound.add(buttonSoundOff).width(100);
+		tableGraphics.add(buttonLowGraphic).padTop(250).padLeft(480).width(120);
+		tableGraphics.add(buttonHighGraphic).padTop(250).width(120);
+		tableGraphics.setVisible(false);
 		
 		stage.addActor(tableGraphics);
-		stage.addActor(tableSound);
-		tableGraphics.setVisible(false);
-		tableSound.setVisible(false);
 	}
 	
 	@Override
 	public void render(float delta){
 		super.render(delta);
-		if(!tableSound.isVisible() && !tableGraphics.isVisible()){
+		if(!tableGraphics.isVisible()){
 			animation.renderAnimation();
+		}else{
+			animationGraphics.renderAnimation();
 		}
 		tweenManager.update(delta);
 	}
