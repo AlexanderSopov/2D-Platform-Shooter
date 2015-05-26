@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.IOException;
 
-import edu.chl.Game.view.graphics.MovingCharacter;
+import javax.imageio.ImageIO;
+
+import edu.chl.Game.controller.State;
+import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
  * Temporary class for the map
@@ -16,15 +21,29 @@ import edu.chl.Game.view.graphics.MovingCharacter;
 
 public class WorldMapView {
 	
+	public static State mapState;
+	
+	private final int BUILDING_WIDTH = 70;
+	private final int BUILDING_HEIGHT = 70;
+	private final int MENU_SIZE = 500;
+	
 	//Contains the levels
 	public Rectangle[] mapLevels = new Rectangle[5];
 	
-	//Shop and Character Overview buttons
-	public Rectangle shop = new Rectangle(Frame.WIDTH - 100, Frame.HEIGHT-60, 70, 50);
-	public Rectangle character = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
+	//Shop & Character Overview buttons & UI
+	public Rectangle shopButton = new Rectangle(Frame.WIDTH - 100, Frame.HEIGHT-60, 70, 50);
+	public Rectangle characterButton = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
+	public Rectangle menuUI = new Rectangle(Frame.WIDTH/2 - MENU_SIZE/2, Frame.HEIGHT/2 - MENU_SIZE/2, MENU_SIZE, MENU_SIZE);
+	public Rectangle menuCloseButton = new Rectangle(menuUI.x, menuUI.y, 20, 20);
+	public Rectangle menuGrid = new Rectangle(menuUI.width/6, menuUI.width/6);
 	
-	private Font fnt;
-	private MovingCharacter movingChar;
+	private Font fntBig;
+	private Font fntSmall;
+	private Image background;
+	private Image shopButtonImg;
+	private Image charButtonImg;
+	private WorldMapAnimator movingChar;
+	private WorldMapAnimator buildings;
 	private int pos = 0;
 	private int prevPos = 0;
 	private int velX = 0;
@@ -32,42 +51,54 @@ public class WorldMapView {
 	private boolean isMoving;
 	
 	public WorldMapView(){
-		movingChar = new MovingCharacter();;
+		movingChar = new WorldMapAnimator("character");
+		buildings = new WorldMapAnimator("buildings");
 		isMoving = false;
 		
-		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 100, 60);
-		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 100, 60);
-		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, 100, 60);
-		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, 100, 60);
-		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, 100, 60);
+		fntBig = new Font("arial", Font.BOLD, 50);
+		fntSmall = new Font("arial", Font.ITALIC, 20);
+		
+		try {
+			background = ImageIO.read(getClass().getResource("/worldMap/background.jpg"));
+			shopButtonImg = ImageIO.read(getClass().getResource("/worldMap/shopButton.png"));
+			charButtonImg = ImageIO.read(getClass().getResource("/worldMap/charButton.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, BUILDING_WIDTH, BUILDING_HEIGHT);
 	}
 	
 	public void render(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		
 		//Set background
-		g.setColor(new Color(135, 206, 235));
-		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
+		g.drawImage(background, 0, 0, Frame.WIDTH, Frame.HEIGHT, null);
 		
 		//Set title;
-		fnt = new Font("arial", Font.BOLD, 50);
-		g.setFont(fnt);
+		g.setFont(fntBig);
 		g.setColor(Color.white);
 		g.drawString("WorldMap", Frame.WIDTH/3 + 50, Frame.HEIGHT/7);
 		
-		//Set the rectangles
-		fnt = new Font("arial", Font.BOLD, 20);
-		g.setFont(fnt);
+		//Set the image buttons
+		g.drawImage(shopButtonImg, shopButton.x, shopButton.y, shopButton.width, shopButton.height, null);
+		g.drawImage(charButtonImg, characterButton.x, characterButton.y, characterButton.width, characterButton.height, null);
+		g2.draw(shopButton);
+		g2.draw(characterButton);
+			
+		//Draws buildings and thier label
+		g.setFont(fntSmall);
+		drawBuilding(g2, mapLevels[0], "Level 1", 0);
+		drawBuilding(g2, mapLevels[1], "Level 2", 1);
+		drawBuilding(g2, mapLevels[2], "Level 3", 2);
+		drawBuilding(g2, mapLevels[3], "Level 4", 3);
+		drawBuilding(g2, mapLevels[4], "Level 5", 0);	
 		
-		//Draws the rects and arrows that connects the rects
-		drawRect(g2, mapLevels[0], "Level 1", "Stage");
-		drawRect(g2, mapLevels[1], "Level 2", "Stage");
-		drawRect(g2, mapLevels[2], "Level 3", "Stage");
-		drawRect(g2, mapLevels[3], "Level 4", "Stage");
-		drawRect(g2, mapLevels[4], "Level 5", "Stage");
-		drawRect(g2, shop, "Shop", "Button");
-		drawRect(g2, character, "Char", "Button");	
-		
+		//Draws a line that connects the buildings
 		drawArrow(g2, mapLevels[0], mapLevels[1], "DownToUp");
 		drawArrow(g2, mapLevels[1], mapLevels[2], "SideToSide");
 		drawArrow(g2, mapLevels[2], mapLevels[3], "UpToDown");
@@ -82,29 +113,29 @@ public class WorldMapView {
 			}else{
 				pos = prevPos;
 			}
-			movingChar.renderAnimate(g, (int)mapLevels[pos].getCenterX()-15, (int)mapLevels[pos].getCenterY()-15, 32, 32);
+			movingChar.renderCharacter(g, (int)mapLevels[pos].getCenterX()-15, (int)mapLevels[pos].getCenterY(), 32, 32);
+		}
+		
+		if(mapState == State.MAP_SHOP){
+			renderShopMenu(g, g2);
+		}else if(mapState == State.MAP_CHAR){
+			renderCharMenu(g, g2);
 		}
 	}//end render
 	
-	private void drawRect(Graphics2D g, Rectangle r, String Name, String type){
-		if(type.equals("Stage")){
-			g.draw(r);
-			g.drawString(Name, r.x + 15, r.y+35);
-		}else if(type.equals("Button")){
-			g.draw(r);
-			g.drawString(Name, r.x+10, r.y+30);
-		}
-		
-		//g.drawImage(movingChar.getCharacter(), r.x, r.y, r.width, r.height, null);
+	private void drawBuilding(Graphics2D g2, Rectangle r, String Name, int type){
+			g2.draw(r);
+			g2.drawString(Name, r.x, r.y);
+			buildings.renderBuilding(g2, r.x, r.y, r.width, r.height, type);
 	}
 	
-    private void drawArrow(Graphics2D g, Rectangle r1, Rectangle r2, String type) {
+    private void drawArrow(Graphics2D g2, Rectangle r1, Rectangle r2, String type) {
     	if(type.equals("DownToUp")){
-    		g.drawLine(r1.x+r1.width/2, r1.y+r1.height, r2.x+r2.width/2, r2.y);
+    		g2.drawLine(r1.x+r1.width/2, r1.y+r1.height, r2.x+r2.width/2, r2.y);
     	}else if(type.equals("UpToDown")){
-    		g.drawLine(r1.x+r1.width/2, r1.y, r2.x+r2.width/2, r2.y+r2.height);
+    		g2.drawLine(r1.x+r1.width/2, r1.y, r2.x+r2.width/2, r2.y+r2.height);
     	}else if(type.equals("SideToSide")){
-    		g.drawLine(r1.x+r1.width, r1.y+r1.height/2, r2.x, r2.y+r2.height/2);
+    		g2.drawLine(r1.x+r1.width, r1.y+r1.height/2, r2.x, r2.y+r2.height/2);
     	}
     }
     
@@ -113,13 +144,13 @@ public class WorldMapView {
 		int tempY = 0;
     	if((pos - prevPos) == 1){
 			tempX = (int)mapLevels[prevPos].getCenterX()-15 + velX;
-			tempY = (int)mapLevels[prevPos].getCenterY()-15 + velY;
+			tempY = (int)mapLevels[prevPos].getCenterY() + velY;
 			
-	    	if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()-15){
+	    	if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()){
 	    		//Moves from left to right, top to bot
 	    		velX+= (mapLevels[pos].getCenterX() - mapLevels[prevPos].getCenterX())/40;
 	    		velY+= (mapLevels[pos].getCenterY() - mapLevels[prevPos].getCenterY())/40;
-	    	}else if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()-15){
+	    	}else if(tempX < (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()){
 	    		//Moves from left to right, bot to top
 	    		velX+= (mapLevels[pos].getCenterX() - mapLevels[prevPos].getCenterX())/40;
 	    		velY-= (mapLevels[prevPos].getCenterY() - mapLevels[pos].getCenterY())/40;
@@ -127,17 +158,17 @@ public class WorldMapView {
 	    		velX = 0;
 	    		velY = 0;
 	    	}
-	    	movingChar.renderAnimate(g, tempX, tempY, 32, 32);
+	    	movingChar.renderCharacter(g, tempX, tempY, 32, 32);
 	    	
     	}else if(pos - prevPos == -1){
     		tempX = (int)mapLevels[prevPos].getCenterX()-15 + velX;
-			tempY = (int)mapLevels[prevPos].getCenterY()-15 + velY;
+			tempY = (int)mapLevels[prevPos].getCenterY() + velY;
 			
-	    	if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()-15){
+	    	if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY < (int)mapLevels[pos].getCenterY()){
 	    		//Moves from right to left, top to bot
 	    		velX-= (mapLevels[prevPos].getCenterX() - mapLevels[pos].getCenterX())/40;
 	    		velY-= (mapLevels[prevPos].getCenterY() - mapLevels[pos].getCenterY())/40;
-	    	}else if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()-15){
+	    	}else if(tempX > (int)mapLevels[pos].getCenterX()-15 && tempY > (int)mapLevels[pos].getCenterY()){
 	    		//Moves from right to left, bot to top
 	    		velX-= (mapLevels[prevPos].getCenterX() - mapLevels[pos].getCenterX())/40;
 	    		velY+= (mapLevels[pos].getCenterY() - mapLevels[prevPos].getCenterY())/40;
@@ -145,13 +176,77 @@ public class WorldMapView {
 	    		velX = 0;
 	    		velY = 0;
 	    	}
-	    	movingChar.renderAnimate(g, tempX-10, tempY, 32, 32);
+	    	movingChar.renderCharacter(g, tempX-10, tempY, 32, 32);
     	}
 		
 		if(velX == 0 && velY == 0){
 			isMoving = false;
 		}
 
+    }
+    
+    private void renderShopMenu(Graphics g, Graphics2D g2){
+    	renderMenuUI(g, g2, "Shop");
+    	
+    	//Draws gridpane
+    	int centerX = (int)menuUI.getCenterX();
+    	int maxX = (int)menuUI.getMaxX();
+    	int maxY = (int)menuUI.getMaxY();
+    	int startY = menuUI.y + menuUI.height/5;
+    	g2.drawLine(centerX, startY, centerX, maxY);
+    	g2.drawLine(menuUI.x, startY, maxX, startY);
+    	
+    	// 6*4
+    	for(int i = 0; i < 6; i++){
+    		for(int k = 0; k < 4; k++){
+    			g2.drawRect(menuUI.x +(menuGrid.width*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
+    		}
+    	}
+    	
+		//display cash
+		g.setFont(fntSmall);
+		g.drawString("Cash: 1005$", maxX - 2*menuGrid.width, maxY - menuGrid.height/3);
+    }
+    
+    private void renderCharMenu(Graphics g, Graphics2D g2){
+    	renderMenuUI(g, g2, "Character");
+    	
+    	//Draws gridpane
+    	int maxX = (int)menuUI.getMaxX();
+    	int maxY = (int)menuUI.getMaxY();
+    	int startY = menuUI.y + menuUI.height/5;
+    	g2.drawLine(menuUI.x, startY, maxX, startY);
+    	g2.drawRect(menuUI.x + menuGrid.width, startY, 4*menuGrid.width, 4*menuGrid.height);
+    	
+    	// 2*4
+    	for(int i = 0; i < 2; i++){
+    		for(int k = 0; k < 4; k++){
+    			g2.drawRect(menuUI.x +((menuUI.width - menuGrid.width)*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
+    		}
+    	}
+    	
+    	//draws the character inside the big middle grid
+    	movingChar.renderCharacter(g, menuUI.x + 2*menuGrid.width, startY + menuGrid.height, 2*menuGrid.width, 2*menuGrid.height);
+    	
+    	//charactar stats
+    	g.setFont(fntSmall);
+    	g.drawString("HP: 100/100", menuUI.x + menuGrid.width, maxY - menuGrid.height/2);
+    	g.drawString("STR: 100", menuUI.x + menuGrid.width, maxY - menuGrid.height/4);
+    	g.drawString("Lvl: 5", (int)menuUI.getCenterX() + menuGrid.width, maxY - menuGrid.height/2);
+    	g.drawString("XP: 7/100", (int)menuUI.getCenterX() + menuGrid.width, maxY - menuGrid.height/4);
+    }
+    
+    private void renderMenuUI(Graphics g,Graphics2D g2, String title){
+    	//Draws window
+    	g.setColor(Color.BLACK);
+    	g2.fill(menuUI);
+    	g.setColor(Color.RED);
+    	g2.fill(menuCloseButton);
+    	
+    	//Draws title
+    	g.setFont(fntBig);
+		g.setColor(Color.white);
+		g.drawString(title, Frame.WIDTH/2 - title.length() * 13, Frame.HEIGHT/2 - MENU_SIZE/2 + 50); 
     }
     
     public void setPos(int i){
@@ -167,5 +262,9 @@ public class WorldMapView {
     
     public void setIsMoving(){
     	isMoving = true;
+    }
+    
+    public boolean ifMoving(){
+    	return isMoving;
     }
 }

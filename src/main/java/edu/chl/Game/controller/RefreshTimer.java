@@ -11,8 +11,9 @@ import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
 import edu.chl.Game.view.WorldMapView;
-import edu.chl.Game.view.graphics.MovingCharacter;
 import edu.chl.Game.model.sound.*;
+import edu.chl.Game.view.graphics.WorldMapAnimator;
+
 /**
  * 
  * @author Mansoor, Alexander
@@ -23,7 +24,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Thread thread;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
-	private MovingCharacter movingChar;
+	private WorldMapAnimator movingChar;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	private MouseInput mouseInput;
