@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import edu.chl.Game.controller.State;
 import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
@@ -20,14 +21,23 @@ import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 public class WorldMapView {
 	
+	public static State mapState;
+	
+	private final int BUILDING_WIDTH = 70;
+	private final int BUILDING_HEIGHT = 70;
+	private final int MENU_SIZE = 500;
+	
 	//Contains the levels
 	public Rectangle[] mapLevels = new Rectangle[5];
 	
-	//Shop and Character Overview buttons
+	//Shop & Character Overview buttons & UI
 	public Rectangle shopButton = new Rectangle(Frame.WIDTH - 100, Frame.HEIGHT-60, 70, 50);
 	public Rectangle characterButton = new Rectangle(Frame.WIDTH - 170, Frame.HEIGHT-60, 70, 50);
+	public Rectangle menuUI = new Rectangle(Frame.WIDTH/2 - MENU_SIZE/2, Frame.HEIGHT/2 - MENU_SIZE/2, MENU_SIZE, MENU_SIZE);
+	public Rectangle menuCloseButton = new Rectangle(menuUI.x, menuUI.y, 20, 20);
 	
-	private Font fnt;
+	private Font fntBig;
+	private Font fntSmall;
 	private Image background;
 	private Image shopButtonImg;
 	private Image charButtonImg;
@@ -44,6 +54,9 @@ public class WorldMapView {
 		buildings = new WorldMapAnimator("buildings");
 		isMoving = false;
 		
+		fntBig = new Font("arial", Font.BOLD, 50);
+		fntSmall = new Font("arial", Font.ITALIC, 20);
+		
 		try {
 			background = ImageIO.read(getClass().getResource("/worldMap/background.jpg"));
 			shopButtonImg = ImageIO.read(getClass().getResource("/worldMap/shopButton.png"));
@@ -52,11 +65,11 @@ public class WorldMapView {
 			e.printStackTrace();
 		}
 		
-		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, 70, 60);
-		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, 70, 60);
-		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, 70, 60);
-		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, 70, 60);
-		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, 70, 60);
+		mapLevels[0] = new Rectangle(Frame.WIDTH / 8, Frame.HEIGHT/4, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[1] = new Rectangle(Frame.WIDTH / 4, Frame.HEIGHT/2, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[2] = new Rectangle(Frame.WIDTH / 3+50 + 80, Frame.HEIGHT/4 + 140, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[3] = new Rectangle(Frame.WIDTH / 2 + 150, Frame.HEIGHT/4, BUILDING_WIDTH, BUILDING_HEIGHT);
+		mapLevels[4] = new Rectangle(Frame.WIDTH / 2 + 250, Frame.HEIGHT/2, BUILDING_WIDTH, BUILDING_HEIGHT);
 	}
 	
 	public void render(Graphics g){
@@ -66,8 +79,7 @@ public class WorldMapView {
 		g.drawImage(background, 0, 0, Frame.WIDTH, Frame.HEIGHT, null);
 		
 		//Set title;
-		fnt = new Font("arial", Font.BOLD, 50);
-		g.setFont(fnt);
+		g.setFont(fntBig);
 		g.setColor(Color.white);
 		g.drawString("WorldMap", Frame.WIDTH/3 + 50, Frame.HEIGHT/7);
 		
@@ -76,12 +88,9 @@ public class WorldMapView {
 		g.drawImage(charButtonImg, characterButton.x, characterButton.y, characterButton.width, characterButton.height, null);
 		g2.draw(shopButton);
 		g2.draw(characterButton);
-		
-		//Set the rectangles
-		fnt = new Font("arial", Font.BOLD, 20);
-		g.setFont(fnt);
-		
+			
 		//Draws buildings and thier label
+		g.setFont(fntSmall);
 		drawBuilding(g2, mapLevels[0], "Level 1", 0);
 		drawBuilding(g2, mapLevels[1], "Level 2", 1);
 		drawBuilding(g2, mapLevels[2], "Level 3", 2);
@@ -104,6 +113,12 @@ public class WorldMapView {
 				pos = prevPos;
 			}
 			movingChar.renderCharacter(g, (int)mapLevels[pos].getCenterX()-15, (int)mapLevels[pos].getCenterY(), 32, 32);
+		}
+		
+		if(mapState == State.MAP_SHOP){
+			renderShopMenu(g, g2);
+		}else if(mapState == State.MAP_CHAR){
+			renderCharMenu(g, g2);
 		}
 	}//end render
 	
@@ -167,6 +182,32 @@ public class WorldMapView {
 			isMoving = false;
 		}
 
+    }
+    
+    private void renderShopMenu(Graphics g, Graphics2D g2){
+    	//Draws shopmenu window
+    	g.setColor(Color.BLACK);
+    	g2.fill(menuUI);
+    	g.setColor(Color.RED);
+    	g2.fill(menuCloseButton);
+    	
+    	//Draws title
+    	g.setFont(fntBig);
+		g.setColor(Color.white);
+		g.drawString("Shop", Frame.WIDTH/2 - 50, Frame.HEIGHT/2 - MENU_SIZE/2 + 50);
+    }
+    
+    private void renderCharMenu(Graphics g, Graphics2D g2){
+    	//Draws charmenu window
+    	g.setColor(Color.BLACK);
+    	g2.fill(menuUI);
+    	g.setColor(Color.RED);
+    	g2.fill(menuCloseButton);
+    	
+    	//Draws title
+    	g.setFont(fntBig);
+		g.setColor(Color.white);
+		g.drawString("Character", Frame.WIDTH/2 - 110, Frame.HEIGHT/2 - MENU_SIZE/2 + 50); 	
     }
     
     public void setPos(int i){
