@@ -8,11 +8,6 @@ import java.util.Set;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 0aa504b2fd9cfcbf173da13ff359a5716e4142de
 import edu.chl.Game.controller.*;
 
 /**
