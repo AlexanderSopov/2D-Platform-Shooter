@@ -11,7 +11,8 @@ import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
 import edu.chl.Game.view.WorldMapView;
-import edu.chl.Game.view.graphics.MovingCharacter;
+import edu.chl.Game.model.sound.*;
+import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
  * 
@@ -23,7 +24,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Thread thread;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
-	private MovingCharacter movingChar;
+	private WorldMapAnimator movingChar;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	private MouseInput mouseInput;
@@ -32,7 +33,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MAIN_MENU;
+	public static State state = State.GAME;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
@@ -44,7 +45,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private boolean inMenu = false;
 	
 	public RefreshTimer(){
-		
+		Music.addToAccessMusic();
 		thread = new Thread(this);
 		frame = new Frame();
 		
@@ -57,7 +58,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
-		this.changeGameState(State.GAME);
+		this.changeGameState(state);
 		start();
 		
 		
@@ -106,6 +107,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
 			BufferStrategy bs = frame.getBufferStrategy();
+			Music.playWorldOneMapOne();
 			if(bs == null){
 				frame.createBufferStrategy(3);
                 return;
@@ -113,6 +115,7 @@ public class RefreshTimer extends Observable implements Runnable{
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
 			if(!inMenu){
+				Music.playMenu();
 				inMenu = true;
 				new FrameGDX(frame);
 			}else{

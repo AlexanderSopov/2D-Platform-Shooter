@@ -9,6 +9,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -21,6 +22,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
+import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
 
 /**
  * LibGDX
@@ -31,13 +33,15 @@ import edu.chl.Game.view.screens.tween.ActorAccessor;
 public class MainMenu extends AbstractMenuScreen {
 	
 	private Animator charAnimation;
+	private SpriteBatch spriteBatch;
 	
 	@Override
 	public void show() {
 		super.show();
 		
 		//Set up Sprite animation for the character
-		charAnimation = new Animator();
+		spriteBatch = new SpriteBatch();
+		charAnimation = new Animator(spriteBatch);
 		
 		//Set the title
 		Label title = new Label(Frame.title, skin);
@@ -51,6 +55,7 @@ public class MainMenu extends AbstractMenuScreen {
 				//Animation: Moves up & fading
 				Timeline.createParallel().beginParallel()
 				.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
+				.push(Tween.to(spriteBatch, SpriteBatchAccessor.ALPHA, .50f).target(0))
 				.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() +50)
 						.setCallback(new TweenCallback(){
 							@Override
@@ -70,6 +75,9 @@ public class MainMenu extends AbstractMenuScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				//Animation: Moves up
+				Timeline.createParallel().beginParallel()
+				.push(Tween.to(spriteBatch, SpriteBatchAccessor.ALPHA, .50f).target(0))
+				.end().start(tweenManager);
 				stage.addAction(sequence(moveTo(0, stage.getHeight() -50, .5f), run(new Runnable(){
 					@Override
 					public void run() {
@@ -88,6 +96,7 @@ public class MainMenu extends AbstractMenuScreen {
 				//Animation: Move down & fading
 				Timeline.createParallel().beginParallel()
 					.push(Tween.to(table, ActorAccessor.ALPHA, .75f).target(0))
+					.push(Tween.to(spriteBatch, SpriteBatchAccessor.ALPHA, .50f).target(0))
 					.push(Tween.to(table, ActorAccessor.Y, .75f).target(table.getY() -50)
 							.setCallback(new TweenCallback(){
 								@Override
@@ -111,6 +120,7 @@ public class MainMenu extends AbstractMenuScreen {
 		//Animations
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Actor.class,  new ActorAccessor());
+		Tween.registerAccessor(SpriteBatch.class, new SpriteBatchAccessor());
 		
 		//Title color animation
 		Timeline.createSequence().beginSequence()
@@ -128,10 +138,12 @@ public class MainMenu extends AbstractMenuScreen {
 			.push(Tween.set(buttonStart, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonOption, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonExit, ActorAccessor.ALPHA).target(0))
+			.push(Tween.set(spriteBatch, SpriteBatchAccessor.ALPHA).target(0))
 			.push(Tween.from(title, ActorAccessor.ALPHA, .25f).target(0))
 			.push(Tween.to(buttonStart, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonOption, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonExit, ActorAccessor.ALPHA, .25f).target(1))
+			.push(Tween.to(spriteBatch, SpriteBatchAccessor.ALPHA, .25f).target(1))
 			.end().start(tweenManager);
 		
 		//table fade-in
@@ -145,5 +157,6 @@ public class MainMenu extends AbstractMenuScreen {
 	public void render(float delta){
 		super.render(delta);
 		charAnimation.renderAnimation();
+		tweenManager.update(delta);
 	}	
 }

@@ -10,7 +10,7 @@ import edu.chl.Game.view.Frame;
 
 /**
  * Animatior for LibGDX screens
- * @author Marre
+ * @author Martin Tran
  *
  */
 public class Animator {
@@ -24,7 +24,7 @@ public class Animator {
 	private int rows, cols, collumWidth, collumHeight;
 	float stateTime;
 	
-	public Animator(){	
+	public Animator(SpriteBatch spriteBatch){	
 		//Spritesheet got 1 row and 20 cols
 		rows = 1;
 		cols = 20;
@@ -32,6 +32,11 @@ public class Animator {
 		collumWidth = 62;
 		collumHeight = 62;
 		
+		setSprite();
+		this.spriteBatch = spriteBatch;
+	}
+	
+	public void setSprite(){
 		spriteSheet = new Texture(Gdx.files.internal("img/SH_Player.png"));
 		TextureRegion[][] tmp = TextureRegion.split(spriteSheet, collumWidth, collumHeight);
 		spriteFrames = new TextureRegion[rows*cols];
@@ -43,7 +48,6 @@ public class Animator {
 		}
 		
 		animation = new Animation(0.050f, spriteFrames);
-		spriteBatch = new SpriteBatch();
 	}
 	
 	//Draws sprite animation
