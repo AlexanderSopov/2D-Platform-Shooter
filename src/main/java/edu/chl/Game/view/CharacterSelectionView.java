@@ -45,8 +45,8 @@ public class CharacterSelectionView {
 		drawRect(g2, male, "Male");
 		drawRect(g2, female, "Female");
 		
-		movingChar.renderCharacter(g, (int)male.getCenterX() - 50, (int)male.getCenterY(), 128, 128);
-		movingChar.renderCharacter(g, (int)female.getCenterX() - 50, (int)female.getCenterY(), 128, 128);
+		movingChar.renderAnimation(g, (int)male.getCenterX() - 50, (int)male.getCenterY(), 128, 128);
+		movingChar.renderAnimation(g, (int)female.getCenterX() - 50, (int)female.getCenterY(), 128, 128);
 	}
 	
 	private void drawRect(Graphics2D g, Rectangle r, String Name){

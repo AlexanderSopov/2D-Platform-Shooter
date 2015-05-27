@@ -21,23 +21,16 @@ public class Animator {
 	private TextureRegion[] spriteFrames;
 	private TextureRegion currentFrame;
 	
-	private int rows, cols, collumWidth, collumHeight;
-	float stateTime;
+	float frameSpeed, stateTime;
 	
-	public Animator(SpriteBatch spriteBatch){	
-		//Spritesheet got 1 row and 20 cols
-		rows = 1;
-		cols = 20;
-		//One collom is 62x62 in the spriteSheet
-		collumWidth = 62;
-		collumHeight = 62;
-		
-		setSprite();
+	public Animator(SpriteBatch spriteBatch){			
 		this.spriteBatch = spriteBatch;
 	}
 	
-	public void setSprite(){
-		spriteSheet = new Texture(Gdx.files.internal("img/SH_Player.png"));
+	public void setSprite(String path, int collumWidth, int collumHeight, int rows, int cols, float frameSpeed){
+		spriteSheet = new Texture(Gdx.files.internal(path));
+		this.frameSpeed = frameSpeed;
+		
 		TextureRegion[][] tmp = TextureRegion.split(spriteSheet, collumWidth, collumHeight);
 		spriteFrames = new TextureRegion[rows*cols];
 		int index = 0;
@@ -47,7 +40,7 @@ public class Animator {
 			}
 		}
 		
-		animation = new Animation(0.050f, spriteFrames);
+		animation = new Animation(frameSpeed, spriteFrames);
 	}
 	
 	//Draws sprite animation

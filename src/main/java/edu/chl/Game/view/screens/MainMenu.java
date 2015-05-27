@@ -32,20 +32,16 @@ import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
  */
 public class MainMenu extends AbstractMenuScreen {
 	
-	private Animator charAnimation;
-	private SpriteBatch spriteBatch;
-	
 	@Override
 	public void show() {
 		super.show();
 		
-		//Set up Sprite animation for the character
-		spriteBatch = new SpriteBatch();
-		charAnimation = new Animator(spriteBatch);
-		
 		//Set the title
 		Label title = new Label(Frame.title, skin);
 		title.setFontScale(2);
+		
+		//Set up sprite character
+		animation.setSprite("img/SH_Player.png", 62, 62, 1, 20, 0.050f);
 		
 		//Creating StartButton
 		TextButton buttonStart = new TextButton("Play", skin);
@@ -156,7 +152,7 @@ public class MainMenu extends AbstractMenuScreen {
 	@Override
 	public void render(float delta){
 		super.render(delta);
-		charAnimation.renderAnimation();
+		animation.renderAnimation();
 		tweenManager.update(delta);
 	}	
 }

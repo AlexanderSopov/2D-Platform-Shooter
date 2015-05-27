@@ -11,52 +11,39 @@ import java.awt.Image;
 public class WorldMapAnimator {	
 	private int frame;
 	private int delay;
+	private int maxRows;
+	private int maxDelay;
 	private SpriteSheet spriteSheet;
-	private Sprite character[] = new Sprite[20];
-	private Sprite buildings[][] = new Sprite[20][20];
+	private Sprite sprites[] = new Sprite[20];
 	
-	public WorldMapAnimator(String type){
-		if(type.equals("character")){
-			spriteSheet = new SpriteSheet("/SH_Player.png");
-			for (int i = 0; i < 20; i++) {
-				character[i] = new Sprite(spriteSheet, i, 0, 62, 62);
-			}
-		}else if(type.equals("buildings")){
-			spriteSheet = new SpriteSheet("/worldMap/buildings.png");
-			for(int i = 0; i < 8; i++ ){
-				for(int k = 0; k < 5; k++){
-					//SpriteSheet: 20x38
-					buildings[i][k] = new Sprite(spriteSheet, i, k, 22, 38);
-				}
-			}
+	public WorldMapAnimator(String path, int maxRows,int maxCols, int collumWidth, int collumHeight, int maxDelay){
+		spriteSheet = new SpriteSheet(path);
+		this.maxDelay = maxDelay;
+		this.maxRows = maxRows;
+		for(int i = 0; i < maxRows; i++){
+			sprites[i] = new Sprite(spriteSheet, i, maxCols, collumWidth, collumHeight);
 		}
 	}
 	
-	public void renderCharacter(Graphics g, int x, int y, int width, int height){
-		//Delaying the animation by 5 and got 19 frames
-		delay(5, 19);
+	public void renderAnimation(Graphics g, int x, int y, int width, int height){
+		delay();
 		
 		//Draw the current Image
-		g.drawImage(character[frame].getBufferedImage(), x, y, width, height, null);
+		g.drawImage(sprites[frame].getBufferedImage(), x, y, width, height, null);
 	}
 	
-	public void renderBuilding(Graphics g, int x, int y, int width, int height, int type){
-		delay(250, 2);
-		
-		g.drawImage(buildings[frame+type*2][0].getBufferedImage(), x, y, width, height, null);
-	}
-	
-	public void delay(int maxDelay, int maxFrame){
+	public void delay(){
 		delay++;
 		if(delay == maxDelay){
 			frame++;
 			delay = 0;
-		}else if(frame == maxFrame){
+		}
+		if(frame > maxRows-1){
 			frame = 0;
 		}
 	}
 	
 	public Image getCharacter(){
-		return character[frame].getBufferedImage();
+		return sprites[frame].getBufferedImage();
 	}
 }
