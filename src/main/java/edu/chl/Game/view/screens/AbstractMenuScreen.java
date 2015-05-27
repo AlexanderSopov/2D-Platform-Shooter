@@ -11,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-import edu.chl.Game.view.Frame;
-
 public abstract class AbstractMenuScreen implements Screen {
 	
 	protected Stage stage;
@@ -27,7 +25,6 @@ public abstract class AbstractMenuScreen implements Screen {
 	public void dispose() {
 		stage.dispose();
 		skin.dispose();
-		spriteBatch.dispose();
 	}
 
 	@Override

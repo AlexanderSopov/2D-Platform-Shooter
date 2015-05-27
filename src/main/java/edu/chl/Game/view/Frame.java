@@ -2,12 +2,12 @@ package edu.chl.Game.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
 public class Frame extends JFrame{
 	
+	private static final long serialVersionUID = 1L;
 	public static int scale = 0;
 	public final static int WIDTH = 1000 + scale;
 	public final static int HEIGHT = 600 + scale;
