@@ -194,18 +194,13 @@ public class RefreshTimer extends Observable implements Runnable{
 		return frameRate==60;
 	}
         
-	public void updateObserverList(){
-		deleteObservers();
-		for(Entity e: gameHandler.getEntityList()){
-			addObserver(e);
-		}
-		for (Tile t: gameHandler.getTileList()){
-			addObserver(t);
-		}
-	}
 	
 	public MouseInput getMouseInput(){
 		return mouseInput;
+	}
+	
+	public GameHandler getHandler(){
+		return gameHandler;
 	}
 	
 	public  void changeGameState(State newState){

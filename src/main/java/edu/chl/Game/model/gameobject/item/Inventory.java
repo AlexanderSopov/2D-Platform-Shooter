@@ -18,8 +18,14 @@ public class Inventory {
 	 private PlayerOutfit playerOutfit;
 	 
 	
+	 
 	public Inventory(PlayerOutfit playerOutfit ) {
 		this.playerOutfit = playerOutfit;
+		itemMap = new HashMap<String,Item>();
+	}
+	
+	public Inventory() {
+		this.playerOutfit = new PlayerOutfit();
 		itemMap = new HashMap<String,Item>();
 	}
 	
@@ -71,7 +77,6 @@ public class Inventory {
    			eqipeItem(pair.getKey());
    		}
    		counter ++;
-   		
    		
    	 }
     }

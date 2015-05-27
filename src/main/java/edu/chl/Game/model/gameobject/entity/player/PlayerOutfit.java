@@ -26,18 +26,17 @@ import edu.chl.Game.model.gameobject.item.Item.Type;
 public class PlayerOutfit implements Character{
     
 	private Player player;
-	private final Point head;
-	private final Point hands;
-	private final Point feet;
-	private Point costom;
 	private LinkedList<Item> equippedItems;
 	
-    PlayerOutfit(Player player){
+    public PlayerOutfit(Player player){
         
         this.player = player;
-        this.head = new Point(player.getCenterX(), player.getY());
-        this.hands = new Point(player.getCenterX(), player.getCenterX());
-        this.feet = new Point(player.getX(), player.getY() + player.getHeight());
+        this.equippedItems = new LinkedList<Item>();
+        
+    }
+    
+  public PlayerOutfit(){
+        
         this.equippedItems = new LinkedList<Item>();
         
     }
@@ -59,19 +58,7 @@ public class PlayerOutfit implements Character{
     }
     
     public void placeOnPlayer(Item item){
-    	Type type = item.getType();
-    	if(type == Type.HAT){
-    		setPosition(item,this.head);
-    	}else if(type == Type.WEAPON){
-    		setPosition(item,this.hands);
-    	}else if(type == Type.LIFE){
-    		setPosition(item,this.costom);
-    	}else if(type == Type.SHOES){
-    		setPosition(item,this.feet);
-    	}else if(type == Type.SPECIAL){
-    		setPosition(item,this.costom);
-    		
-    	}
+ 
     }
     
     private void setPosition(Item item, Point p){
