@@ -9,8 +9,13 @@ public class FrameIterator {
 	private int frameDelayLimit;
 	private int frameLimit;
 	private boolean active;
+
 	
 	public FrameIterator(int frameDelayLimit, int frameLimit){
+		if( (frameDelayLimit < 0) || (frameLimit < 0) ){
+			frameDelayLimit = 1;
+			frameLimit = 10;
+		}
 		this.frameDelayLimit = frameDelayLimit;
 		this.frameLimit = frameLimit;
 		this.frame = 0;
