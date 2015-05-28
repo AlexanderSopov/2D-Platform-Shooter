@@ -57,6 +57,7 @@ public class MainMenu extends AbstractMenuScreen {
 							@Override
 							public void onEvent(int type, BaseTween<?> source) {
 								RefreshTimer.state = State.MAP;
+								RefreshTimer.inMainMenu = false;
 								((Game) Gdx.app.getApplicationListener()).dispose();
 							}
 						}))

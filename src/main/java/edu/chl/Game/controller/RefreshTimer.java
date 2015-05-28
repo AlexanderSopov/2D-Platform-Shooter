@@ -41,10 +41,11 @@ public class RefreshTimer extends Observable implements Runnable{
 	//The selected map/level
 	public static String selectedMap = levels[0];
 	
+	public static Boolean inMainMenu = false;
+	
 	private double delta = 0.0;
 	private int frameRate=1;
 	private int second=1;
-	private boolean inMenu = false;
 	
 	public RefreshTimer(){
 		Music.addToAccessMusic();
@@ -117,9 +118,9 @@ public class RefreshTimer extends Observable implements Runnable{
 			}
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
-			if(!inMenu){
+			if(!inMainMenu){
 				Music.playMenu();
-				inMenu = true;
+				inMainMenu = true;
 				new FrameGDX(frame);
 			}else{
 				//setScreen(mainMenu);
