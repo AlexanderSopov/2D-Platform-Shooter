@@ -89,8 +89,7 @@ public class Sound {
 		if(checkPath(path)) {
 			try {
 				this.soundInput = AudioSystem.getAudioInputStream(
-						getClass().
-						getResourceAsStream(path));
+						getClass().getResource(path));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

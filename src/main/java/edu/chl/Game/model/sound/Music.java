@@ -10,9 +10,6 @@ import javax.sound.sampled.FloatControl;
 /**
  * Music for the Game.
  * 
- * 
- *   								WHAT LEFT:
- * 						CREATE A MUSIC VOLUME CONTROLLER
  * @author Mansoor
  * @version 1.0
  */

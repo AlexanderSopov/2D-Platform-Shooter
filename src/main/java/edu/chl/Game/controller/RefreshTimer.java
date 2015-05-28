@@ -48,7 +48,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private int second=1;
 	
 	public RefreshTimer(){
-		Music.addToAccessMusic();
+		//Music.addToAccessMusic();
 		thread = new Thread(this);
 		frame = new Frame();
 		
@@ -109,8 +109,8 @@ public class RefreshTimer extends Observable implements Runnable{
 		
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
 			if(!initMusic){
-				Music.stopMenu();
-				Music.playWorldOneMapOne();
+				//Music.stopMenu();
+				//Music.playWorldOneMapOne();
 				initMusic = true;
 			}
 			

@@ -6,14 +6,14 @@ import edu.chl.Game.model.physics.Vector2D;
 
 public class Camera {
 	private static final int width = 400, height = 350;
-	Vector2D origo = new Vector2D();
-	Vector2D maMax = new Vector2D();
-	Vector2D maMin = new Vector2D(width,height);
-	Vector2D plMax;
-	Vector2D plMin;
+	private static Vector2D origo = new Vector2D();
+	private static Vector2D maMax = new Vector2D();
+	private static Vector2D maMin = new Vector2D(width,height);
+	private static Vector2D plMax;
+	private static Vector2D plMin;
 	
 	
-	public void update(Entity player) {
+	public static void update(Entity player) {
 		plMax = player.getPosition();
 		plMin = plMax.addWith(player.getWidth(), player.getHeight());
 		correctMoveArea();
@@ -22,7 +22,7 @@ public class Camera {
 	
 
 
-	private void setOrigo() {
+	private static void setOrigo() {
 		int x = (Frame.WIDTH - width)/2;
 		int y = (Frame.HEIGHT - height)/2;
 		origo = maMax.addWith(-x, -100);
@@ -31,12 +31,12 @@ public class Camera {
 
 	
 	
-	private void correctMoveArea() {
+	private static void correctMoveArea() {
 		correctXDependingOnSide();
 		correctYDependingOnSide();
 	}
 
-	private void correctXDependingOnSide(){
+	private static void correctXDependingOnSide(){
 		if (outOfBoundsLeft()){
 			maMax.setX(plMax.getX());
 			maMin.setX(maMax.getX()+width);
@@ -47,16 +47,16 @@ public class Camera {
 	}
 
 
-	private boolean outOfBoundsLeft() {
+	private static boolean outOfBoundsLeft() {
 		return plMax.getX() < maMax.getX();
 	}
 	
-	private boolean outOfBoundsRight(){
+	private static boolean outOfBoundsRight(){
 		return maMin.getX() < plMin.getX();
 	}
 
 
-	private void correctYDependingOnSide(){
+	private static void correctYDependingOnSide(){
 		if (outOfBoundsTop()){
 			maMax.setY(plMax.getY());
 			maMin.setY(maMax.getY()+height);
@@ -66,29 +66,37 @@ public class Camera {
 		}
 	}
 
-	private boolean outOfBoundsTop(){
+	private static boolean outOfBoundsTop(){
 		return plMax.getY() < maMax.getY();
 	}
 	
-	private boolean outOfBoundsBottom(){
+	private static boolean outOfBoundsBottom(){
 		return maMin.getY() < plMin.getY();
 	}
 	
-	public int getX() {
+
+	public static Vector2D getPosition(){
+		return origo.addWith(0,0); // add with zero in order to return a copy of origo and not origo itself.
+	}
+	
+	public static int getX() {
 		return origo.getX();
 	}
 
-	public void setX(int x) {
-		origo.setX(x);
-	}
 
-	public int getY() {
+	public static int getY() {
 		return origo.getY();
 	}
 
-	public void setY(int y) {
+	
+	
+	
+	public static void setY(int y) {
 		origo.setY(y);
 	}
-
+	
+	public static void setX(int x) {
+		origo.setX(x);
+	}
 
 }

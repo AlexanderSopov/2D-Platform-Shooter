@@ -31,7 +31,6 @@ public final class Main {
 						//Music.playWorldOneMapOne();
 						
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
                 });

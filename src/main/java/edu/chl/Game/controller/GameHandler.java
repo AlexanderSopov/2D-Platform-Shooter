@@ -21,6 +21,7 @@ import edu.chl.Game.view.Camera;
 //import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.SubMenuView;
+import edu.chl.Game.view.ParallaxBackground;
 
 
 
@@ -39,6 +40,7 @@ public class GameHandler {
 	private Camera camera;
 	private GameCursor c;
 	private MouseInput mi;
+	private ParallaxBackground bgd = new ParallaxBackground();
 
 
 
@@ -56,7 +58,7 @@ public class GameHandler {
 				this.player = (Player) entity.get(i);
 			}
 		}
-		
+		refreshTimer.addObserver(bgd);
 		for (Entity e: getEntityList())
 			refreshTimer.addObserver(e);
 		for (Tile t: getTileList())
@@ -68,13 +70,16 @@ public class GameHandler {
 	}
 
 	public void render(Graphics g) {
+		g.fillRect(0, 0, 1000, 600);
 		if(MapFactory.mapImage == null){
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
-		g.setColor(new Color(135, 206, 235));
-		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
 		subMenuView.render((Graphics2D)g);
+		g.drawImage(bgd.background, bgd.backgroundX, bgd.backgroundY, 1000, 600, null);
+		g.drawImage(bgd.foreground, bgd.foregroundX, bgd.foregroundY, 1000, 600, null);
+		g.drawImage(bgd.foreground1, bgd.foreground1X, bgd.foreground1Y, 1000, 600, null);
+		
 		g.translate(camera.getX(), camera.getY());
 		
 		for (Entity e : getEntityList()) {
