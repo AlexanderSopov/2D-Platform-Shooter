@@ -13,8 +13,8 @@ public class ScoreProcess {
 		scoreList = new ArrayList<ScoreInterface>();
 	}
 	
-	public void addScoreInterface(Entity en, int value) {
-		scoreList.add(new ScoreInterface(en, value));
+	public void addScoreInterface(Entity en, int value, ScoreType type) {
+		scoreList.add(new ScoreInterface(en, value, type));
 	}
 	
 	public void updateScoreDispay(Graphics g) {

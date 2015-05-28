@@ -2,6 +2,7 @@ package edu.chl.Game.model.gameobject.entity;
 
 public class UnitValues {
 	
+	private int unitLevel;
 	private int maxHealthPoints;
 	private int healthPoints;
 	private int maxEnergyPoints;
@@ -10,7 +11,8 @@ public class UnitValues {
 	private int attackDamage;
 	private int attackRate;
 	
-	public UnitValues(int maxHealthPoints, int maxEnergyPoints, int armor, int attackDamage, int attackRate){
+	public UnitValues(int unitLevel, int maxHealthPoints, int maxEnergyPoints, int armor, int attackDamage, int attackRate){
+		this.unitLevel = unitLevel;
 		this.maxHealthPoints = maxHealthPoints;
 		this.healthPoints = maxHealthPoints;
 		this.maxEnergyPoints = maxEnergyPoints;
@@ -18,6 +20,10 @@ public class UnitValues {
 		this.armor = armor;
 		this.attackDamage = attackDamage;
 		this.attackRate = attackRate;
+	}
+	
+	public int getLevel(){
+		return unitLevel;
 	}
 	
 	public int getMaxHealthPoints(){
@@ -46,6 +52,10 @@ public class UnitValues {
 	
 	public int getAttackRate(){
 		return attackRate;
+	}
+	
+	public void setLevel(int level){
+		this.unitLevel = level;
 	}
 	
 	public void setMaxHealthPoints(int hp){
