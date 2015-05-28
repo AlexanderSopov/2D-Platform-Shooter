@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +17,9 @@ public abstract class AbstractMenuScreen implements Screen {
 	protected Skin skin;
 	protected Table table;
 	protected TweenManager tweenManager;
+	
+	protected Animator animation;
+	protected SpriteBatch spriteBatch;
 
 	@Override
 	public void dispose() {
@@ -42,8 +46,6 @@ public abstract class AbstractMenuScreen implements Screen {
 		
 		stage.act(delta);
 		stage.draw();
-		
-		tweenManager.update(delta);
 	}
 
 	@Override
@@ -66,6 +68,10 @@ public abstract class AbstractMenuScreen implements Screen {
 		
 		table = new Table(skin);
 		table.setFillParent(true);
+		
+		//Sprite & animations
+		spriteBatch = new SpriteBatch();
+		animation = new Animator(spriteBatch);
 	}
 
 }

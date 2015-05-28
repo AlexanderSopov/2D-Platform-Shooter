@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import edu.chl.Game.view.graphics.MovingCharacter;
+import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
  * 
@@ -19,9 +19,9 @@ public class CharacterSelectionView {
 	public Rectangle female = new Rectangle(Frame.WIDTH/2 + 100, Frame.HEIGHT/4, 250, 350);
 	
 	private Font fnt;
-	private MovingCharacter movingChar;
+	private WorldMapAnimator movingChar;
 	
-	public CharacterSelectionView(MovingCharacter movingChar){
+	public CharacterSelectionView(WorldMapAnimator movingChar){
 		this.movingChar = movingChar;
 	}
 	
@@ -45,8 +45,8 @@ public class CharacterSelectionView {
 		drawRect(g2, male, "Male");
 		drawRect(g2, female, "Female");
 		
-		movingChar.renderAnimate(g, (int)male.getCenterX() - 50, (int)male.getCenterY(), 128, 128);
-		movingChar.renderAnimate(g, (int)female.getCenterX() - 50, (int)female.getCenterY(), 128, 128);
+		movingChar.renderAnimation(g, (int)male.getCenterX() - 50, (int)male.getCenterY(), 128, 128);
+		movingChar.renderAnimation(g, (int)female.getCenterX() - 50, (int)female.getCenterY(), 128, 128);
 	}
 	
 	private void drawRect(Graphics2D g, Rectangle r, String Name){

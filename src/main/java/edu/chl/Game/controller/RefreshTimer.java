@@ -10,8 +10,10 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
+import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.WorldMapView;
-import edu.chl.Game.view.graphics.MovingCharacter;
+import edu.chl.Game.model.sound.*;
+import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
  * 
@@ -21,9 +23,10 @@ import edu.chl.Game.view.graphics.MovingCharacter;
 public class RefreshTimer extends Observable implements Runnable{
 
 	private Thread thread;
+	private SubMenuView subMenuView;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
-	private MovingCharacter movingChar;
+	private WorldMapAnimator movingChar;
 	private GameHandler gameHandler;
 	private boolean running = false;
 	private MouseInput mouseInput;
@@ -32,34 +35,35 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MAIN_MENU;
+	public static State state = State.MAP;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
 	public static String selectedMap = levels[0];
 	
+	public static Boolean inMainMenu = false;
+	private Boolean initMusic = false;
 	private double delta = 0.0;
 	private int frameRate=1;
 	private int second=1;
-	private boolean inMenu = false;
 	
 	public RefreshTimer(){
+		//Music.addToAccessMusic();
 		thread = new Thread(this);
 		frame = new Frame();
 		
-		mapView = new WorldMapView();
+		subMenuView = new SubMenuView();
+		mapView = new WorldMapView(subMenuView);
 		charSelectionView = new CharacterSelectionView(movingChar);
 
-		gameHandler = new GameHandler(this, frame);
-		mouseInput = new MenuMouseInput(this ,mapView, gameHandler);
+		gameHandler = new GameHandler(this, frame, subMenuView);
+		mouseInput = new MenuMouseInput(this ,mapView, subMenuView, gameHandler);
 		
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
-		
+		this.changeGameState(state);
 		start();
-		
-		
 	}
 
 	/**
@@ -104,6 +108,12 @@ public class RefreshTimer extends Observable implements Runnable{
 	public void render(){
 		
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
+			if(!initMusic){
+				//Music.stopMenu();
+				//Music.playWorldOneMapOne();
+				initMusic = true;
+			}
+			
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
 				frame.createBufferStrategy(3);
@@ -111,8 +121,13 @@ public class RefreshTimer extends Observable implements Runnable{
 			}
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
-			if(!inMenu){
-				inMenu = true;
+			if(!inMainMenu){
+				Music.stopWorldOneMapOne();
+				Music.playMenu();
+				
+				initMusic = false;
+				inMainMenu = true;
+				
 				new FrameGDX(frame);
 			}else{
 				//setScreen(mainMenu);
@@ -190,18 +205,13 @@ public class RefreshTimer extends Observable implements Runnable{
 		return frameRate==60;
 	}
         
-	public void updateObserverList(){
-		deleteObservers();
-		for(Entity e: gameHandler.getEntityList()){
-			addObserver(e);
-		}
-		for (Tile t: gameHandler.getTileList()){
-			addObserver(t);
-		}
-	}
 	
 	public MouseInput getMouseInput(){
 		return mouseInput;
+	}
+	
+	public GameHandler getHandler(){
+		return gameHandler;
 	}
 	
 	public  void changeGameState(State newState){
@@ -209,7 +219,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		if(state == State.GAME){
 			frame.removeMouseListener(mouseInput);
 			frame.removeMouseMotionListener(mouseInput);
-			mouseInput = new MouseInput( gameHandler);
+			mouseInput = new MouseInput(gameHandler, subMenuView);
 			frame.addMouseListener(mouseInput);
 			frame.addMouseMotionListener(mouseInput);
 			gameHandler.getGameCursor().changeState(CursorState.AIM);

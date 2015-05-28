@@ -6,18 +6,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="assets"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-sources.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-sources.jar"/>
-	<classpathentry kind="lib" path="libs/gdx.jar"/>
-	<classpathentry kind="lib" path="libs/jl1.0.1.jar"/>
-	<classpathentry kind="lib" path="libs/tween-engine-api-sources.jar"/>
-	<classpathentry kind="lib" path="libs/tween-engine-api.jar"/>
-	<classpathentry kind="lib" path="Resources"/>
-	<classpathentry kind="lib" path="src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -34,7 +27,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/mp3spi1.9.5.jar"/>
-	<classpathentry kind="lib" path="libs/tritonus_share.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

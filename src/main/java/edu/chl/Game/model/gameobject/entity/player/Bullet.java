@@ -39,16 +39,16 @@ public class Bullet extends Entity{
                 rotatedX = (int)(Math.cos(angle) * (this.motionX - centerX) - Math.sin(angle) * (this.motionY-centerY) + centerX);
                 rotatedY = (int)(Math.sin(angle) * (this.motionX - centerX) + Math.cos(angle) * (this.motionY-centerY) + centerY);
                 this.damageValue = handler.getPlayer().getUnitValues().getAttackDamage();
-                //this.pd = new ProjectileDetection(this, handler);
+                
                
     }
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.BLACK);
-	g.fillOval(rotatedX -(getWidth()/2),rotatedY-(getHeight()/2), getWidth(), getHeight());
         
-
+    	g.setColor(Color.BLACK);
+        g.fillOval(rotatedX -(getWidth()/2),rotatedY-(getHeight()/2), getWidth(), getHeight());
+        
     }
 
     @Override

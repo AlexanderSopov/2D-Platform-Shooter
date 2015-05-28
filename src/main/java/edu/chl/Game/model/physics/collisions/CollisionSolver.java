@@ -11,9 +11,9 @@ import edu.chl.Game.model.gameobject.entity.EntityProperties;
 import edu.chl.Game.model.gameobject.entity.EntityState;
 import edu.chl.Game.model.gameobject.entity.UnitState;
 import edu.chl.Game.model.gameobject.entity.enemy.EnemyUnit;
-import edu.chl.Game.model.gameobject.entity.items.Item;
 import edu.chl.Game.model.gameobject.entity.player.Bullet;
 import edu.chl.Game.model.gameobject.entity.player.Player;
+import edu.chl.Game.model.gameobject.item.Item;
 import edu.chl.Game.model.gameobject.tile.*;
 
 public class CollisionSolver {

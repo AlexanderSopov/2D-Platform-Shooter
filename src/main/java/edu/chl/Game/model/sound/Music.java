@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-
 import edu.chl.Game.controller.*;
 
 /**
@@ -158,8 +157,8 @@ public final class Music extends Sound implements MusicInterface {
 	public static void playWorldOneMapOne() {
 		getMusic().get("gamemusic").loop();
 	}
-	public void stopWorldOneMapOne() {
-		
+	public static void stopWorldOneMapOne() {
+		getMusic().get("gamemusic").stop();
 	}
 	public void playWorldOneMapTwo() {
 		
