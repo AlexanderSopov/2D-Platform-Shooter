@@ -57,11 +57,13 @@ public class Inventory implements Storable{
 	}
 	
 	 public void addItem(Item item) {
-		 if(item != null){
-		  item.switchState(State.inventory);
-	      this.itemMap.put(item.getNAME(), item);
-	      item.remove();
-	      
+		 if(item != null ){
+			 if(!isItemExsisting(item.getNAME())){
+				  item.switchState(State.inventory);
+			      this.itemMap.put(item.getNAME(), item);
+			 }
+			 
+			 //item.remove();
 		 }
 		 
 		 save();
@@ -150,12 +152,12 @@ public class Inventory implements Storable{
 	public void save() {
 		
 		Iterator itr = this.itemMap.entrySet().iterator();
-		
+		Writer.blankFile("Inventory.txt");
 	   	 while(itr.hasNext()){
 	   		Map.Entry<String, Item> pair = (Map.Entry<String, Item>)itr.next();
 	   		
 	   		Item item = pair.getValue();
-			 Writer.writeToFile(this.getClass().getName(), item.getNAME()+";");
+			 Writer.writeToFile("Inventory.txt", item.getNAME());
 	   	
 	   	 }
 		
@@ -164,7 +166,7 @@ public class Inventory implements Storable{
 	@Override
 	public void load() {
 		
-		for(String  str : Reader.readFile(this.getClass().getName())){
+		for(String  str : Reader.readFile("Inventory.txt")){
 			
 			Item item =  ItemFactory.createItem(str);
 			
@@ -172,4 +174,6 @@ public class Inventory implements Storable{
 			
 		}
 	}
+	
+
 }
