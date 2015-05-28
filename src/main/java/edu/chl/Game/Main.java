@@ -25,11 +25,10 @@ public final class Main {
 		SwingUtilities.invokeLater(() -> {
 					try {
 						game = new RefreshTimer();
-						//Music.addToAccessMusic();
-						//Music.playWorldOneMapOne();
+						Music.addToAccessMusic();
+						Music.playWorldOneMapOne();
 						
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
                 });
