@@ -42,7 +42,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	public static String selectedMap = levels[0];
 	
 	public static Boolean inMainMenu = false;
-	
+	private Boolean initMusic = false;
 	private double delta = 0.0;
 	private int frameRate=1;
 	private int second=1;
@@ -64,8 +64,6 @@ public class RefreshTimer extends Observable implements Runnable{
 		frame.addMouseMotionListener(mouseInput);
 		this.changeGameState(state);
 		start();
-		
-		
 	}
 
 	/**
@@ -110,8 +108,13 @@ public class RefreshTimer extends Observable implements Runnable{
 	public void render(){
 		
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
+			if(!initMusic){
+				Music.stopMenu();
+				Music.playWorldOneMapOne();
+				initMusic = true;
+			}
+			
 			BufferStrategy bs = frame.getBufferStrategy();
-			Music.playWorldOneMapOne();
 			if(bs == null){
 				frame.createBufferStrategy(3);
                 return;
@@ -119,8 +122,12 @@ public class RefreshTimer extends Observable implements Runnable{
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
 			if(!inMainMenu){
+				Music.stopWorldOneMapOne();
 				Music.playMenu();
+				
+				initMusic = false;
 				inMainMenu = true;
+				
 				new FrameGDX(frame);
 			}else{
 				//setScreen(mainMenu);

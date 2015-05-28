@@ -19,6 +19,7 @@ public class SubMenuView {
 	private Image openedImage;
 	private Image closedImage;
 	private int pad = 10;
+	private Boolean soundState = true;
 	
 	public Rectangle button = new Rectangle(0, 20, 50, 50);
 	
@@ -53,7 +54,11 @@ public class SubMenuView {
 		
 		g.setColor(Color.WHITE);
 		g.setFont(fnt1);
-		g.drawString("Sound:On", soundButton.x, (int)soundButton.getMaxY());
+		if(soundState){
+			g.drawString("Sound:On", soundButton.x, (int)soundButton.getMaxY());
+		}else{
+			g.drawString("Sound:Off", soundButton.x, (int)soundButton.getMaxY());
+		}
 		g.setFont(fnt2);
 		g.drawString("Go Back", backButton.x, (int)backButton.getMaxY());
 	}
@@ -78,7 +83,15 @@ public class SubMenuView {
 		this.state = state;
 	}
 	
+	public void setSoundState(Boolean arg){
+		this.soundState = arg;
+	}
+	
 	public State getState(){
 		return state;
+	}
+	
+	public boolean getSoundState(){
+		return soundState;
 	}
 }

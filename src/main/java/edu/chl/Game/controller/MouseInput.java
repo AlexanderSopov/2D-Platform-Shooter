@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+import edu.chl.Game.model.sound.Music;
 import edu.chl.Game.view.SubMenuView;
 
 
@@ -74,7 +75,13 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 		
 		if(subMenuView.getState() == State.SUB_MENU){
 			if(ifClicked(subMenuView.soundButton, e)){
-				System.out.println("Sound");
+				if(subMenuView.getSoundState()){
+					Music.stopWorldOneMapOne();
+					subMenuView.setSoundState(false);
+				}else{
+					Music.playWorldOneMapOne();
+					subMenuView.setSoundState(true);
+				}
 			}else if(ifClicked(subMenuView.backButton, e)){
 				if(RefreshTimer.state == State.MAP){
 					RefreshTimer.state = State.MAIN_MENU;
