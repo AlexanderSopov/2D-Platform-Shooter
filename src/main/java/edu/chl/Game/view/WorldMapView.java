@@ -27,6 +27,8 @@ public class WorldMapView {
 	private int buildingHeight = 100;
 	private int menuSize = 500;
 	
+	private SubMenuView subMenuView;
+	
 	//Contains the levels
 	public Rectangle[] mapLevels = new Rectangle[5];
 	
@@ -52,7 +54,9 @@ public class WorldMapView {
 	private int velY = 0;
 	private boolean isMoving = false;
 	
-	public WorldMapView(){		
+	public WorldMapView(SubMenuView subMenuView){		
+		this.subMenuView = subMenuView;
+		
 		//Sets the fronts
 		fntBig = new Font("arial", Font.BOLD, 50);
 		fntSmall = new Font("arial", Font.ITALIC, 20);
@@ -131,6 +135,8 @@ public class WorldMapView {
 		}else if(mapState == State.MAP_CHAR){
 			renderCharMenu(g, g2);
 		}
+		
+		subMenuView.render(g2);
 	}//end render
 	
 	private void drawBuilding(Graphics2D g2, Rectangle r, String Name, int type){

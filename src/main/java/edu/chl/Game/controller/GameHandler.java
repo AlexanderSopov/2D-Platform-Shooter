@@ -2,8 +2,8 @@ package edu.chl.Game.controller;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import java.util.LinkedList;
 
 import edu.chl.Game.model.gameobject.Id;
@@ -20,11 +20,13 @@ import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.Camera;
 //import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.Frame;
+import edu.chl.Game.view.SubMenuView;
 
 
 public class GameHandler {
 	private RefreshTimer refreshTimer;
 	private Frame frame;
+	private SubMenuView subMenuView;
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private LinkedList<Item> item = new LinkedList<Item>();
@@ -39,26 +41,20 @@ public class GameHandler {
 
 
 
-	public GameHandler(RefreshTimer refreshTimer, Frame frame) {
+	public GameHandler(RefreshTimer refreshTimer, Frame frame, SubMenuView subMenuView) {
 		this.refreshTimer = refreshTimer;
 		this.frame = frame;
+		this.subMenuView = subMenuView;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
-		//addEntity(c);
-		
-		
-
 	}
 	
-	private void init(){
-		
-		
+	private void init(){	
 		for (int i = 0; i < entity.size(); i++) {
 			if (entity.get(i).getUnitState().getId() == Id.player) {
 				this.player = (Player) entity.get(i);
 			}
 		}
-		
 		
 		for (Entity e: getEntityList())
 			refreshTimer.addObserver(e);
@@ -68,7 +64,6 @@ public class GameHandler {
 			refreshTimer.addObserver(it);
 		
 		//refreshTimer.getMouseInput().setCursor(c);
-
 	}
 
 	public void render(Graphics g) {
@@ -78,17 +73,14 @@ public class GameHandler {
 		}
 		g.setColor(new Color(135, 206, 235));
 		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
+		subMenuView.render((Graphics2D)g);
 		g.translate(camera.getX(), camera.getY());
-
 		
 		for (Entity e : getEntityList()) {
 			if (e.getUnitState().getId() == Id.player) {
 				camera.update(e);
 			}
 		}
-		
-		
-		
 	}
 	
 	public void restart(){

@@ -10,6 +10,7 @@ import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
+import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.WorldMapView;
 import edu.chl.Game.model.sound.*;
 import edu.chl.Game.view.graphics.WorldMapAnimator;
@@ -22,6 +23,7 @@ import edu.chl.Game.view.graphics.WorldMapAnimator;
 public class RefreshTimer extends Observable implements Runnable{
 
 	private Thread thread;
+	private SubMenuView subMenuView;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
 	private WorldMapAnimator movingChar;
@@ -33,7 +35,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MAIN_MENU;
+	public static State state = State.MAP;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
@@ -49,11 +51,12 @@ public class RefreshTimer extends Observable implements Runnable{
 		thread = new Thread(this);
 		frame = new Frame();
 		
-		mapView = new WorldMapView();
+		subMenuView = new SubMenuView();
+		mapView = new WorldMapView(subMenuView);
 		charSelectionView = new CharacterSelectionView(movingChar);
 
-		gameHandler = new GameHandler(this, frame);
-		mouseInput = new MenuMouseInput(this ,mapView, gameHandler);
+		gameHandler = new GameHandler(this, frame, subMenuView);
+		mouseInput = new MenuMouseInput(this ,mapView, subMenuView, gameHandler);
 		
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
@@ -213,7 +216,7 @@ public class RefreshTimer extends Observable implements Runnable{
 		if(state == State.GAME){
 			frame.removeMouseListener(mouseInput);
 			frame.removeMouseMotionListener(mouseInput);
-			mouseInput = new MouseInput( gameHandler);
+			mouseInput = new MouseInput(gameHandler, subMenuView);
 			frame.addMouseListener(mouseInput);
 			frame.addMouseMotionListener(mouseInput);
 			gameHandler.getGameCursor().changeState(CursorState.AIM);
