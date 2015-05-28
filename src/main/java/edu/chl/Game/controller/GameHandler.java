@@ -24,6 +24,7 @@ import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.ParallaxBackground;
 
 
+
 public class GameHandler {
 	private RefreshTimer refreshTimer;
 	private Frame frame;

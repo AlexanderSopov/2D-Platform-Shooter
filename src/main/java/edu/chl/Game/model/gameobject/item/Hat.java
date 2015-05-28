@@ -37,6 +37,20 @@ public class Hat extends Item{
 		this.offX = -100/this.scale;
 		this.offY = -125/ this.scale;
 	}
+	
+	public Hat(){
+		super();
+		try {
+			image = ImageIO.read(getClass().getResource("/hat0.png"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.scale = 5;
+		this.offX = -100/this.scale;
+		this.offY = -125/ this.scale;
+	}
 
 	@Override
 	public String getInfo() {
@@ -55,22 +69,26 @@ public class Hat extends Item{
 		
 		
 		g.setColor(Color.BLUE);
-		
-		if(en.getEntityState().getFacingDirection() == FacingDirection.FacingRight){
-			//g.fillRect(getX() + offX, getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale);
-			g.drawImage(image, getX()+ offX, getY() + offY , image.getWidth()/this.scale, image.getHeight()/this.scale, null);
-		}else{
-			//g.fillRect(getX() +2, getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale);
-			g.drawImage(getFlippedImage(image), getX() , getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale, null);
+		if(en != null){
+			if(en.getEntityState().getFacingDirection() == FacingDirection.FacingRight){
+				//g.fillRect(getX() + offX, getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale);
+				g.drawImage(image, getX()+ offX, getY() + offY , image.getWidth()/this.scale, image.getHeight()/this.scale, null);
+			}else{
+				//g.fillRect(getX() +2, getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale);
+				g.drawImage(getFlippedImage(image), getX() , getY() + offY, image.getWidth()/this.scale, image.getHeight()/this.scale, null);
+			}
 		}
 	}
 
 	@Override
 	public void equippedUpdate() {
 		// TODO Auto-generated method stub
-		
-		setX(en.getX());
-		setY(en.getY());
+		if(en != null){
+			setX(en.getX());
+			setY(en.getY());
+		}else{
+			en  = getHandler().getPlayer();
+		}
 		//setX(getX() + cam.getX() );
 		//setY(getY() + cam.getY());
 	}

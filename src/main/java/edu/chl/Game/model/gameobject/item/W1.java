@@ -22,7 +22,7 @@ public class W1 extends Item{
 		private BufferedImage image;
 		private int centerX = getWidth() / 2;
 		private int centerY = getHeight() / 2;
-		private GameHandler gh;
+		
 		
 
 	public W1(int x, int y, int width, int height, Id id,  GameHandler handeler) {
@@ -33,11 +33,25 @@ public class W1 extends Item{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		gh = handeler;
+		
 		this.en = handeler.getPlayer();
         this.gc = handeler.getGameCursor();
         this.angle = 0.0;
 	}
+	
+	public W1(){
+		super();
+		
+		try {
+			image = ImageIO.read(getClass().getResource("/we00.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("done");
+	}
+	
+	
 
 	@Override
 	public void equippedRender(Graphics g) {
@@ -63,9 +77,9 @@ public class W1 extends Item{
 				angle = Math.atan2(centerY - gc.getY(), centerX - gc.getX())
 						- Math.PI;
 			}
-		}else{
-			this.en = gh.getPlayer();
-	        this.gc = gh.getGameCursor();
+		}else if(getHandler() != null){
+			this.en = getHandler().getPlayer();
+	        this.gc = getHandler().getGameCursor();
 		}
 		
 	}

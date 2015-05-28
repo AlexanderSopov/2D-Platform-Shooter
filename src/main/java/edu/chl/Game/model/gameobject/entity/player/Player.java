@@ -1,5 +1,6 @@
 package edu.chl.Game.model.gameobject.entity.player;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import edu.chl.Game.controller.GameHandler;
@@ -13,6 +14,7 @@ import edu.chl.Game.model.gameobject.item.*;
 import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.graphics.Sprite;
 
+
 public class Player extends Unit {
 
 	private SpriteSheet sheetMovingAnimation;
@@ -20,12 +22,14 @@ public class Player extends Unit {
 	private Sprite[] arrayMovingAnimation;
 	private Sprite[] arrayHurtAnimation;
 	private LoadingSprites load;
-	private boolean isRecievingDamage;
 	private Inventory inventory; 
+    private PlayerOutfit outfit;
+    private PlayerLevel level;
+	private ArrayList<Talent> talentList;
+    
     private Pistol p;
     private ProjectileDetection pd;
-    private PlayerOutfit outfit;
-        
+	private boolean isRecievingDamage;
 
 	public Player(int x, int y, int width, int height, boolean solid, Id id,
 			GameHandler handler) {
@@ -33,10 +37,10 @@ public class Player extends Unit {
                
         
 		this.load = new LoadingSprites();
+		this.level = new PlayerLevel();
 		initiateUnit();      
 
 		this.setWeaponProperties(this, new FrameIterator(1, 20));
-		setUnitValues(100, 50, 0, 7, 0);
 
 		this.outfit = new PlayerOutfit(this);
 		this.inventory = new Inventory(outfit);
@@ -199,7 +203,7 @@ public class Player extends Unit {
 		setFrameIterator_moving(new FrameIterator(valueA, valueB));
 		setFrameIterator_hurt(new FrameIterator(valueC, valueD));
 		// healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_ / attackRate:_ /
-		setUnitValues(100, 100, 0, 7, 0);
+		setUnitValues(0, 200, 100, 0, 7, 0);
 	}
 	
 	@Override
@@ -221,6 +225,31 @@ public class Player extends Unit {
 	public Inventory getInventory() {
 		return inventory;
 	}
+	
+
+	public void gainExperience(int value) {
+		level.gainExperience(value);
+		addScoreInterface(value, ScoreType.experience);
+	}
+	
+	public void addTalent(Talent tal){
+		talentList.add(tal);	
+	}
+	
+	private void gainTalent(Talent tal){
+		switch (tal.getType()) {
+		
+		case activation:
+			gainBonus(tal);
+		break;
+		
+		}
+	}
+	
+	private void gainBonus(Talent tal){
+		//getUnitValues().setAttackDamage();
+	}
+	
 
 
 

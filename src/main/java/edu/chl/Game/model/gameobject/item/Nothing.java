@@ -12,6 +12,10 @@ public class Nothing extends Item{
 		super(x, y, width, height, id, handeler);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Nothing(){
+		super();
+	}
 
 	@Override
 	public String getInfo() {
