@@ -94,7 +94,7 @@ public class InfectedStudent extends EnemyUnit {
 		setFrameIterator_moving(new FrameIterator(valueA, valueB));
 		setFrameIterator_attack(new FrameIterator(valueC, valueD));
 		// healthPoints:_ / energyPoints:_ / armor:_ / attackDamage:_ / attackRate:_ /
-		setUnitValues(40, 0, 0, 1, 60);
+		setUnitValues(1, 40, 0, 0, 1, 60);
 
 	}
 

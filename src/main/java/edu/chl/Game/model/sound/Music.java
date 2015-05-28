@@ -1,14 +1,11 @@
 package edu.chl.Game.model.sound;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import edu.chl.Game.controller.*;
 
 /**
  * Music for the Game.
@@ -23,12 +20,13 @@ public final class Music extends Sound implements MusicInterface {
 	
 	private static Map<String, Sound> musicHashMap = new HashMap<String, Sound>();
 	
-	private Sound sound = new Sound();
 	
 	/**
 	 * Volume Controller
 	 */
 	private FloatControl volumeMusicController;
+	
+	
 	/**
 	 * Volume set at 5
 	 */
@@ -36,10 +34,8 @@ public final class Music extends Sound implements MusicInterface {
 	
 	public Music() {
 		
-
-		
-
 	}
+	
 	
 	public FloatControl getVolMusicControl() {
 		return volumeMusicController;
@@ -71,6 +67,7 @@ public final class Music extends Sound implements MusicInterface {
 		addMusic("musicdrums", "musicdrums.mp3");
 		addMusic("musicdrums2", "musicdrums2.mp3");
 		addMusic("gamemusic", "gameMusic.mp3");
+		addMusic("advancedwarfare", "advancedwarfare.mp3");
 	}
 	
 	/**
@@ -141,9 +138,6 @@ public final class Music extends Sound implements MusicInterface {
 	}
 	
 	
-	
-	
-	
 	public static void playMenu() {
 		getMusic().get("menu").loop();
 	}
@@ -161,22 +155,23 @@ public final class Music extends Sound implements MusicInterface {
 		getMusic().get("gamemusic").stop();
 	}
 	public void playWorldOneMapTwo() {
-		
+		getMusic().get("music").loop();
 	}
 	public void stopWorldOneMapTwo() {
-		
+		getMusic().get("music").stop();
 	}
 	public void playWorldOneMapThree() {
-		
+		getMusic().get("w1m1").loop();
 	}
 	public void stopWorldOneMapThree() {
-		
+		getMusic().get("w1m1").stop();
 	}
 	public void playWorldOneMapFour() {
+		getMusic().get("music2").loop();
 	}
 		
 	public void stopWorldOneMapFour() {
-		
+		getMusic().get("music2").stop();
 	}
 	
 	
@@ -184,26 +179,26 @@ public final class Music extends Sound implements MusicInterface {
 	 * Music for W O R L D - T W O  
 	 */
 	public void playWorldTwoMapOne() {
-		
+		getMusic().get("musicdrums").loop();
 	}
 	public void stopWorldTwoMapOne() {
-		
+		getMusic().get("musicdrums").stop();
 	}
 	public void playWorldTwoMapTwo() {
-		
+		getMusic().get("musicdrums2").loop();
 	}
 	public void stopWorldTwoMapTwo() {
-		
+		getMusic().get("musicdrums2").stop();
 	}
 	public void playWorldTwoMapThree() {
-		
+		getMusic().get("advancedwarfare").loop();
 	}
 	public void stopWorldTwoMapThree() {
-		
+		getMusic().get("advancedwarfare").stop();	
 	}
 	public void playWorldTwoMapFour() {
-	}
 		
+	}
 	public void stopWorldTwoMapFour() {
 		
 	}

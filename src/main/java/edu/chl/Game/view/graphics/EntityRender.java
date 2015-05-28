@@ -3,7 +3,21 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class EntityRender {
-
+	
+	/**
+	 * 
+	 * Precondition: 
+	 * Postcondition: 
+	 * 
+	 * @param g
+	 * @param unit
+	 * @param frame
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	
 	public void renderAnimateRight(Graphics g, Sprite[] unit, int frame, int x, int y, int width, int height){
 		g.drawImage(unit[frame].getBufferedImage(), x, y, width, height, null);
 	}
