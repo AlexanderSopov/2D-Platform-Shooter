@@ -22,7 +22,7 @@ public class Sound {
 	/**
 	 * Global Volume 
 	 */
-	private float globalVol = 0;
+	private static float globalVol = 0;
 	
 	
 	/**
@@ -52,7 +52,8 @@ public class Sound {
 	/**
 	 * Sound Volume Controller
 	 */
-	private FloatControl volControl;
+	private static FloatControl volControl;
+	
 	
 	public Sound(String path) {
 		setSoundInput(path);
@@ -66,6 +67,7 @@ public class Sound {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	/**
 	 * Use for init instance of sound
@@ -115,6 +117,7 @@ public class Sound {
 		this.soundFormat = af;
 	}
 	
+	
 	/**
 	 * Get the Sound Format
 	 * @return soundFormat 
@@ -131,6 +134,7 @@ public class Sound {
 		initSoundDecoding();
 		initSoundResult();
 	}
+	
 	
 	/**
 	 * Check if the path is valid. All Sound related should
@@ -190,6 +194,7 @@ public class Sound {
 	private AudioFormat getSoundDecode() {
 		return this.soundDecode;
 	}
+	
 	
 	/**
 	 * Initialize sound result<p> 
@@ -271,70 +276,94 @@ public class Sound {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 	
+	
 	/**
 	 * Get Volume Controller
 	 * @return volControl - Type FloatControl
 	 */
-	public FloatControl getVolControl() {
+	public static FloatControl getVolControl() {
 		return volControl;
 	}
 	
 	
 	/**
-	 * Decrease Global Volume with 2
+	 * Decrease Global Volume with 1
 	 */
-	public void decreaseGlobalVol() {
-		System.out.println("SOUND");
-		getVolControl().setValue(getVolControl().getValue() - 2);
+	public static void decreaseGlobalVol() {
+		System.out.println("SOUND Decrease");
+		getVolControl().setValue(convertVolControl(getGlobalVol() - 1));
 	}
 	
 	
 	/**
-	 * Increase Global Volume with 2
+	 * Increase Global Volume with 1
 	 */
-	public void increaseGlobalVol() {
-		System.out.println("SOUND");
-		if(checkVolValue()) {
-			getVolControl().setValue(getVolControl().getValue() + 2);
-		}
+	public static void increaseGlobalVol() {
+		System.out.println("SOUND Increase");
+		getVolControl().setValue(convertVolControl(getGlobalVol() + 1));
 	}
-	
-	
-	/**
-	 * Check the Volume value. If the value meets the requirements - true otherwise false
-	 * @return True if meets requirements else false
-	 */
-	private boolean checkVolValue() {
-		boolean value = false;
-		if(getVolControl().getValue() < getVolControl().getMaximum() && 
-				getVolControl().getValue() > getVolControl().getMinimum()) {
-			value = true;
-		}
-		return value;
-	}
-	
-	
+
+
 	/**
 	 * Get the current global volume
 	 * @return globalVol - An integer that returns the current volume.
 	 */
-	public float getGlobalVol() {
+	public static float getGlobalVol() {
 		return globalVol;
 	}
 	
 	
 	/**
 	 * Set Global Volume<p>
-	 * Add a float number within range -80 to 6 otherwise false argument.
+	 * Add a number within range 0 to 10.
 	 * @param vol - Type float
 	 * @throws IllegalArgumentException Throws if not meet requirements
 	 */
-	public void setGlobalVol(float vol) throws IllegalArgumentException {
-		if(vol > -80 && vol < 6) {
-			getVolControl().setValue(vol);
+	public static void setGlobalVol(float vol) throws IllegalArgumentException {
+		globalVol = vol;
+		float volc = convertVolControl(vol);
+		getVolControl().setValue(volc);
+	}
+	
+	
+	/**
+	 * Convert -80-6 to 0-10 volume set<p>
+	 * -80 is 0
+	 * -43 is 5
+	 * 6 is 10
+	 * Increasing or Decreasing with 9 
+	 * @param preVol
+	 * @return postVol 
+	 */
+	private static float convertVolControl(float preVol) {
+		float postVol = 0;
+		if(preVol <= 10 && preVol >= 0) {
+			if(preVol == 10) {
+				postVol = 6;
+			} else if(preVol == 9) {
+				postVol = -9;
+			} else if(preVol == 8) {
+				postVol = -18;
+			} else if(preVol == 7) {
+				postVol = -27;
+			} else if(preVol == 6) {
+				postVol = -36;
+			} else if(preVol == 5) {
+				postVol = -43;
+			} else if(preVol == 4) {
+				postVol = -52;
+			} else if(preVol == 3) {
+				postVol = -61;
+			} else if(preVol == 2) {
+				postVol = -70;
+			} else if(preVol == 1 ) {
+				postVol = -79;
+			} else if(preVol == 0) {
+				postVol = -80;
+			}
 		} else {
-			throw new IllegalArgumentException("Requested value: " + vol + 
-					"\n" + "Stay within range -80 to 6");
+			throw new IllegalArgumentException("Didnt meet the requirements");
 		}
+		return postVol;
 	}
 }
