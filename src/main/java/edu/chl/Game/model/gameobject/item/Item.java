@@ -16,6 +16,7 @@ import edu.chl.Game.model.gameobject.Id;
 public abstract class Item extends GameObject implements Character{
 	
 	private State state;
+	private GameHandler handler;
 	
 	public enum State {
 		equipped,
@@ -35,6 +36,12 @@ public abstract class Item extends GameObject implements Character{
 	public Item(int x, int y, int width, int height, Id id, GameHandler handeler){
 		super(x,y,width,height,true ,id ,handeler);
 		this.state = State.wating;
+		this.handler = handeler;
+	}
+	
+	public Item(){
+		super(0,0,0,0,true ,null ,null);
+		this.state = State.inventory;
 	}
 	
 	
@@ -69,9 +76,6 @@ public abstract class Item extends GameObject implements Character{
 				//g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
 				equippedRender(g);
 			}
-			
-		
-		
 		
 	}
 	
@@ -129,7 +133,22 @@ public abstract class Item extends GameObject implements Character{
 	@Override
 	public void remove() {
 		
-		getHandler().removeItem(this);
+		if(this.getHandler() != null){
+			getHandler().removeItem(this);
+		}
+		
+	}
+
+	public void setHandler(GameHandler handler) {
+		
+		this.handler = handler;
+		
+	}
+	
+	@Override
+	public GameHandler getHandler() {
+		
+		return this.handler;
 		
 	}
 	

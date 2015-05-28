@@ -44,6 +44,7 @@ public class PlayerOutfit implements Character{
    
     public synchronized void eqipeItem(Item item) {
     	if(!isItemequipped(item)){
+    		item.setHandler(player.getHandler());
 	    	this.equippedItems.add(item);
 	    	item.switchState(State.equipped);
     	}else{

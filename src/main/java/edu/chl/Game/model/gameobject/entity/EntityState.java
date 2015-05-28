@@ -8,6 +8,9 @@ public class EntityState {
 	private FacingDirection facingDirection;
 	
 	public EntityState(FacingDirection facingDirection){
+		if(facingDirection == null){
+			facingDirection = FacingDirection.FacingRight;
+		}
 		this.facingDirection = facingDirection;
 	}
 	
@@ -28,7 +31,9 @@ public class EntityState {
 	}
 	
 	public void setFacingDirection(FacingDirection d) {
-		facingDirection = d;
+		if(d != null){
+			facingDirection = d;
+		}
 	}
 
 	public FacingDirection getFacingDirection() {
