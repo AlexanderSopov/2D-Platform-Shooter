@@ -45,10 +45,10 @@ public class Bullet extends Entity{
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.BLACK);
-	g.fillOval(rotatedX -(getWidth()/2),rotatedY-(getHeight()/2), getWidth(), getHeight());
         
-
+    	g.setColor(Color.BLACK);
+        g.fillOval(rotatedX -(getWidth()/2),rotatedY-(getHeight()/2), getWidth(), getHeight());
+        
     }
 
     @Override

@@ -8,9 +8,9 @@ import java.util.LinkedList;
 
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
-import edu.chl.Game.model.gameobject.entity.items.Item;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
 import edu.chl.Game.model.gameobject.entity.player.Player;
+import edu.chl.Game.model.gameobject.item.Item;
 import edu.chl.Game.model.gameobject.tile.*;
 //import edu.chl.Game.sound.Music;
 import edu.chl.Game.view.Camera;

@@ -4,26 +4,28 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Reader {
 	
-	String output;
-	String path = "Saves/";
+	
+	private final static String path = "Saves/";
 	
 	
-	public Reader( String fileName) throws IOException{
-		
-			
-		
+	
+	public static LinkedList<String> readFile(String fileName){
+		String output;
+		LinkedList<String> list = new LinkedList<String>();
 		try{
-		
-			FileReader fileReader = new FileReader(fileName);
+			
+			FileReader fileReader = new FileReader(path+fileName);
 			
 			BufferedReader buffReader = new BufferedReader(fileReader);
 			
 			while((output = buffReader.readLine()) != null){
 				
-				System.out.println(output);
+				list.add(output);
 				
 			}
 			
@@ -34,7 +36,7 @@ public class Reader {
 		}catch(IOException e){
 			System.out.println("Not able to read file: "+ fileName);
 		}
-		
+		return list;
 	}
 	
 }

@@ -11,10 +11,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-import edu.chl.Game.model.gameobject.entity.items.Character;
-import edu.chl.Game.model.gameobject.entity.items.Item;
-import edu.chl.Game.model.gameobject.entity.items.Item.State;
-import edu.chl.Game.model.gameobject.entity.items.Item.Type;
+import edu.chl.Game.model.gameobject.item.Character;
+import edu.chl.Game.model.gameobject.item.Item;
+import edu.chl.Game.model.gameobject.item.Item.State;
+import edu.chl.Game.model.gameobject.item.Item.Type;
 
 
 
@@ -26,27 +26,29 @@ import edu.chl.Game.model.gameobject.entity.items.Item.Type;
 public class PlayerOutfit implements Character{
     
 	private Player player;
-	private final Point head;
-	private final Point hands;
-	private final Point feet;
-	private Point costom;
 	private LinkedList<Item> equippedItems;
 	
-    PlayerOutfit(Player player){
+    public PlayerOutfit(Player player){
         
         this.player = player;
-        this.head = new Point(player.getCenterX(), player.getY());
-        this.hands = new Point(player.getCenterX(), player.getCenterX());
-        this.feet = new Point(player.getX(), player.getY() + player.getHeight());
+        this.equippedItems = new LinkedList<Item>();
+        
+    }
+    
+  public PlayerOutfit(){
+        
         this.equippedItems = new LinkedList<Item>();
         
     }
 
    
     public synchronized void eqipeItem(Item item) {
-    	
-    	this.equippedItems.add(item);
-    	item.switchState(State.equipped);
+    	if(!isItemequipped(item)){
+	    	this.equippedItems.add(item);
+	    	item.switchState(State.equipped);
+    	}else{
+    		this.discardItem(item);
+    	}
     }
 
     
@@ -56,19 +58,7 @@ public class PlayerOutfit implements Character{
     }
     
     public void placeOnPlayer(Item item){
-    	Type type = item.getType();
-    	if(type == Type.HAT){
-    		setPosition(item,this.head);
-    	}else if(type == Type.WEAPON){
-    		setPosition(item,this.hands);
-    	}else if(type == Type.LIFE){
-    		setPosition(item,this.costom);
-    	}else if(type == Type.SHOES){
-    		setPosition(item,this.feet);
-    	}else if(type == Type.SPECIAL){
-    		setPosition(item,this.costom);
-    		
-    	}
+ 
     }
     
     private void setPosition(Item item, Point p){
@@ -95,6 +85,8 @@ public class PlayerOutfit implements Character{
     		item.render(g);
     	
     	}
+    	
+    	
 	}
 
 
@@ -141,5 +133,15 @@ public class PlayerOutfit implements Character{
     	 }
     	 return false;
 	 }
+
+
+	public LinkedList<Item> getEquippedItems() {
+		return equippedItems;
+	}
+
+
+	public void setEquippedItems(LinkedList<Item> equippedItems) {
+		this.equippedItems = equippedItems;
+	}
 
 }

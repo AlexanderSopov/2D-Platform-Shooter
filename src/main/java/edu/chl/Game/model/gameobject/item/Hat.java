@@ -1,4 +1,4 @@
-package edu.chl.Game.model.gameobject.entity.items;
+package edu.chl.Game.model.gameobject.item;
 
 import java.awt.Color;
 import java.awt.Graphics;
