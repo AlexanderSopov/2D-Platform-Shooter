@@ -1,4 +1,4 @@
-package edu.chl.Game.Storage;
+package edu.chl.Game.storage;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -20,7 +20,6 @@ public class Writer {
 			
 			buffWriter.newLine();
 	        buffWriter.write(message);
-	        
 	        
 	        buffWriter.close();
         

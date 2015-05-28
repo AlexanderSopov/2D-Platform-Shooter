@@ -1,4 +1,4 @@
-package edu.chl.Game.Storage;
+package edu.chl.Game.storage;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Reader {
+public class Reader{
 	
 	
 	private final static String path = "Saves/";

@@ -8,14 +8,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import edu.chl.Game.Storage.Reader;
-import edu.chl.Game.Storage.Storable;
-import edu.chl.Game.Storage.Writer;
 import edu.chl.Game.model.gameobject.entity.EntityState;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.entity.player.PlayerOutfit;
 import edu.chl.Game.model.gameobject.item.Item.State;
+import edu.chl.Game.storage.Reader;
+import edu.chl.Game.storage.Storable;
+import edu.chl.Game.storage.Writer;
 import edu.chl.Game.view.Camera;
 import edu.chl.Game.view.Frame;
 
