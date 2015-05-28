@@ -56,7 +56,7 @@ public class RoaringBrute extends EnemyUnit {
 	public void initiateProperties() {
 		setFrameIterator_moving(new FrameIterator(3, 8));
 		setFrameIterator_attack(new FrameIterator(2, 10));
-		setUnitValues(200, 0, 0, 25, 60);
+		setUnitValues(0, 200, 0, 0, 25, 60);
 
 	}
 

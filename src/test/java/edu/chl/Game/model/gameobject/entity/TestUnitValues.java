@@ -12,7 +12,7 @@ public class TestUnitValues {
 	@Before
 	public void initiateTest(){
 		System.out.println("initiate");
-		uv = new UnitValues(10, 10, 10, 10, 10);
+		uv = new UnitValues(10, 10, 10, 10, 10, 10);
 	}
 	
 	@Test
