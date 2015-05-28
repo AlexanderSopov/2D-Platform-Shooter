@@ -35,13 +35,21 @@ public class TestInventory {
 		
 		testInventory.addItem(new Nothing(0,0,0,0, null, rf.getHandler()));
 		testInventory.addItem(new W1(0,0,0,0, null, rf.getHandler()));
+		testInventory.addItem(new Hat(0,0,0,0, null, rf.getHandler()));
 		
+		assertTrue(testInventory.getInventoryList().size() == 3);
 		
+		testInventory.addDelete(new Nothing(0,0,0,0, null, rf.getHandler()));
 		assertTrue(testInventory.getInventoryList().size() == 2);
 		
 		testInventory.addDelete(new Nothing(0,0,0,0, null, rf.getHandler()));
-		assertTrue(testInventory.getInventoryList().size() == 1);
+		assertTrue(testInventory.getInventoryList().size() == 2);
 		
 	}
+	
+ 
+	
+	
+
 
 }
