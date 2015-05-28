@@ -37,6 +37,10 @@ public class Hat extends Item{
 		this.offX = -100/this.scale;
 		this.offY = -125/ this.scale;
 	}
+	
+	public Hat(){
+		super();
+	}
 
 	@Override
 	public String getInfo() {

@@ -38,6 +38,12 @@ public class W1 extends Item{
         this.gc = handeler.getGameCursor();
         this.angle = 0.0;
 	}
+	
+	public W1(){
+		super();
+	}
+	
+	
 
 	@Override
 	public void equippedRender(Graphics g) {

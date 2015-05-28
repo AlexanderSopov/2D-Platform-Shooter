@@ -37,6 +37,11 @@ public abstract class Item extends GameObject implements Character{
 		this.state = State.wating;
 	}
 	
+	public Item(){
+		super(0,0,0,0,true ,null ,null);
+		this.state = State.inventory;
+	}
+	
 	
 	
 	public abstract String getInfo();
@@ -69,9 +74,6 @@ public abstract class Item extends GameObject implements Character{
 				//g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
 				equippedRender(g);
 			}
-			
-		
-		
 		
 	}
 	
@@ -129,7 +131,9 @@ public abstract class Item extends GameObject implements Character{
 	@Override
 	public void remove() {
 		
-		getHandler().removeItem(this);
+		if(this.getHandler() != null){
+			getHandler().removeItem(this);
+		}
 		
 	}
 	
