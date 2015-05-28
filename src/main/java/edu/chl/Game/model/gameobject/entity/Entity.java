@@ -86,6 +86,7 @@ public abstract class Entity extends GameObject {
 	
 	public void checkIfDead(){
 		if (unitValues.getHealthPoints() <= 0) {
+			getHandler().addItem(new Hat(getX(), getY()+ getHeight() - 64, 64,64,null, getHandler()));
 			die();
 		}
 	}
