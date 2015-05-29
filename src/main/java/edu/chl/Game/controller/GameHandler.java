@@ -21,69 +21,76 @@ import edu.chl.Game.view.Camera;
 //import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.SubMenuView;
-
+import edu.chl.Game.view.graphics.DeathAnimation;
+import edu.chl.Game.view.graphics.DeathSystem;
 
 public class GameHandler {
 	private RefreshTimer refreshTimer;
-	private Frame frame;
+
 	private SubMenuView subMenuView;
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private LinkedList<Item> item = new LinkedList<Item>();
 	private Player player;
+	private Camera camera;
+	private GameCursor c;
+	private MouseInput mi;
+	private DeathSystem ds;
 
 	private BufferedImage mapImage;
 	private boolean changeHasHappened;
 	private int ref;
-	private Camera camera;
-	private GameCursor c;
-	private MouseInput mi;
+	private Frame frame;
 
-
-
-	public GameHandler(RefreshTimer refreshTimer, Frame frame, SubMenuView subMenuView) {
+	public GameHandler(RefreshTimer refreshTimer, Frame frame,
+			SubMenuView subMenuView) {
 		this.refreshTimer = refreshTimer;
 		this.frame = frame;
 		this.subMenuView = subMenuView;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
+
+		this.ds = new DeathSystem();
+
 	}
-	
-	private void init(){	
+
+	private void init() {
 		for (int i = 0; i < entity.size(); i++) {
 			if (entity.get(i).getUnitState().getId() == Id.player) {
 				this.player = (Player) entity.get(i);
 			}
 		}
-		
-		for (Entity e: getEntityList())
+
+		for (Entity e : getEntityList())
 			refreshTimer.addObserver(e);
-		for (Tile t: getTileList())
+		for (Tile t : getTileList())
 			refreshTimer.addObserver(t);
-		for (Item it: getItemList())
+		for (Item it : getItemList())
 			refreshTimer.addObserver(it);
-		
-		//refreshTimer.getMouseInput().setCursor(c);
+
+		// refreshTimer.getMouseInput().setCursor(c);
 	}
 
 	public void render(Graphics g) {
-		if(MapFactory.mapImage == null){
+		if (MapFactory.mapImage == null) {
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
 		g.setColor(new Color(135, 206, 235));
 		g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
-		subMenuView.render((Graphics2D)g);
+		subMenuView.render((Graphics2D) g);
 		g.translate(camera.getX(), camera.getY());
 		
+		renderDeath(g);
+
 		for (Entity e : getEntityList()) {
 			if (e.getUnitState().getId() == Id.player) {
 				camera.update(e);
 			}
 		}
 	}
-	
-	public void restart(){
+
+	public void restart() {
 		refreshTimer.deleteObservers();
 		item = new LinkedList<Item>();
 		entity = new LinkedList<Entity>();
@@ -93,8 +100,6 @@ public class GameHandler {
 		MapFactory.mapImage = null;
 		init();
 	}
-
-
 
 	public Camera getCamera() {
 		return camera;
@@ -115,7 +120,6 @@ public class GameHandler {
 
 		refreshTimer.deleteObserver(e);
 		entity.remove(e);
-		
 
 	}
 
@@ -126,12 +130,12 @@ public class GameHandler {
 	}
 
 	public void removeTile(Tile t) {
-		
+
 		refreshTimer.deleteObserver(t);
 		tile.remove(t);
 
 	}
-	
+
 	public void addItem(Item it) {
 
 		item.add(it);
@@ -139,7 +143,7 @@ public class GameHandler {
 	}
 
 	public void removeItem(Item it) {
-		
+
 		refreshTimer.deleteObserver(it);
 		item.remove(it);
 
@@ -148,7 +152,7 @@ public class GameHandler {
 	public LinkedList<Tile> getTileList() {
 		return tile;
 	}
-	
+
 	public LinkedList<Item> getItemList() {
 		return item;
 	}
@@ -156,13 +160,34 @@ public class GameHandler {
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	public GameCursor getGameCursor() {
 		return this.c;
 	}
-	
-	public MouseInput getMouseInput(){
+
+	public MouseInput getMouseInput() {
 		return mi;
+	}
+
+	public RefreshTimer getRefreshTimer() {
+		return refreshTimer;
+	}
+
+	public void registerDead(int x, int y, FacingDirection fd) {
+		ds.setX(x);
+		ds.setY(y);
+		ds.setFacing(fd);
+		ds.setActive(true);
+	}
+
+	public void renderDeath(Graphics g) {
+		if (ds.isActive()) {
+			ds.render(g);
+			ds.getFrameIterator().updateFrameCounter();
+			if(!ds.getFrameIterator().isActive()){
+				ds.setActive(false);
+			}
+		}
 	}
 
 }

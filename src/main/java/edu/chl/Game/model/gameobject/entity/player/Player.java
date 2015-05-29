@@ -54,37 +54,58 @@ public class Player extends Unit {
 		if (!isRecievingDamage()) {
 			if (getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-					getRenderClass().renderAnimateRight(g, arrayMovingAnimation,
-							getFrameIterator_moving().getFrame(), getX(), getY(),
-							getHeight(), getWidth());
+					try {
+						getRenderClass().render(g, arrayMovingAnimation,getFrameIterator_moving().getFrame(), getX(), getY(), getHeight(), getWidth(), FacingDirection.FacingRight, 0, true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderAnimateLeft(g, arrayMovingAnimation,
-							getFrameIterator_moving().getFrame(), getX(), getY(),
-							getHeight(), getWidth(), 20);
+					try {
+						getRenderClass().render(g, arrayMovingAnimation,getFrameIterator_moving().getFrame(), getX(), getY(), getHeight(), getWidth(), FacingDirection.FacingLeft, 20, true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 
 			else if (!getUnitState().isAnimate()) {
 				if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-					getRenderClass().renderNotAnimateRight(g,arrayMovingAnimation, getX(), getY(),
-							getHeight(), getWidth());
+					try {
+						getRenderClass().render(g, arrayMovingAnimation, 0, getX(), getY(), getWidth(), getHeight(), FacingDirection.FacingRight, 0, false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 
 				else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-					getRenderClass().renderNotAnimateLeft(g, arrayMovingAnimation, getX(), getY(),
-							getHeight(), getWidth(), (getUnitMeasurement().getNumberOfSprite_move()/2));
+					try {
+						getRenderClass().render(g, arrayMovingAnimation, 0, getX(), getY(), getWidth(), getHeight(), FacingDirection.FacingLeft, (getUnitMeasurement().getNumberOfSprite_move()/2), false);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		} else {
 
 			if (getEntityState().getFacingDirection() == FacingDirection.FacingRight) {
-				getRenderClass1().renderAnimateRight(g, arrayHurtAnimation,
-						getFrameIterator_hurting().getFrame(), getX(), getY(),
-						getWidth(), getHeight());
+				try {
+					getRenderClass1().renderAnimateRight(g, arrayHurtAnimation,
+							getFrameIterator_hurting().getFrame(), getX(), getY(),
+							getWidth(), getHeight());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else if (getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
-				getRenderClass1().renderAnimateLeft(g, arrayHurtAnimation,
-						getFrameIterator_hurting().getFrame(), getX(), getY(),
-						getWidth(), getHeight(), (getUnitMeasurement().getNumberOfSprite_hurt()/2));
+				try {
+					getRenderClass1().renderAnimateLeft(g, arrayHurtAnimation,
+							getFrameIterator_hurting().getFrame(), getX(), getY(),
+							getWidth(), getHeight(), (getUnitMeasurement().getNumberOfSprite_hurt()/2));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 

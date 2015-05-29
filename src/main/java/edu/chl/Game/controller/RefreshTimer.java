@@ -227,4 +227,6 @@ public class RefreshTimer extends Observable implements Runnable{
 			gameHandler.getGameCursor().changeState(CursorState.DEFULT);
 		}
 	}
+	
+
 }

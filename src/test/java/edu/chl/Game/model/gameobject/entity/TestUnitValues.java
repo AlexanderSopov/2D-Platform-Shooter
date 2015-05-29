@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tritonus.share.TDebug.AssertException;
 
 public class TestUnitValues {
 	
@@ -19,6 +20,11 @@ public class TestUnitValues {
 	public void testA() {
 		System.out.println("testA");
 		assertTrue(uv.getMaxHealthPoints()==10);
+		
+		
+		
+		
+		
 	}
 	
 

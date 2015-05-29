@@ -38,6 +38,7 @@ public class MapFactory {
 
 		int width = mapImage.getWidth();
 		int height = mapImage.getHeight();
+		System.out.println(RefreshTimer.selectedMap);
 
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
