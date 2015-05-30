@@ -36,10 +36,10 @@ public class Inventory implements Storable{
 		itemMap = new HashMap<String,Item>();
 		load();
 	}
-	
 
 	
 	public void render(Graphics g,Player player){
+		
 		g.setColor(Color.red);
 		int counter = 0;
 		Iterator itr = this.itemMap.entrySet().iterator();
@@ -63,7 +63,6 @@ public class Inventory implements Storable{
 			      this.itemMap.put(item.getNAME(), item);
 			 }
 			 
-			 //item.remove();
 		 }
 		 
 		 save();
@@ -77,18 +76,18 @@ public class Inventory implements Storable{
 		 save();
 	 }
 	
-    public void eqipeItem(Item item) {
+    public void equipeItem(Item item) {
     	
     	if(item != null){
-    		this.playerOutfit.eqipeItem(item);
+    		this.playerOutfit.equipeItem(item);
     	}
     }
     
-    public void eqipeItem(String str) {
+    public void equipeItem(String str) {
     	if(str != null){
 	    	Item item =this.itemMap.get(str);
 	    	
-	        this.playerOutfit.eqipeItem(item);
+	        this.playerOutfit.equipeItem(item);
     	}
     }
     
@@ -99,7 +98,7 @@ public class Inventory implements Storable{
    	 while(itr.hasNext()){
    		Map.Entry<String,Item> pair = (Map.Entry<String,Item>)itr.next();
    		if(counter +1 ==  Integer.parseInt(c + "")){
-   			eqipeItem(pair.getKey());
+   			equipeItem(pair.getKey());
    		}
    		counter ++;
    		
@@ -108,14 +107,14 @@ public class Inventory implements Storable{
 
     public void discardItem(Item item) {
        this.playerOutfit.discardItem(item);
+       
     }
     
     public void discardItem(String str) {
     	
-    	Item item =this.itemMap.get(str);
+    	Item item = this.itemMap.get(str);
         this.playerOutfit.discardItem(item);
     }
-    
     
     
     

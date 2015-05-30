@@ -49,11 +49,7 @@ public abstract class EnemyUnit extends Unit {
 	@Override
 	public void update() {
 		super.update();
-		//getUpdateMovement().updateCoordinates_enemy();
-		//getUpdateMovement().toggleAnimate();
-		//getUpdateMovement().updateFacing();
-		//getCollisionDetection().checkForCollision();
-		//gravitationalProperties.fallingMechanics();
+
 		if (getUnitState().isAnimate()) {
 			iterateMoving();
 		}
