@@ -21,20 +21,20 @@ public final class Music extends Sound implements MusicInterface {
 	/**
 	 * Volume Controller
 	 */
-	private FloatControl volumeMusicController;
+	private static FloatControl volumeMusicController;
 	
 	
 	/**
 	 * Volume set at 5
 	 */
-	private float volumeMusic = 5;
+	private static float volumeMusic = 5;
 	
 	public Music() {
 		
 	}
 	
 	
-	public FloatControl getVolMusicControl() {
+	public static FloatControl getVolMusicControl() {
 		return volumeMusicController;
 	}
 	
@@ -113,7 +113,7 @@ public final class Music extends Sound implements MusicInterface {
 	/**
 	 * Increase music volume with 2.
 	 */
-	public void volumeMusicIncrease() {
+	public static void volumeMusicIncrease() {
 		getVolMusicControl().setValue(getCurrentMusicVolume() + 2);
 	}
 	/**
@@ -130,7 +130,7 @@ public final class Music extends Sound implements MusicInterface {
 	 * Get the current volume of Music.
 	 * @return volumeMusic - Current Volume Set
 	 */
-	private float getCurrentMusicVolume() {
+	private static float getCurrentMusicVolume() {
 		return volumeMusic;
 	}
 	
@@ -151,23 +151,23 @@ public final class Music extends Sound implements MusicInterface {
 	public static void stopWorldOneMapOne() {
 		getMusic().get("gamemusic").stop();
 	}
-	public void playWorldOneMapTwo() {
+	public static void playWorldOneMapTwo() {
 		getMusic().get("music").loop();
 	}
-	public void stopWorldOneMapTwo() {
+	public static void stopWorldOneMapTwo() {
 		getMusic().get("music").stop();
 	}
-	public void playWorldOneMapThree() {
+	public static void playWorldOneMapThree() {
 		getMusic().get("w1m1").loop();
 	}
-	public void stopWorldOneMapThree() {
+	public static void stopWorldOneMapThree() {
 		getMusic().get("w1m1").stop();
 	}
-	public void playWorldOneMapFour() {
+	public static void playWorldOneMapFour() {
 		getMusic().get("music2").loop();
 	}
 		
-	public void stopWorldOneMapFour() {
+	public static void stopWorldOneMapFour() {
 		getMusic().get("music2").stop();
 	}
 	
@@ -175,22 +175,22 @@ public final class Music extends Sound implements MusicInterface {
 	/**
 	 * Music for W O R L D - T W O  
 	 */
-	public void playWorldTwoMapOne() {
+	public static void playWorldTwoMapOne() {
 		getMusic().get("musicdrums").loop();
 	}
-	public void stopWorldTwoMapOne() {
+	public static void stopWorldTwoMapOne() {
 		getMusic().get("musicdrums").stop();
 	}
-	public void playWorldTwoMapTwo() {
+	public static void playWorldTwoMapTwo() {
 		getMusic().get("musicdrums2").loop();
 	}
-	public void stopWorldTwoMapTwo() {
+	public static void stopWorldTwoMapTwo() {
 		getMusic().get("musicdrums2").stop();
 	}
-	public void playWorldTwoMapThree() {
+	public static void playWorldTwoMapThree() {
 		getMusic().get("advancedwarfare").loop();
 	}
-	public void stopWorldTwoMapThree() {
+	public static void stopWorldTwoMapThree() {
 		getMusic().get("advancedwarfare").stop();	
 	}
 	public void playWorldTwoMapFour() {

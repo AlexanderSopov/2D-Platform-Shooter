@@ -16,7 +16,7 @@ public class Sound {
 	 * Init clip
 	 * @see Clip
 	 */
-	private Clip clip;
+	private static Clip clip;
 	
 	
 	/**
@@ -54,12 +54,14 @@ public class Sound {
 	 */
 	private static FloatControl volControl;
 	
+	private static Sound sound;
 	
 	public Sound(String path) {
 		setSoundInput(path);
 		setSoundFormat(getSoundInput().getFormat());
 		initSound();
-
+		sound = new Sound();
+		
 		try {
 			initClip();
 		}
@@ -219,8 +221,8 @@ public class Sound {
 	 */
 	private void initClip() throws Exception {
 		try {
-			this.clip = AudioSystem.getClip();
-			this.clip.open(getSoundResult());
+			clip = AudioSystem.getClip();
+			clip.open(getSoundResult());
 			volControl = (FloatControl)getClip().
 					getControl(FloatControl.Type.MASTER_GAIN);
 		} catch (Exception e) {
@@ -234,7 +236,7 @@ public class Sound {
 	 * @return clip
 	 */
 	public Clip getClip() {
-		return this.clip;
+		return clip;
 	}
 	
 	
@@ -318,7 +320,7 @@ public class Sound {
 	 * @param vol - Type float
 	 * @throws IllegalArgumentException Throws if not meet requirements
 	 */
-	public static void setGlobalVol(float vol) throws IllegalArgumentException {
+	public void setGlobalVol(float vol) throws IllegalArgumentException {
 		globalVol = vol;
 		float volc = convertVolControl(vol);
 		getVolControl().setValue(volc);
@@ -364,5 +366,13 @@ public class Sound {
 			throw new IllegalArgumentException("Didnt meet the requirements");
 		}
 		return postVol;
+	}
+	
+	public static void setSoundOnOff() {
+		if(sound.getClip().isActive()) {
+			sound.getClip().stop();
+		} else {
+			sound.getClip().start();
+		}
 	}
 }

@@ -153,11 +153,11 @@ public final class SFX extends Sound implements SFXInterface {
 	/**
 	 * Player Jumping Sound
 	 */
-	private static void playPlayerJumping() {
+	public static void playPlayerJumping() {
 		getSFX().get("jump").play();
 	}
 	
-	private static void stopPlayerJumping() {
+	public static void stopPlayerJumping() {
 		getSFX().get("jump").stop();
 	}
 	
@@ -192,11 +192,21 @@ public final class SFX extends Sound implements SFXInterface {
 		getSFX().get("monster").play();
 	}
 	
+	
 	/**
 	 * The default gun which the player have from the beginning.
 	 * This method plays the sound of it.
 	 */
-	public static void defaultGunShot() {
+	public static void playDefaultGunShot() {
 		getSFX().get("shoot").play();
+	}
+	
+	
+	/**
+	 * The default gun which the player have from the beginning.
+	 * This method stops the sound of it.
+	 */
+	public static void stopDefaultGunShot() {
+		getSFX().get("shoot").stop();
 	}
 }	
