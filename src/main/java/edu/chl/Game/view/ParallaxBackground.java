@@ -52,7 +52,7 @@ public class ParallaxBackground implements Observer {
 		if (false /*x + foregroundX == 1000 */)
 			foregroundX = x - 1000; //trying to figure out a working algorithm
 		else
-			foregroundX = x/15;
+			foregroundX = x/30;
 		foreground1X = foregroundX + 1000; 
 	}
 	
