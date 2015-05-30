@@ -20,6 +20,7 @@ import edu.chl.Game.view.graphics.ScoreType;
 import edu.chl.Game.model.physics.CollisionDetection;
 import edu.chl.Game.view.graphics.*;
 import edu.chl.Game.model.physics.*;
+import edu.chl.Game.model.sound.Sound;
 
 
 public abstract class Entity extends GameObject {
@@ -174,8 +175,8 @@ public abstract class Entity extends GameObject {
     private void jump() {
 		if(isTryingToJump)
 			if(isBumpingGround){
-				setVelY(getVelY() -5);
-				if(getVelY() < -21)
+				setVelY(getVelY() -4);
+				if(getVelY() < -20)
 					isBumpingGround(false);
 			}
 	}
