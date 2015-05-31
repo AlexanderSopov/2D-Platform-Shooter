@@ -18,11 +18,12 @@ public class Sound {
 	 */
 	private Clip clip;
 	
-	
+	private static boolean allow = true;
+	private static float preVol = 0;
 	/**
 	 * Global Volume 
 	 */
-	private static float globalVol = 0;
+	//private static float globalVol;
 	
 	
 	/**
@@ -68,6 +69,7 @@ public class Sound {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		getVolControl().setValue(convertToWholeNumb(4));
 	}
 	
 	
@@ -235,7 +237,7 @@ public class Sound {
 	 * Get the Clip
 	 * @return clip
 	 */
-	public Clip getClip() {
+	private Clip getClip() {
 		return clip;
 	}
 	
@@ -282,7 +284,7 @@ public class Sound {
 	 * Get Volume Controller
 	 * @return volControl - Type FloatControl
 	 */
-	public static FloatControl getVolControl() {
+	private static FloatControl getVolControl() {
 		return volControl;
 	}
 	
@@ -292,26 +294,44 @@ public class Sound {
 	 */
 	public static void decreaseGlobalVol() {
 		System.out.println("SOUND Decrease");
-		getVolControl().setValue(convertVolControl(getGlobalVol() - 1));
+		checkSoundVolume();
+		if(isAllowChange()) {
+			getVolControl().setValue(convertToFCNumb(getCurrentVolume() - 1));
+		}
 	}
 	
-	
+	private static boolean isAllowChange() {
+		return allow;
+	}
+	private static void setAllowChange(boolean value) {
+		allow = value;
+	}
+	private static void checkSoundVolume() {
+		float vol = convertToWholeNumb(getVolControl().getValue());
+		if(vol == 0 || vol == 10) {
+			setAllowChange(false);
+		} else {
+			setAllowChange(true);
+		}
+	}
 	/**
 	 * Increase Global Volume with 1
 	 */
 	public static void increaseGlobalVol() {
 		System.out.println("SOUND Increase");
-		getVolControl().setValue(convertVolControl(getGlobalVol() + 1));
+		if(isAllowChange()) {
+			getVolControl().setValue(convertToFCNumb(getCurrentVolume() + 1));
+		}
 	}
-
-
+	
+	
 	/**
 	 * Get the current global volume
 	 * @return globalVol - An integer that returns the current volume.
 	 */
-	public static float getGlobalVol() {
-		return globalVol;
-	}
+//	public static float getGlobalVol() {
+//		return globalVol;
+//	}
 	
 	
 	/**
@@ -321,9 +341,7 @@ public class Sound {
 	 * @throws IllegalArgumentException Throws if not meet requirements
 	 */
 	public void setGlobalVol(float vol) throws IllegalArgumentException {
-		globalVol = vol;
-		float volc = convertVolControl(vol);
-		getVolControl().setValue(volc);
+		getVolControl().setValue(convertToWholeNumb(vol));
 	}
 	
 	
@@ -336,7 +354,7 @@ public class Sound {
 	 * @param preVol
 	 * @return postVol 
 	 */
-	private static float convertVolControl(float preVol) {
+	private static float convertToWholeNumb(float preVol) {
 		float postVol = 0;
 		if(preVol <= 10 && preVol >= 0) {
 			if(preVol == 10) {
@@ -368,11 +386,63 @@ public class Sound {
 		return postVol;
 	}
 	
-	public static void setSoundOnOff() {
-		if(sound.getClip().isActive()) {
-			sound.getClip().stop();
+	
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private static float convertToFCNumb(float value) {
+		float postValue = 0;
+		if(value >= -80 && value < -79) {
+			postValue = 0;
+		} else if(value >= -79 && value < -70) {
+			postValue = 1; 
+		} else if(value >= -70 && value < -61) {
+			postValue = 2;
+		} else if(value >= -61 && value < -52) {
+			postValue = 3;
+		} else if(value >= -52 && value < -43) {
+			postValue = 4;
+		} else if(value >= -43 && value < -36) {
+			postValue = 5;
+		} else if(value >= -36 && value < -27) {
+			postValue = 6;
+		} else if(value >= -27 && value < -18) {
+			postValue = 7;
+		} else if(value >= -18 && value < -9) {
+			postValue = 8;
+		} else if(value >= -9 && value < 6) {
+			postValue = 9;
+		} else if(value == 6) {
+			postValue = 10;
 		} else {
-			sound.getClip().start();
+			throw new IllegalArgumentException("Didnt meet the requirements");
+		}
+		return postValue;
+	}
+	
+	
+	/**
+	 * Mute all Sound
+	 */
+	public static void setSoundOnOff() {
+		setCurrentVolume();
+		if(getVolControl().getValue() != -80) {
+			getVolControl().setValue(-80);
+		} else {
+			getVolControl().setValue(getCurrentVolume());
+		}
+	}
+	
+	
+	public static float getCurrentVolume() {
+		return preVol;
+	}
+	
+	private static void setCurrentVolume() {
+		if(getCurrentVolume() != getVolControl().getValue()) {
+			preVol = convertToFCNumb(getVolControl().getValue());
 		}
 	}
 }

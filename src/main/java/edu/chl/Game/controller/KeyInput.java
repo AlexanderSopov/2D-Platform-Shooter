@@ -7,6 +7,7 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
 import edu.chl.Game.model.gameobject.item.Inventory;
+import edu.chl.Game.model.sound.Sound;
 
 
 public class KeyInput implements KeyListener {
@@ -61,6 +62,12 @@ public class KeyInput implements KeyListener {
 					break;
 					case KeyEvent.VK_R:
 						handler.restart();
+						break;
+					case KeyEvent.VK_I:
+						Sound.increaseGlobalVol();
+						break;
+					case KeyEvent.VK_K:
+						Sound.decreaseGlobalVol();
 						break;
 					}
 				}

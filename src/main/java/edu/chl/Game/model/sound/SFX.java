@@ -46,7 +46,7 @@ public final class SFX extends Sound implements SFXInterface {
 		 * Volume Controller 
 		 * Problem at .VOLUME
 		 */
-		volSFXControl = (FloatControl)getClip().getControl(FloatControl.Type.MASTER_GAIN);
+		//volSFXControl = (FloatControl)getClip().getControl(FloatControl.Type.MASTER_GAIN);
 		
 		
 	}
