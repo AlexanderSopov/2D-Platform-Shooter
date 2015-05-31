@@ -17,8 +17,10 @@ public class EntityVsTile extends CollisionStrategy {
 	protected void specialTrick(GotHitOnThe sideGotHit) {
 		if(sideGotHit == GotHitOnThe.Bottom)
 			en.isBumpingGround(true);
-		else if(sideGotHit == GotHitOnThe.Top)
+		else if(sideGotHit == GotHitOnThe.Top){
+			en.isBumpingGround(false);
 			en.setVelY(0);
+		}
 	}
 	
 	protected void noHit(){
