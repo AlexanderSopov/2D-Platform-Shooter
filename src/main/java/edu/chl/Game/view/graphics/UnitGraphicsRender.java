@@ -28,14 +28,12 @@ public class UnitGraphicsRender {
 			try {
 				en.getRenderClass().renderAnimateRight(g, en.getArrayMovingAnimation(), en.getFrameIterator_moving().getFrame(), en.getX(),en.getY(), en.getWidth(), en.getHeight());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else if (en.getEntityState().getFacingDirection() == FacingDirection.FacingLeft) {
 			try {
 				en.getRenderClass().renderAnimateLeft(g, en.getArrayMovingAnimation(), en.getFrameIterator_moving().getFrame(), en.getX(), en.getY(), en.getWidth(), en.getHeight(), changeRow);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -1,6 +1,14 @@
 package edu.chl.Game.model.gameobject.entity;
 
+/**
+ * EntityState is an older version of the physical and collision detection system. Its current use is handeling 
+ * the facing direction of the units of the game.
+ * 
+ * @author Oliver Tunberg
+ */
+
 public class EntityState {
+	
 	
 	private boolean jumping = false;
 	private boolean falling = true;

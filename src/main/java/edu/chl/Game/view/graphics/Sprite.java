@@ -2,6 +2,13 @@ package edu.chl.Game.view.graphics;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * 
+ * Sprite models an image taken from a spritesheet.
+ * 
+ * @author Oliver Tunberg
+ */
+
 public class Sprite {
 	
 	public SpriteSheet sheet;

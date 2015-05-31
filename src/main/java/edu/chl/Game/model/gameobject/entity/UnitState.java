@@ -2,6 +2,12 @@ package edu.chl.Game.model.gameobject.entity;
 
 import edu.chl.Game.model.gameobject.Id;
 
+/**
+ * UnitState decides the states and the Id of the unit.
+ * 
+ * @author Oliver Tunberg
+ */
+
 public class UnitState {
 
 	private boolean solid;

@@ -27,5 +27,16 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/gdx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/gdx-backend-lwjgl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/gdx-backend-lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/tween-engine-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gulledompi/Documents/GitHub/Project-TDA367/libs/tween-engine-api-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

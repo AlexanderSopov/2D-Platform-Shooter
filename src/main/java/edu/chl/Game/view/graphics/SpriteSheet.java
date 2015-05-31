@@ -5,6 +5,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * SpriteSheet is an image divided into a grid of small images. 
+ * 
+ * @author Oliver Tunberg
+ */
+
 public class SpriteSheet {
 	
 	private BufferedImage sheet;

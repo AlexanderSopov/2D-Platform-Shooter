@@ -1,5 +1,11 @@
 package edu.chl.Game.model.gameobject.entity;
 
+/**
+ * UnitMeasurement contains all the integer values needed to display the graphics of the unit. 
+ * 
+ * @author Oliver Tunberg
+ */
+
 public class UnitMeasurement {
 	
 	private int numberOfSprites_move;

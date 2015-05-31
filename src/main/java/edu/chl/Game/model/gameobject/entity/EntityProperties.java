@@ -2,6 +2,10 @@ package edu.chl.Game.model.gameobject.entity;
 
 public class EntityProperties {
 	
+	/**
+	 * @author Oliver Tunberg
+	 */
+	
 	private double gravity;
 	
 	public EntityProperties(){
