@@ -37,7 +37,7 @@ public class ItemTest {
 	@Test
 	public void itemStateTest() {
 		
-		
+		// test to sett state to null
 		itemTest = new W1(0,0, 0,0,null, rt.getHandler());
 		
 		itemTest.switchState(null);
@@ -45,7 +45,7 @@ public class ItemTest {
 		assertNotNull(itemTest.getState());
 		
 		
-		
+		// normal conditions
 		itemTest.switchState(State.equipped);
 		
 		assertTrue(itemTest.getState() == State.equipped);

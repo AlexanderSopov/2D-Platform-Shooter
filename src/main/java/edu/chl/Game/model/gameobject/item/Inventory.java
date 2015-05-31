@@ -260,7 +260,7 @@ public class Inventory implements Storable {
 			Item item = ItemFactory.createItem(str);
 
 			addItem(item);
-			System.out.println("add");
+			
 		}
 	}
 	
