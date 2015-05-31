@@ -18,6 +18,10 @@ import edu.chl.Game.controller.State;
  */
 public final class Music extends Sound implements MusicInterface {
 	
+	public Music(String path) {
+		super(path);
+		// TODO Auto-generated constructor stub
+	}
 	private static Map<String, Sound> musicHashMap = new HashMap<String, Sound>();
 	
 	
@@ -32,12 +36,9 @@ public final class Music extends Sound implements MusicInterface {
 	 */
 	private static float volumeMusic = 5;
 	
-	public Music() {
-		
-	}
 	
 	/**
-	 * Plays the music depending on the state of the appliaction
+	 * Plays the music depending on the state of the application
 	 */
 	public static void playMusic(){
 		if(RefreshTimer.state == State.MAIN_MENU || RefreshTimer.state == State.MAP){
@@ -92,6 +93,13 @@ public final class Music extends Sound implements MusicInterface {
 		addMusic("musicdrums2", "musicdrums2.mp3");
 		addMusic("gamemusic", "gameMusic.mp3");
 		addMusic("advancedwarfare", "advancedwarfare.mp3");
+		addMusic("awake", "Awake.mp3");
+		addMusic("awalk", "AWalk.mp3");
+		addMusic("nubus", "Nubus.mp3");
+		addMusic("togeheter", "Togeheter.mp3");
+		addMusic("walker", "Walker.mp3");
+		addMusic("adair", "Adair.mp3");
+		addMusic("luvdeluxe", "LuvDeluxe.mp3");
 	}
 	
 	/**
@@ -221,10 +229,10 @@ public final class Music extends Sound implements MusicInterface {
 		getMusic().get("advancedwarfare").stop();	
 	}
 	public void playWorldTwoMapFour() {
-		
+		getMusic().get("awake").loop();
 	}
 	public void stopWorldTwoMapFour() {
-		
+		getMusic().get("awake").stop();
 	}
 	
 	/**
@@ -232,22 +240,22 @@ public final class Music extends Sound implements MusicInterface {
 	 * 
 	 */
 	public void playWorldThreeMapOne() {
-		
+		getMusic().get("awalk").loop();
 	}
 	public void stopWorldThreeMapOne() {
-		
+		getMusic().get("awalk").stop();
 	}
 	public void playWorldThreeMapTwo() {
-		
+		getMusic().get("nubus").loop();
 	}
 	public void stopWorldThreeMapTwo() {
-		
+		getMusic().get("nubus").stop();
 	}
 	public void playWorldThreeMapThree() {
-		
+		getMusic().get("togeheter").loop();
 	}
 	public void stopWorldThreeMapThree() {
-		
+		getMusic().get("togeheter").stop();
 	}
 	
 	/**
@@ -255,21 +263,21 @@ public final class Music extends Sound implements MusicInterface {
 	 * 
 	 */
 	public void playWorldFourMapOne() {
-		
+		getMusic().get("walker").loop();
 	}
 	public void stopWorldFourMapOne() {
-		
+		getMusic().get("walker").stop();
 	}
 	public void playWorldFoureMapTwo() {
-		
+		getMusic().get("adair").loop();
 	}
 	public void stopWorldFoureMapTwo() {
-		
+		getMusic().get("adair").stop();
 	}
 	public void playWorldFourMapThree() {
-		
+		getMusic().get("luvdeluxe").loop();
 	}
 	public void stopWorldFourMapThree() {
-		
+		getMusic().get("luvdeluxe").stop();
 	}
 }

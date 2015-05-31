@@ -2,7 +2,7 @@ package edu.chl.Game.controller;
 
 
 
-import java.awt.Cursor;
+import java.awt.Cursor;	
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 
 import edu.chl.Game.model.gameobject.entity.player.GameCursor.CursorState;
 import edu.chl.Game.model.sound.Music;
+import edu.chl.Game.model.sound.SFX;
 import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.WorldMapView;
 
@@ -67,7 +68,8 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		//Insde the Game
 		if(RefreshTimer.state == State.GAME){
-			handler.getPlayer().shoot();	
+			handler.getPlayer().shoot();
+			SFX.playDefaultGunShot();
 		}
 		
 		//Set the state to submenu when clicked on

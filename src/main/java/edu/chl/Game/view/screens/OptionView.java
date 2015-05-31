@@ -135,7 +135,7 @@ public class OptionView extends AbstractMenuScreen {
 		
 		//Buttons and Labels for submenu Sound
 		Label soundLabel = new Label("Sound:", skin);
-		soundStatusLabel = new Label(Integer.toString(Sound.getCurrentVolume()), skin);
+		Label soundStatusLabel = new Label(Integer.toString((int)Sound.getCurrentVolume()), skin);
 		
 		TextButton soundIncrease = new TextButton("+", skin);
 		soundIncrease.addListener(mouseInput);

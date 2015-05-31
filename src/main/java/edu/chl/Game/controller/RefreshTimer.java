@@ -46,6 +46,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	
 	public RefreshTimer(){
 		Music.addToAccessMusic();
+		SFX.addToAccessSFX();
 		thread = new Thread(this);
 		frame = new Frame();
 		

@@ -55,13 +55,11 @@ public class Sound {
 	 */
 	private static FloatControl volControl;
 	
-	private static Sound sound;
-	
+
 	public Sound(String path) {
 		setSoundInput(path);
 		setSoundFormat(getSoundInput().getFormat());
 		initSound();
-		sound = new Sound();
 		
 		try {
 			initClip();
@@ -69,6 +67,8 @@ public class Sound {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		getVolControl().setValue(4);
+		setCurrentVolume();
 	}
 	
 	
@@ -76,7 +76,7 @@ public class Sound {
 	 * Use for init instance of sound
 	 */
 	public Sound() {
-		
+
 	}
 	
 	
@@ -212,7 +212,7 @@ public class Sound {
 	 * @return soundResult - Type AudioInputStream
 	 */
 	private AudioInputStream getSoundResult() {
-		return this.soundResult;
+		return soundResult;
 	}
 	
 	
@@ -287,24 +287,16 @@ public class Sound {
 		return volControl;
 	}
 	
-	
-	/**
-	 * Decrease Global Volume with 1
-	 */
-	public static void decreaseGlobalVol() {
-		System.out.println("SOUND Decrease");
-		checkSoundVolume();
-		if(isAllowChange()) {
-			getVolControl().setValue(convertToFCNumb(getCurrentVolume() - 1));
-		}
-	}
-	
 	private static boolean isAllowChange() {
 		return allow;
 	}
+	
+	
 	private static void setAllowChange(boolean value) {
 		allow = value;
 	}
+	
+	
 	private static void checkSoundVolume() {
 		float vol = convertToWholeNumb(getVolControl().getValue());
 		if(vol == 0 || vol == 10) {
@@ -313,34 +305,30 @@ public class Sound {
 			setAllowChange(true);
 		}
 	}
+	
+	
 	/**
 	 * Increase Global Volume with 1
 	 */
 	public static void increaseGlobalVol() {
 		System.out.println("SOUND Increase");
-		if(isAllowChange()) {
-			getVolControl().setValue(convertToFCNumb(getCurrentVolume() + 1));
-		}
+		
+		float f = getCurrentVolume() + 1;
+			getVolControl().setValue(convertToWholeNumb(f));
+//			clip.start();
+			setCurrentVolume();
 	}
 	
-	
 	/**
-	 * Get the current global volume
-	 * @return globalVol - An integer that returns the current volume.
+	 * Decrease Global Volume with 1
+	 * @throws Exception 
 	 */
-//	public static float getGlobalVol() {
-//		return globalVol;
-//	}
-	
-	
-	/**
-	 * Set Global Volume<p>
-	 * Add a number within range 0 to 10.
-	 * @param vol - Type float
-	 * @throws IllegalArgumentException Throws if not meet requirements
-	 */
-	public void setGlobalVol(float vol) throws IllegalArgumentException {
-		getVolControl().setValue(convertToWholeNumb(vol));
+	public static void decreaseGlobalVol() {
+		System.out.println("SOUND Decrease");
+		
+			float f = getCurrentVolume() - 1;
+			getVolControl().setValue(convertToWholeNumb(f));
+			setCurrentVolume();
 	}
 	
 	
@@ -359,10 +347,13 @@ public class Sound {
 			if(preVol == 10) {
 				postVol = 6;
 			} else if(preVol == 9) {
+				setCurrentVolume();
 				postVol = -9;
 			} else if(preVol == 8) {
+				setCurrentVolume();
 				postVol = -18;
 			} else if(preVol == 7) {
+				setCurrentVolume();
 				postVol = -27;
 			} else if(preVol == 6) {
 				postVol = -36;
@@ -379,17 +370,19 @@ public class Sound {
 			} else if(preVol == 0) {
 				postVol = -80;
 			}
-		} else {
-			throw new IllegalArgumentException("Didnt meet the requirements");
-		}
+		} 
 		return postVol;
 	}
 	
 	
 	/**
+	 * Convert from scale -80-6 to 0-10<p>
+	 * The purpose of this converting is to display 
+	 * the current volume in option, increase, decrease
+	 * and set a volume in a much easier way.
 	 * 
-	 * @param value
-	 * @return
+	 * @param value - Set a float number from -80-6 to convert
+	 * @return postValue - Float type which contains the converted number
 	 */
 	private static float convertToFCNumb(float value) {
 		float postValue = 0;
@@ -415,8 +408,6 @@ public class Sound {
 			postValue = 9;
 		} else if(value == 6) {
 			postValue = 10;
-		} else {
-			throw new IllegalArgumentException("Didnt meet the requirements");
 		}
 		return postValue;
 	}
@@ -435,10 +426,17 @@ public class Sound {
 	}
 	
 	
-	public static int getCurrentVolume() {
-		return (int)preVol;
+	/**
+	 * Get the Current Volume in scale 0-10
+	 * @return preVol - Float type
+	 */
+	public static float getCurrentVolume() {
+		return preVol;
 	}
 	
+	/**
+	 * Sets the current volume
+	 */
 	private static void setCurrentVolume() {
 		preVol = convertToFCNumb(getVolControl().getValue());
 	}
