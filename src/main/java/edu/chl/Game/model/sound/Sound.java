@@ -16,7 +16,7 @@ public class Sound {
 	 * Init clip
 	 * @see Clip
 	 */
-	private static Clip clip;
+	private Clip clip;
 	
 	
 	/**

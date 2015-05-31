@@ -4,9 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Observable;
 
-import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor.CursorState;
-import edu.chl.Game.model.gameobject.tile.Tile;
 import edu.chl.Game.view.CharacterSelectionView;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.FrameGDX;
@@ -35,20 +33,19 @@ public class RefreshTimer extends Observable implements Runnable{
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MAP;
+	public static State state = State.MAIN_MENU;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
 	public static String selectedMap = levels[0];
 	
 	public static Boolean inMainMenu = false;
-	private Boolean initMusic = false;
 	private double delta = 0.0;
 	private int frameRate=1;
 	private int second=1;
 	
 	public RefreshTimer(){
-		//Music.addToAccessMusic();
+		Music.addToAccessMusic();
 		thread = new Thread(this);
 		frame = new Frame();
 		
@@ -57,12 +54,16 @@ public class RefreshTimer extends Observable implements Runnable{
 		charSelectionView = new CharacterSelectionView(movingChar);
 
 		gameHandler = new GameHandler(this, frame, subMenuView);
-		mouseInput = new MenuMouseInput(this ,mapView, subMenuView, gameHandler);
+		mouseInput = new MouseInput(this ,mapView, gameHandler, subMenuView);
 		
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
 		frame.addMouseMotionListener(mouseInput);
-		this.changeGameState(state);
+		
+		if(state == State.GAME){
+			gameHandler.getGameCursor().changeState(CursorState.AIM);
+		}
+		
 		start();
 	}
 
@@ -106,14 +107,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
-		
-		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){
-			if(!initMusic){
-				//Music.stopMenu();
-				//Music.playWorldOneMapOne();
-				initMusic = true;
-			}
-			
+		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){	
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
 				frame.createBufferStrategy(3);
@@ -122,15 +116,10 @@ public class RefreshTimer extends Observable implements Runnable{
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
 			if(!inMainMenu){
-				Music.stopWorldOneMapOne();
 				Music.playMenu();
-				
-				initMusic = false;
 				inMainMenu = true;
 				
 				new FrameGDX(frame);
-			}else{
-				//setScreen(mainMenu);
 			}
 		}
 		frame.setVisible(true);
@@ -213,20 +202,4 @@ public class RefreshTimer extends Observable implements Runnable{
 	public GameHandler getHandler(){
 		return gameHandler;
 	}
-	
-	public  void changeGameState(State newState){
-		state = newState;
-		if(state == State.GAME){
-			frame.removeMouseListener(mouseInput);
-			frame.removeMouseMotionListener(mouseInput);
-			mouseInput = new MouseInput(gameHandler, subMenuView);
-			frame.addMouseListener(mouseInput);
-			frame.addMouseMotionListener(mouseInput);
-			gameHandler.getGameCursor().changeState(CursorState.AIM);
-		}else{
-			gameHandler.getGameCursor().changeState(CursorState.DEFULT);
-		}
-	}
-	
-
 }
