@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import edu.chl.Game.model.sound.Music;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
 import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
@@ -32,6 +31,7 @@ import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
 public class OptionView extends AbstractMenuScreen {
 	
 	private Table tableGraphics;
+	private Table tableSound;
 	private Boolean soundState = true;
 	
 	private Animator animationGraphics;
@@ -56,31 +56,12 @@ public class OptionView extends AbstractMenuScreen {
 		
 		//GraphicButton
 		TextButton buttonGraphic = new TextButton("Graphic", skin);
-		buttonGraphic.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y){
-				tableGraphics.setVisible(true);
-			}
-		});
+		buttonGraphic.addListener(mouseInput);
 		buttonGraphic.pad(10);
 		
 		//SoundButton
-		TextButton buttonSound = new TextButton("Sound:On", skin);
-		buttonSound.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y){
-				tableGraphics.setVisible(false);
-				if(soundState){
-					Music.stopMenu();
-					buttonSound.setText("Sound:Off");
-					soundState = false;
-				}else{
-					Music.playMenu();
-					buttonSound.setText("Sound:On");
-					soundState = true;
-				}
-			}
-		});
+		TextButton buttonSound = new TextButton("Sound", skin);
+		buttonSound.addListener(mouseInput);
 		buttonSound.pad(10);
 		
 		//BackButton
@@ -123,9 +104,12 @@ public class OptionView extends AbstractMenuScreen {
 		tweenManager.update(Gdx.graphics.getDeltaTime());
 	}
 	
+	//Set the table for the submenus
 	private void showSubmenu(){
 		tableGraphics = new Table(skin);
+		tableSound = new Table(skin);
 		tableGraphics.setFillParent(true);
+		tableSound.setFillParent(true);
 		
 		//Buttons for submenu Graphics
 		TextButton buttonLowGraphic = new TextButton("Low", skin);
@@ -148,23 +132,69 @@ public class OptionView extends AbstractMenuScreen {
 		});
 		buttonHighGraphic.pad(10);
 		
+		//Buttons and Labels for submenu Sound
+		Label soundLabel = new Label("Sound:", skin);
+		Label soundStatusLabel = new Label("10", skin);
 		
-		// Adds buttons to the tables & stages
+		TextButton soundIncrease = new TextButton("+", skin);
+		soundIncrease.addListener(mouseInput);
+		soundIncrease.pad(10);
+		
+		TextButton soundDecrease = new TextButton("-", skin);
+		soundDecrease.addListener(mouseInput);
+		soundDecrease.pad(10);
+		
+		TextButton soundOn = new TextButton("On", skin);
+		soundOn.addListener(mouseInput);
+		soundOn.pad(10);
+
+		TextButton soundOff = new TextButton("Off", skin);
+		soundOff.addListener(mouseInput);
+		soundOff.pad(10);
+		
+		// Set-up and Adds buttons to the Graphic table.
 		tableGraphics.add(buttonLowGraphic).padTop(250).padLeft(480).width(120);
 		tableGraphics.add(buttonHighGraphic).padTop(250).width(120);
 		tableGraphics.setVisible(false);
-		
 		stage.addActor(tableGraphics);
+		
+		// Set-up and Adds buttons to the Sound table.
+		tableSound.add(soundLabel).padTop(150).padLeft(400);
+		tableSound.add(soundStatusLabel).padTop(150);
+		tableSound.add(soundDecrease).padTop(150);
+		tableSound.add(soundIncrease).padTop(150).row();
+		tableSound.add(soundOn).padTop(75).padLeft(480).width(70);
+		tableSound.add(soundOff).padTop(75).width(70);
+		tableSound.setVisible(false);
+		stage.addActor(tableSound);
 	}
 	
 	@Override
 	public void render(float delta){
 		super.render(delta);
-		if(!tableGraphics.isVisible()){
-			animation.renderAnimation();
-		}else{
+		
+		if(tableGraphics.isVisible()){
 			animationGraphics.renderAnimation();
+		}else if(!tableGraphics.isVisible() && !tableSound.isVisible()){
+			animation.renderAnimation();
 		}
+		
 		tweenManager.update(delta);
+	}
+	
+	/**
+	 * Get the table of Graphic option
+	 * @return Table: Graphic
+	 */
+	public Table getTableGraphic(){
+		return tableGraphics;
+	}
+	
+	/**
+	 * Get the table of Sound options
+	 * @return Table: Sound
+	 */
+	public Table getTableSound(){
+		return tableSound;
 	}
 }
