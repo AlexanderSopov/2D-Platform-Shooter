@@ -5,13 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.chl.Game.controller.RefreshTimer;
+
 public class FrameGDXTest {
 	
 	private FrameGDX f;
 	
 	@Before
 	public void FrameGDXTestInit(){
-		f = new FrameGDX(new Frame());
+		f = new FrameGDX(new RefreshTimer(), new Frame());
 	}
 
 	@Test

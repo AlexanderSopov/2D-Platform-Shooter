@@ -18,7 +18,7 @@ public class Animator {
 	private Animation animation;
 	private Texture spriteSheet;
 	private SpriteBatch spriteBatch;
-	private TextureRegion[] spriteFrames;
+	private TextureRegion[] spriteImages;
 	private TextureRegion currentFrame;
 	
 	float frameSpeed, stateTime;
@@ -45,15 +45,15 @@ public class Animator {
 		this.frameSpeed = frameSpeed;
 		
 		TextureRegion[][] tmp = TextureRegion.split(spriteSheet, collumWidth, collumHeight);
-		spriteFrames = new TextureRegion[rows*cols];
+		spriteImages = new TextureRegion[rows*cols];
 		int index = 0;
 		for(int i = 0; i < rows; i++ ){
 			for(int k = 0; k < cols; k++){
-				spriteFrames[index++] = tmp[i][k];
+				spriteImages[index++] = tmp[i][k];
 			}
 		}
 		
-		animation = new Animation(frameSpeed, spriteFrames);
+		animation = new Animation(frameSpeed, spriteImages);
 	}
 	
 	/**
@@ -66,4 +66,45 @@ public class Animator {
 		spriteBatch.draw(currentFrame, Frame.WIDTH - Frame.WIDTH/3, Frame.HEIGHT/3, 150, 150);
 		spriteBatch.end();
 	}
+	
+	/**
+	 * Returns the animation with its speed and Sprite Images
+	 * @return
+	 */
+	public Animation getAnimation() {
+		return animation;
+	}
+	
+	/**
+	 * The SpriteSheet that contains all the Sprite Images
+	 * @return spriteSheet
+	 */
+	public Texture getSpriteSheet() {
+		return spriteSheet;
+	}
+	
+	/**
+	 * The texture region that has all the Sprites in an array
+	 * @return spriteImages
+	 */
+	public TextureRegion[] getSpriteImages() {
+		return spriteImages;
+	}
+	
+	/**
+	 * Get the current Sprite image texture region
+	 * @return currentFrame
+	 */
+	public TextureRegion getCurrentFrame() {
+		return currentFrame;
+	}
+	
+	/**
+	 * Get the speed on how fast the Sprite Images iterates
+	 * @return frameSpeed
+	 */
+	public float getFrameSpeed() {
+		return frameSpeed;
+	}
+
 }
