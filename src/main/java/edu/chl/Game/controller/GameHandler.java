@@ -23,7 +23,6 @@ import edu.chl.Game.view.Camera;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.ParallaxBackground;
-import edu.chl.Game.view.graphics.DeathAnimation;
 import edu.chl.Game.view.graphics.DeathSystem;
 
 
