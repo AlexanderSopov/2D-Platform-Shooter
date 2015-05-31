@@ -54,17 +54,13 @@ public class GameCursor extends Entity {
 	public void render(Graphics g) {
 		switch (this.state) {
 		case AIM:
-
 			g.setColor(Color.red);
 			g.drawOval(getX() - 15, getY() - 15, 30, 30);
 			g.fillRect(getX(), getY(), 1, 1);
 			break;
-		case DEFULT:
-			
+		case DEFULT:	
 			g.drawImage(image, getX()-image.getWidth()/40, getY(), image.getWidth()/10, image.getHeight()/10, null);
-			
 			break;
-
 		}
                 
 		

@@ -1,9 +1,7 @@
 package edu.chl.Game.controller;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import edu.chl.Game.model.gameobject.Id;
@@ -13,14 +11,7 @@ import edu.chl.Game.model.gameobject.entity.player.GameCursor.CursorState;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.item.Item;
 import edu.chl.Game.model.gameobject.tile.*;
-//import edu.chl.Game.sound.Music;
 import edu.chl.Game.view.Camera;
-//import edu.chl.Game.model.sound.SFX;
-import edu.chl.Game.view.Frame;
-//import edu.chl.Game.sound.Sound;
-import edu.chl.Game.view.Camera;
-//import edu.chl.Game.model.sound.SFX;
-import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.ParallaxBackground;
 import edu.chl.Game.view.graphics.DeathSystem;
@@ -40,16 +31,8 @@ public class GameHandler {
 	private ParallaxBackground bgd = new ParallaxBackground();
 	private DeathSystem ds;
 
-
-	private BufferedImage mapImage;
-	private boolean changeHasHappened;
-	private int ref;
-	private Frame frame;
-
-	public GameHandler(RefreshTimer refreshTimer, Frame frame,
-			SubMenuView subMenuView) {
+	public GameHandler(RefreshTimer refreshTimer, SubMenuView subMenuView) {
 		this.refreshTimer = refreshTimer;
-		this.frame = frame;
 		this.subMenuView = subMenuView;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
@@ -57,7 +40,8 @@ public class GameHandler {
 		this.ds = new DeathSystem();
 
 	}
-
+	
+	//Adds observers to the objects
 	private void init() {
 		for (int i = 0; i < entity.size(); i++) {
 			if (entity.get(i).getUnitState().getId() == Id.player) {
@@ -67,7 +51,6 @@ public class GameHandler {
 
 		refreshTimer.addObserver(bgd);
 		for (Entity e: getEntityList())
-
 			refreshTimer.addObserver(e);
 		for (Tile t : getTileList())
 			refreshTimer.addObserver(t);
@@ -75,28 +58,41 @@ public class GameHandler {
 			refreshTimer.addObserver(it);
 
 	}
+	
+	//Remove all observers and clear all the linked lists of objects
+	private void removeAllObjects(){
+		for (Entity e: getEntityList())
+			refreshTimer.deleteObserver(e);
+		for (Tile t : getTileList())
+			refreshTimer.deleteObserver(t);
+		for (Item it : getItemList())
+			refreshTimer.deleteObserver(it);
+		
+		entity.clear();
+		tile.clear();
+		item.clear();
+	}
 
 	public void render(Graphics g) {
-
 		g.fillRect(0, 0, 1000, 600);
 		if(MapFactory.levelImage == null){
+			removeAllObjects();
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
-		
 		g.drawImage(bgd.background, bgd.backgroundX, bgd.backgroundY, 1000, 600, null);
 		g.drawImage(bgd.foreground, bgd.foregroundX, bgd.foregroundY, 1000, 600, null);
 		g.drawImage(bgd.foreground1, bgd.foreground1X, bgd.foreground1Y, 1000, 600, null);
 		
 		subMenuView.render((Graphics2D)g);
 		
-		g.translate(camera.getX(), camera.getY());
+		g.translate(Camera.getX(), Camera.getY());
 		
 		renderDeath(g);
 
 		for (Entity e : getEntityList()) {
 			if (e.getUnitState().getId() == Id.player) {
-				camera.update(e);
+				Camera.update(e);
 			}
 		}
 	}
