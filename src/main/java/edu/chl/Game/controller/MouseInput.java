@@ -138,7 +138,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	 *            the mousePosX to set
 	 */
 	private void setMousePosX(int mousePosX) {
-		mousePosX = mousePosX;
+		this.mousePosX = mousePosX;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	 *            the mousePosY to set
 	 */
 	private void setMousePosY(int mousePosY) {
-		mousePosY = mousePosY;
+		this.mousePosY = mousePosY;
 	}
 
 	/**

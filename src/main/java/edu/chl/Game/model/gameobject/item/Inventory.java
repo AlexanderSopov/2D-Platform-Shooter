@@ -133,7 +133,7 @@ public class Inventory implements Storable {
 			
 			Item item = this.itemMap.get(str);
 
-			if(item == null){
+			if(item != null){
 				
 				this.playerOutfit.equipeItem(item);
 				
@@ -260,7 +260,7 @@ public class Inventory implements Storable {
 			Item item = ItemFactory.createItem(str);
 
 			addItem(item);
-
+			System.out.println("add");
 		}
 	}
 	

@@ -14,12 +14,15 @@ public class ItemFactoryTest {
 	@Test
 	public void testCreateItem() {
 		
+		// testing empty
 		testItem = ItemFactory.createItem("");
 		assertTrue(testItem == null);
 		
+		// testing null
 		testItem = ItemFactory.createItem(null);
 		assertTrue(testItem == null);
 		
+		// testing acuall items
 		testItem = ItemFactory.createItem("hAt");
 		assertTrue(testItem.getClass().getSimpleName().equals("Hat"));
 		

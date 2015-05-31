@@ -13,15 +13,40 @@ import edu.chl.Game.controller.GameHandler;
 import edu.chl.Game.model.gameobject.GameObject;
 import edu.chl.Game.model.gameobject.Id;
 
+
+/**
+ * 
+ * Item is a GameObject and u can pick 
+ * them up in the inventory and later use them
+ * 
+ * @author Rasmus
+ *
+ */
 public abstract class Item extends GameObject implements Character {
 
 	private State state;
 	private GameHandler handler;
-
+	
+	/**
+	 * 
+	 *Items have a state 
+	 *
+	 *equipped - in use
+	 *
+	 *inventory - stored in inventory
+	 *
+	 *wating - wating to be picked up
+	 *
+	 */
 	public enum State {
 		equipped, inventory, wating;
 	}
-
+	
+	/**
+	 * 
+	 * Type defines what kind of item 
+	 *
+	 */
 	public enum Type {
 		WEAPON, HAT, SHOES, LIFE, SPECIAL
 	}
@@ -40,27 +65,31 @@ public abstract class Item extends GameObject implements Character {
 
 	@Override
 	public void render(Graphics g) {
-
+		//rendering a orange box
 		if (this.state == State.wating) {
 			g.setColor(Color.ORANGE);
-			g.fillRect(getX(), getY(), 32, 32);
+			g.fillRect(getX(), getY(), 64, 64);
+			//rendering the specific item 
 		} else if (this.state == State.equipped) {
 			equippedRender(g);
 		}
 
 	}
+	
+	//rendering the specific item when equipped
+	public abstract void equippedRender(Graphics g);
 
 	@Override
 	public void update() {
 		
 		if (this.state == State.equipped) {
+			//updating the equipped item
 			equippedUpdate();
 		}
 		
 	}
-
-	public abstract void equippedRender(Graphics g);
-
+	
+	//updating the equipped item
 	public abstract void equippedUpdate();
 
 
@@ -69,6 +98,7 @@ public abstract class Item extends GameObject implements Character {
 	public void remove() {
 
 		if (this.getHandler() != null) {
+			//demoving from handler itemlist
 			getHandler().removeItem(this);
 		}
 
@@ -77,6 +107,7 @@ public abstract class Item extends GameObject implements Character {
 	@Override
 	public abstract void effect();
 	
+	// --- Setters And Getters ---
 	
 	
 	public void switchState(State state) {
@@ -87,7 +118,8 @@ public abstract class Item extends GameObject implements Character {
 		
 	}
 	
-
+	
+	//set the handler if missing
 	public void setHandler(GameHandler handler) {
 		if (handler != null) {
 			this.handler = handler;
@@ -101,8 +133,10 @@ public abstract class Item extends GameObject implements Character {
 		return this.state;
 	}
 	
+	//get info about Item
 	public abstract String getInfo();
-
+	
+	//get path to Image of item
 	public abstract String getPath();
 	
 	@Override
@@ -111,9 +145,7 @@ public abstract class Item extends GameObject implements Character {
 	@Override
 	public abstract double getArmor();
 
-	/**
-	 * @return the NAME
-	 */
+
 	public String getNAME() {
 
 		return this.getClass().getSimpleName();
@@ -127,6 +159,8 @@ public abstract class Item extends GameObject implements Character {
 
 	}
 	
+	
+	// Creates a Bufferedimage from path and return it 
 	public BufferedImage getBufferedImage() {
 		BufferedImage image;
 		try {
@@ -138,17 +172,22 @@ public abstract class Item extends GameObject implements Character {
 		}
 
 	}
-
+	
+	//Flipp the Bufferedimage and return it
 	public BufferedImage getFlippedBufferedImage() {
+		
+		// get the image
 		BufferedImage image = getBufferedImage();
 		BufferedImage flippedImage = new BufferedImage(image.getWidth(),
 				image.getHeight(), image.getType());
-
+		
+		// create Affine transformation for the flipping
 		AffineTransform transformation = AffineTransform.getTranslateInstance(
 				image.getWidth(), 0);
 		AffineTransform fliping = AffineTransform.getScaleInstance(-1d, 1d);
 		transformation.concatenate(fliping);
-
+		
+		
 		Graphics2D g = flippedImage.createGraphics();
 		g.setTransform(transformation);
 		g.drawImage(image, 0, 0, null);

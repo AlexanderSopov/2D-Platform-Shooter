@@ -16,13 +16,26 @@ import java.awt.Graphics;
  */
 public interface Character{
    
-	
+	/**
+	 * rendering on the screen
+	 * @param g
+	 */
    public void render(Graphics g);
    
+   /**
+    * Update the object
+    */
    public void update();
     
+   /** 
+    * @return amount of health
+    */
    public double getHealth();
    
+   
+   /**
+    * @return the armor value
+    */
    public double getArmor();
    
    /**

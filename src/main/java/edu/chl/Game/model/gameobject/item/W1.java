@@ -54,7 +54,7 @@ public class W1 extends Item{
 	public void equippedRender(Graphics g) {
 		  
 		if (gc != null && en != null) {
-			
+			// rotate the gun after the angle between mouse and player
 			((Graphics2D) g).rotate(angle, en.getX() + en.getWidth() / 2, en.getY() + en.getHeight() / 2);
 			
 			g.drawImage(image, this.centerX - image.getWidth() / 12, this.centerY - image.getHeight() / 6 + 5, image.getWidth() / 3, image.getHeight() / 3, null);
@@ -67,6 +67,7 @@ public class W1 extends Item{
 	@Override
 	public void equippedUpdate() {
 		if(en != null){
+			// fix the center position
 			this.centerX = en.getX() + en.getWidth() / 2;
 			this.centerY = en.getY() + en.getHeight() / 2;
 			if (gc != null) {
@@ -82,7 +83,7 @@ public class W1 extends Item{
 
 	@Override
 	public void effect() {
-		
+		// create a bullet
 		Bullet b = new Bullet(this.centerX, this.centerY, getHandler(), this.angle, (image.getWidth() / 6) +30,0);
 		getHandler().addEntity(b);
 		

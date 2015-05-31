@@ -20,6 +20,7 @@ import edu.chl.Game.model.gameobject.item.Item.Type;
 
 /*
 /**
+ *PlayerOutfit makes it possible to wear items
  *
  * @author Rasmus
  */
@@ -27,6 +28,7 @@ public class PlayerOutfit implements Character{
     
 	private Player player;
 	private LinkedList<Item> equippedItems;
+	
 	
     public PlayerOutfit(Player player){
         
@@ -42,6 +44,12 @@ public class PlayerOutfit implements Character{
     }
 
    
+    /**
+     * 
+     * equipe a item to the outfit and change state to equiped
+     * 
+     * @param item
+     */
     public synchronized void equipeItem(Item item) {
     	if(!isItemequipped(item)){
     		if(player != null){
@@ -63,7 +71,7 @@ public class PlayerOutfit implements Character{
 
 	@Override
 	public synchronized void render(Graphics g) {
-		
+		//render all equipped items
 		Iterator<Item> itr = this.equippedItems.iterator();
     	while(itr.hasNext()){
     		Item item = (Item) itr.next();
@@ -71,13 +79,13 @@ public class PlayerOutfit implements Character{
     	
     	}
     	
-    	
 	}
 
 
 	@Override
 	public synchronized void update() {
 		
+		//update all equipped items
 		Iterator<Item> itr = this.equippedItems.iterator();
     	while(itr.hasNext()){
     		Item item = (Item) itr.next();
@@ -89,6 +97,8 @@ public class PlayerOutfit implements Character{
 	
 	@Override
     public synchronized void effect(){
+		
+		//effect all equipped items
     	Iterator<Item> itr = this.equippedItems.iterator();
     	while(itr.hasNext()){
     		Item item = (Item) itr.next();
@@ -98,10 +108,11 @@ public class PlayerOutfit implements Character{
     }
 
 
-     
+     // checking if the item is equipped
 	 public boolean isItemequipped(Item item){
 		 Iterator<Item> itr = this.equippedItems.iterator();
     	 while(itr.hasNext()){
+    		 
     		Item item2 = (Item)itr.next();
     		
     		if(item.getNAME().equals(item2.getNAME())){
@@ -116,14 +127,11 @@ public class PlayerOutfit implements Character{
 		return equippedItems;
 	}
 
+	
 
 	public void setEquippedItems(LinkedList<Item> equippedItems) {
 		this.equippedItems = equippedItems;
 	}
-	
-    public void placeOnPlayer(Item item){
-    	 
-    }
 	
 	@Override
 	public double getHealth() {
