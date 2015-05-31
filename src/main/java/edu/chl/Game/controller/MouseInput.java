@@ -22,8 +22,9 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
+
 	
-	private Cursor blankCursor;//hide 
+	private Cursor blankCursor;
     private GameHandler handler ;
     private SubMenuView subMenuView;
 	private WorldMapView mapView;

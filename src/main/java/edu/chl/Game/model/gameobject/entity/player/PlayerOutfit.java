@@ -20,6 +20,7 @@ import edu.chl.Game.model.gameobject.item.Item.Type;
 
 /*
 /**
+ *PlayerOutfit makes it possible to wear items
  *
  * @author Rasmus
  */
@@ -28,6 +29,7 @@ public class PlayerOutfit implements Character{
 	private Player player;
 	private LinkedList<Item> equippedItems;
 	
+	
     public PlayerOutfit(Player player){
         
         this.player = player;
@@ -35,13 +37,19 @@ public class PlayerOutfit implements Character{
         
     }
     
-  public PlayerOutfit(){
+    public PlayerOutfit(){
         
         this.equippedItems = new LinkedList<Item>();
         
     }
 
    
+    /**
+     * 
+     * equipe a item to the outfit and change state to equiped
+     * 
+     * @param item
+     */
     public synchronized void equipeItem(Item item) {
     	if(!isItemequipped(item)){
     		if(player != null){
@@ -60,16 +68,37 @@ public class PlayerOutfit implements Character{
     	item.switchState(State.inventory);
     }
     
-    public void placeOnPlayer(Item item){
- 
-    }
-    
-    private void setPosition(Item item, Point p){
-    	item.setX(p.x);
-    	item.setY(p.y);
-    }
-    
+
+	@Override
+	public synchronized void render(Graphics g) {
+		//render all equipped items
+		Iterator<Item> itr = this.equippedItems.iterator();
+    	while(itr.hasNext()){
+    		Item item = (Item) itr.next();
+    		item.render(g);
+    	
+    	}
+    	
+	}
+
+
+	@Override
+	public synchronized void update() {
+		
+		//update all equipped items
+		Iterator<Item> itr = this.equippedItems.iterator();
+    	while(itr.hasNext()){
+    		Item item = (Item) itr.next();
+    		item.update();
+    		
+    	}
+		
+	}
+	
+	@Override
     public synchronized void effect(){
+		
+		//effect all equipped items
     	Iterator<Item> itr = this.equippedItems.iterator();
     	while(itr.hasNext()){
     		Item item = (Item) itr.next();
@@ -79,33 +108,31 @@ public class PlayerOutfit implements Character{
     }
 
 
-	@Override
-	public synchronized void render(Graphics g) {
-		
-		Iterator<Item> itr = this.equippedItems.iterator();
-    	while(itr.hasNext()){
-    		Item item = (Item) itr.next();
-    		item.render(g);
-    	
-    	}
-    	
-    	
-	}
-
-
-	@Override
-	public synchronized void update() {
-		
-		Iterator<Item> itr = this.equippedItems.iterator();
-    	while(itr.hasNext()){
-    		Item item = (Item) itr.next();
-    		item.update();
+     // checking if the item is equipped
+	 public boolean isItemequipped(Item item){
+		 Iterator<Item> itr = this.equippedItems.iterator();
+    	 while(itr.hasNext()){
+    		 
+    		Item item2 = (Item)itr.next();
     		
-    	}
-		
+    		if(item.getNAME().equals(item2.getNAME())){
+    			return true;
+    		}
+    	 }
+    	 return false;
+	 }
+
+
+	public LinkedList<Item> getEquippedItems() {
+		return equippedItems;
 	}
 
+	
 
+	public void setEquippedItems(LinkedList<Item> equippedItems) {
+		this.equippedItems = equippedItems;
+	}
+	
 	@Override
 	public double getHealth() {
 		double d = player.getHealth();
@@ -123,28 +150,6 @@ public class PlayerOutfit implements Character{
     		d += it.getArmor();
     	}
 		return d;
-	}
-    
-	 public boolean isItemequipped(Item item){
-		 Iterator<Item> itr = this.equippedItems.iterator();
-    	 while(itr.hasNext()){
-    		Item item2 = (Item)itr.next();
-    		
-    		if(item.getNAME().equals(item2.getNAME())){
-    			return true;
-    		}
-    	 }
-    	 return false;
-	 }
-
-
-	public LinkedList<Item> getEquippedItems() {
-		return equippedItems;
-	}
-
-
-	public void setEquippedItems(LinkedList<Item> equippedItems) {
-		this.equippedItems = equippedItems;
 	}
 
 }

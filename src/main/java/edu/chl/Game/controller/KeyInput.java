@@ -56,7 +56,7 @@ public class KeyInput implements KeyListener {
 					case KeyEvent.VK_8 :
 					case KeyEvent.VK_9 :
 						
-						handler.getPlayer().getInventory().eqipeItem((char)key);
+						handler.getPlayer().getInventory().equipItem((char)key);
 					break;
 					case KeyEvent.VK_R:
 						handler.restart();

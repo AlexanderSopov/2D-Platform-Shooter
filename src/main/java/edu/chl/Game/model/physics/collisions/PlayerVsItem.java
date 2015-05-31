@@ -28,7 +28,7 @@ public class PlayerVsItem extends CollisionStrategy {
 			if(!p.getInventory().isItemExsisting(it.getNAME())){
 				p.getInventory().addItem(it);
 				if(p.getInventory().isItemequipped(it.getNAME())){
-					p.getInventory().equipeItem(it.getNAME());
+					p.getInventory().equipItem(it.getNAME());
 				}
 			}else{
 				it.remove();

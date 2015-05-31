@@ -16,14 +16,15 @@ import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.ParallaxBackground;
 import edu.chl.Game.view.graphics.DeathSystem;
 
-
 public class GameHandler {
 	private RefreshTimer refreshTimer;
 
 	private SubMenuView subMenuView;
+
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private LinkedList<Item> item = new LinkedList<Item>();
+
 	private Player player;
 	private Camera camera;
 	private GameCursor c;
@@ -31,11 +32,13 @@ public class GameHandler {
 	private ParallaxBackground bgd = new ParallaxBackground();
 	private DeathSystem ds;
 
+
 	public GameHandler(RefreshTimer refreshTimer, SubMenuView subMenuView) {
+
 		this.refreshTimer = refreshTimer;
 		this.subMenuView = subMenuView;
 		camera = new Camera();
-		c = new GameCursor(this.camera, this);
+		c = new GameCursor(this);
 
 		this.ds = new DeathSystem();
 
@@ -50,7 +53,9 @@ public class GameHandler {
 		}
 
 		refreshTimer.addObserver(bgd);
+
 		for (Entity e: getEntityList())
+
 			refreshTimer.addObserver(e);
 		for (Tile t : getTileList())
 			refreshTimer.addObserver(t);
@@ -75,6 +80,7 @@ public class GameHandler {
 
 	public void render(Graphics g) {
 		g.fillRect(0, 0, 1000, 600);
+
 		if(MapFactory.levelImage == null){
 			removeAllObjects();
 			MapFactory.createMap(this, c, entity, tile, item);
@@ -88,6 +94,7 @@ public class GameHandler {
 		
 		g.translate(Camera.getX(), Camera.getY());
 		
+
 		renderDeath(g);
 
 		for (Entity e : getEntityList()) {
@@ -103,7 +110,7 @@ public class GameHandler {
 		entity = new LinkedList<Entity>();
 		tile = new LinkedList<Tile>();
 		camera = new Camera();
-		c = new GameCursor(this.camera, this);
+		c = new GameCursor(this);
 		c.changeState(CursorState.AIM);
 		addEntity(c);
 		MapFactory.levelImage = null;
@@ -193,7 +200,7 @@ public class GameHandler {
 		if (ds.isActive()) {
 			ds.render(g);
 			ds.getFrameIterator().updateFrameCounter();
-			if(!ds.getFrameIterator().isActive()){
+			if (!ds.getFrameIterator().isActive()) {
 				ds.setActive(false);
 			}
 		}

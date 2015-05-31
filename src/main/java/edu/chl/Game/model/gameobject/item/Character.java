@@ -6,25 +6,41 @@
 package edu.chl.Game.model.gameobject.item;
 
 
-import edu.chl.Game.model.gameobject.entity.Entity;
-
 import java.awt.Graphics;
-import java.util.Observer;
 
 /**
+ * Character is a interface for the items 
+ * that is wearable and it's character.
  *
  * @author Rasmus
  */
 public interface Character{
    
+	/**
+	 * rendering on the screen
+	 * @param g
+	 */
    public void render(Graphics g);
    
+   /**
+    * Update the object
+    */
    public void update();
     
+   /** 
+    * @return amount of health
+    */
    public double getHealth();
    
+   
+   /**
+    * @return the armor value
+    */
    public double getArmor();
    
+   /**
+    * effect will activate the special ability which is defined in each class
+    */
    public void effect();
     
 }
