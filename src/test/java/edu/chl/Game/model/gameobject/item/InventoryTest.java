@@ -8,7 +8,7 @@ import org.junit.Test;
 import edu.chl.Game.controller.RefreshTimer;
 
 
-public class TestInventory {
+public class InventoryTest {
 	
 	private RefreshTimer rf;
 	private Inventory testInventory;
@@ -53,11 +53,11 @@ public class TestInventory {
 		
 		testInventory = new Inventory();
 		
-		testInventory.addItem(new Nothing(0,0,0,0, null, rf.getHandler()));
-		testInventory.addItem(new W1(0,0,0,0, null, rf.getHandler()));
-		testInventory.addItem(new Hat(0,0,0,0, null, rf.getHandler()));
+		testInventory.addItem(item1);
+		testInventory.addItem(item2);
+		testInventory.addItem(item3);
 		
-		testInventory.eqipeItem(item1);
+		testInventory.equipeItem(item1);
 		
 		assertTrue(testInventory.isItemequipped(item1.getNAME()));
 		
@@ -66,6 +66,19 @@ public class TestInventory {
 		assertFalse(testInventory.isItemequipped(item1.getNAME()));
 		
 		assertFalse(testInventory.isItemequipped(null));
+		
+	}
+	
+	@Test
+	public  void saveandLoadTest(){
+		
+		testInventory = new Inventory();
+		
+		testInventory.addItem(new Nothing(0,0,0,0, null, rf.getHandler()));
+		testInventory.addItem(new W1(0,0,0,0, null, rf.getHandler()));
+		testInventory.addItem(new Hat(0,0,0,0, null, rf.getHandler()));
+		
+		testInventory.load();
 		
 	}
 	

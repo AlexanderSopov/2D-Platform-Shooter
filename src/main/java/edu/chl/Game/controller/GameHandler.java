@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.*;
 import edu.chl.Game.model.gameobject.entity.player.GameCursor;
+import edu.chl.Game.model.gameobject.entity.player.GameCursor.CursorState;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.item.Item;
 import edu.chl.Game.model.gameobject.tile.*;
@@ -74,7 +75,6 @@ public class GameHandler {
 		for (Item it : getItemList())
 			refreshTimer.addObserver(it);
 
-		// refreshTimer.getMouseInput().setCursor(c);
 	}
 
 	public void render(Graphics g) {
@@ -84,10 +84,12 @@ public class GameHandler {
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
-		subMenuView.render((Graphics2D)g);
+		
 		g.drawImage(bgd.background, bgd.backgroundX, bgd.backgroundY, 1000, 600, null);
 		g.drawImage(bgd.foreground, bgd.foregroundX, bgd.foregroundY, 1000, 600, null);
 		g.drawImage(bgd.foreground1, bgd.foreground1X, bgd.foreground1Y, 1000, 600, null);
+		
+		subMenuView.render((Graphics2D)g);
 		
 		g.translate(camera.getX(), camera.getY());
 		
@@ -105,7 +107,9 @@ public class GameHandler {
 		item = new LinkedList<Item>();
 		entity = new LinkedList<Entity>();
 		tile = new LinkedList<Tile>();
+		camera = new Camera();
 		c = new GameCursor(this.camera, this);
+		c.changeState(CursorState.AIM);
 		addEntity(c);
 		MapFactory.levelImage = null;
 		init();
