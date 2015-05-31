@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.sound.sampled.FloatControl;
 
+import edu.chl.Game.controller.RefreshTimer;
+import edu.chl.Game.controller.State;
+
 /**
  * Music for the Game.
  * 
@@ -31,6 +34,30 @@ public final class Music extends Sound implements MusicInterface {
 	
 	public Music() {
 		
+	}
+	
+	/**
+	 * Plays the music depending on the state of the appliaction
+	 */
+	public static void playMusic(){
+		if(RefreshTimer.state == State.MAIN_MENU || RefreshTimer.state == State.MAP){
+			playMenu();
+		}else if(RefreshTimer.state == State.GAME){
+			if(RefreshTimer.selectedMap == RefreshTimer.levels[0]){
+				playWorldOneMapOne();
+			}else if(RefreshTimer.selectedMap == RefreshTimer.levels[1]){
+				playWorldTwoMapOne();
+			}
+		}
+	}
+	
+	/**
+	 * Stops all playning music
+	 */
+	public static void stopMusic(){
+		for(Entry<String, Sound> f : musicHashMap.entrySet()){
+			getMusic().get(f.getKey()).stop();
+		}
 	}
 	
 	

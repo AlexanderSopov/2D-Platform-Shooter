@@ -107,6 +107,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	 * Create a Buffer with maximum number of 3 and start rendering.
 	 */
 	public void render(){
+		Music.playMusic();
 		if(state == State.GAME || state == State.MAP || state == State.CHARACTER_SELECTION){	
 			BufferStrategy bs = frame.getBufferStrategy();
 			if(bs == null){
@@ -116,7 +117,6 @@ public class RefreshTimer extends Observable implements Runnable{
 			renderGraphics(bs);
 		}else if(state == State.MAIN_MENU){
 			if(!inMainMenu){
-				Music.playMenu();
 				inMainMenu = true;
 				
 				new FrameGDX(frame);

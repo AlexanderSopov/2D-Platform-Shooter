@@ -94,6 +94,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 				}
 			}else if(ifClicked(subMenuView.backButton, e)){
 				//"Go back" feature
+				Music.stopMusic();
 				if(RefreshTimer.state == State.MAP){
 					e.getComponent().setCursor(Cursor.getDefaultCursor());
 					RefreshTimer.state = State.MAIN_MENU;
@@ -228,6 +229,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private void setLevel(MouseEvent e, int i){
 		if(e.getClickCount() == 2 && !e.isConsumed()){
 			e.consume();
+			Music.stopMusic();
 			System.out.println(RefreshTimer.levels[i]);
 			RefreshTimer.selectedMap = RefreshTimer.levels[i];
 			RefreshTimer.state = State.GAME;
