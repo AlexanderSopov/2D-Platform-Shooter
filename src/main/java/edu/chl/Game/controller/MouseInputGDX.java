@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.chl.Game.model.sound.Sound;
 import edu.chl.Game.view.screens.AbstractMenuScreen;
 import edu.chl.Game.view.screens.OptionView;
 
@@ -34,6 +35,12 @@ public class MouseInputGDX extends ClickListener{
 			break;
 		case "Off":
 			System.out.println("Sound: off");
+			break;
+		case "+":
+			Sound.increaseGlobalVol();
+			break;
+		case "-":
+			Sound.decreaseGlobalVol();
 			break;
 		}
 	}

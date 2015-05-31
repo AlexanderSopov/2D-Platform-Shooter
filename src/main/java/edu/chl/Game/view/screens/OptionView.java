@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.chl.Game.model.sound.Sound;
 import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.screens.tween.ActorAccessor;
 import edu.chl.Game.view.screens.tween.SpriteBatchAccessor;
@@ -133,7 +134,7 @@ public class OptionView extends AbstractMenuScreen {
 		
 		//Buttons and Labels for submenu Sound
 		Label soundLabel = new Label("Sound:", skin);
-		Label soundStatusLabel = new Label("10", skin);
+		Label soundStatusLabel = new Label(Integer.toString(Sound.getCurrentVolume()), skin);
 		
 		TextButton soundIncrease = new TextButton("+", skin);
 		soundIncrease.addListener(mouseInput);

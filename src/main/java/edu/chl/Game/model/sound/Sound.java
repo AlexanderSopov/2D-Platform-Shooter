@@ -69,7 +69,7 @@ public class Sound {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		getVolControl().setValue(convertToWholeNumb(4));
+		preVol = convertToFCNumb(getVolControl().getValue());
 	}
 	
 	
@@ -436,13 +436,11 @@ public class Sound {
 	}
 	
 	
-	public static float getCurrentVolume() {
-		return preVol;
+	public static int getCurrentVolume() {
+		return (int)preVol;
 	}
 	
 	private static void setCurrentVolume() {
-		if(getCurrentVolume() != getVolControl().getValue()) {
-			preVol = convertToFCNumb(getVolControl().getValue());
-		}
+		preVol = convertToFCNumb(getVolControl().getValue());
 	}
 }
