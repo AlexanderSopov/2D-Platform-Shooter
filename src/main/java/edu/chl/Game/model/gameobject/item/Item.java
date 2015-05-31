@@ -68,12 +68,10 @@ public abstract class Item extends GameObject implements Character{
 	public  void render(Graphics g){
 		
 		
-			//System.out.println("State:"+ this.state);
 			if(this.state == State.wating){
 				g.setColor(Color.ORANGE);
-				g.fillRect(getX(), getY(), 64, 64);
+				g.fillRect(getX(), getY(), 32, 32);
 			}else if(this.state == State.equipped){
-				//g.drawImage(getBufferedImage(), getX(), getY(), getBufferedImage().getWidth(), getBufferedImage().getHeight(), null);
 				equippedRender(g);
 			}
 		
@@ -91,15 +89,9 @@ public abstract class Item extends GameObject implements Character{
 	public abstract void equippedUpdate();
 	
 	public void switchState(State state){
-		this.state  = state;
-		//System.out.println("State:"+ this.state);
 		
-		if(this.state == State.equipped){
-			
-		}else if(this.state == State.inventory){
-			
-		}else{
-			
+		if(state != null){
+			this.state  = state;
 		}
 	}
 	
@@ -140,8 +132,9 @@ public abstract class Item extends GameObject implements Character{
 	}
 
 	public void setHandler(GameHandler handler) {
-		
-		this.handler = handler;
+		if(handler != null){
+			this.handler = handler;
+		}
 		
 	}
 	

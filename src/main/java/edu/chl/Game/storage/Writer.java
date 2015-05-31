@@ -18,9 +18,9 @@ public class Writer {
 			BufferedWriter buffWriter = new BufferedWriter(fileWriter);
 			
 			
-			buffWriter.newLine();
+			
 	        buffWriter.write(message);
-	        
+	        buffWriter.newLine();
 	        buffWriter.close();
         
 		} catch(FileNotFoundException e){
@@ -39,8 +39,8 @@ public class Writer {
 			BufferedWriter buffWriter = new BufferedWriter(fileWriter);
 			
 			
-			buffWriter.newLine();
-	        buffWriter.write("");
+			//buffWriter.newLine();
+	        //buffWriter.write("");
 	        
 	        
 	        buffWriter.close();

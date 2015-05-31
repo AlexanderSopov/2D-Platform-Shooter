@@ -130,8 +130,6 @@ public class Player extends Unit {
 			iterateTakingDamage();
 			processDamageTaking();
 		}
-
-          
           
 	}
 
@@ -162,7 +160,7 @@ public class Player extends Unit {
 	
 	public void shoot(){
 		this.outfit.effect();
-		//p.shoot();
+		
 	}
         
 

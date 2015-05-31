@@ -48,7 +48,7 @@ public class W1 extends Item{
 			e.printStackTrace();
 		}
 
-		System.out.println("done");
+		
 	}
 	
 	
@@ -57,8 +57,7 @@ public class W1 extends Item{
 	public void equippedRender(Graphics g) {
 		  
 		if (gc != null && en != null) {
-			g.setColor(Color.BLUE);
-			//g.drawRect(getX(), getY(), 10, 64);
+			
 			((Graphics2D) g).rotate(angle, en.getX() + en.getWidth() / 2, en.getY() + en.getHeight() / 2);
 			
 			g.drawImage(image, this.centerX - image.getWidth() / 12, this.centerY - image.getHeight() / 6 + 5, image.getWidth() / 3, image.getHeight() / 3, null);
