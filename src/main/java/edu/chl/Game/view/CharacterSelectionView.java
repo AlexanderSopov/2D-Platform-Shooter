@@ -9,8 +9,8 @@ import java.awt.Rectangle;
 import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
- * 
- * @author Marre
+ * A prototype for Character Selection View. Not finnished yet.
+ * @author Martin Tran
  *
  */
 public class CharacterSelectionView {

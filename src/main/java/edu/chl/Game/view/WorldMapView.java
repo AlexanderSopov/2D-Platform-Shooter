@@ -63,7 +63,7 @@ public class WorldMapView {
 	/**
 	 * Consturctor for WorldMapView. Sets the images.
 	 * Creates the buildings as Rectangles.
-	 * @param subMenuView
+	 * @param subMenuView The submenu at the top-left of the screen
 	 */
 	public WorldMapView(SubMenuView subMenuView){		
 		this.subMenuView = subMenuView;
