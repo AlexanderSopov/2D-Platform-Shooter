@@ -69,7 +69,6 @@ public class Sound {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		getVolControl().setValue(convertToWholeNumb(4));
 	}
 	
 	
