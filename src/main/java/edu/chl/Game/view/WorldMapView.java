@@ -63,7 +63,7 @@ public class WorldMapView {
 	/**
 	 * Consturctor for WorldMapView. Sets the images.
 	 * Creates the buildings as Rectangles.
-	 * @param subMenuView
+	 * @param subMenuView The submenu at the top-left of the screen
 	 */
 	public WorldMapView(SubMenuView subMenuView){		
 		this.subMenuView = subMenuView;
@@ -238,6 +238,7 @@ public class WorldMapView {
     	for(int i = 0; i < 6; i++){
     		for(int k = 0; k < 4; k++){
     			g2.drawRect(menuUI.x +(menuGrid.width*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
+    			drawItems(g2, menuUI.x +(menuGrid.width*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
     		}
     	}
     	
@@ -261,6 +262,7 @@ public class WorldMapView {
     	for(int i = 0; i < 2; i++){
     		for(int k = 0; k < 4; k++){
     			g2.drawRect(menuUI.x +((menuUI.width - menuGrid.width)*i), startY + (menuGrid.height*k), menuGrid.width, menuGrid.height);
+    			drawItems(g2, menuUI.x +((menuUI.width - menuGrid.width)), startY + (menuGrid.height), menuGrid.width, menuGrid.height);
     		}
     	}
     	
@@ -287,6 +289,21 @@ public class WorldMapView {
     	g.setFont(fntBig);
 		g.setColor(Color.white);
 		g.drawString(title, Frame.WIDTH/2 - title.length() * 13, Frame.HEIGHT/2 - menuSize/2 + 50); 
+    }
+    
+    //Draws the item on each grid on the submenus Shop and CharacterOverview
+    private void drawItems(Graphics2D g2, int x, int y, int width, int height){
+    	//Temporär placeholder
+    	g2.drawImage(charButtonImg, x, y, width, height, null);
+    	
+    	/*Tänkte mej att man typ har en if-sats här så som tex:
+    	 * 
+    	 * if(character.hasGun2()){
+    	 * 	  g2.drawImage(character.getGun2Image(), x, y, width, height, null);
+    	 * }
+    	 * 
+    	 * Blir lite fult med massa hål. men enklaste sättet just nu
+    	 */
     }
     
     /**

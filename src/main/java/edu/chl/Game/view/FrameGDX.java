@@ -7,8 +7,8 @@ import javax.swing.SwingUtilities;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.view.screens.IntroSplash;
 
 /**
@@ -19,6 +19,7 @@ import edu.chl.Game.view.screens.IntroSplash;
  */
 public class FrameGDX extends Game {
 	
+	private RefreshTimer timer;
 	private Frame frame;
 	private Container container;
 	private LwjglAWTCanvas canvas;
@@ -28,7 +29,8 @@ public class FrameGDX extends Game {
 	 * Initiate the use of LibGDX screens
 	 * @param frame
 	 */
-	public FrameGDX(Frame frame){
+	public FrameGDX(RefreshTimer timer, Frame frame){
+		this.timer = timer;
 		this.frame = frame;
 
 		setFrame(this);
@@ -60,6 +62,7 @@ public class FrameGDX extends Game {
 	 * Disposes the canvas of the LibGDX
 	 */
 	public void dispose(){
+		timer.setInMainMenu(false);
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
@@ -67,5 +70,20 @@ public class FrameGDX extends Game {
 			}	
 		});
 	}
-
+	
+	/**
+	 * Get the JFrame container.
+	 * @return container
+	 */
+	public Container getContainer(){
+		return container;
+	}
+	
+	/**
+	 * Return the LibGDX canvas that is used ontop of the container of JFrame.
+	 * @return canvas
+	 */
+	public LwjglAWTCanvas getCanvas(){
+		return canvas;
+	}
 }

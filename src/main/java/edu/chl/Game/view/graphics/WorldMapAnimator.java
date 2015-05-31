@@ -63,10 +63,39 @@ public class WorldMapAnimator {
 	}
 	
 	/**
-	 * Get the currentframe as an image
+	 * Get the currentframe as an image.
 	 * @return Current image
 	 */
-	public Image getCharacter(){
+	public Image getCurrentImage(){
 		return sprites[frame].getBufferedImage();
+	}
+	
+	/**
+	 * Get the sprites images in from the SpriteSheet.
+	 * @return sprites arraylist
+	 */
+	public Sprite[] getSprite(){
+		return sprites;
+	}
+	
+	/**
+	 * Get the specefic sprite in the Sprite arraw of the SpriteSheet.
+	 * @param i the index for the specefic sprite in the array.
+	 * @return a specefic sprite.
+	 */
+	public Sprite getSpeceficSprite(int i){
+		if(i < sprites.length){
+			return sprites[i];
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * Get the current frame number.
+	 * @return frame
+	 */
+	public int getFrame(){
+		return frame;
 	}
 }

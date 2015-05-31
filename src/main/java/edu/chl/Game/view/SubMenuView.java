@@ -124,4 +124,20 @@ public class SubMenuView {
 	public boolean getSoundState(){
 		return soundState;
 	}
+	
+	/**
+	 * The font for First choosable option
+	 * @return fnt1
+	 */
+	public Font getFont1(){
+		return fnt1;
+	}
+	
+	/**
+	 * The font for the Second choosable option
+	 * @return fnt 2
+	 */
+	public Font getFont2(){
+		return fnt2;
+	}
 }
