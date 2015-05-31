@@ -19,29 +19,30 @@ import edu.chl.Game.view.graphics.WorldMapAnimator;
  * @version 1.0
  */
 public class RefreshTimer extends Observable implements Runnable{
-
+	
+	//Private Variables
 	private Thread thread;
 	private SubMenuView subMenuView;
 	private WorldMapView mapView;
 	private CharacterSelectionView charSelectionView;
 	private WorldMapAnimator movingChar;
 	private GameHandler gameHandler;
-	private boolean running = false;
 	private MouseInput mouseInput;
+	
+	private int frameRate=1;
+	private double delta = 0.0;
+	private boolean running = false;
+	private Boolean inMainMenu = false;
 	
 	// Swing frame
 	private Frame frame;
 	
 	//The state of the game
-	public static State state = State.MAP;
+	public static State state = State.MAIN_MENU;
 	//Array of possible levels
 	public static String[] levels = {"level_1","level_2", "level_3", "level_4", "level_5"};
 	//The selected map/level
 	public static String selectedMap = levels[0];
-	
-	public static Boolean inMainMenu = false;
-	private double delta = 0.0;
-	private int frameRate=1;
 	
 	public RefreshTimer(){
 		Music.addToAccessMusic();
@@ -122,7 +123,7 @@ public class RefreshTimer extends Observable implements Runnable{
 			if(!inMainMenu){
 				inMainMenu = true;
 				
-				new FrameGDX(frame);
+				new FrameGDX(this, frame);
 			}
 		}
 		frame.setVisible(true);
@@ -153,6 +154,7 @@ public class RefreshTimer extends Observable implements Runnable{
 
 	}
 	
+	//Counter / Timer
 	private void timer(){
 		long timeSnap1 = System.nanoTime();
 		double nanosec = 1000000000.0;
@@ -167,10 +169,8 @@ public class RefreshTimer extends Observable implements Runnable{
 		interrupt();	
 	}
 	
-	/**
-	 * 
-	 * @param d
-	 */
+	
+	//When the time is there, it's goes to the next stage of the updating
 	private void timeToUpdate(double d){
 		if(d>1){
 			delta=delta-1;
@@ -178,9 +178,8 @@ public class RefreshTimer extends Observable implements Runnable{
 		}
 	}
 	
-	/**
-	 * Printing frames per second.
-	 */
+	
+	//Printing frames per second. 
 	private void printTimer(){
 		frameRate++;
 		if(isFrame()){
@@ -188,20 +187,42 @@ public class RefreshTimer extends Observable implements Runnable{
 		}
 	}
 	
-	/**
-	 * Checking if Frame is equal to 60.
-	 * @return Frame - If frame is not 60 then return false otherwise true.
-	 */
+
+	//Checking if Frame is equal to 60.
+	//If frame is not 60 then return false otherwise true.
 	private boolean isFrame() {
 		return frameRate==60;
 	}
         
-	
+	/**
+	 * Get the MouseInput that are used Game and WorldMap
+	 * @return mouseInput
+	 */
 	public MouseInput getMouseInput(){
 		return mouseInput;
 	}
 	
+	/**
+	 * Get the Game Handler that controlls the whole rendering, tiles, entites and items. 
+	 * @return gameHandler
+	 */
 	public GameHandler getHandler(){
 		return gameHandler;
+	}
+	
+	/**
+	 * Get the varible to se if the game is in menu.
+	 * @return True if in Main Menu, false if not.
+	 */
+	public boolean getInMainMenu(){
+		return inMainMenu;
+	}
+	
+	/**
+	 * Calls only when entering or exiting the Main Menu.
+	 * @param arg Sets the args for inMainMenu;
+	 */
+	public void setInMainMenu(Boolean arg){
+		inMainMenu = arg;
 	}
 }
