@@ -96,7 +96,11 @@ public abstract class Entity extends GameObject {
 		if(isEnemy()){
 			reward();
 		}
+		if(getId() == Id.monster){
+			getHandler().registerDead(getX(), getY(), getEntityState().getFacingDirection());
+		}
 		this.remove();
+
 	}
 	
 	private boolean isEnemy(){

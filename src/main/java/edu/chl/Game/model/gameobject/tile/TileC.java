@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.Observer;
 
 import edu.chl.Game.controller.GameHandler;
+import edu.chl.Game.controller.RefreshTimer;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.view.graphics.SpriteSheet;
 
@@ -16,7 +17,23 @@ public class TileC extends Tile implements Observer {
 
 	@Override
 	public void initiateSpriteSheets() {
-		setSpriteSheet(new SpriteSheet("/t02.png"));
+		switch (RefreshTimer.selectedMap) {
+		case "level_1":
+			setSpriteSheet(new SpriteSheet("/t02.png"));
+			break;
+		case "level_2":
+			setSpriteSheet(new SpriteSheet("/level2_tiles/t12.png"));
+			break;
+		case "level_3":
+			setSpriteSheet(new SpriteSheet("/level3_tiles/t22.png"));
+			break;
+		case "level_4":
+			setSpriteSheet(new SpriteSheet("/level4_tiles/t32.png"));
+			break;
+		case "level_5":
+			setSpriteSheet(new SpriteSheet("/level5_tiles/t42.png"));
+			break;
+		}
 	}
 	
 	@Override
