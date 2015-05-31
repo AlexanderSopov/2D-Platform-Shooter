@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.Entity;
 import edu.chl.Game.model.gameobject.entity.FacingDirection;
-import edu.chl.Game.model.gameobject.item.Inventory;
 
 
 public class KeyInput implements KeyListener {

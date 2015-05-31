@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 /**
- * 
- * @author Marre
+ * Animator for WorldMapView
+ * @author Martin Tran
  *
  */
 public class WorldMapAnimator {	
+	
+	//Private variables
 	private int frame;
 	private int delay;
 	private int maxRows;
@@ -16,6 +18,15 @@ public class WorldMapAnimator {
 	private SpriteSheet spriteSheet;
 	private Sprite sprites[] = new Sprite[20];
 	
+	/**
+	 * Constructor for the WorldMapAnimator
+	 * @param path File URL
+	 * @param maxRows Number of rows in the SpriteSheet
+	 * @param maxCols Number of cols in the SpriteSheet
+	 * @param collumWidth The width of one collum
+	 * @param collumHeight The hieght of one collum
+	 * @param maxDelay The delay time for each image iteration 
+	 */
 	public WorldMapAnimator(String path, int maxRows,int maxCols, int collumWidth, int collumHeight, int maxDelay){
 		spriteSheet = new SpriteSheet(path);
 		this.maxDelay = maxDelay;
@@ -25,6 +36,14 @@ public class WorldMapAnimator {
 		}
 	}
 	
+	/**
+	 * Draws the animation. Draws the current image and then iterate to the next one
+	 * @param g The graphic context
+	 * @param x The x-cordinate where it draws
+	 * @param y The y-codinate where it draws
+	 * @param width The width of the image that gets drawn
+	 * @param height The height of the image that gets drawn
+	 */
 	public void renderAnimation(Graphics g, int x, int y, int width, int height){
 		delay();
 		
@@ -32,7 +51,7 @@ public class WorldMapAnimator {
 		g.drawImage(sprites[frame].getBufferedImage(), x, y, width, height, null);
 	}
 	
-	public void delay(){
+	private void delay(){
 		delay++;
 		if(delay == maxDelay){
 			frame++;
@@ -43,6 +62,10 @@ public class WorldMapAnimator {
 		}
 	}
 	
+	/**
+	 * Get the currentframe as an image
+	 * @return Current image
+	 */
 	public Image getCharacter(){
 		return sprites[frame].getBufferedImage();
 	}

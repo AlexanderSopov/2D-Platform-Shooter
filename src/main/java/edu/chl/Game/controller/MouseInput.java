@@ -22,19 +22,16 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
-	private boolean shoot = false;
 	
 	private Cursor blankCursor;//hide 
     private GameHandler handler ;
     private SubMenuView subMenuView;
 	private WorldMapView mapView;
-	private RefreshTimer refreshTimer;
     
-	public MouseInput(RefreshTimer refreshTimer,WorldMapView mapView, GameHandler handler, SubMenuView subMenuView){
+	public MouseInput(WorldMapView mapView, GameHandler handler, SubMenuView subMenuView){
 		this.handler = handler;
 		this.subMenuView = subMenuView;
 		this.mapView = mapView;
-		this.refreshTimer = refreshTimer;
 		
 		// Transparent 16 x 16 pixel cursor image.
 		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
@@ -230,9 +227,9 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 		if(e.getClickCount() == 2 && !e.isConsumed()){
 			e.consume();
 			Music.stopMusic();
-			System.out.println(RefreshTimer.levels[i]);
 			RefreshTimer.selectedMap = RefreshTimer.levels[i];
 			RefreshTimer.state = State.GAME;
+			subMenuView.setState(null);
 			handler.getGameCursor().changeState(CursorState.AIM);
 		}
 	}

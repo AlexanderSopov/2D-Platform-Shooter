@@ -32,7 +32,6 @@ public class OptionView extends AbstractMenuScreen {
 	
 	private Table tableGraphics;
 	private Table tableSound;
-	private Boolean soundState = true;
 	
 	private Animator animationGraphics;
 	private SpriteBatch spriteBatchGraphics;
