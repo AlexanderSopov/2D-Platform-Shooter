@@ -75,8 +75,10 @@ public class IntroSplash implements Screen {
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		
+		//Sets the pictrue for the splashscreen
 		splash = new Sprite(new Texture(Gdx.files.internal("img/splash1.png")));
 		
+		//Makes an animation, after it's done it goes to the next Screen
 		Tween.set(splash, SpriteAccessor.ALPHA).target(0).start(tweenManager);
 		Tween.to(splash,  SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback(){
 			@Override

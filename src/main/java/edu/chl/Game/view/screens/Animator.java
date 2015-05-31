@@ -23,10 +23,23 @@ public class Animator {
 	
 	float frameSpeed, stateTime;
 	
+	/**
+	 * Constructor for Animator
+	 * @param spriteBatch Used to store images
+	 */
 	public Animator(SpriteBatch spriteBatch){			
 		this.spriteBatch = spriteBatch;
 	}
 	
+	/**
+	 * Sets the SpriteSheets images into the SpriteBatch 
+	 * @param path Filepath URL
+	 * @param collumWidth With of one image
+	 * @param collumHeight Height of one image 
+	 * @param rows number of images on the rowns in SpriteSheet
+	 * @param cols number of images collums in the SpriteSheet
+	 * @param frameSpeed The speed of how fast the animation will iterate through the images
+	 */
 	public void setSprite(String path, int collumWidth, int collumHeight, int rows, int cols, float frameSpeed){
 		spriteSheet = new Texture(Gdx.files.internal(path));
 		this.frameSpeed = frameSpeed;
@@ -43,7 +56,9 @@ public class Animator {
 		animation = new Animation(frameSpeed, spriteFrames);
 	}
 	
-	//Draws sprite animation
+	/**
+	 * Draws the animation on the screen
+	 */
 	public void renderAnimation(){
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = animation.getKeyFrame(stateTime, true);

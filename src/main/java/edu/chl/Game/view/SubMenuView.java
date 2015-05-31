@@ -11,8 +11,15 @@ import javax.imageio.ImageIO;
 
 import edu.chl.Game.controller.State;
 
+/**
+ * Class for Submenu.
+ * Used to controll music and has a navigation functionality.
+ * @author Martin Tran
+ *
+ */
 public class SubMenuView {
-
+	
+	//Private variables
 	private State state;
 	private Font fnt1;
 	private Font fnt2;
@@ -21,12 +28,16 @@ public class SubMenuView {
 	private int pad = 10;
 	private Boolean soundState = true;
 	
-	public Rectangle button = new Rectangle(0, 20, 50, 50);
-	
-	private Rectangle background = new Rectangle(button.x, button.y + button.height, 150, 100);
+	//Public variables
+	public Rectangle button = new Rectangle(0, 20, 50, 50);	
+	public Rectangle background = new Rectangle(button.x, button.y + button.height, 150, 100);
 	public Rectangle soundButton = new Rectangle(background.x + pad, background.y +pad, 130, 30);
 	public Rectangle backButton = new Rectangle(background.x + pad, background.y + soundButton.height + 3*pad, 130, 30);
 	
+	/**
+	 * Constructor for SubMenuView
+	 * Sets the font and images
+	 */
 	public SubMenuView(){
 		fnt1 = new Font("arial", Font.ITALIC, 25);
 		fnt2 = new Font("arial", Font.ITALIC, 25);
@@ -39,6 +50,10 @@ public class SubMenuView {
 		}
 	}
 	
+	/**
+	 * Draw the button that opens the submenu.
+	 * @param g The graphic context.
+	 */
 	public void render(Graphics2D g){
 		if(state != null){
 			g.drawImage(openedImage, button.x, button.y, button.width, button.height, null);
@@ -48,6 +63,7 @@ public class SubMenuView {
 		}
 	}
 	
+	//Draws the submenu UI
 	private void renderSubMenu(Graphics2D g){
 		g.setColor(Color.BLACK);
 		g.fillRect(background.x, background.y, background.width, background.height);
@@ -63,6 +79,12 @@ public class SubMenuView {
 		g.drawString("Go Back", backButton.x, (int)backButton.getMaxY());
 	}
 	
+	/**
+	 * Sets the font to italic and bold.
+	 * Called from mouseInput to make a sort of a animation.
+	 * @param type What type of font will be choosen
+	 * @param font The font that will be choosen
+	 */
 	public void setFont(int type, String font){
 		if(type == 1){
 			if(font.equals("italic")){
@@ -79,6 +101,10 @@ public class SubMenuView {
 		}
 	}
 	
+	/**
+	 * Sets the current submenu state beetwen Submenu and non-submenu
+	 * @param state The state that will be choosen
+	 */
 	public void setState(State state){
 		this.state = state;
 	}
@@ -87,6 +113,10 @@ public class SubMenuView {
 		this.soundState = arg;
 	}
 	
+	/**
+	 * Get the current state
+	 * @return The current state
+	 */
 	public State getState(){
 		return state;
 	}

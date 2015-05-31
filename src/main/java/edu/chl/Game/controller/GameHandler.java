@@ -80,7 +80,7 @@ public class GameHandler {
 	public void render(Graphics g) {
 
 		g.fillRect(0, 0, 1000, 600);
-		if(MapFactory.mapImage == null){
+		if(MapFactory.levelImage == null){
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
@@ -107,7 +107,7 @@ public class GameHandler {
 		tile = new LinkedList<Tile>();
 		c = new GameCursor(this.camera, this);
 		addEntity(c);
-		MapFactory.mapImage = null;
+		MapFactory.levelImage = null;
 		init();
 	}
 

@@ -1,5 +1,10 @@
 package edu.chl.Game.controller;
 
+/**
+ * The states of the appliaction. 
+ * @author Martin Tran
+ *
+ */
 public enum State {
 	MAIN_MENU,
 	SUB_MENU,

@@ -12,8 +12,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import edu.chl.Game.view.screens.IntroSplash;
 
 /**
- * Main frame for LibGDX applications
- * Contains method to swap from Swing to LibGDX
+ * Main frame for LibGDX applications.
+ * Contains method to swap from Swing to LibGDX.
  * @author Martin Tran
  *
  */
@@ -22,16 +22,15 @@ public class FrameGDX extends Game {
 	private Frame frame;
 	private Container container;
 	private LwjglAWTCanvas canvas;
-	private LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	
+	/**
+	 * The constructor for FrameGDX.
+	 * Initiate the use of LibGDX screens
+	 * @param frame
+	 */
 	public FrameGDX(Frame frame){
 		this.frame = frame;
-		cfg.title = Frame.title + "frame 2";
-		cfg.vSyncEnabled = true;
-		cfg.useGL30 = true;
-		cfg.width = Frame.WIDTH;
-		cfg.height = Frame.HEIGHT;
-	
+
 		setFrame(this);
 	}
 	
@@ -39,7 +38,11 @@ public class FrameGDX extends Game {
 	public void create() {
 		setScreen(new IntroSplash());
 	}
-
+	
+	/**
+	 * Sets the canvas to make it usable for LibGDX screen.
+	 * @param game The main libGDX class/this.
+	 */
 	private void setFrame(FrameGDX game){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
@@ -53,6 +56,9 @@ public class FrameGDX extends Game {
 		});
 	}
 	
+	/**
+	 * Disposes the canvas of the LibGDX
+	 */
 	public void dispose(){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override

@@ -21,28 +21,38 @@ import edu.chl.Game.model.gameobject.tile.TileD;
 import edu.chl.Game.model.gameobject.tile.TileE;
 
 /**
- * 
- * @author Marre
+ * Creates the game level.
+ * @author Martin Tran
  *
  */
 
 public class MapFactory {
-	public static BufferedImage mapImage;
+	//The images gives cordinates to the level
+	public static BufferedImage levelImage;
 	
+	/**
+	 * Creates the game level. 
+	 * @param handler The gamehandler.
+	 * @param c The cursor.
+	 * @param entityList The enitity array.
+	 * @param tileList The tile array.
+	 * @param itemList The item list.
+	 */
 	public static void createMap(GameHandler handler, GameCursor c, LinkedList<Entity> entityList, LinkedList<Tile> tileList, LinkedList<Item> itemList) {
 		try {
-			mapImage = ImageIO.read(handler.getClass().getResource(selectMap()));
+			levelImage = ImageIO.read(handler.getClass().getResource(selectMap()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
-		int width = mapImage.getWidth();
-		int height = mapImage.getHeight();
+		int width = levelImage.getWidth();
+		int height = levelImage.getHeight();
 		System.out.println(RefreshTimer.selectedMap);
-
+		
+		//Selects the colors RGB from the levelImage to determine the locations to draw
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				int pixel = mapImage.getRGB(x, y);
+				int pixel = levelImage.getRGB(x, y);
 
 				int red = (pixel >> 16) & 0xff;
 				int green = (pixel >> 8) & 0xff;
@@ -121,6 +131,7 @@ public class MapFactory {
 		}
 	}
 	
+	//Selects the levels
 	private static String selectMap(){
 		switch(RefreshTimer.selectedMap){
 			case "level_1":

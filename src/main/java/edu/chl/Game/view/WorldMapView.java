@@ -14,19 +14,22 @@ import edu.chl.Game.controller.State;
 import edu.chl.Game.view.graphics.WorldMapAnimator;
 
 /**
- * Temporary class for the map
+ * WorldMap class
+ * Render and animates the worldmap. 
  * @author Martin Tran
  * @version 1.0
  */
 
 public class WorldMapView {
 	
+	//States can be Shop, Character overview and WorldMap(null)
 	public static State mapState;
 	
 	private int buildingWidth = 100;
 	private int buildingHeight = 100;
 	private int menuSize = 500;
 	
+	//Submenu on the leftop corner that has a soundcontroll & "Go Back" feature
 	private SubMenuView subMenuView;
 	
 	//Contains the levels
@@ -39,8 +42,16 @@ public class WorldMapView {
 	public Rectangle menuCloseButton = new Rectangle(menuUI.x, menuUI.y, 20, 20);
 	public Rectangle menuGrid = new Rectangle(menuUI.width/6, menuUI.width/6);
 	
+	//Animators and private variables for the moving Character
 	private WorldMapAnimator movingCharRight;
 	private WorldMapAnimator movingCharLeft;
+	private int pos = 0;
+	private int prevPos = 0;
+	private int velX = 0;
+	private int velY = 0;
+	private boolean isMoving = false;
+	
+	//Animator for buildings
 	private WorldMapAnimator[] buildings = new WorldMapAnimator[5];
 	
 	private Font fntBig;
@@ -48,12 +59,12 @@ public class WorldMapView {
 	private Image background;
 	private Image shopButtonImg;
 	private Image charButtonImg;
-	private int pos = 0;
-	private int prevPos = 0;
-	private int velX = 0;
-	private int velY = 0;
-	private boolean isMoving = false;
 	
+	/**
+	 * Consturctor for WorldMapView. Sets the images.
+	 * Creates the buildings as Rectangles.
+	 * @param subMenuView
+	 */
 	public WorldMapView(SubMenuView subMenuView){		
 		this.subMenuView = subMenuView;
 		
@@ -87,6 +98,10 @@ public class WorldMapView {
 		buildings[4] = new WorldMapAnimator("/worldMap/buildingSheet5.png", 5, 0, 400, 103, 20);
 	}
 	
+	/**
+	 * Draws the objects on screen
+	 * @param g The graphic context
+	 */
 	public void render(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -113,10 +128,10 @@ public class WorldMapView {
 		drawBuilding(g2, mapLevels[4], "Level 5", 4);	
 		
 		//Draws a line that connects the buildings
-		drawArrow(g2, mapLevels[0], mapLevels[1], "DownToUp");
-		drawArrow(g2, mapLevels[1], mapLevels[2], "SideToSide");
-		drawArrow(g2, mapLevels[2], mapLevels[3], "UpToDown");
-		drawArrow(g2, mapLevels[3], mapLevels[4], "DownToUp");
+		drawLine(g2, mapLevels[0], mapLevels[1], "DownToUp");
+		drawLine(g2, mapLevels[1], mapLevels[2], "SideToSide");
+		drawLine(g2, mapLevels[2], mapLevels[3], "UpToDown");
+		drawLine(g2, mapLevels[3], mapLevels[4], "DownToUp");
 		
 		//Render och moves the character
 		if(isMoving){
@@ -139,13 +154,14 @@ public class WorldMapView {
 		subMenuView.render(g2);
 	}//end render
 	
+	//Draws the building with a label on top
 	private void drawBuilding(Graphics2D g2, Rectangle r, String Name, int type){
-			//g2.draw(r);
 			g2.drawString(Name, (int)r.getCenterX() - 5*Name.length(), r.y);
 			buildings[type].renderAnimation(g2, r.x, r.y, r.width, r.height);	
 	}
 	
-    private void drawArrow(Graphics2D g2, Rectangle r1, Rectangle r2, String type) {
+	//Draws a line that connects the building to each other
+    private void drawLine(Graphics2D g2, Rectangle r1, Rectangle r2, String type) {
     	int x1 = (int) r1.getCenterX();
     	int y1 = (int) r1.getCenterY();
     	int x2 = (int) r2.getCenterX();
@@ -159,6 +175,7 @@ public class WorldMapView {
     	}
     }
     
+    //Moves the character. Checks where and how it should move and animate
     private void moveCharacter(Graphics g){
     	int tempX = 0;
 		int tempY = 0;
@@ -205,6 +222,7 @@ public class WorldMapView {
 
     }
     
+    //Draws the ShopMenu
     private void renderShopMenu(Graphics g, Graphics2D g2){
     	renderMenuUI(g, g2, "Shop");
     	
@@ -228,6 +246,7 @@ public class WorldMapView {
 		g.drawString("Cash: 1005$", maxX - 2*menuGrid.width, maxY - menuGrid.height/3);
     }
     
+    //Draws the CharacterOverview
     private void renderCharMenu(Graphics g, Graphics2D g2){
     	renderMenuUI(g, g2, "Character");
     	
@@ -256,6 +275,7 @@ public class WorldMapView {
     	g.drawString("XP: 7/100", (int)menuUI.getCenterX() + menuGrid.width, maxY - menuGrid.height/4);
     }
     
+    //Draws the base for the UI
     private void renderMenuUI(Graphics g,Graphics2D g2, String title){
     	//Draws window
     	g.setColor(Color.BLACK);
@@ -269,6 +289,10 @@ public class WorldMapView {
 		g.drawString(title, Frame.WIDTH/2 - title.length() * 13, Frame.HEIGHT/2 - menuSize/2 + 50); 
     }
     
+    /**
+     * Set the posistion for the Moving Character
+     * @param i The new position.
+     */
     public void setPos(int i){
     	if(i < mapLevels.length)
     		pos = i;
@@ -276,14 +300,25 @@ public class WorldMapView {
     		System.out.println("Out of boundry");
     }
     
+    /**
+     * Get the currcent position for the Moving Character
+     * @return Current position.
+     */
     public int getPos(){
     	return pos;
     }
     
+    /**
+     * Set the Moving character to start moving
+     */
     public void setIsMoving(){
     	isMoving = true;
     }
     
+    /**
+     * Checks if the character is moving
+     * @return True if the character is moving and false if the character is standing still
+     */
     public boolean ifMoving(){
     	return isMoving;
     }
