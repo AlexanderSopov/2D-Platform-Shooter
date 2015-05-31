@@ -31,11 +31,6 @@ public class StorageTest {
 		String notExistingFile = "notExistingFile.txt";
 		assertTrue( Reader.readFile(notExistingFile).isEmpty());
 		
-		Writer.writeToFile(null, "");
-		
-		String messageResived = Reader.readFile(null).getFirst();
-		assertEquals("", messageResived);
-		
 		
 	}
 	
