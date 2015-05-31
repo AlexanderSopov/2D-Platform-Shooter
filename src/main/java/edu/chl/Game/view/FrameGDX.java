@@ -7,7 +7,6 @@ import javax.swing.SwingUtilities;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import edu.chl.Game.view.screens.IntroSplash;
 
@@ -67,5 +66,20 @@ public class FrameGDX extends Game {
 			}	
 		});
 	}
-
+	
+	/**
+	 * Get the JFrame container.
+	 * @return container
+	 */
+	public Container getContainer(){
+		return container;
+	}
+	
+	/**
+	 * Return the LibGDX canvas that is used ontop of the container of JFrame.
+	 * @return canvas
+	 */
+	public LwjglAWTCanvas getCanvas(){
+		return canvas;
+	}
 }
