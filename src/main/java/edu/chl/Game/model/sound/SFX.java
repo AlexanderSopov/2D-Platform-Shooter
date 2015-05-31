@@ -1,6 +1,5 @@
 package edu.chl.Game.model.sound;
 
-import java.io.File;
 import java.util.HashMap;				
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,10 +11,6 @@ import javax.sound.sampled.FloatControl;
 /**
  * Sound Effects for the Game.
  * 
- * THE PURPOSE OF THIS CLASS IS TO CHECK THE OTHER CLASSES
- * NOT, NOT BEING IMPLEMENTED AS A DELEGATION IN CLASSES AND CALL.
- * 
- * NOT FINISHED. 
  * ADD MORE METHODS TO COVER ALL SFX POSSIBILITES
  * ADD MORE SOUNDS EFFECTS (MP3)
  * 
@@ -26,8 +21,11 @@ import javax.sound.sampled.FloatControl;
  */
 public final class SFX extends Sound implements SFXInterface {
 
+	/**
+	 * The HashMap contain the key for accessing
+	 * the sound effect mp3 file
+	 */
 	private static Map<String, Sound> sfxHashMap = new HashMap<String, Sound>();
-	private SFX sfx;
 
 	
 	/**
@@ -40,26 +38,15 @@ public final class SFX extends Sound implements SFXInterface {
 	 */
 	private static float volSFX = 0;
 	
-	private SFX() {
-		
-		/**
-		 * Volume Controller 
-		 * Problem at .VOLUME
-		 */
-		//volSFXControl = (FloatControl)getClip().getControl(FloatControl.Type.MASTER_GAIN);
-		
+	private SFX(String path) {
+		super(path);
 		
 	}
 
-	private static void addToAccessSFX() {
+	public static void addToAccessSFX() {
 		addSFX("monster", "monster.mp3");
 		addSFX("shot", "shot.mp3");	
 	}
-	
-//	private SFX(Entity entity) {
-//		this.entity = entity;
-//		this.entityState = entity.getEntityState();
-//	}
 	
 	private FloatControl getVolSFXControl() {
 		return volSFXControl;
@@ -80,19 +67,19 @@ public final class SFX extends Sound implements SFXInterface {
 	 * @param filePath - The path to the sound effect.
 	 */
 	private static void addSFX(String name, String filePath) {
-		sfxHashMap.put(name, new Sound("/SFX/" + filePath));
+		sfxHashMap.put(name, new Sound(("/SFX/" + filePath)));
 	}
 	
 	
 	/**
 	 * Prints all Sound Effects in the list with name and path
 	 */
-	 private void printSFXList() {
+	 public void printSFXList() {
 		Set<Entry<String, Sound>> hashSet = sfxHashMap.entrySet();
 		
 		// BELOW CODE IS NOT GORGEOUS !
 		if(hashSet.size() > 0) {
-			for(Entry entry : hashSet) {
+			for(Entry<String, Sound> entry : hashSet) {
 				System.out.println("SFX name: " + entry.getKey() +
 						"\n" + "SFX value: " + entry.getValue());
 			}
@@ -107,7 +94,7 @@ public final class SFX extends Sound implements SFXInterface {
 	 * @param soundFile - Enter the name of the file you need.
 	 * @return Returns the need.
 	 */
-	private Sound getSoundFile(String soundFile) {
+	public Sound getSoundFile(String soundFile) {
 		return getSFX().get(soundFile);
 	}
 	
@@ -124,9 +111,10 @@ public final class SFX extends Sound implements SFXInterface {
 	 * Remove a Sound Effect from the list SFX list.
 	 * @param sfx
 	 */
-	private static void removeSFX(SFX sfx) {
+	public static void removeSFX(SFX sfx) {
 		getSFX().remove(sfx);
 	}
+	
 	
 	/**
 	 * Increase music volume with 2.
@@ -134,6 +122,8 @@ public final class SFX extends Sound implements SFXInterface {
 	public void volumeSFXIncrease() {
 		getVolSFXControl().setValue(getCurrentSFXVolume() + 2);
 	}
+	
+	
 	/**
 	 * Decrease music volume with 2.
 	 */
@@ -161,35 +151,20 @@ public final class SFX extends Sound implements SFXInterface {
 		getSFX().get("jump").stop();
 	}
 	
-	private static void playMonsterJumping() {
-		
-		
-	}
-	
-	/**
-	 * Player is hitting wall
-	 */
-	private static void playIsHittingWall() {
-		
-		
-	}
-	
-	
-	private static void playPlayerDead() {
-		
-		
-	}
-	
-	private static void playMonsterDead() {
-		
-		
-	}
 	
 	/**
 	 * Player is hitting Monster. This method plays the sound of it.
 	 */
-	public static void playerHitMonster() {
+	public static void playPlayerHitMonster() {
 		getSFX().get("monster").play();
+	}
+	
+	
+	/**
+	 * Player is hitting Monster. This method stops the sound of it.
+	 */
+	public static void stopPlayerHitMonster() {
+		getSFX().get("monster").stop();
 	}
 	
 	
@@ -198,7 +173,7 @@ public final class SFX extends Sound implements SFXInterface {
 	 * This method plays the sound of it.
 	 */
 	public static void playDefaultGunShot() {
-		getSFX().get("shoot").play();
+		getSFX().get("shot").play();
 	}
 	
 	
