@@ -1,9 +1,7 @@
 package edu.chl.Game.controller;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import edu.chl.Game.model.gameobject.Id;
@@ -13,17 +11,9 @@ import edu.chl.Game.model.gameobject.entity.player.GameCursor.CursorState;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.item.Item;
 import edu.chl.Game.model.gameobject.tile.*;
-//import edu.chl.Game.sound.Music;
 import edu.chl.Game.view.Camera;
-//import edu.chl.Game.model.sound.SFX;
-import edu.chl.Game.view.Frame;
-//import edu.chl.Game.sound.Sound;
-import edu.chl.Game.view.Camera;
-//import edu.chl.Game.model.sound.SFX;
-import edu.chl.Game.view.Frame;
 import edu.chl.Game.view.SubMenuView;
 import edu.chl.Game.view.ParallaxBackground;
-import edu.chl.Game.view.graphics.DeathAnimation;
 import edu.chl.Game.view.graphics.DeathSystem;
 
 
@@ -41,16 +31,8 @@ public class GameHandler {
 	private ParallaxBackground bgd = new ParallaxBackground();
 	private DeathSystem ds;
 
-
-	private BufferedImage mapImage;
-	private boolean changeHasHappened;
-	private int ref;
-	private Frame frame;
-
-	public GameHandler(RefreshTimer refreshTimer, Frame frame,
-			SubMenuView subMenuView) {
+	public GameHandler(RefreshTimer refreshTimer, SubMenuView subMenuView) {
 		this.refreshTimer = refreshTimer;
-		this.frame = frame;
 		this.subMenuView = subMenuView;
 		camera = new Camera();
 		c = new GameCursor(this.camera, this);
@@ -91,13 +73,13 @@ public class GameHandler {
 		
 		subMenuView.render((Graphics2D)g);
 		
-		g.translate(camera.getX(), camera.getY());
+		g.translate(Camera.getX(), Camera.getY());
 		
 		renderDeath(g);
 
 		for (Entity e : getEntityList()) {
 			if (e.getUnitState().getId() == Id.player) {
-				camera.update(e);
+				Camera.update(e);
 			}
 		}
 	}

@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
+import edu.chl.Game.controller.MouseInputGDX;
+
 /**
  * Abstract class for standard Screens
  * @author Martin Tran
@@ -26,6 +28,7 @@ public abstract class AbstractMenuScreen implements Screen {
 	
 	protected Animator animation;
 	protected SpriteBatch spriteBatch;
+	protected MouseInputGDX mouseInput;
 
 	@Override
 	public void dispose() {
@@ -78,6 +81,8 @@ public abstract class AbstractMenuScreen implements Screen {
 		//Sprite & animations
 		spriteBatch = new SpriteBatch();
 		animation = new Animator(spriteBatch);
+		
+		mouseInput = new MouseInputGDX(this);
 	}
 
 }

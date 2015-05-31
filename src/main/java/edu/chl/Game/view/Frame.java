@@ -18,7 +18,7 @@ public class Frame extends JFrame{
 	public static int scale = 0;
 	public final static int WIDTH = 1000 + scale;
 	public final static int HEIGHT = 600 + scale;
-	public final static String title = "Ghost Town";
+	public final static String title = "DumBit";
 	
 	/**
 	 * Constructor for the Frame. Sets all the properties for the frame.

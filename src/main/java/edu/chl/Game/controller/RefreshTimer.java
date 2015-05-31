@@ -42,7 +42,6 @@ public class RefreshTimer extends Observable implements Runnable{
 	public static Boolean inMainMenu = false;
 	private double delta = 0.0;
 	private int frameRate=1;
-	private int second=1;
 	
 	public RefreshTimer(){
 		Music.addToAccessMusic();
@@ -53,8 +52,8 @@ public class RefreshTimer extends Observable implements Runnable{
 		mapView = new WorldMapView(subMenuView);
 		charSelectionView = new CharacterSelectionView(movingChar);
 
-		gameHandler = new GameHandler(this, frame, subMenuView);
-		mouseInput = new MouseInput(this ,mapView, gameHandler, subMenuView);
+		gameHandler = new GameHandler(this, subMenuView);
+		mouseInput = new MouseInput(mapView, gameHandler, subMenuView);
 		
 		frame.addKeyListener(new KeyInput(gameHandler));
 		frame.addMouseListener(mouseInput);
@@ -68,7 +67,7 @@ public class RefreshTimer extends Observable implements Runnable{
 	}
 
 	/**
-	 * 
+	 * Starts the thread
 	 */
 	public synchronized void start(){
 		if(running)
@@ -77,6 +76,10 @@ public class RefreshTimer extends Observable implements Runnable{
 		thread.start();
 	}
 	
+	/**
+	 * When the thread is interrupted
+	 * @throws InerrutpedException
+	 */
 	public synchronized void interrupt(){
 		if(running){
 			running = false;
@@ -181,7 +184,6 @@ public class RefreshTimer extends Observable implements Runnable{
 	private void printTimer(){
 		frameRate++;
 		if(isFrame()){
-			second++;
 			frameRate=1;
 		}
 	}

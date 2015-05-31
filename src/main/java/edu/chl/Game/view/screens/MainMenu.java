@@ -66,6 +66,11 @@ public class MainMenu extends AbstractMenuScreen {
 		});
 		buttonStart.pad(10);
 		
+		//MultiplayerButton
+		TextButton buttonMultiPlayer = new TextButton("MultiPlayer", skin);
+		buttonMultiPlayer.addListener(mouseInput);
+		buttonMultiPlayer.pad(10);
+		
 		//OptionButton
 		TextButton buttonOption = new TextButton("Options", skin);
 		buttonOption.addListener(new ClickListener(){
@@ -108,9 +113,10 @@ public class MainMenu extends AbstractMenuScreen {
 		
 		//Add and organizes the objects
 		table.add(title).padRight(Frame.WIDTH/3).padTop(-Frame.HEIGHT/6).spaceBottom(50).row();
-		table.add(buttonStart).padRight(Frame.WIDTH/3).width(180).spaceBottom(15).row();
-		table.add(buttonOption).padRight(Frame.WIDTH/3).width(180).spaceBottom(15).row();
-		table.add(buttonExit).padRight(Frame.WIDTH/3).width(180);
+		table.add(buttonStart).padRight(Frame.WIDTH/3).width(250).spaceBottom(15).row();
+		table.add(buttonMultiPlayer).padRight(Frame.WIDTH/3).width(250).spaceBottom(15).row();
+		table.add(buttonOption).padRight(Frame.WIDTH/3).width(250).spaceBottom(15).row();
+		table.add(buttonExit).padRight(Frame.WIDTH/3).width(250);
 		
 		stage.addActor(table);
 		
@@ -121,12 +127,7 @@ public class MainMenu extends AbstractMenuScreen {
 		
 		//Title color animation
 		Timeline.createSequence().beginSequence()
-			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,0,1))
-			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,0))
 			.push(Tween.to(title,  ActorAccessor.RGB, 1f).target(1,0,0))
-			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,1,0))
-			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(0,1,1))
-			//.push(Tween.to(title,  ActorAccessor.RGB, .5f).target(1,0,1))
 			.push(Tween.to(title,  ActorAccessor.RGB, 1f).target(1,1,1))
 			.end().repeat(Tween.INFINITY, 0).start(tweenManager);
 		
