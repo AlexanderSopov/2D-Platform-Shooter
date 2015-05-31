@@ -10,7 +10,8 @@ import edu.chl.Game.view.screens.OptionView;
 
 public class MouseInputGDX extends ClickListener{
 	
-	private AbstractMenuScreen menuScreen; 
+	private AbstractMenuScreen menuScreen;
+	private int i = 1;
 	
 	public MouseInputGDX(AbstractMenuScreen menuScreen){
 		this.menuScreen = menuScreen;
@@ -38,9 +39,11 @@ public class MouseInputGDX extends ClickListener{
 			break;
 		case "+":
 			Sound.increaseGlobalVol();
+			((OptionView)menuScreen).getSoundStatusLabel().setText(Integer.toString(i++));
 			break;
 		case "-":
 			Sound.decreaseGlobalVol();
+			((OptionView)menuScreen).getSoundStatusLabel().setText(Integer.toString(i--));
 			break;
 		}
 	}

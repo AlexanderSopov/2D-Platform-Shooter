@@ -227,6 +227,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 		if(e.getClickCount() == 2 && !e.isConsumed()){
 			e.consume();
 			Music.stopMusic();
+			MapFactory.levelImage = null;
 			RefreshTimer.selectedMap = RefreshTimer.levels[i];
 			RefreshTimer.state = State.GAME;
 			subMenuView.setState(null);

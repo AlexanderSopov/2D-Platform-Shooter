@@ -36,6 +36,7 @@ public class OptionView extends AbstractMenuScreen {
 	
 	private Animator animationGraphics;
 	private SpriteBatch spriteBatchGraphics;
+	private Label soundStatusLabel;
 	
 	@Override
 	public void show() {
@@ -134,7 +135,7 @@ public class OptionView extends AbstractMenuScreen {
 		
 		//Buttons and Labels for submenu Sound
 		Label soundLabel = new Label("Sound:", skin);
-		Label soundStatusLabel = new Label(Integer.toString(Sound.getCurrentVolume()), skin);
+		soundStatusLabel = new Label(Integer.toString(Sound.getCurrentVolume()), skin);
 		
 		TextButton soundIncrease = new TextButton("+", skin);
 		soundIncrease.addListener(mouseInput);
@@ -196,5 +197,13 @@ public class OptionView extends AbstractMenuScreen {
 	 */
 	public Table getTableSound(){
 		return tableSound;
+	}
+	
+	/**
+	 * Get the soundStatusLabel that contains the text for the current volume
+	 * @return The current soundStatusLabel
+	 */
+	public Label getSoundStatusLabel(){
+		return soundStatusLabel;
 	}
 }
