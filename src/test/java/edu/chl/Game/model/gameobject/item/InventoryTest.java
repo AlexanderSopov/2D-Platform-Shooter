@@ -12,16 +12,15 @@ public class InventoryTest {
 	
 	private RefreshTimer rf;
 	private Inventory testInventory;
-	private Item item1, item2, item3;
+	private Item item1, item2;
 
 	
 	@Before
 	public void initInventory(){
 		
 		rf = new RefreshTimer();	
-		item1 = new Nothing(0,0,0,0, null, rf.getHandler());
-		item2 = new W1(0,0,0,0, null, rf.getHandler());
-		item3 = new Hat(0,0,0,0, null, rf.getHandler());
+		item1 = new W1(0,0,0,0, null, rf.getHandler());
+		item2 = new Hat(0,0,0,0, null, rf.getHandler());
 		
 	}
 	
@@ -34,17 +33,16 @@ public class InventoryTest {
 		
 		testInventory.addItem(item1);
 		testInventory.addItem(item2);
-		testInventory.addItem(item3);
 		testInventory.addItem(null);
 		
-		assertTrue(testInventory.getInventoryList().size() == 3);
+		assertTrue(testInventory.getInventoryList().size() == 2);
 		
 		testInventory.addDelete(item1);
-		assertTrue(testInventory.getInventoryList().size() == 2);
+		assertTrue(testInventory.getInventoryList().size() == 1);
 		
 		testInventory.addDelete(item1);
 		testInventory.addDelete(null);
-		assertTrue(testInventory.getInventoryList().size() == 2);
+		assertTrue(testInventory.getInventoryList().size() == 1);
 		
 	}
 	
@@ -55,9 +53,9 @@ public class InventoryTest {
 		
 		testInventory.addItem(item1);
 		testInventory.addItem(item2);
-		testInventory.addItem(item3);
+
 		
-		testInventory.equipeItem(item1);
+		testInventory.equipItem(item1);
 		
 		assertTrue(testInventory.isItemequipped(item1.getNAME()));
 		
@@ -74,7 +72,6 @@ public class InventoryTest {
 		
 		testInventory = new Inventory();
 		
-		testInventory.addItem(new Nothing(0,0,0,0, null, rf.getHandler()));
 		testInventory.addItem(new W1(0,0,0,0, null, rf.getHandler()));
 		testInventory.addItem(new Hat(0,0,0,0, null, rf.getHandler()));
 		

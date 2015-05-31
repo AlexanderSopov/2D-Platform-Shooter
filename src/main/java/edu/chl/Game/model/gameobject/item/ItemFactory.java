@@ -1,5 +1,14 @@
 package edu.chl.Game.model.gameobject.item;
 
+/**
+ * 
+ * ItemFactory creates Item with a String parameter.
+ * 
+ * This solution makes it possible to
+ * 
+ * @author Rasmus
+ *
+ */
 public class ItemFactory {
 	
 	public static Item createItem(String itemName){
@@ -15,10 +24,6 @@ public class ItemFactory {
 		}else if(itemName.equalsIgnoreCase("Hat")){
 			
 			return new Hat();
-			
-		}else if(itemName.equalsIgnoreCase("Nothing")){
-			
-			return new Nothing();
 			
 		}
 		

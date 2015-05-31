@@ -35,7 +35,7 @@ public class PlayerOutfit implements Character{
         
     }
     
-  public PlayerOutfit(){
+    public PlayerOutfit(){
         
         this.equippedItems = new LinkedList<Item>();
         
@@ -60,24 +60,6 @@ public class PlayerOutfit implements Character{
     	item.switchState(State.inventory);
     }
     
-    public void placeOnPlayer(Item item){
- 
-    }
-    
-    private void setPosition(Item item, Point p){
-    	item.setX(p.x);
-    	item.setY(p.y);
-    }
-    
-    public synchronized void effect(){
-    	Iterator<Item> itr = this.equippedItems.iterator();
-    	while(itr.hasNext()){
-    		Item item = (Item) itr.next();
-    		item.effect();
-    		
-    	}
-    }
-
 
 	@Override
 	public synchronized void render(Graphics g) {
@@ -104,27 +86,19 @@ public class PlayerOutfit implements Character{
     	}
 		
 	}
-
-
+	
 	@Override
-	public double getHealth() {
-		double d = player.getHealth();
-		for(Item it : this.equippedItems){
-    		d += it.getHealth();
+    public synchronized void effect(){
+    	Iterator<Item> itr = this.equippedItems.iterator();
+    	while(itr.hasNext()){
+    		Item item = (Item) itr.next();
+    		item.effect();
+    		
     	}
-		return d;
-	}
+    }
 
 
-	@Override
-	public double getArmor() {
-		double d = player.getArmor();
-		for(Item it : this.equippedItems){
-    		d += it.getArmor();
-    	}
-		return d;
-	}
-    
+     
 	 public boolean isItemequipped(Item item){
 		 Iterator<Item> itr = this.equippedItems.iterator();
     	 while(itr.hasNext()){
@@ -145,6 +119,29 @@ public class PlayerOutfit implements Character{
 
 	public void setEquippedItems(LinkedList<Item> equippedItems) {
 		this.equippedItems = equippedItems;
+	}
+	
+    public void placeOnPlayer(Item item){
+    	 
+    }
+	
+	@Override
+	public double getHealth() {
+		double d = player.getHealth();
+		for(Item it : this.equippedItems){
+    		d += it.getHealth();
+    	}
+		return d;
+	}
+
+
+	@Override
+	public double getArmor() {
+		double d = player.getArmor();
+		for(Item it : this.equippedItems){
+    		d += it.getArmor();
+    	}
+		return d;
 	}
 
 }

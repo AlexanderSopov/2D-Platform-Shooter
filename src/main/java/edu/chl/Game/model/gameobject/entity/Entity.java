@@ -9,7 +9,6 @@ import edu.chl.Game.model.gameobject.Id;
 import edu.chl.Game.model.gameobject.entity.entityTools.*;
 import edu.chl.Game.model.gameobject.entity.player.Player;
 import edu.chl.Game.model.gameobject.item.Hat;
-import edu.chl.Game.model.gameobject.item.Nothing;
 import edu.chl.Game.model.gameobject.item.W1;
 import edu.chl.Game.model.physics.Gravity;
 import edu.chl.Game.model.physics.collisions.CollisionSolver;
@@ -41,7 +40,6 @@ public abstract class Entity extends GameObject {
 	private UnitValues unitValues;
 	private UnitMeasurement um;
 	private String unitTitle;
-	private CalculateBounds calcBounds;
 
 
 	public Entity(int x, int y, int width, int height, boolean solid, Id id, GameHandler handler) {
@@ -161,9 +159,6 @@ public abstract class Entity extends GameObject {
 
 	public FrameIterator getFrameIterator() {
 		return frameIterator;
-	}
-	public CalculateBounds getCalcBounds(){
-		return calcBounds;
 	}
     
         

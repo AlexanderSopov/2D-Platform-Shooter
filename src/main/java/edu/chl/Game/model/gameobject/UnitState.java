@@ -1,6 +1,5 @@
-package edu.chl.Game.model.gameobject.entity;
+package edu.chl.Game.model.gameobject;
 
-import edu.chl.Game.model.gameobject.Id;
 
 public class UnitState {
 

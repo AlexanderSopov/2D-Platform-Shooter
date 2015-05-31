@@ -1,6 +1,6 @@
 package edu.chl.Game.model.gameobject.item;
 
-import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -27,16 +27,13 @@ public class W1 extends Item{
 
 	public W1(int x, int y, int width, int height, Id id,  GameHandler handeler) {
 		super(x, y, width, height, id, handeler);
+
 		
-		try {
-			image = ImageIO.read(getClass().getResource("/we00.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		image = this.getBufferedImage();
 		
 		this.en = handeler.getPlayer();
         this.gc = handeler.getGameCursor();
-        this.angle = 0.0;
+        
 	}
 	
 	public W1(){
@@ -86,7 +83,7 @@ public class W1 extends Item{
 	@Override
 	public void effect() {
 		
-		Bullet b = new Bullet(this.centerX, this.centerY, 10, 10, true, Id.bullet, getHandler(), 10, this.angle, (image.getWidth() / 6)+30,0);
+		Bullet b = new Bullet(this.centerX, this.centerY, getHandler(), this.angle, (image.getWidth() / 6) +30,0);
 		getHandler().addEntity(b);
 		
 	}

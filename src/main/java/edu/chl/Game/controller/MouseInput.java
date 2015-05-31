@@ -20,9 +20,9 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	private static int mousePosX, mousePosY;
 	private static boolean onCanvas = false;
 	private static boolean pressed = false;
-	private boolean shoot = false;
+
 	
-	private Cursor blankCursor;//hide 
+	private Cursor blankCursor;
     private GameHandler handler ;
     private SubMenuView subMenuView;
     
@@ -138,7 +138,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	 *            the mousePosX to set
 	 */
 	private void setMousePosX(int mousePosX) {
-		this.mousePosX = mousePosX;
+		mousePosX = mousePosX;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 	 *            the mousePosY to set
 	 */
 	private void setMousePosY(int mousePosY) {
-		this.mousePosY = mousePosY;
+		mousePosY = mousePosY;
 	}
 
 	/**

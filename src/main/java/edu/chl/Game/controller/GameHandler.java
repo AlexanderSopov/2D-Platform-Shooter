@@ -26,21 +26,21 @@ import edu.chl.Game.view.ParallaxBackground;
 import edu.chl.Game.view.graphics.DeathAnimation;
 import edu.chl.Game.view.graphics.DeathSystem;
 
-
 public class GameHandler {
 	private RefreshTimer refreshTimer;
 
 	private SubMenuView subMenuView;
+
 	private LinkedList<Entity> entity = new LinkedList<Entity>();
 	private LinkedList<Tile> tile = new LinkedList<Tile>();
 	private LinkedList<Item> item = new LinkedList<Item>();
+
 	private Player player;
 	private Camera camera;
 	private GameCursor c;
 	private MouseInput mi;
 	private ParallaxBackground bgd = new ParallaxBackground();
 	private DeathSystem ds;
-
 
 	private BufferedImage mapImage;
 	private boolean changeHasHappened;
@@ -53,7 +53,7 @@ public class GameHandler {
 		this.frame = frame;
 		this.subMenuView = subMenuView;
 		camera = new Camera();
-		c = new GameCursor(this.camera, this);
+		c = new GameCursor(this);
 
 		this.ds = new DeathSystem();
 
@@ -67,7 +67,7 @@ public class GameHandler {
 		}
 
 		refreshTimer.addObserver(bgd);
-		for (Entity e: getEntityList())
+		for (Entity e : getEntityList())
 
 			refreshTimer.addObserver(e);
 		for (Tile t : getTileList())
@@ -80,19 +80,22 @@ public class GameHandler {
 	public void render(Graphics g) {
 
 		g.fillRect(0, 0, 1000, 600);
-		if(MapFactory.mapImage == null){
+		if (MapFactory.mapImage == null) {
 			MapFactory.createMap(this, c, entity, tile, item);
 			init();
 		}
-		
-		g.drawImage(bgd.background, bgd.backgroundX, bgd.backgroundY, 1000, 600, null);
-		g.drawImage(bgd.foreground, bgd.foregroundX, bgd.foregroundY, 1000, 600, null);
-		g.drawImage(bgd.foreground1, bgd.foreground1X, bgd.foreground1Y, 1000, 600, null);
-		
-		subMenuView.render((Graphics2D)g);
-		
+
+		g.drawImage(bgd.background, bgd.backgroundX, bgd.backgroundY, 1000,
+				600, null);
+		g.drawImage(bgd.foreground, bgd.foregroundX, bgd.foregroundY, 1000,
+				600, null);
+		g.drawImage(bgd.foreground1, bgd.foreground1X, bgd.foreground1Y, 1000,
+				600, null);
+
+		subMenuView.render((Graphics2D) g);
+
 		g.translate(camera.getX(), camera.getY());
-		
+
 		renderDeath(g);
 
 		for (Entity e : getEntityList()) {
@@ -108,7 +111,7 @@ public class GameHandler {
 		entity = new LinkedList<Entity>();
 		tile = new LinkedList<Tile>();
 		camera = new Camera();
-		c = new GameCursor(this.camera, this);
+		c = new GameCursor(this);
 		c.changeState(CursorState.AIM);
 		addEntity(c);
 		MapFactory.mapImage = null;
@@ -198,7 +201,7 @@ public class GameHandler {
 		if (ds.isActive()) {
 			ds.render(g);
 			ds.getFrameIterator().updateFrameCounter();
-			if(!ds.getFrameIterator().isActive()){
+			if (!ds.getFrameIterator().isActive()) {
 				ds.setActive(false);
 			}
 		}

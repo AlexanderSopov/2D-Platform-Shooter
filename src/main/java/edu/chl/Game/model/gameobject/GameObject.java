@@ -2,6 +2,7 @@ package edu.chl.Game.model.gameobject;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
+
 import edu.chl.Game.model.physics.CalculateBounds;
 import edu.chl.Game.view.graphics.SpriteSheet;
 import edu.chl.Game.model.gameobject.entity.player.*;
@@ -20,11 +21,10 @@ import edu.chl.Game.model.physics.collisions.BoundingBoxes;
 
 
 
-public abstract class GameObject implements Observer, GameInterface {
+public abstract class GameObject implements Observer{
 	public static RefreshTimer gt = Main.game;
 	private UnitState unitState;
 	private PhysicalProperties physicalProperties;
-	private double healthPoints;
 	private GameHandler handler;
 	private Id id;
 	private boolean solid;
@@ -125,9 +125,6 @@ public abstract class GameObject implements Observer, GameInterface {
 	}
 
         
-    public double getHealthPoints(){
-		return healthPoints;
-    }
 
         
     public int getVelX(){
