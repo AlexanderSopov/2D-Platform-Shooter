@@ -1,6 +1,2 @@
 W1
 Hat
-<<<<<<< HEAD
-Nothing
-=======
->>>>>>> testing
