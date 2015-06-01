@@ -1,18 +1,17 @@
-package edu.chl.Game.Physics;
+package edu.chl.Test.Physics;
 
 import java.awt.Graphics2D;
 
-import edu.chl.Game.Vector.Vector2D;
-import edu.chl.Game.object.GameObject;
 import edu.chl.Test.GameObject.Box;
+import edu.chl.Test.Vector.Vector2D;
 
 /**
 *
 * @author Alexander Sopov
 */
-public class GameObjectVsGameObject implements CollisionDetective {
-	private final GameObject a;
-	private final GameObject b;
+public class BoxVsBox implements CollisionDetective {
+	private final Box a;
+	private final Box b;
 	private Vector2D normal;
 	private Vector2D velocityNormal;
 	private double invasionOnX;
@@ -24,20 +23,20 @@ public class GameObjectVsGameObject implements CollisionDetective {
 	private double halfHeights;
 	private double halfWidths;
 	
-	public GameObjectVsGameObject(GameObject a, GameObject b){
+	public BoxVsBox(Box a, Box b){
 		this.a=a;
 		this.b=b;
-		aHalfWidth = (double)(a.getWidth())/2;
-		bHalfWidth = (double)(b.getWidth())/2;
-		aHalfHeight = (double)(a.getHeight())/2;
-		bHalfHeight =(double)( b.getHeight())/2;
+		aHalfWidth = (double)(a.getShape().getWidth())/2;
+		bHalfWidth = (double)(b.getShape().getWidth())/2;
+		aHalfHeight = (double)(a.getShape().getHeight())/2;
+		bHalfHeight =(double)( b.getShape().getHeight())/2;
 		halfHeights = aHalfHeight + bHalfHeight;
 		halfWidths = aHalfWidth + bHalfWidth;
 	}
 	
 	@Override
 	public Boolean areObjectsColliding() {
-		normal = subtract(b.getUnitProperties().getCenter(), a.getUnitProperties().getCenter());
+		normal = subtract(b.getCenter(), a.getCenter());
 		invasionOnX = halfWidths - abs(normal.getX());
 		invasionOnY = halfHeights - abs(normal.getY());
 		return isTherePenetration();
@@ -45,12 +44,12 @@ public class GameObjectVsGameObject implements CollisionDetective {
 	
 	@Override
 	public void resolveCollision() {
-		velocityNormal = b.getUnitProperties().getVelocity().addWith(
-				a.getUnitProperties().getVelocity());
+		velocityNormal = b.getVelocity().addWith(
+				a.getVelocity());
 		double penetration = getPenetration();
 		setNormal();
 		double rVelocityLength = velocityNormal.dotProduct(normal);
-		if (Math.abs(rVelocityLength) <0.3)
+		if (rVelocityLength == 0)
 			return;
 		//setVelocityNormal();
 		correctBoxes(rVelocityLength, penetration);
@@ -58,6 +57,12 @@ public class GameObjectVsGameObject implements CollisionDetective {
 	}
 
 
+
+	private double stop() {
+		normal = new Vector2D (0,0);
+		velocityNormal = new Vector2D(0,0);
+		return 0.0;
+	}
 
 	private double getPenetration() {
 		if(xInvasionIsSmaller())
@@ -78,8 +83,6 @@ public class GameObjectVsGameObject implements CollisionDetective {
 				normal = new Vector2D(0,1);
 		}
 	}
-	
-
 	private boolean xInvasionIsSmaller() {
 		return invasionOnX < invasionOnY;
 	}
@@ -116,10 +119,10 @@ public class GameObjectVsGameObject implements CollisionDetective {
 			corr = penetration - slop;
 		
 		Vector2D correction = normal.scale(percent*corr*ratio);
-		a.setPosition((correction.subtractWith(a.getUnitProperties().getPosition())).returnNegative());
+		a.setLocation((correction.subtractWith(a.getLocation())).returnNegative());
 		ratio = b.mass / sumMass;
 		correction = normal.scale(percent*corr*ratio);
-		b.setPosition(correction.addWith(b.getUnitProperties().getPosition()));
+		b.setLocation(correction.addWith(b.getLocation()));
 
 		
 	}
@@ -129,21 +132,23 @@ public class GameObjectVsGameObject implements CollisionDetective {
 
 	private void setVelocityToRatio(Vector2D impulse) {
 		Vector2D scaledImpulse = impulse.scale(a.invMass);
-		double frictionSum = 0.9;
 		//System.out.println("scaledImpulse.Y = " + scaledImpulse.getY());
-		Vector2D newVelocity = a.getUnitProperties().getVelocity().addWith(scaledImpulse).scale(frictionSum);
+		double frictionSum = 0.9;
+		Vector2D newVelocity = a.getVelocity().addWith(scaledImpulse).scale(frictionSum);
 		//System.out.println("newVelocity: " + newVelocity.toString());
-		a.getUnitProperties().setVelocity(newVelocity);
+		a.setVelocity(newVelocity);
 
 		scaledImpulse = impulse.scale(b.invMass);
-		newVelocity = b.getUnitProperties().getVelocity().subtractWith(scaledImpulse).scale(frictionSum);
-		b.getUnitProperties().setVelocity(newVelocity);
+		newVelocity = b.getVelocity().subtractWith(scaledImpulse).scale(frictionSum);
+		b.setVelocity(newVelocity);
 	}
 	
 	
 	private Vector2D calculateImpulse(Vector2D velocityNormal, double velocityLength) {
 		double e = min(a.restitution, b.restitution); // the object with less "bounciness" wins
 		double j = -(1 + e) * (velocityLength); // calculate an impulse scalar
+		
+		//System.out.println("J = " + j + ". velocityNormal: " + velocityNormal.toString());
 		j /= (a.invMass + b.invMass);
 		
 		return velocityNormal.scale(j);

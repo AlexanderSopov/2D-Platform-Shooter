@@ -1,8 +1,8 @@
-package edu.chl.Game.Physics;
+package edu.chl.Test.Physics;
 
-import edu.chl.Game.Vector.Vector2D;
 import edu.chl.Test.GameObject.Box;
 import edu.chl.Test.GameObject.Circle;
+import edu.chl.Test.Vector.Vector2D;
 
 /**
 *

@@ -1,6 +1,5 @@
-package edu.chl.Game.Physics;
+package edu.chl.Test.Physics;
 
-import edu.chl.Game.object.GameObject;
 import edu.chl.Test.GameObject.Box;
 import edu.chl.Test.GameObject.Circle;
 
@@ -16,10 +15,6 @@ public class CollisionStrategy {
 	}
 	public CollisionStrategy(Box a, Box b){
 		detective = new BoxVsBox(a,b);
-	}
-	
-	public CollisionStrategy(GameObject a, GameObject b){
-		detective = new GameObjectVsGameObject(a,b);
 	}
 	
 	public Boolean areObjectsColliding(){

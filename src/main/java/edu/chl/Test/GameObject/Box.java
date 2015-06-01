@@ -7,7 +7,7 @@ package edu.chl.Test.GameObject;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Test.Vector.Vector2D;
 
 public class Box extends Entity {
 	private Rectangle2D.Double shape;

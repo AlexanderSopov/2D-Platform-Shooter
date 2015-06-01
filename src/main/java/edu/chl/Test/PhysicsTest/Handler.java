@@ -3,10 +3,10 @@ package edu.chl.Test.PhysicsTest;
 import java.util.Observable;
 import java.util.Observer;
 
-import edu.chl.Game.Physics.CollisionStrategy;
-import edu.chl.Game.Vector.Vector2D;
 import edu.chl.Test.GameObject.Box;
 import edu.chl.Test.GameObject.Circle;
+import edu.chl.Test.Physics.CollisionStrategy;
+import edu.chl.Test.Vector.Vector2D;
 
 /**
 *

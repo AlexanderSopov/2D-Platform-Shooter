@@ -2,7 +2,7 @@ package edu.chl.Test.GameObject;
 
 import java.awt.geom.RectangularShape;
 
-import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Test.Vector.Vector2D;
 
 /**
 *

@@ -1,4 +1,4 @@
-package edu.chl.Game.Vector;
+package edu.chl.Test.Vector;
 
 import java.awt.geom.Point2D;
 

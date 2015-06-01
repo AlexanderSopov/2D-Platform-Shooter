@@ -1,4 +1,4 @@
-package edu.chl.Game.Physics;
+package edu.chl.Test.Physics;
 
 
 /**

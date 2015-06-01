@@ -7,7 +7,7 @@ import java.awt.geom.RectangularShape;
 import java.util.Observable;
 import java.util.Observer;
 
-import edu.chl.Game.Vector.Vector2D;
+import edu.chl.Test.Vector.Vector2D;
 
 /**
 *
@@ -25,7 +25,7 @@ public abstract class GameObject implements Observer {
 		shape = s;
 		this.restitution=restitution;
 		this.mass = mass;
-		setInvMass(mass);
+		setMass(mass);
 		color = setColor(mass);
 	}
 	
@@ -40,11 +40,12 @@ public abstract class GameObject implements Observer {
 		return new Color(red, 25,10);
 	}
 
-	private void setInvMass(int m) {
-		if (mass == 0)
+	private void setMass(int m) {
+		if (m == 0)
 			invMass = 0;
 		else
-			invMass = 1/(double)mass;
+			invMass = 1/(double)m;
+		mass = m;
 	}
 
 	public void render(Graphics2D g){
