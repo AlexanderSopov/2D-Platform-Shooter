@@ -24,23 +24,22 @@ public abstract class GameObject implements Observer {
 	public GameObject(RectangularShape s, double restitution, int mass){
 		shape = s;
 		this.restitution=restitution;
-		this.mass = mass;
 		setMass(mass);
-		color = setColor(mass);
+		setColor();
 	}
 	
-	private Color setColor(int mass) {
+	private void setColor() {
 		int red;
 		if (mass > 255 || mass == 0)
 			red = 255;
 		else if (mass < 100)
 			red = 100;
 		else
-			red = mass;
-		return new Color(red, 25,10);
+			red = (int) mass;
+		color = new Color(red, 25,10);
 	}
 
-	private void setMass(int m) {
+	public void setMass(int m) {
 		if (m == 0)
 			invMass = 0;
 		else
@@ -49,6 +48,7 @@ public abstract class GameObject implements Observer {
 	}
 
 	public void render(Graphics2D g){
+		setColor();
 		g.setColor(color);
 	}
 	

@@ -14,12 +14,12 @@ import edu.chl.Test.Vector.Vector2D;
 */
 public class Handler implements Observer {
 	
-	private static Circle c1 = Main.c1;
-	private static Circle c2 = Main.c2;
-	private static Circle c3 = Main.c3;
+	public Circle c1 = Main.c1;
+	public Circle c2 = Main.c2;
+	public Circle c3 = Main.c3;
 
-	private static Box b1 = Main.b1;
-	private static Box b2 = Main.b2;
+	public Box b1 = Main.b1;
+	public Box b2 = Main.b2;
 	
 	public Handler(){
 		c1.setVelocity(5.5,-1.25);

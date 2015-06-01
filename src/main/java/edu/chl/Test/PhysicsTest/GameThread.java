@@ -25,6 +25,7 @@ public class GameThread extends Observable implements Runnable {
 	public GameThread(){
 		thread = new Thread(this);
 		frame = new Frame();
+		frame.addKeyListener(new Controller());
 	}
 
 	/**

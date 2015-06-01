@@ -24,19 +24,22 @@ public class Main  {
 		GameThread run = new GameThread();
 		run.start();
 
-		c1 = new Circle(0 ,-30, 50, new Float(0.5), 75);
+		c1 = new Circle(0, -30, 50, new Float(0.5), 75);
 		c2 = new Circle(750, 150, 150, new Float(0.7),1500);
 		c3 = new Circle(950, 1150, 150, new Float(0.85), 800);
 
-
+		
 		b1 = new Box(1250,300,150, 80,  0.3, 180);
 		b2 = new StaticBox(50, 600, 1500, 50, 0.35, 0);
+
+
 		run.addObserver(b1);
 		run.addObserver(b2);
 
 		run.addObserver(c1);
 		run.addObserver(c2);
 		run.addObserver(c3);
+		
 		run.addObserver(new Handler());
 	}
 	
